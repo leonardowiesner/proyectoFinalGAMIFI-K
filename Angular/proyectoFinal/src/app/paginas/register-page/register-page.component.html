@@ -1,31 +1,98 @@
-<form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
-    <div>
-      <label>Nick:</label>
-      <input type="text" formControlName="nick">
+<body>
+    
+
+    <div class="form-container">
+        <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+            <mat-form-field class="full-width">
+                <mat-label>Nick</mat-label>
+                <input
+                  type="text"
+                  matInput
+                  formControlName="nick"
+                  [errorStateMatcher]="matcher"
+               
+                />
+                <mat-error *ngIf="loginForm.controls['nick'].hasError('required')">
+                  El Curso es <strong>obligatorio</strong>
+                </mat-error>
+            <mat-form-field class="full-width">
+                <mat-label>Nom</mat-label>
+                <input
+                  type="text"
+                  matInput
+                  formControlName="nombre"
+                  [errorStateMatcher]="matcher"
+               
+                />
+                <mat-error *ngIf="loginForm.controls['nombre'].hasError('required')">
+                  El Curso es <strong>obligatorio</strong>
+                </mat-error>
+            <mat-form-field class="full-width">
+                <mat-label>Apellidos</mat-label>
+                <input
+                  type="text"
+                  matInput
+                  formControlName="apellidos"
+                  [errorStateMatcher]="matcher"
+               
+                />
+                <mat-error *ngIf="loginForm.controls['apellidos'].hasError('required')">
+                  El Curso es <strong>obligatorio</strong>
+                </mat-error>
+            <mat-form-field class="full-width">
+        <mat-label>Curso</mat-label>
+        <input
+          type="text"
+          matInput
+          formControlName="centro"
+          [errorStateMatcher]="matcher"
+       
+        />
+        <mat-error *ngIf="loginForm.controls['centro'].hasError('required')">
+          El Centro es <strong>obligatorio</strong>
+        </mat-error>
+      </mat-form-field>
+            <mat-form-field class="full-width">
+                <mat-label>Email</mat-label>
+                <input
+                  type="text"
+                  matInput
+                  formControlName="email"
+                  [errorStateMatcher]="matcher"
+                
+                />
+                <mat-error *ngIf="loginForm.controls['email'].hasError('required')">
+                  El email es <strong>obligatorio</strong>
+                </mat-error>
+                <mat-error *ngIf="loginForm.controls['email'].hasError('email')">
+                  Ha de ser una dirección de correo
+                </mat-error>
+              </mat-form-field>
+            <mat-form-field class="full-width">
+                <mat-label>Password</mat-label>
+                <input
+                  type="password"
+                  matInput
+                  formControlName="password"
+                  [errorStateMatcher]="matcher"
+                />
+                <mat-error *ngIf="loginForm.controls['password'].hasError('required')">
+                  La contraseña es <strong>obligatoria</strong>
+                </mat-error>
+              </mat-form-field>
+              <mat-form-field class="full-width">
+                <mat-label>Re-Password</mat-label>
+                <input
+                  type="password"
+                  matInput
+                  formControlName="repassword"
+                  [errorStateMatcher]="matcher"
+                />
+                <mat-error *ngIf="loginForm.controls['repassword'].hasError('required')">
+                  La contraseña es <strong>obligatoria</strong>
+                </mat-error>
+              </mat-form-field>
+            <button type="submit">Submit</button>
+        </form>
     </div>
-    <div>
-      <label>Nombre:</label>
-      <input type="text" formControlName="nombre">
-    </div>
-    <div>
-      <label>Apellidos:</label>
-      <input type="text" formControlName="apellidos">
-    </div>
-    <div>
-      <label>Centro:</label>
-      <input type="text" formControlName="centro">
-    </div>
-    <div>
-      <label>Email:</label>
-      <input type="email" formControlName="email">
-    </div>
-    <div>
-      <label>Password:</label>
-      <input type="password" formControlName="password">
-    </div>
-    <div>
-      <label>Re-Password:</label>
-      <input type="password" formControlName="repassword">
-    </div>
-    <button type="submit">Submit</button>
-  </form>
+</body>
