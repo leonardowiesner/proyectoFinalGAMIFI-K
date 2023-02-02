@@ -13,6 +13,7 @@ return new class extends Migration
      */
     public function up()
     {
+        // tenemos que pensar dos bd's una para estudiantes y otra para profesores sin roles 
         Schema::create('users', function (Blueprint $table) {
             $table->id();
             $table->string('name');
