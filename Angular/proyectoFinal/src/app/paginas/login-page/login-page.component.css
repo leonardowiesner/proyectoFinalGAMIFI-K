@@ -1,7 +1,39 @@
-body{
-    background-color: hwb(0 11% 100%);
-}
-form-container{
-    display: flex;
+
+
+body {
+    background-color: #323232;
+    font-family: Arial, sans-serif;
     
-}
+    color: white;
+    
+  }
+  
+  
+  .form-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+  }
+  
+  .form {
+    width: 300px;
+    padding: 20px;
+    border: 1px solid #ccc;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+  }
+  
+  .full-width {
+    width: 100%;
+  }
+  
+  .form-buttons {
+    width: 100%;
+    margin-top: 20px;
+  }
+  
+  mat-icon {
+    margin-right: 10px;
+  }
+  

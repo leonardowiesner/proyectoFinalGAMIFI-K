@@ -1,13 +1,6 @@
-
-
-export interface LoginData {
-    nick: string;
-    nombre: string;
-    apellidos: string;
+export interface StudentData {
     naciemiento: Date;
-    email: string;
-    password: string;
-    repassword: string;
+ 
 
   }
   

@@ -5,6 +5,10 @@
   },
   {
     "email": "nil@ilerna.com",
-    "password": "1234"
+    "password": "a"
+  },
+  {
+    "email": "a",
+    "password": "a"
   }
 ]
