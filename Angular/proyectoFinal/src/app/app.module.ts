@@ -13,13 +13,13 @@ import { MatInputModule } from '@angular/material/input';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
-import { MainPageComponent } from './paginas/main-page/main-page.component';
+
+import { RouterModule } from '@angular/router';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginPageComponent,
-    MainPageComponent
   ],
   imports: [
     BrowserModule,
@@ -32,6 +32,7 @@ import { MainPageComponent } from './paginas/main-page/main-page.component';
     MatIconModule,
     MatButtonModule,
     MatSlideToggleModule,
+    RouterModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 
 
 @Component({
@@ -8,21 +8,31 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
   styleUrls: ['./register-page.component.css']
 })
 export class RegisterPageComponent implements OnInit {
-  RegisterPageComponent: FormGroup;
 
-  constructor(private fb: FormBuilder) { 
-    this.RegisterPageComponent = this.fb.group({
-      nick: ['', Validators.required],
-      nombre: ['', Validators.required],
-      apellidos: ['', Validators.required],
-      centro: ['', Validators.required],
-      email: ['', [Validators.required, Validators.email]],
-      password: ['', Validators.required],
-      repassword: ['', Validators.required]
-    });
+  showForm1 = true;
+  constructor( ) {
+
   }
 
-  ngOnInit(): void {
+  
+  ngOnInit() {
+
   }
 
+
+  checkPasswords(group: FormGroup) {
+    const pass = group.get('password')?.value;
+    const confirmPass = group.get('passwordConfirm')?.value;
+
+    return pass === confirmPass ? null : { notSame: true };
+  }
+  
+
+  submitForm1(formValue: any) {
+    console.log(formValue);
+  }
+
+  submitForm2(formValue: any) {
+    console.log(formValue);
+  }
 }

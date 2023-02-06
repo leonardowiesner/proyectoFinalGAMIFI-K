@@ -5,6 +5,13 @@ import { PagesRoutingModule } from './pages-routing.module';
 import { FormGroup } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
 import { RegisterPageComponent } from './register-page/register-page.component';
+import {MatFormFieldModule} from '@angular/material/form-field';
+import { BrowserModule } from '@angular/platform-browser';
+import { FormsModule } from '@angular/forms';
+import { MatCardModule } from '@angular/material/card';
+import { MatInputModule } from '@angular/material/input';
+import { MatRadioModule } from '@angular/material/radio';
+import { MatSelectModule } from '@angular/material/select';
 
 @NgModule({
   declarations: [MainPageComponent, RegisterPageComponent],
@@ -12,6 +19,10 @@ import { RegisterPageComponent } from './register-page/register-page.component';
     CommonModule,
     PagesRoutingModule,
     ReactiveFormsModule,
+    MatFormFieldModule,
+    MatCardModule,
+    MatSelectModule,
+
   
     
   ]
