@@ -1,0 +1,51 @@
+<body>
+    
+
+<div class="form-container">
+    <form class="form" [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+      <!-- Usuario con Validacion -->
+      <mat-form-field class="full-width">
+        <mat-label>Email</mat-label>
+        <input
+          type="text"
+          matInput
+          formControlName="email"
+          [errorStateMatcher]="matcher"
+          placeholder="perico@ilerna.com"
+        />
+        <mat-error *ngIf="loginForm.controls['email'].hasError('required')">
+          El email es <strong>obligatorio</strong>
+        </mat-error>
+        <mat-error *ngIf="loginForm.controls['email'].hasError('email')">
+          Ha de ser una dirección de correo
+        </mat-error>
+      </mat-form-field>
+  
+      <!-- Contraseña -->
+      <mat-form-field class="full-width">
+        <mat-label>Password</mat-label>
+        <input
+          type="password"
+          matInput
+          formControlName="password"
+          [errorStateMatcher]="matcher"
+        />
+        <mat-error *ngIf="loginForm.controls['password'].hasError('required')">
+          La contraseña es <strong>obligatoria</strong>
+        </mat-error>
+      </mat-form-field>
+  
+  
+      <button class="form-buttons"
+        type="submit"
+        mat-raised-button
+        color="primary"
+        [disabled]="loginForm.invalid"
+      >
+      <mat-icon>login</mat-icon>
+        Entrar
+      </button>
+  <a href="/register">Registrarse</a>
+    </form>
+  </div>
+</body>

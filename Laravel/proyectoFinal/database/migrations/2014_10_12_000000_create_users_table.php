@@ -13,6 +13,7 @@ return new class extends Migration
      */
     public function up()
     {
+        // tenemos que pensar dos bd's una para estudiantes y otra para profesores sin roles 
         Schema::create('users', function (Blueprint $table) {
             $table->id();
             $table->string('name');
@@ -22,10 +23,9 @@ return new class extends Migration
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->number('rol');
-            $table->number('date_birth');
-            $table->number('school_center');
             $table->rememberToken();
             $table->timestamps();
+            
         });
     }
 
