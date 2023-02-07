@@ -1,0 +1,12 @@
+<ng-container *ngIf="showForm1; else showForm2">
+  <form #form1="ngForm" (ngSubmit)="submitForm1(form1.value)">
+  
+    <button type="submit">Enviar Formulario 1</button>
+  </form>
+</ng-container>
+<ng-template #showForm2>
+  <form #form2="ngForm" (ngSubmit)="submitForm2(form2.value)">
+    <!-- inputs de formulario 2 -->
+    <button type="submit">Enviar Formulario 2</button>
+  </form>
+</ng-template>

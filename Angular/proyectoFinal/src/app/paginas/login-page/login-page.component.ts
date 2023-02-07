@@ -45,7 +45,7 @@ export class LoginPageComponent {
       .subscribe({
         next: (v) => console.log(v),
         error: (e) => console.error(e),
-        complete: () => this.router.navigate(['/'])
+        complete: () => this.router.navigate([''])
     });
   }
 

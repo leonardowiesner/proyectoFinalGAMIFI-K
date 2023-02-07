@@ -1,11 +1,7 @@
-export interface LoginData {
-    nick: string;
-    nombre: string;
-    apellidos: string;
+import { UserData } from "./users-data.interface";
+
+export interface TeachersData extends UserData {
     centro: string;
-    email: string;
-    password: string;
-    repassword: string;
 
   }
   
