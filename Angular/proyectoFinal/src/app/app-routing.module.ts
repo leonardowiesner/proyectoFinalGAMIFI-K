@@ -11,8 +11,8 @@ const routes: Routes = [
   { path: 'register', component: RegisterPageComponent },
   { path: 'register', component: RegisterPageComponent },
   { path: '', loadChildren: () => import('./paginas/pages.module').then((m) => m.PagesModule), canActivate: [AuthGuard]},
-  { path: '', redirectTo: '/main', pathMatch: 'full' },
-  { path: '', redirectTo: '/register', pathMatch: 'full' },
+  { path: 'main', redirectTo: '/main', pathMatch: 'full' },
+  { path: 'register', redirectTo: '/register', pathMatch: 'full' },
   { path: '**', redirectTo: '/login', pathMatch: 'full' },
 ];
 

@@ -5,7 +5,6 @@ import { ErrorStateMatcher } from '@angular/material/core';
 import { AuthService } from 'src/app/services/auth.service';
 import { LoginData } from 'src/app/interfaces/login-data.interface';
 
-
 export class MyErrorStateMatcher implements ErrorStateMatcher {
   isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
     const isSubmitted = form && form.submitted;
@@ -14,26 +13,27 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
 }
 
 @Component({
-  selector: 'app-login-page',
-  templateUrl: './login-page.component.html',
-  styleUrls: ['./login-page.component.css']
+  selector: 'app-teachers-login',
+  templateUrl: './teachers-login.component.html',
+  styleUrls: ['./teachers-login.component.css']
 })
-export class LoginPageComponent {
-  mostrarFormulario1 = false;
-  mostrarFormulario2 = false;
+
+export class TeachersLoginComponent implements OnInit {
+
   constructor(
     private readonly authService: AuthService,
-    private readonly router: Router
-  ) { }
+    private readonly router: Router) {
+    
+   }
 
-  loginForm = new FormGroup({
+   loginForm = new FormGroup({
     email: new FormControl('', [Validators.required, Validators.email]),
     password: new FormControl('', [Validators.required]),
   });
-
   matcher = new MyErrorStateMatcher();
-
-  onSubmit() {
+  ngOnInit(): void {
+  }
+ onSubmit() {
     const mail = this.loginForm.controls['email'].value;
     const pass = this.loginForm.controls['password'].value;
 
@@ -43,14 +43,10 @@ export class LoginPageComponent {
     };
 
     this.authService.login(logData)
-      .subscribe({
-        next: (v) => console.log(v),
-        error: (e) => console.error(e),
-        complete: () => this.router.navigate([''])
-    });
-  }
-
-
-  
-
+    .subscribe({
+      next: (v) => console.log(v),
+      error: (e) => console.error(e),
+      complete: () => this.router.navigate([''])
+  });
+}
 }

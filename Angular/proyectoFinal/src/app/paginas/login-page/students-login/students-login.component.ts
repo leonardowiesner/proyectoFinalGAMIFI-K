@@ -14,17 +14,18 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
 }
 
 @Component({
-  selector: 'app-login-page',
-  templateUrl: './login-page.component.html',
-  styleUrls: ['./login-page.component.css']
+  selector: 'app-students-login',
+  templateUrl: './students-login.component.html',
+  styleUrls: ['./students-login.component.css']
 })
-export class LoginPageComponent {
-  mostrarFormulario1 = false;
-  mostrarFormulario2 = false;
+export class StudentsLoginComponent implements OnInit {
+
   constructor(
     private readonly authService: AuthService,
     private readonly router: Router
   ) { }
+  ngOnInit(): void {
+  }
 
   loginForm = new FormGroup({
     email: new FormControl('', [Validators.required, Validators.email]),
@@ -48,9 +49,6 @@ export class LoginPageComponent {
         error: (e) => console.error(e),
         complete: () => this.router.navigate([''])
     });
-  }
 
-
-  
-
+}
 }

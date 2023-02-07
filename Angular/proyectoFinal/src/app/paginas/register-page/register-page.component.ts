@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, NgForm, Validators } from '@angular/forms';
 
 
 @Component({
@@ -9,7 +9,8 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 })
 export class RegisterPageComponent implements OnInit {
 
-  showForm1 = true;
+  mostrarFormulario1 = false;
+  mostrarFormulario2 = false;
   constructor( ) {
 
   }
@@ -26,13 +27,7 @@ export class RegisterPageComponent implements OnInit {
 
     return pass === confirmPass ? null : { notSame: true };
   }
-  
 
-  submitForm1(formValue: any) {
-    console.log(formValue);
-  }
 
-  submitForm2(formValue: any) {
-    console.log(formValue);
-  }
+
 }
