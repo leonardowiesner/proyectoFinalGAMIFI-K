@@ -1,10 +1,20 @@
-<button (click)="mostrarFormulario1 = true; mostrarFormulario2 = false">Alumnos</button>
-    <button (click)="mostrarFormulario1 = false; mostrarFormulario2 = true">Profesores</button>
+<form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+  <mat-form-field>
+    <input matInput placeholder="Email" formControlName="email">
+    <mat-error >
+      Email es requerido
+    </mat-error>
+    <mat-error >
+      Por favor, ingrese un email válido
+    </mat-error>
+  </mat-form-field>
 
-    <ng-container *ngIf="mostrarFormulario1">
-      <app-students-login></app-students-login>
-    </ng-container>
+  <mat-form-field>
+    <input matInput type="password" placeholder="Password" formControlName="password">
+    <mat-error >
+      Contraseña es requerida
+    </mat-error>
+  </mat-form-field>
 
-    <ng-container *ngIf="mostrarFormulario2">
-      <app-teachers-login></app-teachers-login>
-    </ng-container>
+  <button mat-raised-button color="primary" type="submit">Iniciar Sesión</button>
+</form>

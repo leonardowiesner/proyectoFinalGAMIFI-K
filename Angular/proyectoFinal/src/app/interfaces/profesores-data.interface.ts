@@ -1,7 +1,16 @@
 import { UserData } from "./users-data.interface";
 
-export interface TeachersData extends UserData {
-    centro: string;
+export class TeachersData extends UserData {
 
+    constructor(
+      nick: string,
+      nombre: string,
+      apellidos: string,
+      email: string,
+      password: string,
+      public centro: string
+    ) {
+      super(nick, nombre, apellidos, email, password);
+    }
   }
   

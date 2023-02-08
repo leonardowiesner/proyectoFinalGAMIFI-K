@@ -6,8 +6,8 @@ import { MainPageComponent } from './main-page/main-page.component';
 
 //TODO: Definir las ruta/s que correspondan
 const routes: Routes = [
-  { path: 'main', component: MainPageComponent, canActivate: [AuthGuard] },
   { path: '', redirectTo: '/main', pathMatch: 'full' },
+  { path: 'main', component: MainPageComponent, canActivate: [AuthGuard] },  
 ];
 
 @NgModule({

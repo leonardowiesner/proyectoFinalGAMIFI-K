@@ -21,9 +21,12 @@ export class AuthGuard implements CanActivate {
       //TODO: Implementar la condición para poder entrar dentro de la MainPage
 
       if(this.authService.user.email != '' && this.authService.user.password != ''){
-
+        console.log('Lo Pasa');
+        
         return true;
       }else{
+        console.log('No lo pasa');
+        
         this.router.navigate(['/login']);
         return false;
       }

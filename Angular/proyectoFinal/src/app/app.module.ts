@@ -1,38 +1,49 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
+import { RouterModule } from '@angular/router';
 
+// Module
 import { AppRoutingModule } from './app-routing.module';
+
+// Screens
 import { AppComponent } from './app.component';
 import { LoginPageComponent } from './paginas/login-page/login-page.component';
+import { RegisterPageComponent } from './paginas/register-page/register-page.component';
+import { StudentFormComponent } from './paginas/register-page/student-form/student-form.component';
+import { TeacherFormComponent } from './paginas/register-page/teacher-form/teacher-form.component';
 
+// Material Design
 import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatCardModule } from '@angular/material/card';
 import { MatInputModule } from '@angular/material/input';
+import { MatSelectModule } from '@angular/material/select';
 import { MatIconModule } from '@angular/material/icon';
-import { MatButtonModule } from '@angular/material/button';
-import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 
-import { RouterModule } from '@angular/router';
 
 @NgModule({
   declarations: [
     AppComponent,
-
+    LoginPageComponent,
+    RegisterPageComponent,
+    StudentFormComponent,
+    TeacherFormComponent
   ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
     AppRoutingModule,
+    FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
-    MatFormFieldModule,
-    MatInputModule,
-    MatIconModule,
-    MatButtonModule,
-    MatSlideToggleModule,
     RouterModule,
+    MatFormFieldModule,
+    MatCardModule,
+    MatInputModule,
+    MatSelectModule,
+    MatIconModule
   ],
   providers: [],
   bootstrap: [AppComponent]

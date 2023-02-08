@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormGroup, FormControl, Validators, FormGroupDirective, NgForm } from '@angular/forms';
 import { ErrorStateMatcher } from '@angular/material/core';
@@ -19,8 +19,7 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
   styleUrls: ['./login-page.component.css']
 })
 export class LoginPageComponent {
-  mostrarFormulario1 = false;
-  mostrarFormulario2 = false;
+
   constructor(
     private readonly authService: AuthService,
     private readonly router: Router
@@ -34,6 +33,10 @@ export class LoginPageComponent {
   matcher = new MyErrorStateMatcher();
 
   onSubmit() {
+
+    console.log(this.loginForm);
+    
+
     const mail = this.loginForm.controls['email'].value;
     const pass = this.loginForm.controls['password'].value;
 
