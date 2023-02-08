@@ -1,12 +1,11 @@
-<ng-container *ngIf="showForm1; else showForm2">
-  <form #form1="ngForm" (ngSubmit)="submitForm1(form1.value)">
-  
-    <button type="submit">Enviar Formulario 1</button>
-  </form>
-</ng-container>
-<ng-template #showForm2>
-  <form #form2="ngForm" (ngSubmit)="submitForm2(form2.value)">
-    <!-- inputs de formulario 2 -->
-    <button type="submit">Enviar Formulario 2</button>
-  </form>
-</ng-template>
+
+<button (click)="mostrarFormulario1 = true; mostrarFormulario2 = false">Alumnos</button>
+    <button (click)="mostrarFormulario1 = false; mostrarFormulario2 = true">Profesores</button>
+
+    <ng-container *ngIf="mostrarFormulario1">
+      <app-student-form></app-student-form>
+    </ng-container>
+
+    <ng-container *ngIf="mostrarFormulario2">
+      <app-teacher-form></app-teacher-form>
+    </ng-container>

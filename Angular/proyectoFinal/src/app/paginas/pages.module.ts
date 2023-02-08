@@ -12,9 +12,15 @@ import { MatCardModule } from '@angular/material/card';
 import { MatInputModule } from '@angular/material/input';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatSelectModule } from '@angular/material/select';
+import { StudentFormComponent } from './register-page/student-form/student-form.component';
+import { TeacherFormComponent } from './register-page/teacher-form/teacher-form.component';
+import { StudentsLoginComponent } from './login-page/students-login/students-login.component';
+import { TeachersLoginComponent } from './login-page/teachers-login/teachers-login.component';
+import { MatIconModule } from '@angular/material/icon';
+import { LoginPageComponent } from './login-page/login-page.component';
 
 @NgModule({
-  declarations: [MainPageComponent, RegisterPageComponent],
+  declarations: [MainPageComponent, RegisterPageComponent, StudentFormComponent, TeacherFormComponent, StudentsLoginComponent, TeachersLoginComponent],
   imports: [
     CommonModule,
     PagesRoutingModule,
@@ -22,9 +28,10 @@ import { MatSelectModule } from '@angular/material/select';
     MatFormFieldModule,
     MatCardModule,
     MatSelectModule,
-
-  
-    
+    BrowserModule,
+    FormsModule,
+    MatInputModule,
+    MatIconModule
   ]
 })
 export class PagesModule { }

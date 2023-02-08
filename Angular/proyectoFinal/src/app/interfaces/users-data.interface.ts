@@ -4,7 +4,5 @@ export interface UserData {
     apellidos: string;
     email: string;
     password: string;
-    repassword: string;
-
   }
   
