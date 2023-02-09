@@ -8,6 +8,7 @@ import { TeacherPageComponent } from './teacher-page/teacher-page.component';
   declarations: [MainPageComponent, StudentPageComponent, TeacherPageComponent],
   imports: [
     PagesRoutingModule,
+    
   ]
 })
 export class PagesModule { }

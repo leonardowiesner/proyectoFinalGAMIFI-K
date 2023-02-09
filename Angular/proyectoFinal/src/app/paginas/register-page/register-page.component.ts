@@ -9,7 +9,7 @@ import { FormBuilder, FormControl, FormGroup, NgForm, Validators } from '@angula
 })
 export class RegisterPageComponent implements OnInit {
 
-  mostrarFormulario1 = false;
+  mostrarFormulario1 = true;
   mostrarFormulario2 = false;
   constructor( ) {
 
