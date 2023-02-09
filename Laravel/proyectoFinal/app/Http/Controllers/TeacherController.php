@@ -8,71 +8,63 @@ use Illuminate\Support\Facades\Hash;
 
 class TeacherController extends Controller
 {
-    public function register(Request $request) {
-        $request->validate([
-       'name' => 'required',
-        'last_name'=> 'required',
-        'nick_name'=> 'required',
-        'email'=> 'required|email|unique:teachers',
-        'password'=> 'required',
-        'school_center'=> 'required'
-        ]);
-        $teacher = new Teacher();
-        $teacher->name = $request->name;
-        $teacher->last_name = $request->last_name;
-        $teacher->nick_name = $request->nick_name;
-        $teacher->email = $request->email;
-        $teacher->password = Hash::make($request->password);
-        $teacher->school_center = $request->school_center;
-     
-        $teacher->save();
-        return response()->json([
-            "status" => 1,
-            "msg" => "¡Registro de profesor exitoso!",
-        ]);
+    public function all()
+    {
+        return Teacher::all();
     }
 
-    public function login(Request $request) {
-        $request->validate([
-            "email" => "required|email",
-            "password" => "required"
+    public function get(Request $request)
+    {
+        $data = $request->validate([
+            'id' => 'required|int|gt:0',
         ]);
-        $teacher = Teacher::where("email", "=", $request->email)->first();
-        if( isset($teacher->id) ){
-            if(Hash::check($request->password, $teacher->password)){
-                //creamos el token
-                $token = $teacher->createToken("auth_token")->plainTextToken;
-                 //si está todo ok
-                 return response()->json([
-                    "status" => 1,
-                    "msg" => "¡Usuario logueado exitosamente!",
-                    "access_token" => $token
-                ]);
-            }else{
-                return response()->json([
-                    "status" => 0,
-                    "msg" => "La password es incorrecta",
-                ], 404);
-            }
-        }else{
-            return response()->json([
-                "status" => 0,
-                "msg" => "Usuario no registrado",
-            ], 404);
+
+        $teacher = Teacher::find($data['id']);
+
+        if (!$teacher) {
+            // No Content
+            return response(status: 204);
         }
+
+        return $teacher;
     }
-    public function teacherProfile() {
-        return response()->json([
-            "status" => 0,
-            "msg" => "Acerca del perfil de usuario",
-            "data" => auth()->user()
-        ]);
+
+    public function create(Request $request)
+    {
+        $teacher = Teacher::createFromRequest($request);
+        $teacher->save();
+
+        // Created
+        return response(status: 201);
     }
-    public function logout() {
-        auth()->user()->tokens()->delete();
-        return response()->json([
-            "status" => 1,
-            "msg" => "Cierre de Sesión",
+
+    public function update(Request $request)
+    {
+        $teacher = Teacher::updateFromRequest($request);
+
+        if (empty($teacher)) {
+            // No Content
+            return response(status: 204);
+        }
+
+        return response($teacher);
+    }
+
+    public function delete(Request $request)
+    {
+        $data = $request->validate([
+            'id' => 'required|int|gt:0'
         ]);
+
+        $teacher = Teacher::find($data['id']);
+
+        if (!$teacher) {
+            // No Content
+            return response(status: 204);
+        }
+
+        return response(
+            status: $teacher->delete() ? 200 : 204
+        );
     }
 }

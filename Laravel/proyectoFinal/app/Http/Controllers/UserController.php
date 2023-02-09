@@ -12,7 +12,7 @@ class UserController extends Controller
     public function login(Request $request)
     
     {
-        $credentials = $request->only('name', 'password');
+        $credentials = $request->only('email', 'password');
 //porfa funciona
         if (Auth::attempt($credentials)) {
             // Authentication passed...
@@ -30,7 +30,7 @@ class UserController extends Controller
     public function addUser(Request $request)
     {
         $user = new User;
-        $user->name = $request->input('name');
+        $user->name = $request->input('email');
         $user->password = bcrypt($request->input('password'));
         $user->rol = $request->input('rol');
         $user->save();

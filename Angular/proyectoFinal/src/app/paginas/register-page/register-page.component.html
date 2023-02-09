@@ -1,6 +1,9 @@
 
-<button (click)="mostrarFormulario1 = true; mostrarFormulario2 = false">Alumnos</button>
-    <button (click)="mostrarFormulario1 = false; mostrarFormulario2 = true">Profesores</button>
+<div class="testbox rounded-div frame" ng-style="{'background-color': vm.color}">
+  <h1>Crea una cuenta</h1>
+
+  <button class= "custom-btn btn-3" ng-click="vm.changeColor('blue')" (click)="mostrarFormulario1 = true; mostrarFormulario2 = false"><span>Alumnos</span></button>
+    <button class= "custom-btn btn-4" ng-click="vm.changeColor('green')" (click)="mostrarFormulario1 = false; mostrarFormulario2 = true"><span>Profesores</span></button>
 
     <ng-container *ngIf="mostrarFormulario1">
       <app-student-form></app-student-form>
@@ -9,3 +12,7 @@
     <ng-container *ngIf="mostrarFormulario2">
       <app-teacher-form></app-teacher-form>
     </ng-container>
+
+</div>
+
+
