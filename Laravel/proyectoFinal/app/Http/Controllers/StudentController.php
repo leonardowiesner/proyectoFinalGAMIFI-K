@@ -4,55 +4,66 @@ namespace App\Http\Controllers;
 
 use App\Models\Student;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
-
 
 class StudentController extends Controller
 {
-    public function login(Request $request)
-    
+    public function all()
     {
-        $credentials = $request->only('name', 'password');
-//porfa funciona
-        if (Auth::attempt($credentials)) {
-            // Authentication passed...
-            return response()->json(['status' => 'success'], 200);
-        }else{
-            return response()->json(['status' => 'error'], 401);
-        }
-    }
-    
-    public function createTestUsers()
-    {
-        return '10 test students created!';
+        return Student::all();
     }
 
-    public function addStudent(Request $request)
+    public function get(Request $request)
     {
-        $student = new Student();
-        $student->name = $request->input('name');
-        $student->password = bcrypt($request->input('password'));
+        $data = $request->validate([
+            "id" => "required|int|gt:0",
+        ]);
+
+        $student = Student::find($data["id"]);
+
+        if (!$student) {
+            // No Content
+            return response(status: 204);
+        }
+
+        return $student;
+    }
+
+    public function create(Request $request)
+    {
+        $student = Student::createFromRequest($request);
         $student->save();
 
-        return response()->json($student);
+        // Created
+        return response(status: 201);
     }
 
-    public function destroy(Request $request)
-    {
-        $id = $request->input('id');
-        $student = Student::find($id);
-        $student->delete();
-
-        return response()->json(['message' => 'Student deleted successfully']);
-    }
     public function update(Request $request)
     {
-        $id = $request->input('id');
-        $student = Student::find($id);
-        $student->name = $request->input('name');
-        $student->password = bcrypt($request->input('password'));
-        $student->save();
+        $student = Student::updateFromRequest($request);
 
-        return response()->json($student);
+        if (empty($student)) {
+            // No Content
+            return response(status: 204);
+        }
+
+        return response($student);
+    }
+
+    public function delete(Request $request)
+    {
+        $data = $request->validate([
+            "id" => "required|int|gt:0"
+        ]);
+
+        $student = Student::find($data["id"]);
+
+        if (!$student) {
+            // No Content
+            return response(status: 204);
+        }
+
+        return response(
+            status: $student->delete() ? 200 : 204
+        );
     }
 }
