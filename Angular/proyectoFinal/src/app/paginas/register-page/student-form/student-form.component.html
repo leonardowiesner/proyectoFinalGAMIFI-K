@@ -1,0 +1,35 @@
+<form>
+    <mat-form-field>
+      <input matInput placeholder="Nick" [(ngModel)]="alumno.nick" name="nick" required>
+    </mat-form-field>
+    <br>
+    <mat-form-field>
+      <input matInput placeholder="Email" [(ngModel)]="alumno.email" name="email" required pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$">
+    </mat-form-field>
+    <br>
+    <mat-form-field>
+      <input matInput type="password" placeholder="Contraseña" [(ngModel)]="alumno.contrasena" name="contrasena" required minlength="8">
+    </mat-form-field>
+    <br>
+    <mat-form-field>
+        <input matInput type="password" placeholder="Confirmar Contraseña" [(ngModel)]="alumno.confirmarContrasena" name="confirmarContrasena" required minlength="8">
+      </mat-form-field>
+      <br>
+    <mat-form-field>
+      <input matInput placeholder="Nombre" [(ngModel)]="alumno.nombre" name="nombre" required>
+    </mat-form-field>
+    <br>
+    <mat-form-field>
+      <input matInput placeholder="Apellidos" [(ngModel)]="alumno.apellidos" name="apellidos" required>
+    </mat-form-field>
+    <br>
+    <mat-form-field>
+      <input matInput placeholder="Nacimiento" [(ngModel)]="alumno.nacimiento" name="nacimiento">
+    </mat-form-field>
+    <br>
+    <div *ngIf="alumno.contrasena != alumno.confirmarContrasena">
+      Las contraseñas no coinciden.
+    </div>
+    <br>
+    <button mat-raised-button color="primary" type="submit" (click)="enviar()" [disabled]="alumno.contrasena != alumno.confirmarContrasena" >Registrarse</button>
+  </form>

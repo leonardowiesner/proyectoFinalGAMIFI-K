@@ -1,0 +1,11 @@
+
+<button (click)="mostrarFormulario1 = true; mostrarFormulario2 = false">Alumnos</button>
+    <button (click)="mostrarFormulario1 = false; mostrarFormulario2 = true">Profesores</button>
+
+    <ng-container *ngIf="mostrarFormulario1">
+      <app-student-form></app-student-form>
+    </ng-container>
+
+    <ng-container *ngIf="mostrarFormulario2">
+      <app-teacher-form></app-teacher-form>
+    </ng-container>
