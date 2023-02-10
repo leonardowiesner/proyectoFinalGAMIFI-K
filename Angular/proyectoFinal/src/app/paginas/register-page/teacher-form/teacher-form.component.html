@@ -3,7 +3,7 @@
 
 <form >
     <mat-form-field>
-      <input matInput placeholder="Nick" [(ngModel)]="teacher.nick" name="nick" required>
+      <input matInput placeholder="nickname" [(ngModel)]="teacher.nickname" name="nickname" required>
     </mat-form-field>
     <br>
     <mat-form-field>
@@ -11,30 +11,30 @@
     </mat-form-field>
     <br>
     <mat-form-field>
-      <input matInput type="password" placeholder="Contraseña" [(ngModel)]="teacher.contrasena" name="contrasena" required minlength="8">
+      <input matInput type="password" placeholder="password" [(ngModel)]="teacher.password" name="password" required minlength="8">
     </mat-form-field>
     <br>
     <mat-form-field>
-      <input matInput type="password" placeholder="Confirmar Contraseña" [(ngModel)]="teacher.confirmarContrasena" name="confirmarContrasena" required minlength="8">
+      <input matInput type="password" [(ngModel)]="teacher.confirmarpassword" placeholder="Confirmar password"  name="confirmarpassword" required minlength="8">
     </mat-form-field>
     <br>
     <mat-form-field>
-      <input matInput placeholder="Nombre" [(ngModel)]="teacher.nombre" name="nombre" required>
+      <input matInput placeholder="name" [(ngModel)]="teacher.name" name="name" required>
     </mat-form-field>
     <br>
     <mat-form-field>
-      <input matInput placeholder="Apellidos" [(ngModel)]="teacher.apellidos" name="apellidos" required>
+      <input matInput placeholder="surnames" [(ngModel)]="teacher.surnames" name="surnames" required>
     </mat-form-field>
     <br>
     <mat-form-field>
-      <input matInput placeholder="Centro" [(ngModel)]="teacher.centro" name="centro" required>
+      <input matInput placeholder="center" [(ngModel)]="teacher.center" name="center" required>
     </mat-form-field>
     <br>
-    <div *ngIf="teacher.contrasena != teacher.confirmarContrasena">
-      Las contraseñas no coinciden.
+    <div *ngIf="teacher.password != teacher.confirmarpassword">
+      Las passwords no coinciden.
     </div>
     <br>
-    <button mat-raised-button color="primary" class="btn btn-primary" type="submit" (click)="enviar()" [disabled]="profesor.contrasena != profesor.confirmarContrasena">Registrarse</button>
+    <button mat-raised-button color="primary" class="btn btn-primary" type="submit" (click)="enviar()" [disabled]="teacher.password != teacher.confirmarpassword">Registrarse</button>
   </form>
   
 </div>
