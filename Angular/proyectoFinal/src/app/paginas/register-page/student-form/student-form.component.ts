@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-
+import { HttpClient } from '@angular/common/http';
 @Component({
   selector: 'app-student-form',
   templateUrl: './student-form.component.html',
@@ -8,15 +8,15 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 })
 export class StudentFormComponent implements OnInit {
   alumno = {
-    nick: '',
+    nickname: '',
     email: '',
-    contrasena: '',
+    password: '',
     confirmarContrasena:'',
-    nombre: '',
-    apellidos: '',
-    nacimiento: ''
+    name: '',
+    surnames: '',
+    birth_date: ''
   };
-  constructor() { 
+  constructor(private formBuilder: FormBuilder,private http: HttpClient) { 
 
   }
 
@@ -24,5 +24,7 @@ export class StudentFormComponent implements OnInit {
   }
   enviar() {
     console.log(this.alumno);
+    return this.http.post('http://127.0.0.1:8000/api/register/student', JSON.stringify(this.alumno))
+    .toPromise();
   }
 }

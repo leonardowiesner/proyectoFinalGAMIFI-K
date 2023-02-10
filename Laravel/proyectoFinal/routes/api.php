@@ -20,8 +20,8 @@ use Illuminate\Support\Facades\Route;
 Route::post('/login', [AuthController::class, 'login']);
 
 Route::prefix('register')->group(function () {
-    Route::post('/student', [StudentController::class, 'create']);
-    Route::post('/teacher', [TeacherController::class, 'create']);
+    Route::post('student', [StudentController::class, 'create']);
+    Route::post('teacher', [TeacherController::class, 'create']);
 });
 
 Route::prefix('student')->group(function () {
@@ -38,7 +38,7 @@ Route::prefix('teacher')->group(function () {
     Route::get('/all', [TeacherController::class, 'all']);
     Route::get('', [TeacherController::class, 'get']);
 
-    Route::post('', [TeacherController::class, 'create']);
+    Route::post('register', [TeacherController::class, 'create']);
     Route::put('', [TeacherController::class, 'update']);
 
     Route::delete('', [TeacherController::class, 'delete']);
