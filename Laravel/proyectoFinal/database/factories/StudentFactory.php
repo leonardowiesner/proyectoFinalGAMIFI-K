@@ -3,10 +3,8 @@
 namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Support\Carbon;
 
-/**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Student>
- */
 class StudentFactory extends Factory
 {
     /**
@@ -14,10 +12,17 @@ class StudentFactory extends Factory
      *
      * @return array<string, mixed>
      */
-    public function definition()
+    public function definition(): array
     {
         return [
-            //
+            'name' => $this->faker->name(),
+            'surnames' => $this->faker->word(),
+            'email' => $this->faker->unique()->safeEmail(),
+            'password' => bcrypt($this->faker->password()),
+            'nickname' => $this->faker->word(),
+            'birth_date' => Carbon::now()->format('Y-m-d'),
+            'created_at' => Carbon::now(),
+            'updated_at' => Carbon::now(),
         ];
     }
 }

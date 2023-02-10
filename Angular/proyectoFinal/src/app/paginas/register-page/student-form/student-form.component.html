@@ -1,20 +1,24 @@
-<form>
+<div class="bg-primary p-5 rounded-5 text-secondary">
+  <form>
     <mat-form-field>
       <input matInput placeholder="Nick" [(ngModel)]="alumno.nick" name="nick" required>
     </mat-form-field>
     <br>
     <mat-form-field>
-      <input matInput placeholder="Email" [(ngModel)]="alumno.email" name="email" required pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$">
+      <input matInput placeholder="Email" [(ngModel)]="alumno.email" name="email" required
+        pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$">
     </mat-form-field>
     <br>
     <mat-form-field>
-      <input matInput type="password" placeholder="Contraseña" [(ngModel)]="alumno.contrasena" name="contrasena" required minlength="8">
+      <input matInput type="password" placeholder="Contraseña" [(ngModel)]="alumno.contrasena" name="contrasena"
+        required minlength="8">
     </mat-form-field>
     <br>
     <mat-form-field>
-        <input matInput type="password" placeholder="Confirmar Contraseña" [(ngModel)]="alumno.confirmarContrasena" name="confirmarContrasena" required minlength="8">
-      </mat-form-field>
-      <br>
+      <input matInput type="password" placeholder="Confirmar Contraseña" [(ngModel)]="alumno.confirmarContrasena"
+        name="confirmarContrasena" required minlength="8">
+    </mat-form-field>
+    <br>
     <mat-form-field>
       <input matInput placeholder="Nombre" [(ngModel)]="alumno.nombre" name="nombre" required>
     </mat-form-field>
@@ -31,5 +35,7 @@
       Las contraseñas no coinciden.
     </div>
     <br>
-    <button mat-raised-button color="primary" type="submit" (click)="enviar()" [disabled]="alumno.contrasena != alumno.confirmarContrasena" >Registrarse</button>
+    <button mat-raised-button color="primary" class="btn btn-primary" type="submit" (click)="enviar()"
+      [disabled]="alumno.contrasena != alumno.confirmarContrasena">Registrarse</button>
   </form>
+</div>

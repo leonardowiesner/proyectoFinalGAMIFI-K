@@ -2,38 +2,79 @@
 
 namespace App\Models;
 
+
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Http\Request;
+use Laravel\Sanctum\HasApiTokens;
 
 class Teacher extends Model
 {
-    use HasFactory;
-
-    protected $fillable = [
-        'name',
-        'last_name',
-        'nick_name',
-        'email',
-        'password',
-        'school_center',
-    ];
+    use HasFactory, HasApiTokens;
 
     /**
-     * The attributes that should be hidden for serialization.
+     * The attributes that are mass assignable.
      *
      * @var array<int, string>
      */
-    protected $hidden = [
+    protected $fillable = [
+        'nickname',
+        'email',
         'password',
-        'remember_token',
+        'name',
+        'surnames',
+        'center',
     ];
 
-    /**
-     * The attributes that should be cast.
-     *
-     * @var array<string, string>
-     */
-    protected $casts = [
-        'email_verified_at' => 'datetime',
-    ];
+    public static function createFromRequest(Request $request)
+    {
+        $data = $request->validate([
+            'nickname' => 'required|string|unique:students|unique:teachers',
+            'email' => 'required|email|unique:students|unique:teachers',
+            'password' => 'required|confirmed',
+            'name' => 'required|string',
+            'surnames' => 'required|string',
+            'center' => 'required|string'
+        ]);
+
+        return Teacher::create([
+            'nickname' => $data['nickname'],
+            'email' => $data['email'],
+            'center' => $data['center'],
+            'name' => $data['name'],
+            'surnames' => $data['surnames'],
+            'password' => Hash::make($data['password'])
+        ]);
+    }
+
+    public static function updateFromRequest(Request $request): Teacher|null
+    {
+        $data = $request->validate([
+            'id' => 'required|int|gt:0',
+            'nickname' => 'required|string|unique:students|unique:teachers',
+            'email' => 'required|email|unique:students|unique:teachers',
+            'name' => 'required|string',
+            'surnames' => 'required|string',
+            'center' => 'required|string'
+        ]);
+
+        $teacher = Teacher::find($data['id']);
+
+        if (!$teacher) {
+            return null;
+        }
+
+        $oldTeacher = $teacher;
+
+        $teacher->nickname = $data['nickname'];
+        $teacher->email = $data['email'];
+        $teacher->name = $data['name'];
+        $teacher->surnames = $data['surnames'];
+        $teacher->center = $data['center'];
+
+        $teacher->save();
+
+        return $oldTeacher;
+    }
 }

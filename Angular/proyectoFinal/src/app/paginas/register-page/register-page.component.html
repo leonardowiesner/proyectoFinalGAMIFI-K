@@ -1,11 +1,32 @@
+<body class=" d-flex justify-content-center
+align-items-center vh-100">
 
-<button (click)="mostrarFormulario1 = true; mostrarFormulario2 = false">Alumnos</button>
-    <button (click)="mostrarFormulario1 = false; mostrarFormulario2 = true">Profesores</button>
+  <div>
 
-    <ng-container *ngIf="mostrarFormulario1">
-      <app-student-form></app-student-form>
-    </ng-container>
+    <div class="testbox rounded-div frame">
 
-    <ng-container *ngIf="mostrarFormulario2">
-      <app-teacher-form></app-teacher-form>
-    </ng-container>
+      <div class="text-center fs-1 fw-bold">
+        <h1>Crea una cuenta</h1>
+      </div>
+
+      <button class="custom-btn btn-3" (click)="mostrarFormulario1 = true; mostrarFormulario2 = false">
+        <span>Alumnos</span>
+      </button>
+
+      <button class="custom-btn btn-4" (click)="mostrarFormulario1 = false; mostrarFormulario2 = true">
+        <span>Profesores</span>
+      </button>
+
+      <ng-container *ngIf="mostrarFormulario1">
+        <app-student-form></app-student-form>
+      </ng-container>
+
+      <ng-container *ngIf="mostrarFormulario2">
+        <app-teacher-form></app-teacher-form>
+      </ng-container>
+
+    </div>
+
+  </div>
+
+</body>
