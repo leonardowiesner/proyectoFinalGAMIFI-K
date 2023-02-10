@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { Http } from '@angular/http';
 @Component({
   selector: 'app-teacher-form',
   templateUrl: './teacher-form.component.html',
