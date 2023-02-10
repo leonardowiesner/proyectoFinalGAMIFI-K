@@ -2,9 +2,10 @@
 
 namespace App\Models;
 
-use Hash;
+
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Request;
 use Laravel\Sanctum\HasApiTokens;
 
