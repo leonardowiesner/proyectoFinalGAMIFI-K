@@ -1,4 +1,7 @@
-<form>
+
+<div class="bg-success p-5 rounded-5 text-secondary">
+
+<form >
     <mat-form-field>
       <input matInput placeholder="Nick" [(ngModel)]="profesor.nick" name="nick" required>
     </mat-form-field>
@@ -31,5 +34,7 @@
       Las contraseñas no coinciden.
     </div>
     <br>
-    <button mat-raised-button color="primary" type="submit" (click)="enviar()" [disabled]="profesor.contrasena != profesor.confirmarContrasena">Registrarse</button>
+    <button mat-raised-button color="primary" class="btn btn-primary" type="submit" (click)="enviar()" [disabled]="profesor.contrasena != profesor.confirmarContrasena">Registrarse</button>
   </form>
+  
+</div>
