@@ -15,7 +15,7 @@ export class TeacherFormComponent implements OnInit {
     apellidos: '',
     centro: ''
   };
-  constructor(private formBuilder: FormBuilder,private _http: Http) { 
+  constructor(private formBuilder: FormBuilder) { 
 
   }
 
@@ -27,7 +27,7 @@ ngOnInit() {
 
 enviar() {
   console.log(this.profesor);
-  return this._http.post('http://127.0.0.1:8000/api/register', JSON.stringify(this.profesor))
-  .toPromise();
+ /*  return this._http.post('http://127.0.0.1:8000/api/register', JSON.stringify(this.profesor))
+  .toPromise(); */
 }
 }
