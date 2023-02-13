@@ -4,7 +4,6 @@ import { FormGroup, FormControl, Validators, FormGroupDirective, NgForm } from '
 import { ErrorStateMatcher } from '@angular/material/core';
 import { AuthService } from 'src/app/services/auth.service';
 import { LoginData } from 'src/app/interfaces/login-data.interface';
-import { NavBarService } from 'src/app/services/nav-bar.service';
 
 
 export class MyErrorStateMatcher implements ErrorStateMatcher {
@@ -23,11 +22,8 @@ export class LoginPageComponent {
 
   constructor(
     private readonly authService: AuthService,
-    private readonly router: Router,
-    private readonly navBarService: NavBarService
-  ) { 
-    navBarService.showNavbar = false;
-  }
+    private readonly router: Router
+  ) { }
 
   loginForm = new FormGroup({
     email: new FormControl('', [Validators.required, Validators.email]),
