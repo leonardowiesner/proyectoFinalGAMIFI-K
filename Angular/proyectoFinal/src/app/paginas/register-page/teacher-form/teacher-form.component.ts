@@ -16,21 +16,22 @@ export class TeacherFormComponent implements OnInit {
     surnames: '',
     center:''
   };
+
   constructor(private formBuilder: FormBuilder,private http: HttpClient) { 
 
+
+// ngOnInit() {
+  
+
+ }
+  ngOnInit(): void {
+    throw new Error('Method not implemented.');
   }
 
+// enviar() {
 
-ngOnInit() {
-  
-
-}
-
-enviar() {
-  
-  console.log(this.teacher);
-  return this.http.post('http://127.0.0.1:8000/api/teacher/register', JSON.stringify(this.teacher))
-  .toPromise();
-  
-}
-}
+//   console.log(this.profesor);
+//  /*  return this._http.post('http://127.0.0.1:8000/api/register', JSON.stringify(this.profesor))
+//   .toPromise(); */
+// }
+// }
