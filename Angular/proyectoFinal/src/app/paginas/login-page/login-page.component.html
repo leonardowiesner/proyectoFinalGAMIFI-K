@@ -1,4 +1,4 @@
-<form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+<!-- <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
   <mat-form-field>
     <input matInput placeholder="Email" formControlName="email">
     <mat-error >
@@ -18,4 +18,66 @@
 
   <button mat-raised-button color="primary" type="submit">Iniciar Sesión</button>
   <a [routerLink]="['/register']" routerLinkActive="router-link-active" >Registrate</a>
-</form>
+</form> -->
+<div class="form-v8">
+  <div class="page-content">
+    <div class="form-v8-content">
+      <div class="form-left">
+        <img src="https://i.imgur.com/asFm7OR.png" alt="form">
+      </div>
+      <div class="form-right">
+        <div class="tab">
+          <div class="tab-inner">
+            <button mat-raised-button class="tablinks" type="submit">Login</button>
+          </div>
+        </div>
+        <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="form-detail" action="#" method="post">
+          <div class="tabcontent" id="sign-in">
+            <div class="form-row">
+              <label class="form-row-inner">
+                <mat-form-field style="width:100%"> 
+                  <input matInput type="text" name="your_email_1" id="your_email_1" class="input-text" required
+                    formControlName="email">
+                    <mat-error>
+                      Email es requerido
+                    </mat-error>
+                    <mat-error>
+                      Por favor, ingrese un email válido
+                    </mat-error>
+                  <span class="label">E-Mail</span>
+                  <span class="border"></span>
+                 </mat-form-field>
+              </label>
+            </div>
+            <div class="form-row">
+              <label class="form-row-inner">
+                 <mat-form-field style="width:100%"> 
+                  <input matInput type="password" name="password_1" id="password_1" formControlName="password"
+                    class="input-text" required>
+                    <mat-error>
+                      Contraseña es requerida
+                    </mat-error>
+                  <span class="label">Password</span>
+                  <span class="border"></span>
+                </mat-form-field> 
+              </label>
+            </div>
+            <div class="form-row-last ">
+              <!-- <input mat-raised-button type="submit" name="register" class="register" value="Sign In"> -->
+              <!-- <button mat-raised-button color="primary" class="register" type="submit">Iniciar Sesión</button> -->
+              <button mat-raised-button type="submit" class="neon">
+                <span>Iniciar Sesión</span>
+              </button>
+            </div>
+          </div>
+          <div class="d-flex gap-1 justify-content-center mt-1">
+            <div>¿No tienes una cuenta?</div>
+          <a class="text-decoration-none text-info fw-semibold" [routerLink]="['/register']" routerLinkActive="router-link-active" >Registrate</a>
+        </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+  
