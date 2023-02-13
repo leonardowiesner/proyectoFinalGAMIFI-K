@@ -7,7 +7,8 @@ import { StudentPageComponent } from './student-page/student-page.component';
 
 //TODO: Definir las ruta/s que correspondan
 const routes: Routes = [
-  { path: '', redirectTo: '/student', pathMatch: 'full' },
+  { path: 'studentProfile', component: StudentPageComponent },
+  { path: '', redirectTo: '/studentProfile', pathMatch: 'full' },
   { path: 'student', component: StudentPageComponent, canActivate: [AuthGuard] },  
 ];
 
