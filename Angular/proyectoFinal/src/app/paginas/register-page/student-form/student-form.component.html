@@ -1,42 +1,42 @@
+
 <div class="bg-light p-5 rounded-5 text-secondary">
   <h2>Alumno</h2>
-  <form>
+  <form [formGroup]="studentForm">
+
     <mat-form-field>
-      <input matInput placeholder="nickname" [(ngModel)]="alumno.nickname" name="nickname" required>
+      <input matInput placeholder="nickname" formControlName="nickname">
     </mat-form-field>
     <br>
     <mat-form-field>
-      <input matInput placeholder="Email" [(ngModel)]="alumno.email" name="email" required
-        pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$">
+      <input matInput placeholder="Email" formControlName="email">
     </mat-form-field>
     <br>
     <mat-form-field>
-      <input matInput type="password" placeholder="password" [(ngModel)]="alumno.password" name="contrasena"
-        required minlength="8">
+      <input matInput type="password" placeholder="password" formControlName="password">
     </mat-form-field>
     <br>
     <mat-form-field>
-      <input matInput type="password" placeholder="confirmarContrasena" [(ngModel)]="alumno.confirmarContrasena"
-        name="confirmarContrasena" required minlength="8">
+      <input matInput type="password" placeholder="Confirmar password" formControlName="confirmarpassword">
     </mat-form-field>
     <br>
     <mat-form-field>
-      <input matInput placeholder="name" [(ngModel)]="alumno.name" name="name" required>
+      <input matInput placeholder="name" formControlName="name">
     </mat-form-field>
     <br>
     <mat-form-field>
-      <input matInput placeholder="Apellidos" [(ngModel)]="alumno.surnames" name="surnames" required>
+      <input matInput placeholder="surnames" formControlName="surnames">
     </mat-form-field>
     <br>
     <mat-form-field>
-      <input matInput placeholder="birth_date" [(ngModel)]="alumno.birth_date" name="birth_date">
+      <input matInput placeholder="Fecha de nacimiento" formControlName="birth_date">
     </mat-form-field>
     <br>
-    <div *ngIf="alumno.password != alumno.confirmarContrasena">
+    <div *ngIf="studentForm.get('password')?.value !== studentForm.get('confirmarpassword')?.value">
       Las passwords no coinciden.
     </div>
     <br>
     <button mat-raised-button color="primary" class="btn btn-primary" type="submit" (click)="enviar()"
-      [disabled]="alumno.password != alumno.confirmarContrasena">Registrarse</button>
+    >Registrarse</button>
   </form>
-</div>
+  </div>
+  
