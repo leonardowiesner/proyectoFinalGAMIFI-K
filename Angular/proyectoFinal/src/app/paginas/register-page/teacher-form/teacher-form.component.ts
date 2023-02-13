@@ -11,27 +11,24 @@ export class TeacherFormComponent implements OnInit {
     nickname: '',
     email: '',
     password: '',
-    confirmarpassword:'',
+    confirmarpassword: '',
     name: '',
     surnames: '',
-    center:''
+    center: ''
   };
 
-  constructor(private formBuilder: FormBuilder,private http: HttpClient) { 
+  constructor(private formBuilder: FormBuilder, private http: HttpClient) {
 
 
-// ngOnInit() {
-  
-
- }
+  }
   ngOnInit(): void {
     throw new Error('Method not implemented.');
   }
 
-// enviar() {
+  // enviar() {
 
-//   console.log(this.profesor);
-//  /*  return this._http.post('http://127.0.0.1:8000/api/register', JSON.stringify(this.profesor))
-//   .toPromise(); */
-// }
-// }
+  //   console.log(this.profesor);
+  //  /*  return this._http.post('http://127.0.0.1:8000/api/register', JSON.stringify(this.profesor))
+  //   .toPromise(); */
+  // }
+}
