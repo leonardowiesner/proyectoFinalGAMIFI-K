@@ -8,6 +8,7 @@ import { passwordmatch } from 'src/validators/passwordMatch';
   styleUrls: ['./teacher-form.component.css']
 })
 export class TeacherFormComponent implements OnInit {
+
   teacherForm:FormGroup;
    
   constructor(private fb: FormBuilder,private http: HttpClient) { 
@@ -23,10 +24,14 @@ export class TeacherFormComponent implements OnInit {
   }
 
 
-ngOnInit() {
-  
 
-}
+  }
+  ngOnInit(): void {
+    throw new Error('Method not implemented.');
+  }
+
+  // enviar() {
+
 
 enviar() {
   
@@ -35,4 +40,4 @@ enviar() {
   .toPromise();
   
 }
-}
+
