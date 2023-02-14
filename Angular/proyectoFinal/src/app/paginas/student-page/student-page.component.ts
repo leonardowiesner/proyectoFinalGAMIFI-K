@@ -29,9 +29,9 @@ export class StudentPageComponent implements OnInit {
     if (this.teacherForm.valid) {
     console.log(this.teacherForm.value);
     // Aquí puedes enviar la información a un servicio o almacenarla en algún lugar
+      }
     }
-    }
-    }
+}
 
 
 
