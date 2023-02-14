@@ -1,40 +1,42 @@
 
 <div class="bg-success p-5 rounded-5 text-secondary">
 
-<form >
-    <mat-form-field>
-      <input matInput placeholder="Nick" [(ngModel)]="profesor.nick" name="nick" required>
-    </mat-form-field>
-    <br>
-    <mat-form-field>
-      <input matInput placeholder="Email" [(ngModel)]="profesor.email" name="email" required pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$">
-    </mat-form-field>
-    <br>
-    <mat-form-field>
-      <input matInput type="password" placeholder="Contraseña" [(ngModel)]="profesor.contrasena" name="contrasena" required minlength="8">
-    </mat-form-field>
-    <br>
-    <mat-form-field>
-      <input matInput type="password" placeholder="Confirmar Contraseña" [(ngModel)]="profesor.confirmarContrasena" name="confirmarContrasena" required minlength="8">
-    </mat-form-field>
-    <br>
-    <mat-form-field>
-      <input matInput placeholder="Nombre" [(ngModel)]="profesor.nombre" name="nombre" required>
-    </mat-form-field>
-    <br>
-    <mat-form-field>
-      <input matInput placeholder="Apellidos" [(ngModel)]="profesor.apellidos" name="apellidos" required>
-    </mat-form-field>
-    <br>
-    <mat-form-field>
-      <input matInput placeholder="Centro" [(ngModel)]="profesor.centro" name="centro" required>
-    </mat-form-field>
-    <br>
-    <div *ngIf="profesor.contrasena != profesor.confirmarContrasena">
-      Las contraseñas no coinciden.
-    </div>
-    <br>
-    <button mat-raised-button color="primary" class="btn btn-primary" type="submit" (click)="enviar()" [disabled]="profesor.contrasena != profesor.confirmarContrasena">Registrarse</button>
-  </form>
-  
+
+ <h2>Profesor</h2>
+<form [formGroup]="teacherForm">
+  <mat-form-field>
+    <input matInput placeholder="nickname" formControlName="nickname">
+  </mat-form-field>
+  <br>
+  <mat-form-field>
+    <input matInput placeholder="Email" formControlName="email">
+  </mat-form-field>
+  <br>
+  <mat-form-field>
+    <input matInput type="password" placeholder="password" formControlName="password">
+  </mat-form-field>
+  <br>
+  <mat-form-field>
+    <input matInput type="password" placeholder="Confirmar password" formControlName="confirmarpassword">
+  </mat-form-field>
+  <br>
+  <mat-form-field>
+    <input matInput placeholder="name" formControlName="name">
+  </mat-form-field>
+  <br>
+  <mat-form-field>
+    <input matInput placeholder="surnames" formControlName="surnames">
+  </mat-form-field>
+  <br>
+  <mat-form-field>
+    <input matInput placeholder="center" formControlName="center">
+  </mat-form-field>
+  <br>
+  <div *ngIf="teacherForm.get('password')?.value !== teacherForm.get('confirmarpassword')?.value">
+    Las passwords no coinciden.
+  </div>
+  <br>
+  <button mat-raised-button color="primary" class="btn btn-primary" type="submit" (click)="enviar()"
+  >Registrarse</button>
+</form>
 </div>

@@ -1,41 +1,42 @@
-<div class="bg-primary p-5 rounded-5 text-secondary">
-  <form>
+
+<div class="bg-light p-5 rounded-5 text-secondary">
+  <h2>Alumno</h2>
+  <form [formGroup]="studentForm">
+
     <mat-form-field>
-      <input matInput placeholder="Nick" [(ngModel)]="alumno.nick" name="nick" required>
+      <input matInput placeholder="nickname" formControlName="nickname">
     </mat-form-field>
     <br>
     <mat-form-field>
-      <input matInput placeholder="Email" [(ngModel)]="alumno.email" name="email" required
-        pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$">
+      <input matInput placeholder="Email" formControlName="email">
     </mat-form-field>
     <br>
     <mat-form-field>
-      <input matInput type="password" placeholder="Contraseña" [(ngModel)]="alumno.contrasena" name="contrasena"
-        required minlength="8">
+      <input matInput type="password" placeholder="password" formControlName="password">
     </mat-form-field>
     <br>
     <mat-form-field>
-      <input matInput type="password" placeholder="Confirmar Contraseña" [(ngModel)]="alumno.confirmarContrasena"
-        name="confirmarContrasena" required minlength="8">
+      <input matInput type="password" placeholder="Confirmar password" formControlName="confirmarpassword">
     </mat-form-field>
     <br>
     <mat-form-field>
-      <input matInput placeholder="Nombre" [(ngModel)]="alumno.nombre" name="nombre" required>
+      <input matInput placeholder="name" formControlName="name">
     </mat-form-field>
     <br>
     <mat-form-field>
-      <input matInput placeholder="Apellidos" [(ngModel)]="alumno.apellidos" name="apellidos" required>
+      <input matInput placeholder="surnames" formControlName="surnames">
     </mat-form-field>
     <br>
     <mat-form-field>
-      <input matInput placeholder="Nacimiento" [(ngModel)]="alumno.nacimiento" name="nacimiento">
+      <input matInput placeholder="Fecha de nacimiento" formControlName="birth_date">
     </mat-form-field>
     <br>
-    <div *ngIf="alumno.contrasena != alumno.confirmarContrasena">
-      Las contraseñas no coinciden.
+    <div *ngIf="studentForm.get('password')?.value !== studentForm.get('confirmarpassword')?.value">
+      Las passwords no coinciden.
     </div>
     <br>
     <button mat-raised-button color="primary" class="btn btn-primary" type="submit" (click)="enviar()"
-      [disabled]="alumno.contrasena != alumno.confirmarContrasena">Registrarse</button>
+    >Registrarse</button>
   </form>
-</div>
+  </div>
+  
