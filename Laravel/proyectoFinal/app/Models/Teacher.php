@@ -22,7 +22,6 @@ class Teacher extends Model
         'nickname',
         'email',
         'password',
-        'confirmarpassword',
         'name',
         'surnames',
         'center',
@@ -33,7 +32,7 @@ class Teacher extends Model
         $data = $request->validate([
             'nickname' => 'required|string|unique:students|unique:teachers',
             'email' => 'required|email|unique:students|unique:teachers',
-            'password' => 'required',
+            'password' => 'required|confirmed',
             'name' => 'required|string',
             'surnames' => 'required|string',
             'center' => 'required|string'
