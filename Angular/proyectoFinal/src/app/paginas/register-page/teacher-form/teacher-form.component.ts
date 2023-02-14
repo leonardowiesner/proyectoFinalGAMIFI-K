@@ -23,9 +23,6 @@ export class TeacherFormComponent implements OnInit {
     }, [passwordmatch("password","confirmarpassword")]);
   }
 
-
-
-  }
   ngOnInit(): void {
     throw new Error('Method not implemented.');
   }
@@ -40,4 +37,7 @@ enviar() {
   .toPromise();
   
 }
+
+
+  }
 
