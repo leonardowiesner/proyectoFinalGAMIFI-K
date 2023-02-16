@@ -21,41 +21,8 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
 })
 export class LoginPageComponent {
 
-  constructor(
-    private readonly authService: AuthService,
-    private readonly router: Router,
-    private readonly navBarService: NavBarService
-  ) { 
-    navBarService.showNavbar = false;
-  }
-
-  loginForm = new FormGroup({
-    email: new FormControl('', [Validators.required, Validators.email]),
-    password: new FormControl('', [Validators.required]),
-  });
-
-  matcher = new MyErrorStateMatcher();
-
-  onSubmit() {
-
-    console.log(this.loginForm);
-    
-
-    const mail = this.loginForm.controls['email'].value;
-    const pass = this.loginForm.controls['password'].value;
-
-    const logData: LoginData = {
-      email: (mail) ? mail : '',
-      password: (pass) ? pass : ''
-    };
-
-    this.authService.login(logData)
-      .subscribe({
-        next: (v) => console.log(v),
-        error: (e) => console.error(e),
-        complete: () => this.router.navigate([''])
-    });
-  }
+  mostrarFormulario1 = true;
+  mostrarFormulario2 = false;
 
 
   

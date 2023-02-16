@@ -31,50 +31,30 @@
             <button mat-raised-button class="tablinks" type="submit">Login</button>
           </div>
         </div>
-        <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="form-detail" action="#" method="post">
-          <div class="tabcontent" id="sign-in">
-            <div class="form-row">
-              <label class="form-row-inner">
-                <mat-form-field style="width:100%"> 
-                  <input matInput type="text" name="your_email_1" id="your_email_1" class="input-text" required
-                    formControlName="email">
-                    <mat-error>
-                      Email es requerido
-                    </mat-error>
-                    <mat-error>
-                      Por favor, ingrese un email válido
-                    </mat-error>
-                  <span class="label">E-Mail</span>
-                  <span class="border"></span>
-                 </mat-form-field>
-              </label>
-            </div>
-            <div class="form-row">
-              <label class="form-row-inner">
-                 <mat-form-field style="width:100%"> 
-                  <input matInput type="password" name="password_1" id="password_1" formControlName="password"
-                    class="input-text" required>
-                    <mat-error>
-                      Contraseña es requerida
-                    </mat-error>
-                  <span class="label">Password</span>
-                  <span class="border"></span>
-                </mat-form-field> 
-              </label>
-            </div>
-            <div class="form-row-last ">
-              <!-- <input mat-raised-button type="submit" name="register" class="register" value="Sign In"> -->
-              <!-- <button mat-raised-button color="primary" class="register" type="submit">Iniciar Sesión</button> -->
-              <button mat-raised-button type="submit" class="neon">
-                <span>Iniciar Sesión</span>
-              </button>
-            </div>
-          </div>
-          <div class="d-flex gap-1 justify-content-center mt-1">
-            <div>¿No tienes una cuenta?</div>
-          <a class="text-decoration-none text-info fw-semibold" [routerLink]="['/register']" routerLinkActive="router-link-active" >Registrate</a>
-        </div>
-        </form>
+    
+        
+
+
+        <button class="custom-btn btn-3" (click)="mostrarFormulario1 = true; mostrarFormulario2 = false">
+          <span>Alumnos</span>
+        </button>
+  
+        <button class="custom-btn btn-4" (click)="mostrarFormulario1 = false; mostrarFormulario2 = true">
+          <span>Profesores</span>
+        </button>
+  
+        <ng-container *ngIf="mostrarFormulario1">
+          <app-login-teacher></app-login-teacher>
+        </ng-container>
+  
+        <ng-container *ngIf="mostrarFormulario2">
+          <app-login-student></app-login-student>
+        </ng-container>
+
+
+
+
+
       </div>
     </div>
   </div>
