@@ -27,6 +27,6 @@ export class StudentFormComponent implements OnInit {
   enviar() {
     console.log(this.studentForm.value);
     return this.http.post('http://127.0.0.1:8000/api/register/student', JSON.stringify(this.studentForm.value))
-    .toPromise();
+
   }
 }

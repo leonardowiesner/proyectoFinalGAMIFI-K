@@ -5,6 +5,8 @@ import { ErrorStateMatcher } from '@angular/material/core';
 import { AuthService } from 'src/app/services/auth.service';
 import { LoginData } from 'src/app/interfaces/login-data.interface';
 import { NavBarService } from 'src/app/services/nav-bar.service';
+import { TeacherService } from 'src/app/services/teacher.service';
+import { HttpClient } from '@angular/common/http';
 
 
 export class MyErrorStateMatcher implements ErrorStateMatcher {
@@ -21,9 +23,10 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
 export class LoginTeacherComponent implements OnInit {
 
   constructor(
-    private readonly authService: AuthService,
+    private readonly teacherService: TeacherService,
     private readonly router: Router,
-    private readonly navBarService: NavBarService
+    private readonly navBarService: NavBarService,
+    private http: HttpClient
   ) { 
     navBarService.showNavbar = false;
   }
@@ -47,15 +50,17 @@ export class LoginTeacherComponent implements OnInit {
       email: (mail) ? mail : '',
       password: (pass) ? pass : ''
     };
-
-    this.authService.login(logData)
+   
+    this.teacherService.login(logData)
       .subscribe({
         next: (v) => console.log(v),
         error: (e) => console.error(e),
         complete: () => this.router.navigate([''])
     });
+    return this.http.post('http://127.0.0.1:8000/api/login/teacher', JSON.stringify(this.loginForm.value)).toPromise();
   }
   ngOnInit(): void {
   }
 
+  
 }

@@ -28,11 +28,23 @@ class TeacherController extends Controller
 
         return $teacher;
     }
-
+    public function login(Request $request)
+    {
+        $data = $request->validate([
+            "email" => "required|email",
+            "password" => "required"
+        ]);
+    }
     public function create(Request $request)
     {
-        $teacher = Teacher::createFromRequest($request);
-        $teacher->save();
+        $teacher =new Teacher();
+        $teacher -> center = $request-> center;
+        $teacher -> email = $request-> email;
+        $teacher -> name = $request-> name;
+        $teacher -> nickname = $request-> nickname;
+        $teacher -> password = $request-> password;
+        $teacher -> surnames = $request-> surnames;
+        $teacher -> save();
 
         // Created
         return response(status: 201);

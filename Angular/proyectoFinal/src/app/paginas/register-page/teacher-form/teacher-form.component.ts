@@ -7,7 +7,7 @@ import { passwordmatch } from 'src/validators/passwordMatch';
   templateUrl: './teacher-form.component.html',
   styleUrls: ['./teacher-form.component.css']
 })
-export class TeacherFormComponent implements OnInit {
+export class TeacherFormComponent {
 
   teacherForm:FormGroup;
    
@@ -23,18 +23,13 @@ export class TeacherFormComponent implements OnInit {
     }, [passwordmatch("password","confirmarpassword")]);
   }
 
-  ngOnInit(): void {
-    throw new Error('Method not implemented.');
-  }
-
   // enviar() {
 
 
 enviar() {
   
   console.log(this.teacherForm.value);
-  return this.http.post('http://127.0.0.1:8000/api/teacher/register', JSON.stringify(this.teacherForm.value))
-  .toPromise();
+  return this.http.post('http://127.0.0.1:8000/api/teacher/register', JSON.stringify(this.teacherForm.value));
   
 }
 

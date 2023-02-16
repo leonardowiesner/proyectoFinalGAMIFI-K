@@ -28,7 +28,7 @@
     </mat-form-field>
     <br>
     <mat-form-field>
-      <input matInput placeholder="Fecha de nacimiento" formControlName="birth_date">
+      <input type="date" matInput placeholder="Fecha de nacimiento" formControlName="birth_date">
     </mat-form-field>
     <br>
     <div *ngIf="studentForm.get('password')?.value !== studentForm.get('confirmarpassword')?.value">

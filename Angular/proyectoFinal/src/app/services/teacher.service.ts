@@ -6,7 +6,7 @@ import { LoginData } from '../interfaces/login-data.interface';
 @Injectable({
   providedIn: 'root'
 })
-export class AuthService {
+export class TeacherService {
 
   fakeUrl: string = 'assets/serverFake.json';
   user: LoginData = { email: '', password: '' };
