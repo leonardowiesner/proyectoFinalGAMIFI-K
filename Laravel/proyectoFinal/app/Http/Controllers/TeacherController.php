@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Teacher;
+use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 
@@ -37,7 +38,9 @@ class TeacherController extends Controller
     }
     public function create(Request $request)
     {
-        $teacher =new Teacher();
+
+        try{
+            $teacher =new Teacher();
         $teacher -> center = $request-> center;
         $teacher -> email = $request-> email;
         $teacher -> name = $request-> name;
@@ -45,9 +48,15 @@ class TeacherController extends Controller
         $teacher -> password = $request-> password;
         $teacher -> surnames = $request-> surnames;
         $teacher -> save();
+        } catch(Exception $e){
+            return response(status: 400);
+
+        }
 
         // Created
-        return response(status: 201);
+        return response()->json([
+            'teacher' => $teacher
+        ], 200);
     }
 
     public function update(Request $request)
