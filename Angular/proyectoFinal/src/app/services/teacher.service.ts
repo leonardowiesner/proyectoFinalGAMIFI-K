@@ -7,17 +7,20 @@ import { LoginData } from '../interfaces/login-data.interface';
   providedIn: 'root'
 })
 export class TeacherService {
-
-  fakeUrl: string = 'assets/serverFake.json';
+  private apiBaseUrl = 'http://127.0.0.1:8000/api'; // aquí va la URL de la API de Laravel
   user: LoginData = { email: '', password: '' };
 
   constructor(
     private http: HttpClient
   ) { }
 
-  login(data: LoginData): Observable<LoginData> {
+  login(data: LoginData) {
+    let email=data.email
+    let password=data.password
+    return this.http.post(`${this.apiBaseUrl}/login/teacher`, {email,password});
 
-    return this.http.get<LoginData>(this.fakeUrl).pipe(
+
+    return this.http.get<LoginData>(this.apiBaseUrl).pipe(
       filter((value: any) => {
         let found = false;
 

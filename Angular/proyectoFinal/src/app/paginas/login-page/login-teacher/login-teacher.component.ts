@@ -52,12 +52,13 @@ export class LoginTeacherComponent implements OnInit {
     };
    
     this.teacherService.login(logData)
-      .subscribe({
-        next: (v) => console.log(v),
-        error: (e) => console.error(e),
-        complete: () => this.router.navigate([''])
-    });
-    return this.http.post('http://127.0.0.1:8000/api/login/teacher', JSON.stringify(this.loginForm.value)).toPromise();
+      .subscribe(response => {
+        // aquí se maneja la respuesta del servidor Laravel
+        const token = response['access_token'];
+        localStorage.setItem('token', token); // almacenamos el token en el almacenamiento local
+        this.router.navigate(['']); // redirigimos al usuario a la página de dashboard
+      });
+  
   }
   ngOnInit(): void {
   }

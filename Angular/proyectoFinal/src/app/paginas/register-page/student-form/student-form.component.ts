@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { passwordmatch } from 'src/validators/passwordMatch';
 @Component({
   selector: 'app-student-form',
@@ -25,8 +25,18 @@ export class StudentFormComponent implements OnInit {
   ngOnInit(): void {
   }
   enviar() {
+    let headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Accept': 'application/json' });
+    let options = { headers: headers };
+    
     console.log(this.studentForm.value);
-    return this.http.post('http://127.0.0.1:8000/api/register/student', JSON.stringify(this.studentForm.value))
+    return this.http.post('http://127.0.0.1:8000/api/register/student', JSON.stringify(this.studentForm.value), options).subscribe(response => {
+      console.log(response);
+    });
 
   }
+
+
+  
 }

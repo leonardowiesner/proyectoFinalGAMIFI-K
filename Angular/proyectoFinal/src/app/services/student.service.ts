@@ -8,7 +8,7 @@ import { LoginData } from '../interfaces/login-data.interface';
 })
 export class StudentService {
 
-  fakeUrl: string = 'assets/serverFake.json';
+  fakeUrl: string = 'http://127.0.0.1:8000/api/login/student';
   user: LoginData = { email: '', password: '' };
 
   constructor(
