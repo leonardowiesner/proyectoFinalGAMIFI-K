@@ -17,6 +17,7 @@ export class StudentService {
     private http: HttpClient
   ) { }
 
+
   login(data: LoginData): Observable<RespuestaServidor> {
     let headers = new HttpHeaders({
       'Content-Type': 'application/json',
@@ -25,7 +26,9 @@ export class StudentService {
     let options = { headers: headers };
     console.log(data);
    
+
     return this.http.post<RespuestaServidor>(`${this.apiURL}/login/student`, data, options);
+
   }
 
   register(data: string) {

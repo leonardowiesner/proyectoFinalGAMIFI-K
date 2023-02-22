@@ -10,6 +10,7 @@ import { StudentService } from 'src/app/services/student.service';
 import { RespuestaServidor } from 'src/app/interfaces/respuesta-servidor';
 // import Swal from 'sweetalert2/dist/sweetalert2.js';
 
+
 export class MyErrorStateMatcher implements ErrorStateMatcher {
   isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
     const isSubmitted = form && form.submitted;
@@ -64,6 +65,7 @@ export class LoginStudentComponent implements OnInit {
         // En caso de error mostrar al usuario el problema
         // Swal.fire('Hello world!');
         
+
 
          this.router.navigate(['/student']); // redirigimos al usuario a la página de dashboard
       });
