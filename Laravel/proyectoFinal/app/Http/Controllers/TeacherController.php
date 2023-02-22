@@ -9,6 +9,40 @@ use Illuminate\Support\Facades\Hash;
 
 class TeacherController extends Controller
 {
+    public function login(Request $request)
+    {
+
+        $request->validate([
+            "email" => "required",
+            "password" => "required"
+        ]);
+
+        $teacher = Teacher::where("email", "=", $request->email)->first();
+
+        if (isset($teacher->id)) {
+            if (Hash::check($request->password, $teacher->password)) {
+                //creamos el token
+                $token = $teacher->createToken("auth_token")->plainTextToken;
+                //si está todo ok
+                return response()->json([
+                    "status" => 1,
+                    "msg" => "¡Usuario logueado exitosamente!",
+                    "access_token" => $token
+                ]);
+            } else {
+                return response()->json([
+                    "status" => 0,
+                    "msg" => "La password es incorrecta",
+                ], 404);
+            }
+        } else {
+            return response()->json([
+                "status" => 0,
+                "msg" => "Usuario no registrado",
+            ], 404);
+        }
+    }
+
     public function all()
     {
         return Teacher::all();
@@ -29,13 +63,7 @@ class TeacherController extends Controller
 
         return $teacher;
     }
-    public function login(Request $request)
-    {
-        $data = $request->validate([
-            "email" => "required|email",
-            "password" => "required"
-        ]);
-    }
+    
     public function create(Request $request)
     {
 

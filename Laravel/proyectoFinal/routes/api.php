@@ -24,6 +24,11 @@ Route::prefix('register')->group(function () {
     Route::post('/teacher', [TeacherController::class, 'create']);
 });
 
+Route::prefix('login')->group(function () {
+    Route::post('/student', [StudentController::class, 'login']);
+    Route::post('/teacher', [TeacherController::class, 'login']);
+});
+
 Route::prefix('student')->group(function () {
     Route::get('/all', [StudentController::class, 'all']);
     Route::get('', [StudentController::class, 'get']);
