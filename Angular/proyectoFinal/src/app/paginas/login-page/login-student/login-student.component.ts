@@ -5,9 +5,8 @@ import { ErrorStateMatcher } from '@angular/material/core';
 import { AuthService } from 'src/app/services/auth.service';
 import { LoginData } from 'src/app/interfaces/login-data.interface';
 import { NavBarService } from 'src/app/services/nav-bar.service';
-import { TeacherService } from 'src/app/services/teacher.service';
 import { HttpClient } from '@angular/common/http';
-
+import { StudentService } from 'src/app/services/student.service';
 
 export class MyErrorStateMatcher implements ErrorStateMatcher {
   isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
@@ -23,9 +22,10 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
 export class LoginStudentComponent implements OnInit {
 
   constructor(
-    private readonly teacherService: TeacherService,
+    private readonly studentService: StudentService,
     private readonly router: Router,
     private readonly navBarService: NavBarService,
+    
     private http: HttpClient
   ) { 
     navBarService.showNavbar = false;
@@ -40,7 +40,7 @@ export class LoginStudentComponent implements OnInit {
 
   onSubmit() {
 
-    console.log(this.loginForm);
+   
     
 
     const mail = this.loginForm.controls['email'].value;
@@ -50,14 +50,13 @@ export class LoginStudentComponent implements OnInit {
       email: (mail) ? mail : '',
       password: (pass) ? pass : ''
     };
-
-    this.teacherService.login(logData)
-      .subscribe({
-        next: (v) => console.log(v),
-        error: (e) => console.error(e),
-        complete: () => this.router.navigate([''])
-    });
-    return this.http.post('http://127.0.0.1:8000/api/login/student', JSON.stringify(this.loginForm.value)).toPromise();
+    console.log(this.loginForm.value);
+    this.studentService.login(logData)
+      .subscribe(response => {
+        
+         this.router.navigate(['/student']); // redirigimos al usuario a la página de dashboard
+      });
+  
   }
   ngOnInit(): void {
   }
