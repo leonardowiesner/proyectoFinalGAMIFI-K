@@ -25,6 +25,7 @@ export class LoginTeacherComponent implements OnInit {
   constructor(
     private readonly teacherService: TeacherService,
     private readonly router: Router,
+    
     private readonly navBarService: NavBarService,
     private http: HttpClient
   ) { 
@@ -53,10 +54,7 @@ export class LoginTeacherComponent implements OnInit {
    
     this.teacherService.login(logData)
       .subscribe(response => {
-        // aquí se maneja la respuesta del servidor Laravel
-        const token = response['access_token'];
-        localStorage.setItem('token', token); // almacenamos el token en el almacenamiento local
-        this.router.navigate(['']); // redirigimos al usuario a la página de dashboard
+         this.router.navigate(['/teacher']); // redirigimos al usuario a la página de dashboard
       });
   
   }
