@@ -2,22 +2,28 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { filter, Observable } from 'rxjs';
 import { LoginData } from '../interfaces/login-data.interface';
+import { RespuestaServidor } from '../interfaces/respuesta-servidor';
 
 @Injectable({
   providedIn: 'root'
 })
 export class TeacherService {
-  private apiBaseUrl = 'http://127.0.0.1:8000/api'; // aquí va la URL de la API de Laravel
-  user: LoginData = { email: '', password: '' };
 
+  user: LoginData = { email: '', password: '' };
+  token: string = "";
+  apiURL: string = "http://127.0.0.1:8000/api";
   constructor(
     private http: HttpClient
   ) { }
 
   login(data: LoginData) {
-    let email=data.email
-    let password=data.password
-    return this.http.post('http://127.0.0.1:8000/api/register/teacher', data);
+    let headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Accept': 'application/json'
+    });
+    let options = { headers: headers };
+    console.log(data);
+    return this.http.post<RespuestaServidor>(`${this.apiURL}/login/teacher`, data);
   }
 
   register(data: string) {

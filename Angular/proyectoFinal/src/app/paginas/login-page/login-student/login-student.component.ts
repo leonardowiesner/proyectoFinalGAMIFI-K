@@ -7,6 +7,8 @@ import { LoginData } from 'src/app/interfaces/login-data.interface';
 import { NavBarService } from 'src/app/services/nav-bar.service';
 import { HttpClient } from '@angular/common/http';
 import { StudentService } from 'src/app/services/student.service';
+import { RespuestaServidor } from 'src/app/interfaces/respuesta-servidor';
+// import Swal from 'sweetalert2/dist/sweetalert2.js';
 
 export class MyErrorStateMatcher implements ErrorStateMatcher {
   isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
@@ -52,8 +54,17 @@ export class LoginStudentComponent implements OnInit {
     };
     console.log(this.loginForm.value);
     this.studentService.login(logData)
-      .subscribe(response => {
+      .subscribe((response: RespuestaServidor) => {
         
+        // El se loguea correctamente y guardamos el token
+        if (response.status == 1) {
+          this.studentService.token = response.token!;
+        }
+
+        // En caso de error mostrar al usuario el problema
+        // Swal.fire('Hello world!');
+        
+
          this.router.navigate(['/student']); // redirigimos al usuario a la página de dashboard
       });
   
