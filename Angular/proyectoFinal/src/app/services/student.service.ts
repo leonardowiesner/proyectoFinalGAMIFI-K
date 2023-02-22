@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { filter, Observable } from 'rxjs';
 import { LoginData } from '../interfaces/login-data.interface';
@@ -35,5 +35,16 @@ export class StudentService {
         return found;
       })
     );
+  }
+
+  register(data: string) {
+    let headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Accept': 'application/json'
+    });
+    
+    let options = { headers: headers };
+
+    return this.http.post('http://127.0.0.1:8000/api/register/student', data, options);
   }
 }
