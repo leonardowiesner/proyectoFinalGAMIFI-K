@@ -8,7 +8,7 @@ import { StudentService } from 'src/app/services/student.service';
   templateUrl: './student-form.component.html',
   styleUrls: ['./student-form.component.css']
 })
-export class StudentFormComponent implements OnInit {
+export class StudentFormComponent  {
   studentForm: FormGroup;
 
   constructor(
@@ -26,8 +26,7 @@ export class StudentFormComponent implements OnInit {
     }, [passwordmatch("password", "confirmarpassword")]);
   }
 
-  ngOnInit(): void {
-  }
+
   enviar() {
     console.log(this.studentForm.value);
 
