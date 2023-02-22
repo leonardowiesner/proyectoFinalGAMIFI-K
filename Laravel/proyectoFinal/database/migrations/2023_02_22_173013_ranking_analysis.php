@@ -13,11 +13,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('rankingData', function (Blueprint $table) {
+        Schema::create('ranking_analysis', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('idUser');
             $table->unsignedBigInteger('codRanking');
-            $table->rememberToken();
             $table->timestamps();
 
             $table->foreign('idUser')

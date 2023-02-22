@@ -73,7 +73,7 @@ class TeacherController extends Controller
         $teacher -> email = $request-> email;
         $teacher -> name = $request-> name;
         $teacher -> nickname = $request-> nickname;
-        $teacher -> password = $request-> password;
+        $teacher -> password = Hash::make($request-> password);
         $teacher -> surnames = $request-> surnames;
         $teacher -> save();
         } catch(Exception $e){
