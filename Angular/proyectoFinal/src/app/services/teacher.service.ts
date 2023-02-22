@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { filter, Observable } from 'rxjs';
 import { LoginData } from '../interfaces/login-data.interface';
@@ -17,26 +17,17 @@ export class TeacherService {
   login(data: LoginData) {
     let email=data.email
     let password=data.password
-    return this.http.post(`${this.apiBaseUrl}/login/teacher`, {email,password});
+    return this.http.post('http://127.0.0.1:8000/api/register/teacher', data);
+  }
 
+  register(data: string) {
+    let headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Accept': 'application/json'
+    });
+    
+    let options = { headers: headers };
 
-    return this.http.get<LoginData>(this.apiBaseUrl).pipe(
-      filter((value: any) => {
-        let found = false;
-
-        for (let i = 0; i < value.length; i++) {
-          if (value[i].email == data.email && value[i].password == data.password) {
-            found = true;
-            this.user = {
-              email: value[i].email,
-              password: value[i].password,
-            };
-            break;
-          }
-        }
-
-        return found;
-      })
-    );
+    return this.http.post('http://127.0.0.1:8000/api/register/teacher', data, options);
   }
 }
