@@ -6,22 +6,55 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
     public function login(Request $request)
-    
     {
-        $credentials = $request->only('email', 'password');
-//porfa funciona
-        if (Auth::attempt($credentials)) {
-            // Authentication passed...
-            return response()->json(['status' => 'success'], 200);
-        }else{
-            return response()->json(['status' => 'error'], 401);
+
+        $request->validate([
+            "email" => "required",
+            "password" => "required"
+        ]);
+
+        $user = User::where("email", "=", $request->email)->first();
+
+        if (isset($user->id)) {
+            if (Hash::check($request->password, $user->password)) {
+                //creamos el token
+                $token = $user->createToken("auth_token")->plainTextToken;
+                //si está todo ok
+                return response()->json([
+                    "status" => 1,
+                    "msg" => "¡Usuario logueado exitosamente!",
+                    "access_token" => $token
+                ]);
+            } else {
+                return response()->json([
+                    "status" => 0,
+                    "msg" => "La password es incorrecta",
+                ], 404);
+            }
+        } else {
+            return response()->json([
+                "status" => 0,
+                "msg" => "Usuario no registrado",
+            ], 404);
         }
     }
-    
+
+    public function logout()
+    {
+        //esto se puede hacer mejor desde angular
+        auth()->user()->tokens()->delete();
+        return response()->json([
+            "status" => 1,
+            "msg" => "Cerrar session",
+        ]);
+    }
+
+
     public function createTestUsers()
     {
         return '10 test users created!';

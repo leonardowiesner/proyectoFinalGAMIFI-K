@@ -39,7 +39,6 @@ class StudentController extends Controller
         $student -> surnames = $request-> surnames;
         $student -> save();
 
-
         // Created
         return response(status: 201);
     }
