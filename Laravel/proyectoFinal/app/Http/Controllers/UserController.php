@@ -47,6 +47,7 @@ class UserController extends Controller
     public function logout()
     {
         //esto se puede hacer mejor desde angular
+        //el token es normal que pete es un error del laravel pero funciona en teoria
         auth()->user()->tokens()->delete();
         return response()->json([
             "status" => 1,
