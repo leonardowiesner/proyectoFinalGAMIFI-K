@@ -70,7 +70,7 @@ class StudentController extends Controller
         $student -> email = $request-> email;
         $student -> name = $request-> name;
         $student -> nickname = $request-> nickname;
-        $student -> password = $request-> password;
+        $student -> password = Hash::make($request-> password);
         $student -> surnames = $request-> surnames;
         $student -> save();
 
