@@ -1,5 +1,6 @@
-<div>
+<div *ngIf="student">
     <h2>Perfil</h2>
+    <p>{{student.nombre}}</p>
     <form>
       <div>
         <label>Nombre:</label>
@@ -14,7 +15,7 @@
         <input type="email" [(ngModel)]="student.email" name="email" required>
       </div>
       <div>
-         <button (click)="openChangePasswordDialog()">Cambiar contraseña</button>
+        <button (click)="openChangePasswordDialog()">Cambiar contraseña</button>
       </div>
       <button type="submit" (click)="save()">Guardar</button>
     </form>

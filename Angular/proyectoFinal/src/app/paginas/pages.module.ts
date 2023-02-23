@@ -12,6 +12,8 @@ import { ChangePasswordDialogComponent } from './profile-student/change-password
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { MatDialogModule } from '@angular/material/dialog';
+import { CommonModule } from '@angular/common';
+
 
 @NgModule({
   declarations: [MainPageComponent, StudentPageComponent,TeacherPageComponent, ProfileTeacherComponent, ProfileStudentComponent, ChangePasswordDialogComponent  ],
@@ -21,6 +23,7 @@ import { MatDialogModule } from '@angular/material/dialog';
     FormsModule,
     RouterModule,
     MatDialogModule,
+    CommonModule
   ]
 })
 export class PagesModule { }
