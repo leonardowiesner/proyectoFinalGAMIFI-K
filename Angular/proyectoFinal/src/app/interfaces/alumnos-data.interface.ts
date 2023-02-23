@@ -2,6 +2,7 @@ import { UserData } from "./users-data.interface";
 
 export class StudentData extends UserData {
   constructor(
+    id: number,
     nick: string,
     nombre: string,
     apellidos: string,
@@ -9,7 +10,7 @@ export class StudentData extends UserData {
     password: string,
     public nacimiento: Date,
   ) {
-    super(nick, nombre, apellidos, email, password);
+    super(id,nick, nombre, apellidos, email, password);
   }
   }
   
