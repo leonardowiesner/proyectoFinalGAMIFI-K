@@ -5,6 +5,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { ChangePasswordDialogComponent } from './change-password-dialog/change-password-dialog.component';
 
 
+
 @Component({
   selector: 'app-profile-student',
   templateUrl: './profile-student.component.html',
@@ -17,16 +18,23 @@ export class ProfileStudentComponent implements OnInit {
     private studentService: StudentService,
     private dialog: MatDialog
   ) { 
-    this.student = {id: 0, nick : "", nombre:"asdasd", apellidos:"", email:"", password:"",nacimiento: new Date() }
+
+    this.student = {id: 0, nick : "", nombre:"", apellidos:"", email:"", password:"",nacimiento: new Date }
+
   }
 
   ngOnInit(): void {
     this.studentService.getStudent().subscribe(student => {
+
       console.log(student);
       this.student = student;
      
     });
     console.log(this.student);
+  }
+
+      this.student = student;
+    });
   }
 
   save() {
