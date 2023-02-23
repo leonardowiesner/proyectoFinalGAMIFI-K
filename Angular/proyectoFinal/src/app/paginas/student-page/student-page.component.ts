@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 
+
 @Component({
   selector: 'app-student-page',
   templateUrl: './student-page.component.html',
@@ -9,7 +10,7 @@ import { Router } from '@angular/router';
 })
 export class StudentPageComponent implements OnInit {
   ngOnInit(): void {
-    throw new Error('Method not implemented.');
+   
   }
 
 }

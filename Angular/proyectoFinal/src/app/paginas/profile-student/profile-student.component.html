@@ -1,0 +1,22 @@
+<div>
+    <h2>Perfil</h2>
+    <form>
+      <div>
+        <label>Nombre:</label>
+        <input type="text" [(ngModel)]="student.nombre" name="nombre" required>
+      </div>
+      <div>
+        <label>Apellidos:</label>
+        <input type="text" [(ngModel)]="student.apellidos" name="apellidos" required>
+      </div>
+      <div>
+        <label>Correo electrónico:</label>
+        <input type="email" [(ngModel)]="student.email" name="email" required>
+      </div>
+      <div>
+         <button (click)="openChangePasswordDialog()">Cambiar contraseña</button>
+      </div>
+      <button type="submit" (click)="save()">Guardar</button>
+    </form>
+  </div>
+  

@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { filter, Observable } from 'rxjs';
 import { LoginData } from '../interfaces/login-data.interface';
 import { RespuestaServidor } from '../interfaces/respuesta-servidor';
+import { StudentData } from '../interfaces/alumnos-data.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -30,7 +31,12 @@ export class StudentService {
     return this.http.post<RespuestaServidor>(`${this.apiURL}/login/student`, data, options);
 
   }
-
+  getStudent(): Observable<StudentData> {
+    return this.http.get<StudentData>(`${this.apiURL}/student/all`);
+  }
+  saveUser(student: StudentData): Observable<any> {
+    return this.http.put(`${this.apiURL}/student/update`, student);
+  }
   register(data: string) {
     let headers = new HttpHeaders({
       'Content-Type': 'application/json',
