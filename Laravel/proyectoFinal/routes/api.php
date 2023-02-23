@@ -31,12 +31,12 @@ Route::prefix('login')->group(function () {
 
 Route::prefix('student')->group(function () {
     Route::get('/all', [StudentController::class, 'all']);
-    Route::get('', [StudentController::class, 'get']);
+    Route::get('/get', [StudentController::class, 'get']);
 
-    Route::post('', [StudentController::class, 'create']);
-    Route::put('', [StudentController::class, 'update']);
+    Route::post('/create', [StudentController::class, 'create']);
+    Route::put('/update', [StudentController::class, 'update']);
 
-    Route::delete('', [StudentController::class, 'delete']);
+    Route::delete('/delete', [StudentController::class, 'delete']);
 });
 
 Route::prefix('teacher')->group(function () {
