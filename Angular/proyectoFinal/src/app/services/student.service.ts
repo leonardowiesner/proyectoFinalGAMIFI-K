@@ -9,7 +9,7 @@ import { StudentData } from '../interfaces/alumnos-data.interface';
   providedIn: 'root'
 })
 export class StudentService {
-
+  
   user: LoginData = { email: '', password: '' };
   token: string = "";
   apiURL: string = "http://127.0.0.1:8000/api";
