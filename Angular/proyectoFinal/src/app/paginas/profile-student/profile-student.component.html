@@ -1,20 +1,20 @@
 
 <div *ngIf="student">
     <h2>Perfil</h2>
-    <p>{{student.nombre}}</p>
+    
 
     <form>
       <div>
         <label>Nombre:</label>
-        <input type="text" [(ngModel)]="student.nombre" name="nombre" required>
+        <input type="text" [(ngModel)]="student.name" name="name" disabled>
       </div>
       <div>
         <label>Apellidos:</label>
-        <input type="text" [(ngModel)]="student.apellidos" name="apellidos" required>
+        <input type="text" [(ngModel)]="student.surnames" name="surnames" disabled>
       </div>
       <div>
         <label>Correo electrónico:</label>
-        <input type="email" [(ngModel)]="student.email" name="email" required>
+        <input type="email" [(ngModel)]="student.email" name="email" disabled>
       </div>
       <div>
 

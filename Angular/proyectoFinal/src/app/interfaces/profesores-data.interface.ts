@@ -5,13 +5,13 @@ export class TeachersData extends UserData {
     constructor(
       id: number,
       nick: string,
-      nombre: string,
-      apellidos: string,
+      name: string,
+      surnames: string,
       email: string,
       password: string,
       public centro: string
     ) {
-      super(id,nick, nombre, apellidos, email, password);
+      super(id,nick, name, surnames, email, password);
     }
   }
   

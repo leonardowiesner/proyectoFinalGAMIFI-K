@@ -60,6 +60,7 @@ export class LoginStudentComponent implements OnInit {
         // El se loguea correctamente y guardamos el token
         if (response.status == 1) {
           this.studentService.token = response.token!;
+          this.studentService.student=response.student;
         }
 
         // En caso de error mostrar al usuario el problema

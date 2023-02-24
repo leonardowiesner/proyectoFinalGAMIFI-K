@@ -1,1 +1,27 @@
-<p>profile-teacher works!</p>
+
+<div *ngIf="teacher">
+    <h2>Perfil</h2>
+    
+
+    <form>
+      <div>
+        <label>Nombre:</label>
+        <input type="text" [(ngModel)]="teacher.name" name="name" disabled>
+      </div>
+      <div>
+        <label>Apellidos:</label>
+        <input type="text" [(ngModel)]="teacher.surnames" name="surnames" disabled>
+      </div>
+      <div>
+        <label>Correo electrónico:</label>
+        <input type="email" [(ngModel)]="teacher.email" name="email" disabled>
+      </div>
+      <div>
+
+        <button (click)="openChangePasswordDialog()">Cambiar contraseña</button>
+
+      </div>
+      <button type="submit" (click)="save()">Guardar</button>
+    </form>
+  </div>
+  

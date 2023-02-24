@@ -19,23 +19,24 @@ export class ProfileStudentComponent implements OnInit {
     private dialog: MatDialog
   ) { 
 
-    this.student = {id: 0, nick : "", nombre:"", apellidos:"", email:"", password:"",nacimiento: new Date }
+    this.student = {id: 0, nick : "", name:"", surnames:"", email:"", password:"",nacimiento: new Date }
 
   }
 
   ngOnInit(): void {
-    this.studentService.getStudent().subscribe(student => {
+    if(this.studentService.student){
+    this.student=this.studentService.student;
+  }
+    this.studentService.getStudent(this.student.id).subscribe(student => {
 
       console.log(student);
       this.student = student;
-     
+  
     });
     console.log(this.student);
   }
 
-      this.student = student;
-    });
-  }
+
 
   save() {
     this.studentService.saveUser(this.student).subscribe(() => {
