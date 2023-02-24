@@ -26,7 +26,8 @@ class StudentController extends Controller
                 return response()->json([
                     "status" => 1,
                     "msg" => "¡Usuario logueado exitosamente!",
-                    "access_token" => $token
+                    "access_token" => $token,
+                    "student"=> $student
                 ]);
             } else {
                 return response()->json([
@@ -47,13 +48,10 @@ class StudentController extends Controller
         return Student::all();
     }
 
-    public function get(Request $request)
+    public function get($id)
     {
-        $data = $request->validate([
-            "id" => "required|int|gt:0",
-        ]);
-
-        $student = Student::find($data["id"]);
+        
+        $student = Student::find($id);
 
         if (!$student) {
             // No Content

@@ -4,13 +4,13 @@ export class StudentData extends UserData {
   constructor(
     id: number,
     nick: string,
-    nombre: string,
-    apellidos: string,
+    name: string,
+    surnames: string,
     email: string,
     password: string,
     public nacimiento: Date,
   ) {
-    super(id,nick, nombre, apellidos, email, password);
+    super(id,nick, name, surnames, email, password);
   }
   }
   
