@@ -9,7 +9,7 @@ import { HttpClient } from '@angular/common/http';
 import { StudentService } from 'src/app/services/student.service';
 import { RespuestaServidor } from 'src/app/interfaces/respuesta-servidor';
 // import Swal from 'sweetalert2/dist/sweetalert2.js';
-
+import { CookieService } from 'ngx-cookie-service';
 
 export class MyErrorStateMatcher implements ErrorStateMatcher {
   isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
@@ -28,11 +28,12 @@ export class LoginStudentComponent implements OnInit {
     private readonly studentService: StudentService,
     private readonly router: Router,
     private readonly navBarService: NavBarService,
-    
-    private http: HttpClient
-  ) { 
+    private http: HttpClient,
+    private cookieService: CookieService // Agrega esto
+  ) {
     navBarService.showNavbar = false;
   }
+  
 
   loginForm = new FormGroup({
     email: new FormControl('', [Validators.required, Validators.email]),
@@ -60,8 +61,16 @@ export class LoginStudentComponent implements OnInit {
         // El se loguea correctamente y guardamos el token
         if (response.status == 1) {
           this.studentService.token = response.token!;
-          this.studentService.student=response.student;
+          this.studentService.student = response.student;
+          
+          // Agrega esto para guardar los datos del usuario en la cookie
+          const userData = {
+            token: response.token!,
+            student: response.student
+          };
+          this.cookieService.set('studentData', JSON.stringify(userData));
         }
+        
 
         // En caso de error mostrar al usuario el problema
         // Swal.fire('Hello world!');
@@ -72,7 +81,15 @@ export class LoginStudentComponent implements OnInit {
       });
   
   }
-  ngOnInit(): void {
+  ngOnInit() {
+    const userData = JSON.parse(this.cookieService.get('studentData') || '{}');
+    if (userData.token) {
+      this.studentService.token = userData.token;
+      this.studentService.student = userData.student;
+    } else {
+      this.router.navigate(['/login/student']);
+    }
   }
+  
 
 }
