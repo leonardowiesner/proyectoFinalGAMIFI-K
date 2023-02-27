@@ -33,6 +33,16 @@ export class StudentService {
 
   }
 
+  changePasword(password: string): Observable<StudentData> {
+    let headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Accept': 'application/json'
+    });
+    let options = { headers: headers };
+    this.student!.password = password;
+    console.log(this.student);
+    return this.http.post<StudentData>(`${this.apiURL}/student/${this.student?.id}/change-password`, this.student, options);
+  }
 
   getStudent(id:number): Observable<StudentData> {
     return this.http.get<StudentData>(`${this.apiURL}/student/get/${id}`);

@@ -51,6 +51,7 @@ export class ProfileStudentComponent implements OnInit {
       if (result) {
         // El usuario ha ingresado una nueva contraseña
         this.student.password = result;
+        
         this.save();
       }
     });
