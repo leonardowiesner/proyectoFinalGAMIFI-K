@@ -26,7 +26,8 @@ class StudentController extends Controller
                 return response()->json([
                     "status" => 1,
                     "msg" => "¡Usuario logueado exitosamente!",
-                    "access_token" => $token
+                    "access_token" => $token,
+                    "student" => $student
                 ]);
             } else {
                 return response()->json([
@@ -65,14 +66,14 @@ class StudentController extends Controller
 
     public function create(Request $request)
     {
-        $student =new Student();
-        $student -> birth_date = $request-> birth_date;
-        $student -> email = $request-> email;
-        $student -> name = $request-> name;
-        $student -> nickname = $request-> nickname;
-        $student -> password = Hash::make($request-> password);
-        $student -> surnames = $request-> surnames;
-        $student -> save();
+        $student = new Student();
+        $student->birth_date = $request->birth_date;
+        $student->email = $request->email;
+        $student->name = $request->name;
+        $student->nickname = $request->nickname;
+        $student->password = Hash::make($request->password);
+        $student->surnames = $request->surnames;
+        $student->save();
 
         // Created
         return response(status: 201);
@@ -88,6 +89,22 @@ class StudentController extends Controller
         }
 
         return response($student);
+    }
+
+    public function changePassword(Request $request, $id)
+    {
+        $validatedData = $request->validate([
+            'password' => ['required', 'min:8'],
+        ]);
+
+        $student = Student::findOrFail($id);
+        $student->password = Hash::make($validatedData['password']);
+        $student->save();
+
+        return response()->json([
+            'message' => 'Password changed successfully',
+            'student' => $student
+        ]);
     }
 
     public function delete(Request $request)

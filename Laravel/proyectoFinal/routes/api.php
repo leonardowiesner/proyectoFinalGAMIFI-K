@@ -34,7 +34,8 @@ Route::prefix('student')->group(function () {
     Route::get('/get', [StudentController::class, 'get']);
 
     Route::post('/create', [StudentController::class, 'create']);
-    Route::put('/update', [StudentController::class, 'update']);
+    Route::post('/update', [StudentController::class, 'update']);
+    Route::post('/{id}/change-password', [StudentController::class, 'changePassword']);
 
     Route::delete('/delete', [StudentController::class, 'delete']);
 });
@@ -44,7 +45,7 @@ Route::prefix('teacher')->group(function () {
     Route::get('', [TeacherController::class, 'get']);
 
     Route::post('register', [TeacherController::class, 'create']);
-    Route::put('', [TeacherController::class, 'update']);
+    Route::post('', [TeacherController::class, 'update']);
 
     Route::delete('', [TeacherController::class, 'delete']);
 });
