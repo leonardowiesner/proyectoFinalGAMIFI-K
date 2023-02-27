@@ -17,7 +17,6 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::post('/login', [AuthController::class, 'login']);
 
 Route::prefix('register')->group(function () {
     Route::post('/student', [StudentController::class, 'create']);
@@ -31,7 +30,7 @@ Route::prefix('login')->group(function () {
 
 Route::prefix('student')->group(function () {
     Route::get('/all', [StudentController::class, 'all']);
-    Route::get('/get', [StudentController::class, 'get']);
+    Route::get('/get/{id}', [StudentController::class, 'get']);
 
     Route::post('/create', [StudentController::class, 'create']);
     Route::post('/update', [StudentController::class, 'update']);
@@ -42,7 +41,7 @@ Route::prefix('student')->group(function () {
 
 Route::prefix('teacher')->group(function () {
     Route::get('/all', [TeacherController::class, 'all']);
-    Route::get('', [TeacherController::class, 'get']);
+    Route::get('/get/{id}', [TeacherController::class, 'get']);
 
     Route::post('register', [TeacherController::class, 'create']);
     Route::post('', [TeacherController::class, 'update']);

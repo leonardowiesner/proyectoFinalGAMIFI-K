@@ -48,13 +48,10 @@ class TeacherController extends Controller
         return Teacher::all();
     }
 
-    public function get(Request $request)
+    public function get($id)
     {
-        $data = $request->validate([
-            'id' => 'required|int|gt:0',
-        ]);
-
-        $teacher = Teacher::find($data['id']);
+        
+        $teacher = Teacher::find($id);
 
         if (!$teacher) {
             // No Content

@@ -3,15 +3,17 @@ import { Injectable } from '@angular/core';
 import { filter, Observable } from 'rxjs';
 import { LoginData } from '../interfaces/login-data.interface';
 import { RespuestaServidor } from '../interfaces/respuesta-servidor';
+import { StudentData } from '../interfaces/alumnos-data.interface';
 
 @Injectable({
   providedIn: 'root'
 })
 export class StudentService {
-
+  
   user: LoginData = { email: '', password: '' };
   token: string = "";
   apiURL: string = "http://127.0.0.1:8000/api";
+  student: StudentData | undefined;
 
   constructor(
     private http: HttpClient
@@ -31,6 +33,14 @@ export class StudentService {
 
   }
 
+
+  getStudent(id:number): Observable<StudentData> {
+    return this.http.get<StudentData>(`${this.apiURL}/student/get/${id}`);
+  }
+  saveUser(student: StudentData): Observable<any> {
+    return this.http.put(`${this.apiURL}/student/update`, student);
+  }
+  
   register(data: string) {
     let headers = new HttpHeaders({
       'Content-Type': 'application/json',
