@@ -1,39 +1,50 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { filter, Observable } from 'rxjs';
 import { LoginData } from '../interfaces/login-data.interface';
+import { TeachersData } from '../interfaces/profesores-data.interface';
+import { RespuestaServidor } from '../interfaces/respuesta-servidor';
 
 @Injectable({
   providedIn: 'root'
 })
 export class TeacherService {
 
-  fakeUrl: string = 'assets/serverFake.json';
   user: LoginData = { email: '', password: '' };
+  token: string = "";
+  apiURL: string = "http://127.0.0.1:8000/api";
+  teacher: TeachersData | undefined;
 
   constructor(
     private http: HttpClient
   ) { }
 
-  login(data: LoginData): Observable<LoginData> {
+  login(data: LoginData) : Observable<RespuestaServidor> {
+    let headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Accept': 'application/json'
+    });
+    let options = { headers: headers };
+    console.log(data);
 
-    return this.http.get<LoginData>(this.fakeUrl).pipe(
-      filter((value: any) => {
-        let found = false;
 
-        for (let i = 0; i < value.length; i++) {
-          if (value[i].email == data.email && value[i].password == data.password) {
-            found = true;
-            this.user = {
-              email: value[i].email,
-              password: value[i].password,
-            };
-            break;
-          }
-        }
+    return this.http.post<RespuestaServidor>(`${this.apiURL}/login/teacher`, data,options);
+  }
+  getTeacher(id:number): Observable<TeachersData> {
+    return this.http.get<TeachersData>(`${this.apiURL}/teacher/get/${id}`);
+  }
+  
+  saveUser(teacher: TeachersData): Observable<any> {
+    return this.http.put(`${this.apiURL}/teacher/update`, teacher);
+  }
+  register(data: string) {
+    let headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Accept': 'application/json'
+    });
+    
+    let options = { headers: headers };
 
-        return found;
-      })
-    );
+    return this.http.post(`${this.apiURL}/register/teacher`, data, options);
   }
 }

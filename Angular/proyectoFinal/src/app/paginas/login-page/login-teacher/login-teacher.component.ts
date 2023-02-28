@@ -7,6 +7,7 @@ import { LoginData } from 'src/app/interfaces/login-data.interface';
 import { NavBarService } from 'src/app/services/nav-bar.service';
 import { TeacherService } from 'src/app/services/teacher.service';
 import { HttpClient } from '@angular/common/http';
+import { RespuestaServidor } from 'src/app/interfaces/respuesta-servidor';
 
 
 export class MyErrorStateMatcher implements ErrorStateMatcher {
@@ -25,6 +26,7 @@ export class LoginTeacherComponent implements OnInit {
   constructor(
     private readonly teacherService: TeacherService,
     private readonly router: Router,
+    
     private readonly navBarService: NavBarService,
     private http: HttpClient
   ) { 
@@ -51,13 +53,22 @@ export class LoginTeacherComponent implements OnInit {
       password: (pass) ? pass : ''
     };
    
+    console.log(this.loginForm.value);
     this.teacherService.login(logData)
-      .subscribe({
-        next: (v) => console.log(v),
-        error: (e) => console.error(e),
-        complete: () => this.router.navigate([''])
-    });
-    return this.http.post('http://127.0.0.1:8000/api/login/teacher', JSON.stringify(this.loginForm.value)).toPromise();
+      .subscribe((response: RespuestaServidor) => {
+        
+        // El se loguea correctamente y guardamos el token
+        if (response.status == 1) {
+          this.teacherService.token = response.token!;
+        }
+
+        // En caso de error mostrar al usuario el problema
+        // Swal.fire('Hello world!');
+        
+
+         this.router.navigate(['/teacher']); // redirigimos al usuario a la página de dashboard
+      });
+  
   }
   ngOnInit(): void {
   }
