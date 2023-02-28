@@ -111,9 +111,31 @@
 }
 .form-v8-content .form-row {
     width: 100%;
-  }
-  
-  .form-buttons {
+    position: relative;
+}
+.form-v8-content .form-row .form-row-inner {
+	position: relative;
+	width: 100%;
+}
+.form-v8-content .form-row .form-row-inner .label {
+	position: absolute;
+    top: -2px;
+    left: 10px;
+    font-size: 18px;
+    color: #f2f2f2;
+    font-weight: 400;
+    transform-origin: 0 0;
+    transition: all .2s ease;
+    -moz-transition: all .2s ease;
+    -webkit-transition: all .2s ease;
+    -o-transition: all .2s ease;
+    -ms-transition: all .2s ease;
+}
+.form-v8-content .form-row .form-row-inner .border {
+	position: absolute;
+    bottom: 31px;
+    left: 0;
+    height: 1px;
     width: 100%;
     background: #53c83c;
     transform: scaleX(0);
