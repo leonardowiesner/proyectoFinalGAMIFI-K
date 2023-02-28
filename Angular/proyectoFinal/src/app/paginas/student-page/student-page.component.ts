@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { StudentData } from 'src/app/interfaces/alumnos-data.interface';
 import { Ranking, RankingService } from 'src/app/services/ranking.service';
+import { StudentService } from 'src/app/services/student.service';
 
 @Component({
   selector: 'app-student-page',
@@ -13,12 +15,14 @@ export class StudentPageComponent implements OnInit {
   nuevoCodigoRanking: string = ''; // Código del nuevo ranking al que unirse
   mensajeNoRankings: string = 'No estás matriculado en ningún ranking.'; // Mensaje a mostrar si el alumno no tiene rankings
   mensajeRankings: string = 'Estás matriculado en los siguientes rankings:'; // Mensaje a mostrar si el alumno tiene rankings
+  id:number | undefined;
 
-  constructor(private rankingService: RankingService) { }
+  constructor(private rankingService: RankingService, private studentService: StudentService) { }
 
   ngOnInit(): void {
     // Obtenemos la lista de rankings matriculados por el alumno
     // Suponemos que el alumno está logueado y su ID es 1
+    this.id= this.studentService.student?.id
     this.rankingService.getRankingsAlumno(1).subscribe(
       rankings => {
         this.rankings = rankings;
