@@ -21,8 +21,8 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
 })
 export class LoginPageComponent {
 
-  mostrarFormulario1 = true;
-  mostrarFormulario2 = false;
+  mostrarFormulario1 = false;
+  mostrarFormulario2 = true;
 
 
   
