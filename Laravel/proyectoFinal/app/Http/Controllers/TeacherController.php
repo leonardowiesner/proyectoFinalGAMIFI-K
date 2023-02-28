@@ -3,23 +3,55 @@
 namespace App\Http\Controllers;
 
 use App\Models\Teacher;
+use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 
 class TeacherController extends Controller
 {
+    public function login(Request $request)
+    {
+
+        $request->validate([
+            "email" => "required",
+            "password" => "required"
+        ]);
+
+        $teacher = Teacher::where("email", "=", $request->email)->first();
+
+        if (isset($teacher->id)) {
+            if (Hash::check($request->password, $teacher->password)) {
+                //creamos el token
+                $token = $teacher->createToken("auth_token")->plainTextToken;
+                //si está todo ok
+                return response()->json([
+                    "status" => 1,
+                    "msg" => "¡Usuario logueado exitosamente!",
+                    "access_token" => $token
+                ]);
+            } else {
+                return response()->json([
+                    "status" => 0,
+                    "msg" => "La password es incorrecta",
+                ], 404);
+            }
+        } else {
+            return response()->json([
+                "status" => 0,
+                "msg" => "Usuario no registrado",
+            ], 404);
+        }
+    }
+
     public function all()
     {
         return Teacher::all();
     }
 
-    public function get(Request $request)
+    public function get($id)
     {
-        $data = $request->validate([
-            'id' => 'required|int|gt:0',
-        ]);
-
-        $teacher = Teacher::find($data['id']);
+        
+        $teacher = Teacher::find($id);
 
         if (!$teacher) {
             // No Content
@@ -28,14 +60,28 @@ class TeacherController extends Controller
 
         return $teacher;
     }
-
+    
     public function create(Request $request)
     {
-        $teacher = Teacher::createFromRequest($request);
-        $teacher->save();
+
+        try{
+            $teacher =new Teacher();
+        $teacher -> center = $request-> center;
+        $teacher -> email = $request-> email;
+        $teacher -> name = $request-> name;
+        $teacher -> nickname = $request-> nickname;
+        $teacher -> password = Hash::make($request-> password);
+        $teacher -> surnames = $request-> surnames;
+        $teacher -> save();
+        } catch(Exception $e){
+            return response(status: 400);
+
+        }
 
         // Created
-        return response(status: 201);
+        return response()->json([
+            'teacher' => $teacher
+        ], 200);
     }
 
     public function update(Request $request)
