@@ -19,7 +19,7 @@ class Ranking extends Authenticatable
      */
     protected $fillable = [
         'idUser',
-        'codRanking',
+        'codeRanking',
         'nombre',
         'codigo_sala',
     ];
