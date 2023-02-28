@@ -31,12 +31,12 @@ class rankinController extends Controller
     {
         $request->validate([
             'idUser' => 'required',
-            'codRanking' => 'required',
+            'codeRanking' => 'required',
         ]);
 
         $ranking = new Ranking();
         $ranking->idUser = $request->idUser;
-        $ranking->codRanking = $request->codRanking;
+        $ranking->codeRanking = $request->codeRanking;
         $ranking->save();
 
         return response()->json([

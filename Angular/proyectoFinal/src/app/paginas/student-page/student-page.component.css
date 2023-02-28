@@ -1,0 +1,61 @@
+.profile-link {
+    color: #0d6efd;
+    font-weight: bold;
+    text-decoration: none;
+    margin-right: 10px;
+  }
+  
+  .ranking-container {
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-top: 20px;
+    padding: 20px;
+  }
+  
+  .no-rankings-message {
+    font-weight: bold;
+    color: red;
+  }
+  
+  .rankings-message {
+    font-weight: bold;
+    color: green;
+  }
+  
+  .rankings-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  
+  .form-group {
+    margin-top: 10px;
+  }
+  
+  .form-label {
+    display: block;
+    margin-bottom: 5px;
+  }
+  
+  .form-control {
+    padding: 5px;
+    border-radius: 3px;
+    border: 1px solid #ccc;
+    width: 200px;
+    margin-right: 5px;
+  }
+  
+  .btn {
+    padding: 5px 10px;
+    background-color: #0d6efd;
+    color: #fff;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .btn:hover {
+    background-color: #007bff;
+  }
+  

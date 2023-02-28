@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('ranking_analysis', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('idUser');
-            $table->unsignedBigInteger('codRanking');
+            $table->unsignedBigInteger('codeRanking');
             $table->timestamps();
 
             $table->foreign('idUser')
@@ -24,7 +24,7 @@ return new class extends Migration
                 ->on('users')
                 ->onDelete('cascade');
 
-            $table->foreign('codRanking')
+            $table->foreign('codeRanking')
                 ->references('id')
                 ->on('ranking')
                 ->onDelete('cascade');
