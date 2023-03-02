@@ -29,10 +29,16 @@ Route::prefix('login')->group(function () {
     Route::post('/teacher', [TeacherController::class, 'login']);
 });
 
+Route::prefix('ranking')->group(function () {
+
+});
+
+
 Route::prefix('student')->group(function () {
     Route::get('/all', [StudentController::class, 'all']);
     Route::get('/get/{id}', [StudentController::class, 'get']);
-    Route::get('{id}/rankings', [rankinController::class, 'get']);
+
+    Route::get('{id}/rankings', [rankinController::class, 'getRanking']);
     Route::post('/create', [StudentController::class, 'create']);
     Route::post('/update', [StudentController::class, 'update']);
     Route::post('/{id}/change-password', [StudentController::class, 'changePassword']);
