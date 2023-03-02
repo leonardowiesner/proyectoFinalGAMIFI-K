@@ -1,23 +1,24 @@
 <!-- Futura imagen de perfil -->
 <a class="profile-link" [routerLink]="['/studentProfile']" routerLinkActive="router-link-active">Foto de perfil</a>
 
-<div class="ranking-container" *ngIf="rankings.length == 0">
-  <p class="no-rankings-message">{{mensajeNoRankings}}</p>
-  <div class="form-group">
-    <label class="form-label">Introduce un código de ranking para unirte a uno nuevo:</label>
-    <input class="form-control" type="text" [(ngModel)]="nuevoCodigoRanking">
-    <button class="btn btn-primary" (click)="unirseRanking()">Unirse a ranking</button>
-  </div>
-</div>
-
-<div class="ranking-container" *ngIf="rankings.length > 0">
-  <p class="rankings-message">{{mensajeRankings}}</p>
-  <ul class="rankings-list">
-    <li *ngFor="let ranking of rankings">{{ranking.nombre}}</li>
-  </ul>
-  <div class="form-group">
-    <label class="form-label">Introduce un código de ranking para unirte a uno nuevo:</label>
-    <input class="form-control" type="text" [(ngModel)]="nuevoCodigoRanking">
-    <button class="btn btn-primary" (click)="unirseRanking()">Unirse a ranking</button>
-  </div>
+<div class="ranking-container">
+  <ng-container *ngIf="rankings.length == 0; else rankingList">
+    <p class="no-rankings-message">{{mensajeNoRankings}}</p>
+    <div class="form-group">
+      <label class="form-label" for="nuevo-codigo-ranking">Introduce un código de ranking para unirte a uno nuevo:</label>
+      <input class="form-control" type="text" id="nuevo-codigo-ranking" [(ngModel)]="nuevoCodigoRanking">
+      <button class="btn btn-primary" (click)="unirseRanking()">Unirse a ranking</button>
+    </div>
+  </ng-container>
+  <ng-template #rankingList>
+    <p class="rankings-message">{{mensajeRankings}}</p>
+    <ul class="rankings-list">
+      <li *ngFor="let ranking of rankings">{{ranking.nombre}}</li>
+    </ul>
+    <div class="form-group">
+      <label class="form-label" for="nuevo-codigo-ranking">Introduce un código de ranking para unirte a uno nuevo:</label>
+      <input class="form-control" type="text" id="nuevo-codigo-ranking" [(ngModel)]="nuevoCodigoRanking">
+      <button class="btn btn-primary" (click)="unirseRanking()">Unirse a ranking</button>
+    </div>
+  </ng-template>
 </div>
