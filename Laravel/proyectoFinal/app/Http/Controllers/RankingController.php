@@ -11,7 +11,7 @@ class rankinController extends Controller
     public function createRanking(Request $request)
     {
         $request->validate([
-            'nombre' => '',
+            'nombre' => 'required',
             'codigo_sala' => 'required',
         ]);
 
@@ -31,12 +31,12 @@ class rankinController extends Controller
     {
         $request->validate([
             'idUser' => 'required',
-            'codRanking' => 'required',
+            'codeRanking' => 'required',
         ]);
 
         $ranking = new Ranking();
         $ranking->idUser = $request->idUser;
-        $ranking->codRanking = $request->codRanking;
+        $ranking->codeRanking = $request->codeRanking;
         $ranking->save();
 
         return response()->json([
