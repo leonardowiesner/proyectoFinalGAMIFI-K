@@ -21,13 +21,14 @@ export class StudentPageComponent implements OnInit {
 
   ngOnInit(): void {
     // Obtenemos la lista de rankings matriculados por el alumno
-    // Suponemos que el alumno está logueado y su ID es 1
+
    
     this.rankingService.getRankingsAlumno(this.id).subscribe(
       rankings => {
         this.rankings = rankings;
       }
     );
+    console.log(this.rankings);
   }
 
   unirseRanking(): void {

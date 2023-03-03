@@ -15,12 +15,12 @@ return new class extends Migration
     {
         Schema::create('ranking_analysis', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('idUser');
+            $table->unsignedBigInteger('idStudent');
             $table->unsignedBigInteger('id_sala');
             $table->integer('puntos');
             $table->timestamps();
 
-            $table->foreign('idUser')
+            $table->foreign('idStudent')
                 ->references('id')
                 ->on('students')
                 ->onDelete('cascade');
