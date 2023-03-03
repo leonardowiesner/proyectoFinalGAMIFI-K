@@ -4,13 +4,14 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Ranking;
-
+use App\Models\ranking_analysis;
 
 class rankinController extends Controller
 {
     public function createRanking(Request $request)
     {
         $request->validate([
+            'id_teacher'=>'required',
             'nombre' => 'required',
             'codigo_sala' => 'required',
         ]);
@@ -45,25 +46,21 @@ class rankinController extends Controller
         ]);
     }
 
-    public function getRanking(Request $request){
-       
-        $request->validate([
-            "idUser" => "required",
-            "codigoSala" => "required"
-        ]);
+    public function getRanking($id){
 
-        $ranking = Ranking::where("idUser", "=", $request->idUser, "AND", "codigoSala", "=", $request->codigoSala)->first();
+
+        $ranking = ranking_analysis::where("idStudent", "=", $id)->first();
 
         if (isset($ranking->id)) {
                 return response()->json([
                     "status" => 1,
-                    "msg" => "¡Usuario logueado exitosamente!",
+                    "msg" => "¡Rankings encotrados!",
                     "data" => $ranking
                 ]);
         }else{
             return response()->json([
                 "status" => 0,
-                "msg" => "Usuario no registrado",
+                "msg" => "rankings no registrado",
             ], 404);
         }
     }

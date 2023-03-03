@@ -16,8 +16,15 @@ return new class extends Migration
         Schema::create('ranking', function (Blueprint $table) {
             $table->id();
             $table->string('nombre')->nullable();
+            $table->unsignedBigInteger('idTeacher');
             $table->integer('codigo_sala')->unique();
+
+            $table->foreign('idTeacher')
+            ->references('id')
+            ->on('teachers')
+            ->onDelete('cascade');
         });
+        
     }
 
     /**

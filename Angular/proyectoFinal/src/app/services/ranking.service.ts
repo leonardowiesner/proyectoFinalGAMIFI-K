@@ -3,10 +3,10 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 export interface Ranking {
-  idUser: number;
-  codeRanking: string;
+  id: number;
   nombre: string;
-  codigo_sala: string;
+  idTeacher: string;
+  codigo_sala: number;
 }
 
 @Injectable({
