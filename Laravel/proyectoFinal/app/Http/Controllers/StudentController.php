@@ -122,4 +122,17 @@ class StudentController extends Controller
             status: $student->delete() ? 200 : 204
         );
     }
+    public function updateimg(Request $request)
+    {
+        $student = Student::find($request->id);
+        $student->img = $request->img;
+        $student->save();
+
+        if (empty($student)) {
+            // No Content
+            return response(status: 204);
+        }
+
+        return response($student);
+    }
 }
