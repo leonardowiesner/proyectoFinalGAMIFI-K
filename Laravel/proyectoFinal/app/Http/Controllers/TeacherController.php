@@ -113,4 +113,17 @@ class TeacherController extends Controller
             status: $teacher->delete() ? 200 : 204
         );
     }
+    // Actualizar imagen 
+    public function updateimg(Request $request)
+    {
+        $student = Teacher::find($request->id);
+        $student->img = $request->img;
+        $student->save();
+
+        if (empty($Teacher)) {
+            return response(status: 204);
+        }
+
+        return response($Teacher);
+    }
 }

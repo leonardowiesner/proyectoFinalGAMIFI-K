@@ -40,6 +40,8 @@ Route::prefix('student')->group(function () {
 
     Route::post('/create', [StudentController::class, 'create']);
     Route::post('/update', [StudentController::class, 'update']);
+    Route::post('/updateimg', [StudentController::class, 'updateimg']);
+    
     Route::post('/{id}/change-password', [StudentController::class, 'changePassword']);
 
     Route::delete('/delete', [StudentController::class, 'delete']);
@@ -52,6 +54,8 @@ Route::prefix('teacher')->group(function () {
 
     Route::post('register', [TeacherController::class, 'create']);
     Route::post('', [TeacherController::class, 'update']);
+    Route::post('/updateimg', [TeacherController::class, 'updateimg']);
+
 
     Route::delete('', [TeacherController::class, 'delete']);
 });
