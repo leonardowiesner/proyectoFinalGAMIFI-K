@@ -14,12 +14,16 @@ export class StudentService {
   user: LoginData = { email: '', password: '' };
   token: string = "";
   apiURL: string = "http://127.0.0.1:8000/api";
-  student: StudentData | undefined;
+  student: StudentData ;
 
   constructor(
     private http: HttpClient,
     private cookieService: CookieService
-  ) { }
+  ) { 
+    this.student = new StudentData(
+      0,"","","","","",new Date
+    );
+  }
 
 
   login(data: LoginData): Observable<RespuestaServidor> {

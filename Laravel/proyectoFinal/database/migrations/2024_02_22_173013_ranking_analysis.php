@@ -16,15 +16,16 @@ return new class extends Migration
         Schema::create('ranking_analysis', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('idUser');
-            $table->unsignedBigInteger('codRanking');
+            $table->unsignedBigInteger('id_sala');
+            $table->integer('puntos');
             $table->timestamps();
 
             $table->foreign('idUser')
                 ->references('id')
-                ->on('users')
+                ->on('students')
                 ->onDelete('cascade');
 
-            $table->foreign('codRanking')
+            $table->foreign('id_sala')
                 ->references('id')
                 ->on('ranking')
                 ->onDelete('cascade');
@@ -36,6 +37,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('users');
+        Schema::dropIfExists('ranking_analysis');
     }
 };
