@@ -1,11 +1,11 @@
 <?php
 
 use App\Http\Controllers\AuthController;
-use App\Http\Controllers\rankinController;
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\TeacherController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\RankingController;
 
 /*
 |--------------------------------------------------------------------------
@@ -27,18 +27,17 @@ Route::prefix('register')->group(function () {
 Route::prefix('login')->group(function () {
     Route::post('/student', [StudentController::class, 'login']);
     Route::post('/teacher', [TeacherController::class, 'login']);
+    
 });
 
-Route::prefix('ranking')->group(function () {
-
-});
-
+    
 
 Route::prefix('student')->group(function () {
     Route::get('/all', [StudentController::class, 'all']);
     Route::get('/get/{id}', [StudentController::class, 'get']);
+    Route::post('/rankings', [RankingController::class, 'getRanking']); 
+      
 
-    Route::get('{id}/rankings', [rankinController::class, 'getRanking']);
     Route::post('/create', [StudentController::class, 'create']);
     Route::post('/update', [StudentController::class, 'update']);
     Route::post('/{id}/change-password', [StudentController::class, 'changePassword']);
@@ -57,6 +56,6 @@ Route::prefix('teacher')->group(function () {
     Route::delete('', [TeacherController::class, 'delete']);
 });
 
-Route::middleware('auth:sanctum')->group(function () {
+ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/user', fn(Request $request) => $request->user());
-});
+}); 

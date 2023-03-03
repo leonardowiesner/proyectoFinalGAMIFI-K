@@ -28,6 +28,7 @@ export class StudentPageComponent implements OnInit {
         this.rankings = rankings;
       }
     );
+    console.log(this.rankings);
   }
 
   unirseRanking(): void {

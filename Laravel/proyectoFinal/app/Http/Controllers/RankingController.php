@@ -5,8 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Ranking;
 use App\Models\ranking_analysis;
+use Illuminate\Support\Facades\DB;
 
-class rankinController extends Controller
+class RankingController extends Controller
 {
     public function createRanking(Request $request)
     {
@@ -46,22 +47,19 @@ class rankinController extends Controller
         ]);
     }
 
-    public function getRanking($id){
+    public function getRanking(Request $request){
 
+    
 
-        $ranking = ranking_analysis::where("idStudent", "=", $id)->first();
-
-        if (isset($ranking->id)) {
+        $ranking = DB::table('ranking_analysis')
+            ->where('idStudent', '=', $request->id)
+            ->orderByDesc('puntos') 
+            ->get();
                 return response()->json([
                     "status" => 1,
                     "msg" => "¡Rankings encotrados!",
                     "data" => $ranking
                 ]);
-        }else{
-            return response()->json([
-                "status" => 0,
-                "msg" => "rankings no registrado",
-            ], 404);
-        }
-    }
+       
+    } 
 }
