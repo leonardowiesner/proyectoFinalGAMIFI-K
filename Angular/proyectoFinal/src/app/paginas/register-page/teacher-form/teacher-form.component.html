@@ -1,42 +1,85 @@
 
-<div class="bg-light p-5 rounded-5 text-secondary">
-
-
+<!--<div class="bg-success p-5 rounded-5 text-secondary">
  <h2>Profesor</h2>
-<form [formGroup]="teacherForm">
-  <mat-form-field>
-    <input matInput placeholder="nickname" formControlName="nickname">
-  </mat-form-field>
-  <br>
-  <mat-form-field>
-    <input matInput placeholder="Email" formControlName="email">
-  </mat-form-field>
-  <br>
-  <mat-form-field>
-    <input matInput type="password" placeholder="password" formControlName="password">
-  </mat-form-field>
-  <br>
-  <mat-form-field>
-    <input matInput type="password" placeholder="Confirmar password" formControlName="confirmarpassword">
-  </mat-form-field>
-  <br>
-  <mat-form-field>
-    <input matInput placeholder="name" formControlName="name">
-  </mat-form-field>
-  <br>
-  <mat-form-field>
-    <input matInput placeholder="surnames" formControlName="surnames">
-  </mat-form-field>
-  <br>
-  <mat-form-field>
-    <input matInput placeholder="center" formControlName="center">
-  </mat-form-field>
-  <br>
-  <div *ngIf="teacherForm.get('password')?.value !== teacherForm.get('confirmarpassword')?.value">
-    Las passwords no coinciden.
+   <form [formGroup]="teacherForm">
+    <mat-form-field>
+      <input matInput placeholder="nickname" formControlName="nickname">
+    </mat-form-field>
+    <br>
+    <mat-form-field>
+      <input matInput placeholder="Email" formControlName="email">
+    </mat-form-field>
+    <br>
+    <mat-form-field>
+      <input matInput type="password" placeholder="password" formControlName="password">
+    </mat-form-field>
+    <br>
+    <mat-form-field>
+      <input matInput type="password" placeholder="Confirmar password" formControlName="confirmarpassword">
+    </mat-form-field>
+    <br>
+    <mat-form-field>
+      <input matInput placeholder="name" formControlName="name">
+    </mat-form-field>
+    <br>
+    <mat-form-field>
+      <input matInput placeholder="surnames" formControlName="surnames">
+    </mat-form-field>
+    <br>
+    <mat-form-field>
+      <input matInput placeholder="center" formControlName="center">
+    </mat-form-field>
+    <br>
+    <div *ngIf="teacherForm.get('password')?.value !== teacherForm.get('confirmarpassword')?.value">
+      Las passwords no coinciden.
+    </div>
+    <br>
+    <button mat-raised-button color="primary" class="btn btn-primary" type="submit" (click)="enviar()"
+    >Registrarse</button>
+  </form> 
+</div>-->
+
+  <form [formGroup]="teacherForm">
+     <div>
+      <div>
+          <label class="form-label" for="nickname">Nickname *</label>
+          <input class="input-text"  placeholder="Tu nickname" formControlName="nickname">
+      </div>
+      <div>
+          <label class="form-label" for="nickname">Correo electrónico *</label>
+          <input class="input-text"  placeholder="name@ilerna.com" formControlName="email">
+      </div>
+      <div>
+          <label class="form-label" for="contraseña">Contraseña *
+             <span class="subtitle">(Mínimo 8 caracteres)</span> 
+          </label>
+          <input class="input-text"  type="password"  placeholder="Tu Password" formControlName="password">
+      </div>
+      <div>
+          <label class="form-label" for="confirmarpassword">Confirmar Password *</label>
+          <input  class="input-text"  type="password" placeholder="Confirmar password" formControlName="confirmarpassword">
+      </div>
+      <div>
+          <label class="form-label" for="Nombre">Nombre * </label>
+          <input  placeholder="Nombre" class="input-text" placeholder="Tu nombre" formControlName="name">
+      </div>
+      <div>
+        <label class="form-label" for="last-name">Apellidos *</label>
+        <input class="input-text" formControlName="surnames" placeholder="Tus Apellidos" />
+      </div>
+      <div>
+        <label class="form-label" for="last-name">Centro *</label>
+        <input class="input-text" formControlName="center" placeholder="Nombre de tu Centro" />
+      </div>
+     </div>
+     <div *ngIf="teacherForm.get('password')?.value !== teacherForm.get('confirmarpassword')?.value">
+      Las passwords no coinciden.
+    </div>
+    <div>
+      <div class="form-footer">
+          <button class="neon"  type="submit" (click)="enviar()">
+              <span>Crear cuenta</span> 
+          </button>
+      </div>
   </div>
-  <br>
-  <button mat-raised-button color="primary" class="btn btn-primary" type="submit" (click)="enviar()"
-  >Registrarse</button>
-</form>
-</div>
+  </form>

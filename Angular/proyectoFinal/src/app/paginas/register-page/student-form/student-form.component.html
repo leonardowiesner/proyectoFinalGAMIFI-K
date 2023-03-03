@@ -1,4 +1,4 @@
-
+<!-- 
 <div class="bg-light p-5 rounded-5 text-secondary">
   <h2>Alumno</h2>
   <form [formGroup]="studentForm">
@@ -39,4 +39,48 @@
     >Registrarse</button>
   </form>
   </div>
-  
+   -->
+   <form [formGroup]="studentForm">
+    <div>
+      <div>
+          <label class="form-label" for="nickname">Nickname *</label>
+          <input class="input-text"  placeholder="Tu nickname" formControlName="nickname">
+      </div>
+      <div>
+          <label class="form-label" for="nickname">Correo electrónico *</label>
+          <input class="input-text"  placeholder="name@ilerna.com" formControlName="email">
+      </div>
+      <div>
+          <label class="form-label" for="contraseña">Contraseña *
+             <span class="subtitle">(Mínimo 8 caracteres)</span> 
+          </label>
+          <input class="input-text"  type="password"  placeholder="Tu Password" formControlName="password">
+      </div>
+      <div>
+          <label class="form-label" for="confirmarpassword">Confirmar Password *</label>
+          <input  class="input-text"  type="password" placeholder="Confirmar password" formControlName="confirmarpassword">
+      </div>
+      <div>
+          <label class="form-label" for="Nombre">Nombre * </label>
+          <input  placeholder="Nombre"  class="input-text" placeholder="Tu nombre" formControlName="name">
+      </div>
+      <div>
+        <label class="form-label" for="last-name">Apellidos *</label>
+        <input class="input-text" formControlName="surnames" placeholder="Tus Apellidos" />
+      </div>
+      <div>
+        <label class="form-label" for="last-name">Fecha de nacimiento *</label>
+        <input type="date" class="input-text"formControlName="birth_date" placeholder="Nombre de tu Centro" />
+      </div>
+     </div>
+     <div *ngIf="studentForm.get('password')?.value !== studentForm.get('confirmarpassword')?.value">
+      Las passwords no coinciden.
+    </div>
+    <div>
+      <div class="form-footer">
+          <button class="neon"  type="submit" (click)="enviar()">
+              <span>Crear cuenta</span> 
+          </button>
+      </div>
+  </div>
+   </form>
