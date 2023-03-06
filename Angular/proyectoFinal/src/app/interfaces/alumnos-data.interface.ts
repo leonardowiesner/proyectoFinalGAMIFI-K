@@ -8,9 +8,10 @@ export class StudentData extends UserData {
     surnames: string,
     email: string,
     password: string,
+    img: string,
     public nacimiento: Date,
   ) {
-    super(id,nick, name, surnames, email, password);
+    super(id,nick, name, surnames, email, password,img);
   }
   }
   

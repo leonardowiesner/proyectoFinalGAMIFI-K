@@ -21,7 +21,7 @@ export class StudentService {
     private cookieService: CookieService
   ) { 
     this.student = new StudentData(
-      0,"","","","","",new Date
+      0,"","","","","","",new Date
     );
   }
 
@@ -49,6 +49,17 @@ export class StudentService {
     console.log(this.student);
     return this.http.post<StudentData>(`${this.apiURL}/student/${this.student?.id}/change-password`, this.student, options);
   }
+
+  changeImg(img:string){
+    let headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Accept': 'application/json'
+    });
+    let options = { headers: headers };
+    this.student!.img = img;
+    return this.http.post<StudentData>(`${this.apiURL}/student/updateimg`, this.student, options);
+  }
+
 
   getStudent(id:number): Observable<StudentData> {
     

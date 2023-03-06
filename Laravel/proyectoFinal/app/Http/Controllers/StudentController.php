@@ -123,7 +123,8 @@ class StudentController extends Controller
         );
     }
     public function updateimg(Request $request)
-    {
+    {   
+        
         $student = Student::find($request->id);
         $student->img = $request->img;
         $student->save();
@@ -132,7 +133,7 @@ class StudentController extends Controller
             // No Content
             return response(status: 204);
         }
-
+        
         return response($student);
     }
 }

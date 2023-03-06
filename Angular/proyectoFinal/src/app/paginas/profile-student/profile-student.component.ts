@@ -14,13 +14,13 @@ import { CookieService } from 'ngx-cookie-service';
 })
 export class ProfileStudentComponent implements OnInit {
   student: StudentData;
-
+  cambiar:boolean  =false;
   constructor(
     private studentService: StudentService,
     private dialog: MatDialog,
     private cookieService: CookieService
   ) { 
-    this.student = {id: 0, nick : "", name:"", surnames:"", email:"", password:"",nacimiento: new Date }
+    this.student = {id: 0, nick : "", name:"", surnames:"", email:"", password:"",img:"",nacimiento: new Date }
   }
 
 
@@ -60,6 +60,14 @@ export class ProfileStudentComponent implements OnInit {
         this.save();
       }
     });
+  }
+
+  changeImg(){
+    this.cambiar=true;
+     this.studentService.changeImg(this.student.img)//.subscribe(() => {
+    //   console.log('Imagen guardada');
+    // });
+    console.log(this.student.img);
   }
 
 }
