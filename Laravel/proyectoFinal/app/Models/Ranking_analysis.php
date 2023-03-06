@@ -9,8 +9,8 @@ class ranking_analysis extends Model
 {
     use HasFactory;
     protected $fillable = [
-        'idStudent',
-        'idSala',
-        'puntos'
+        'id_student',
+        'id_room',
+        'points'
     ];
 }

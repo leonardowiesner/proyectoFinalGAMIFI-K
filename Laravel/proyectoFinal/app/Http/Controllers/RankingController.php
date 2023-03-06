@@ -27,11 +27,6 @@ class RankingController extends Controller
             "msg" => "Ranking creado exitosamente",
         ]);
 
-/*             return response()->json([
-                "status" => 0,
-                "msg" => "Ranking catch ERROR",
-            ]);
-*/
     }
 
 
