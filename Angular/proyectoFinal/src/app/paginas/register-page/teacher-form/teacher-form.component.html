@@ -72,10 +72,11 @@
         <input class="input-text" formControlName="center" placeholder="Nombre de tu Centro" />
       </div>
      </div>
-     <div *ngIf="teacherForm.get('password')?.value !== teacherForm.get('confirmarpassword')?.value">
+     <div *ngIf="teacherForm.get('confirmarpassword')?.value !== '' && teacherForm.get('password')?.value !== teacherForm.get('confirmarpassword')?.value">
       Las passwords no coinciden.
     </div>
     <div>
+      <p class="form-legend highlighted">Campos obligatorios *</p>
       <div class="form-footer">
           <button class="neon"  type="submit" (click)="enviar()">
               <span>Crear cuenta</span> 

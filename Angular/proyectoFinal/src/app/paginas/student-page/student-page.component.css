@@ -12,8 +12,11 @@
   }
   
   .no-rankings-message {
-    font-size: 18px;
-    font-weight: bold;
+    font-size: 2.0rem;
+    font-weight: bolder;
+    text-align: center;
+    margin-top: 8rem;
+    margin-bottom: 3rem;
   }
   
   .rankings-message {
@@ -37,17 +40,20 @@
   }
   
   .form-label {
+
     display: block;
-    margin-bottom: 5px;
+    /* margin: 2rem 14rem; */
+    margin:0 50rem;
+    font-size: 21px;
   }
   
   .form-control {
-    width: 100%;
-    padding: 10px;
+    width: 40%;
+    padding: 15px;
     border: 1px solid #ccc;
     border-radius: 4px;
     font-size: 16px;
-    margin-bottom: 10px;
+    margin:2rem auto;
   }
   
   .btn {
@@ -59,8 +65,29 @@
     background-color: #007bff;
     color: #fff;
     transition: background-color 0.3s ease;
+    display: block;
+    margin: 0 auto;
   }
   
   .btn:hover {
     background-color: #0062cc;
+  }
+  .img, svg{
+    width: 2rem !important; 
+    height: 2rem !important;
+  }
+  .dinoimage .img{
+    width: 2rem !important; 
+    height: 2rem !important;
+  }
+
+  .limitsContainer{
+    margin: 0 auto;
+  }
+
+  img , svg{
+    display: block;
+    margin: 0 auto;
+    width: 30rem !important;
+    height: 21rem !important;
   }

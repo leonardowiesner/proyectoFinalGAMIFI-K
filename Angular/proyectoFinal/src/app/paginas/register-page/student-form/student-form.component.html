@@ -57,9 +57,12 @@
           <input class="input-text"  type="password"  placeholder="Tu Password" formControlName="password">
       </div>
       <div>
-          <label class="form-label" for="confirmarpassword">Confirmar Password *</label>
+          <label class="form-label" for="confirmarpassword">Confirmar Contraseña *</label>
           <input  class="input-text"  type="password" placeholder="Confirmar password" formControlName="confirmarpassword">
       </div>
+       <div *ngIf="studentForm.get('confirmarpassword')?.value !== '' && studentForm.get('password')?.value !== studentForm.get('confirmarpassword')?.value">
+        Las contraseñas no coinciden.
+      </div> 
       <div>
           <label class="form-label" for="Nombre">Nombre * </label>
           <input  placeholder="Nombre"  class="input-text" placeholder="Tu nombre" formControlName="name">
@@ -73,10 +76,8 @@
         <input type="date" class="input-text"formControlName="birth_date" placeholder="Nombre de tu Centro" />
       </div>
      </div>
-     <div *ngIf="studentForm.get('password')?.value !== studentForm.get('confirmarpassword')?.value">
-      Las passwords no coinciden.
-    </div>
     <div>
+      <p class="form-legend highlighted">Campos obligatorios *</p>
       <div class="form-footer">
           <button class="neon"  type="submit" (click)="enviar()">
               <span>Crear cuenta</span> 
