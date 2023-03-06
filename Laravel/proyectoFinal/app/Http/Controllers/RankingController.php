@@ -48,29 +48,26 @@ class RankingController extends Controller
         ]);
     }
 
-    public function getRanking(Request $request)
-    {
+    public function getRankingbyS(Request $request)
+{
 
-        $request->validate([
-            "id_user" => "required",
-            "cod_room" => "required"
+    $request->validate([
+        "id_student" => "required",
+    ]);
+
+    $rankings = ranking_analysis::where('id_student', $request->id_student)->get();
+
+    if ($rankings->count() > 0) {
+        return response()->json([
+            "status" => 1,
+            "msg" => "Se han encontrado las salas correctamente",
+            "data" => $rankings
         ]);
-
-        $ranking = Ranking::where('id_user', $request->idUser)
-            ->where('cod_room', $request->codigoSala)
-            ->get();
-
-        if (isset($ranking->id)) {
-            return response()->json([
-                "status" => 1,
-                "msg" => "Se ah encontrado la sala correctamente",
-                "data" => $ranking
-            ]);
-        } else {
-            return response()->json([
-                "status" => 0,
-                "msg" => "No se encontro la sala",
-            ], 404);
-        }
+    } else {
+        return response()->json([
+            "status" => 0,
+            "msg" => "No se encontraron salas para el usuario especificado",
+        ], 404);
     }
+}
 }
