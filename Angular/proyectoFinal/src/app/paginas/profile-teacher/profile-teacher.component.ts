@@ -18,7 +18,7 @@ export class ProfileTeacherComponent implements OnInit {
     private dialog: MatDialog
   ) { 
 
-    this.teacher = {id: 0, nick : "", name:"", surnames:"", email:"", password:"",centro: ""}
+    this.teacher = {id: 0, nick : "", name:"", surnames:"", email:"", password:"",img:"",centro: ""}
 
   }
 

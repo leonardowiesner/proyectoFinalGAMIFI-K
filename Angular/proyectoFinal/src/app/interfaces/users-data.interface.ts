@@ -7,6 +7,7 @@ export class UserData {
     public surnames: string,
     public email: string,
     public password: string,
+    public img: string,
   ) { }
 }
   

@@ -1,9 +1,11 @@
 
-<div *ngIf="student">
     <h2>Perfil</h2>
     
 
     <form>
+      <div>
+        <img [src]="student.img" alt="">
+      </div>
       <div>
         <label>Nombre:</label>
         <input type="text" [(ngModel)]="student.name" name="name" disabled>
@@ -16,12 +18,15 @@
         <label>Correo electrónico:</label>
         <input type="email" [(ngModel)]="student.email" name="email" disabled>
       </div>
+      <div *ngIf="cambiar">
+        <input type="text" [(ngModel)]="student.img" name="img">
+      </div>
       <div>
 
         <button (click)="openChangePasswordDialog()">Cambiar contraseña</button>
-
+        <button (click)="changeImg()">Cambiar imagen de perfil</button>
       </div>
       <button type="submit" (click)="save()">Guardar</button>
     </form>
-  </div>
+
   
