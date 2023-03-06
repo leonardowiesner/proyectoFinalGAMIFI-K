@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, NgForm, Validators } from '@angular/forms';
+import { NavBarService } from 'src/app/services/nav-bar.service';
+
 
 
 @Component({
@@ -11,7 +13,10 @@ export class RegisterPageComponent implements OnInit {
 
   mostrarFormulario1 = true;
   mostrarFormulario2 = false;
-  constructor( ) {
+  constructor(
+    private readonly navBarService: NavBarService
+   ) {
+    navBarService.showNavbar = false; //Ocultar nav bar en el formulario de registro
 
   }
 

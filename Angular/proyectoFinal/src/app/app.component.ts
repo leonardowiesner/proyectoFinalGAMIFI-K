@@ -16,5 +16,4 @@ export class AppComponent {
   public get showNavBar() : boolean {
     return this.app.showNavbar;
   }
-  
 }

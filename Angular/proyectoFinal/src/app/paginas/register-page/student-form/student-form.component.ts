@@ -3,6 +3,8 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { passwordmatch } from 'src/validators/passwordMatch';
 import { Router } from '@angular/router';
 import { StudentService } from 'src/app/services/student.service';
+import { NavBarService } from 'src/app/services/nav-bar.service';
+
 @Component({
   selector: 'app-student-form',
   templateUrl: './student-form.component.html',
@@ -14,6 +16,7 @@ export class StudentFormComponent  {
   constructor(
     private fb: FormBuilder,
     private student: StudentService,
+    private readonly navBarService: NavBarService,
     private readonly router: Router) {
     this.studentForm = this.fb.group({
       nickname: ['', Validators.required],
@@ -24,12 +27,12 @@ export class StudentFormComponent  {
       surnames: ['', Validators.required],
       birth_date: ['', Validators.required],
     }, [passwordmatch("password", "confirmarpassword")]);
+    navBarService.showNavbar = false; //Ocultar nav bar en el formulario de registro
   }
 
 
   enviar() {
     console.log(this.studentForm.value);
-
     this.student.register(JSON.stringify(this.studentForm.value)).subscribe(
       response => {
         console.log(response);
@@ -39,6 +42,8 @@ export class StudentFormComponent  {
         console.log(error);
       });
   }
+
+
 
 
 

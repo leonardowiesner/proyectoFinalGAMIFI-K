@@ -4,6 +4,8 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { passwordmatch } from 'src/validators/passwordMatch';
 import { Router } from '@angular/router';
 import { TeacherService } from 'src/app/services/teacher.service';
+import { NavBarService } from 'src/app/services/nav-bar.service';
+
 @Component({
   selector: 'app-teacher-form',
   templateUrl: './teacher-form.component.html',
@@ -16,7 +18,8 @@ export class TeacherFormComponent {
   constructor(private fb: FormBuilder,
     private http: HttpClient,
     private teacher: TeacherService,
-    private readonly router: Router,) { 
+    private readonly router: Router,
+    private readonly navBarService: NavBarService) { 
     this.teacherForm = this.fb.group({
       nickname: ['', Validators.required],
       email: ['', [Validators.required, Validators.pattern(/^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$/)]],
@@ -26,11 +29,10 @@ export class TeacherFormComponent {
       surnames: ['', Validators.required],
       center: ['', Validators.required],
     }, [passwordmatch("password","confirmarpassword")]);
+    navBarService.showNavbar = false; //Ocultar nav bar en el formulario de registro
+
+
   }
-
-  // enviar() {
-
-
 enviar() {
 
   console.log(this.teacherForm.value);

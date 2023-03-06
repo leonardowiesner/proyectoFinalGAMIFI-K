@@ -13,7 +13,7 @@ import { StudentService } from 'src/app/services/student.service';
 export class StudentPageComponent implements OnInit {
   rankings: Ranking[] = []; // Lista de rankings matriculados por el alumno
   nuevoCodigoRanking: string = ''; // Código del nuevo ranking al que unirse
-  mensajeNoRankings: string = 'No estás matriculado en ningún ranking.'; // Mensaje a mostrar si el alumno no tiene rankings
+  mensajeNoRankings: string = 'Ups! Parece que no estás matriculado en ningún ranking.'; // Mensaje a mostrar si el alumno no tiene rankings
   mensajeRankings: string  = 'Estás matriculado en los siguientes rankings:'; // Mensaje a mostrar si el alumno tiene rankings
   id=this.studentService.student.id;
 
