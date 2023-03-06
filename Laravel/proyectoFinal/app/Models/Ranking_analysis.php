@@ -8,7 +8,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 
-class Ranking extends Authenticatable
+class ranking_analysis extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
 
@@ -18,7 +18,7 @@ class Ranking extends Authenticatable
      * @var array<int, string>
      */
     protected $fillable = [
-        'name',
-        'cod_room',
+        'id_user',
+        'cod_ranking',
     ];
 }

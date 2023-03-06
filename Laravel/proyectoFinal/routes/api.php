@@ -3,6 +3,8 @@
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\TeacherController;
+use App\Http\Controllers\RankingController;
+use App\Models\Ranking;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -31,7 +33,6 @@ Route::prefix('login')->group(function () {
 Route::prefix('student')->group(function () {
     Route::get('/all', [StudentController::class, 'all']);
     Route::get('/get/{id}', [StudentController::class, 'get']);
-
     Route::post('/create', [StudentController::class, 'create']);
     Route::post('/update', [StudentController::class, 'update']);
     Route::post('/{id}/change-password', [StudentController::class, 'changePassword']);
@@ -42,11 +43,12 @@ Route::prefix('student')->group(function () {
 Route::prefix('teacher')->group(function () {
     Route::get('/all', [TeacherController::class, 'all']);
     Route::get('/get/{id}', [TeacherController::class, 'get']);
-
     Route::post('register', [TeacherController::class, 'create']);
+    Route::post('create-ranking', [RankingController::class, 'createRanking']);
     Route::post('', [TeacherController::class, 'update']);
 
     Route::delete('', [TeacherController::class, 'delete']);
+
 });
 
 Route::middleware('auth:sanctum')->group(function () {

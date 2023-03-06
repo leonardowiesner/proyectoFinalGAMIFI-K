@@ -11,27 +11,33 @@ class rankinController extends Controller
     public function createRanking(Request $request)
     {
         $request->validate([
-            'nombre' => '',
-            'codigo_sala' => 'required',
+            'name' => 'required',
+            'cod_room' => 'required',
         ]);
 
         $ranking = new Ranking();
-        $ranking->nombre = $request->nombre;
-        $ranking->codigo_sala = $request->codigo_sala;
+        $ranking->name = $request->name;
+        $ranking->cod_room = $request->cod_room;
         $ranking->save();
 
         return response()->json([
             "status" => 1,
-            "msg" => "¡Registro de usuario al ranking exitoso!",
+            "msg" => "Ranking creado exitosamente",
         ]);
+
+/*             return response()->json([
+                "status" => 0,
+                "msg" => "Ranking catch ERROR",
+            ]);
+*/
     }
 
 
     public function addToRanking(Request $request)
     {
         $request->validate([
-            'idUser' => 'required',
-            'codRanking' => 'required',
+            'id_user' => 'required',
+            'cod_ranking' => 'required',
         ]);
 
         $ranking = new Ranking();
@@ -41,29 +47,32 @@ class rankinController extends Controller
 
         return response()->json([
             "status" => 1,
-            "msg" => "¡Registro de usuario exitoso!",
+            "msg" => "Usuario registrado en el ranking",
         ]);
     }
 
-    public function getRanking(Request $request){
-       
+    public function getRanking(Request $request)
+    {
+
         $request->validate([
-            "idUser" => "required",
-            "codigoSala" => "required"
+            "id_user" => "required",
+            "cod_room" => "required"
         ]);
 
-        $ranking = Ranking::where("idUser", "=", $request->idUser, "AND", "codigoSala", "=", $request->codigoSala)->first();
+        $ranking = Ranking::where('id_user', $request->idUser)
+            ->where('cod_room', $request->codigoSala)
+            ->get();
 
         if (isset($ranking->id)) {
-                return response()->json([
-                    "status" => 1,
-                    "msg" => "¡Usuario logueado exitosamente!",
-                    "data" => $ranking
-                ]);
-        }else{
+            return response()->json([
+                "status" => 1,
+                "msg" => "Se ah encontrado la sala correctamente",
+                "data" => $ranking
+            ]);
+        } else {
             return response()->json([
                 "status" => 0,
-                "msg" => "Usuario no registrado",
+                "msg" => "No se encontro la sala",
             ], 404);
         }
     }
