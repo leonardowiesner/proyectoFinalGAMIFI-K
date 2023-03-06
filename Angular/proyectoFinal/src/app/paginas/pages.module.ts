@@ -12,9 +12,8 @@ import { ChangePasswordDialogComponent } from './profile-student/change-password
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { MatDialogModule } from '@angular/material/dialog';
-
 import { CommonModule } from '@angular/common';
-
+import { MatInputModule } from '@angular/material/input';
 
 
 @NgModule({
@@ -25,7 +24,7 @@ import { CommonModule } from '@angular/common';
     FormsModule,
     RouterModule,
     MatDialogModule,
-
+    MatInputModule,
     CommonModule
 
   ]

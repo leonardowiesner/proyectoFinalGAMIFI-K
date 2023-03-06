@@ -24,6 +24,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { LoginStudentComponent } from './paginas/login-page/login-student/login-student.component';
 import { TeacherPageComponent } from './paginas/teacher-page/teacher-page.component';
 import { LoginTeacherComponent } from './paginas/login-page/login-teacher/login-teacher.component';
+import { SidebarComponent } from './sidebar/sidebar.component';
 
 
 @NgModule({
@@ -35,7 +36,8 @@ import { LoginTeacherComponent } from './paginas/login-page/login-teacher/login-
     StudentFormComponent,
     TeacherFormComponent,
     LoginStudentComponent,
-    LoginTeacherComponent
+    LoginTeacherComponent,
+    SidebarComponent
   
   ],
   imports: [

@@ -17,6 +17,7 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('surnames');
+            $table->string('img')->default("https://www.softzone.es/app/uploads-softzone.es/2018/04/guest.png");  
             $table->string('email')->unique();
             $table->string('password');
             $table->string('nickname')->unique();

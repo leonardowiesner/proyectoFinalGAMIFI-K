@@ -4,15 +4,17 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Ranking;
+use App\Models\ranking_analysis;
+use Illuminate\Support\Facades\DB;
 
-
-class rankinController extends Controller
+class RankingController extends Controller
 {
     public function createRanking(Request $request)
     {
         $request->validate([
             'name' => 'required',
             'cod_room' => 'required',
+
         ]);
 
         $ranking = new Ranking();
@@ -42,7 +44,7 @@ class rankinController extends Controller
 
         $ranking = new Ranking();
         $ranking->idUser = $request->idUser;
-        $ranking->codRanking = $request->codRanking;
+        $ranking->codeRanking = $request->codeRanking;
         $ranking->save();
 
         return response()->json([

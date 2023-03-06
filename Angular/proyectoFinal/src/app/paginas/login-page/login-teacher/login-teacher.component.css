@@ -15,7 +15,7 @@
 	-moz-box-shadow: 0px 8px 20px 0px rgba(0, 0, 0, 0.15);
 	-webkit-box-shadow: 0px 8px 20px 0px rgba(0, 0, 0, 0.15);
 	/* margin: 177px 0; */
-	font-family: 'Source Sans Pro', sans-serif;
+	/* font-family: 'Source Sans Pro', sans-serif; */
 	color: #fff;
 	position: relative;
 	display: flex;
@@ -178,7 +178,7 @@
 	padding: 11px;
 }
 /* Responsive */
-@media screen and (max-width: 991px) {
+@media screen and (max-width: 800px) {
 	.form-v8-content {
 		margin: 180px 20px;
 		flex-direction:  column;
@@ -260,7 +260,7 @@
   color: #222;
   text-align: center;
   line-height: 40px;
-  font-family: 'Open Sans', sans-serif;
+  font-family: 'Nunito', sans-serif !important;
   font-weight: 300;
   letter-spacing: 0.2em;
   transition: ease 0.3s;
@@ -268,6 +268,7 @@
 
 .mat-form-field {
 	text-align: center;
+	font-family: 'Nunito', sans-serif;
 }
 
 .mat-input-element{

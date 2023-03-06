@@ -21,7 +21,7 @@ return new class extends Migration
 
             $table->foreign('id_user')
                 ->references('id')
-                ->on('users')
+                ->on('students')
                 ->onDelete('cascade');
 
             $table->foreign('id_ranking')
@@ -36,6 +36,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('users');
+        Schema::dropIfExists('ranking_analysis');
     }
 };

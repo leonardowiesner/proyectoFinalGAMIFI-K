@@ -28,29 +28,38 @@ Route::prefix('register')->group(function () {
 Route::prefix('login')->group(function () {
     Route::post('/student', [StudentController::class, 'login']);
     Route::post('/teacher', [TeacherController::class, 'login']);
+    
 });
+
+    
 
 Route::prefix('student')->group(function () {
     Route::get('/all', [StudentController::class, 'all']);
     Route::get('/get/{id}', [StudentController::class, 'get']);
+    Route::post('/rankings', [RankingController::class, 'getRanking']); 
     Route::post('/create', [StudentController::class, 'create']);
     Route::post('/update', [StudentController::class, 'update']);
+    Route::post('/updateimg', [StudentController::class, 'updateimg']);
+    
     Route::post('/{id}/change-password', [StudentController::class, 'changePassword']);
 
     Route::delete('/delete', [StudentController::class, 'delete']);
 });
 
 Route::prefix('teacher')->group(function () {
+    Route::get('/create-ranking', [rankinController::class, 'createRanking']);
     Route::get('/all', [TeacherController::class, 'all']);
     Route::get('/get/{id}', [TeacherController::class, 'get']);
     Route::post('register', [TeacherController::class, 'create']);
     Route::post('create-ranking', [RankingController::class, 'createRanking']);
     Route::post('', [TeacherController::class, 'update']);
+    Route::post('/updateimg', [TeacherController::class, 'updateimg']);
+
 
     Route::delete('', [TeacherController::class, 'delete']);
 
 });
 
-Route::middleware('auth:sanctum')->group(function () {
+ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/user', fn(Request $request) => $request->user());
-});
+}); 
