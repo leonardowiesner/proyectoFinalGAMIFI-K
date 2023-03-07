@@ -4,8 +4,6 @@ namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
-use App\Models\Ranking;
-use App\Models\ranking_analysis;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
 use App\Models\Student;
@@ -41,18 +39,6 @@ class DatabaseSeeder extends Seeder
             'name' => 'nilTeacher',
             'surnames' => 'pepo',
             'center' => 'ilerna'
-        ]);
-        Ranking::create([
-            'idTeacher'=>1,
-            'codigo_sala'=>1,
-            'nombre' => 'Test',
-            
-        ]);
-
-        ranking_analysis::create([
-            'idStudent'=>1,
-            'idSala'=>1,
-            'puntos'=>100
         ]);
     }
 } 
