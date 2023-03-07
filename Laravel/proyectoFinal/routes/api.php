@@ -35,6 +35,7 @@ Route::prefix('login')->group(function () {
 
 Route::prefix('student')->group(function () {
     Route::get('/all', [StudentController::class, 'all']);
+    Route::get('get-ranking-studen/{id}', [RankingController::class, 'getRankingByStuden']);
     Route::get('/get/{id}', [StudentController::class, 'get']);
     Route::post('/rankings', [RankingController::class, 'getRanking']); 
     Route::post('/create', [StudentController::class, 'create']);
@@ -47,11 +48,11 @@ Route::prefix('student')->group(function () {
 });
 
 Route::prefix('teacher')->group(function () {
-    Route::get('/create-ranking', [rankinController::class, 'createRanking']);
+    Route::post('create-ranking', [RankingController::class, 'createRanking']);
+    Route::get('get-ranking-studen/{id}', [RankingController::class, 'getRankingByStuden']);
     Route::get('/all', [TeacherController::class, 'all']);
     Route::get('/get/{id}', [TeacherController::class, 'get']);
     Route::post('register', [TeacherController::class, 'create']);
-    Route::post('create-ranking', [RankingController::class, 'createRanking']);
     Route::post('', [TeacherController::class, 'update']);
     Route::post('/updateimg', [TeacherController::class, 'updateimg']);
 

@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id();
             $table->string('name')->nullable();
             $table->unsignedBigInteger('id_teacher');
-            $table->integer('cod_room')->unique();
+            $table->string('cod_room')->unique();
             $table->timestamps();
 
             $table->foreign('id_teacher')

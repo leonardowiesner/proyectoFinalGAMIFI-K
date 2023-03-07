@@ -6,27 +6,31 @@ use Illuminate\Http\Request;
 use App\Models\Ranking;
 use App\Models\ranking_analysis;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 
 class RankingController extends Controller
 {
+
     public function createRanking(Request $request)
     {
+        //funciona correctamente
         $request->validate([
-            'name' => 'required',
-            'cod_room' => 'required',
-
+            "id_teacher" => "required|exists:teachers,id",
+            "name" => "nullable|string",
+            "cod_room" => "required|unique:rankings,cod_room"
         ]);
 
-        $ranking = new Ranking();
-        $ranking->name = $request->name;
-        $ranking->cod_room = $request->cod_room;
-        $ranking->save();
+        $ranking = Ranking::create([
+            "id_teacher" => $request->id_teacher,
+            "name" => $request->name,
+            "cod_room" => Hash::make($request->cod_room)
+        ]);
 
         return response()->json([
             "status" => 1,
-            "msg" => "Ranking creado exitosamente",
+            "msg" => "Se ha creado la sala correctamente",
+            "data" => $ranking
         ]);
-
     }
 
 
@@ -48,26 +52,50 @@ class RankingController extends Controller
         ]);
     }
 
-    public function getRankingbyS(Request $request)
+    /* public function addStudentToRanking(Request $request, $ranking_id)
 {
-
-    $request->validate([
-        "id_student" => "required",
-    ]);
-
-    $rankings = ranking_analysis::where('id_student', $request->id_student)->get();
-
-    if ($rankings->count() > 0) {
-        return response()->json([
-            "status" => 1,
-            "msg" => "Se han encontrado las salas correctamente",
-            "data" => $rankings
-        ]);
-    } else {
-        return response()->json([
-            "status" => 0,
-            "msg" => "No se encontraron salas para el usuario especificado",
-        ], 404);
+    // Obtener los datos del estudiante
+    $student = Student::find($request->student_id);
+    if (!$student) {
+        return response()->json(['error' => 'El estudiante no existe.'], 404);
     }
-}
+
+    // Obtener el ranking correspondiente
+    $ranking = Ranking::find($ranking_id);
+    if (!$ranking) {
+        return response()->json(['error' => 'El ranking no existe.'], 404);
+    }
+
+    // Crear el nuevo registro de ranking_analyses
+    $analysis = new RankingAnalysis;
+    $analysis->id_student = $student->id;
+    $analysis->id_rank = $ranking->id;
+    $analysis->points = 0; // Asignar puntos iniciales
+    $analysis->save();
+
+    return response()->json(['success' => true, 'message' => 'El estudiante ha sido añadido correctamente al ranking.']);
+} */
+
+    public function getRankingByStuden(Request $request)
+    {
+        //esto funciona perfecto
+        $request->validate([
+            "id_student" => "required",
+        ]);
+
+        $rankings = ranking_analysis::where('id_student', $request->id_student)->get();
+
+        if ($rankings->count() > 0) {
+            return response()->json([
+                "status" => 1,
+                "msg" => "Se han encontrado las salas correctamente",
+                "data" => $rankings
+            ]);
+        } else {
+            return response()->json([
+                "status" => 0,
+                "msg" => "No se encontraron salas para el usuario especificado",
+            ], 404);
+        }
+    }
 }
