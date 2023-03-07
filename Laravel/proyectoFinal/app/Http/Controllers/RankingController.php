@@ -67,7 +67,7 @@ class RankingController extends Controller
     }
 
     // Crear el nuevo registro de ranking_analyses
-    $analysis = new RankingAnalysis;
+    $analysis = new ranking_analyses;
     $analysis->id_student = $student->id;
     $analysis->id_rank = $ranking->id;
     $analysis->points = 0; // Asignar puntos iniciales
@@ -76,14 +76,19 @@ class RankingController extends Controller
     return response()->json(['success' => true, 'message' => 'El estudiante ha sido añadido correctamente al ranking.']);
 } */
 
-    public function getRankingByStuden(Request $request)
+    public function getRankingByStuden($id)
     {
         //esto funciona perfecto
-        $request->validate([
-            "id_student" => "required",
-        ]);
+        // $request->validate([
+        //     "id_student" => "required",
+        // ]);
 
-        $rankings = ranking_analysis::where('id_student', $request->id_student)->get();
+        $rankings = DB::table('Rankings')
+              ->join('ranking_analyses', 'Rankings.id', '=', 'ranking_analyses.id_rank')
+              ->select('Rankings.id', 'Rankings.name', 'Rankings.id_teacher', 'Rankings.cod_room', 'ranking_analyses.id', 'ranking_analyses.id_student', 'ranking_analyses.points')
+              ->where('ranking_analyses.id_student', $id)
+              ->get();
+            
 
         if ($rankings->count() > 0) {
             return response()->json([

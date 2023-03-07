@@ -4,9 +4,19 @@ import { Observable } from 'rxjs';
 
 export interface Ranking {
   id: number;
-  nombre: string;
-  idTeacher: string;
-  codigo_sala: number;
+  name: string;
+  id_teacher: string;
+  cod_room:string;
+  id_student:number;
+  points:number;
+
+}
+
+export interface RankingAnalysis {
+  id: number ;
+  id_student:number;
+  id_rank:number;
+  points:number;
 }
 
 @Injectable({
@@ -26,11 +36,12 @@ data:any;
       'Accept': 'application/json'
     });
     let options = { headers: headers };
-    let data={
-      id:alumnoId
-    };
+    // let data={
+    //   id:alumnoId
+    // };
 
-    return this.http.post<Ranking[]>(`${this.baseUrl}/student/rankings`,data,options);
+    
+    return this.http.get<Ranking[]>(`${this.baseUrl}/student/get-ranking-studen/${alumnoId}`,options);
   }
 
   validarCodigoRanking(codigoRanking: string): Observable<boolean> {
