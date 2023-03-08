@@ -20,7 +20,9 @@
     <ng-template #rankingList>
       <p class="rankings-message">{{mensajeRankings}}</p>
       <ul class="rankings-list">
-        <li *ngFor="let ranking of rankings">{{ranking.name}}</li>
+        <li *ngFor="let ranking of rankings">
+          <a [routerLink]="['/ranking', ranking.id]">{{ranking.name}}</a>
+        </li>
       </ul>
     </ng-template>
 
