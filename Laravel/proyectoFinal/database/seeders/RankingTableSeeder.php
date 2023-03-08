@@ -21,7 +21,7 @@ class RankingTableSeeder extends Seeder
         Ranking::create([
             'id_teacher'=>1,
             'name' => 'Test',
-            'cod_room'=>Hash::make('1234'),
+            'cod_room'=>Hash::make('12345678'),
         ]);
         Ranking::create([
             'id_teacher'=>1,
