@@ -21,11 +21,11 @@ export class RankingPageComponent implements OnInit {
    }
 
   ngOnInit() {
-    // this.rankingId = this.route.snapshot.paramMap.get('id');
+     this.rankingId = Number(this.route.snapshot.paramMap.get('id'));
     
-    // this.rankingService.getRanking(this.rankingId).subscribe(ranking => {
+     this.rankingService.getRanking(this.rankingId).subscribe(ranking => {
        
-    //  });
+      });
 
   }
 
