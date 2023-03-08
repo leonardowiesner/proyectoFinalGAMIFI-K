@@ -12,33 +12,36 @@ import { StudentService } from 'src/app/services/student.service';
 })
 export class StudentPageComponent implements OnInit {
   rankings: Ranking[] = [];
-// Lista de rankings matriculados por el alumno
+  // Lista de rankings matriculados por el alumno
   nuevoCodigoRanking: string = ''; // Código del nuevo ranking al que unirse
   mensajeNoRankings: string = 'Ups! Parece que no estás matriculado en ningún ranking.'; // Mensaje a mostrar si el alumno no tiene rankings
-  mensajeRankings: string  = 'Estás matriculado en los siguientes rankings:'; // Mensaje a mostrar si el alumno tiene rankings
-  id=this.studentService.student.id;
+  mensajeRankings: string = 'Estás matriculado en los siguientes rankings:'; // Mensaje a mostrar si el alumno tiene rankings
+  id = this.studentService.student.id;
 
-  constructor(private rankingService: RankingService, private studentService: StudentService) { 
+  constructor(private rankingService: RankingService, private studentService: StudentService) {
     // this.rankings = [];
   }
- 
+
   ngOnInit(): void {
     // Obtenemos la lista de rankings matriculados por el alumno
-    this.rankingService.getRankingsAlumno(this.id).toPromise().then(rankings => {
-      if (rankings !== undefined ) {
-        this.rankings = rankings;
-        console.log(this.rankings[0].id); // Para imprimir el id del primer ranking de la lista
-      } else {
-        console.log('No hay rankings disponibles.');
+    this.rankingService.getRankingsAlumno(this.id).subscribe({
+      next: (rankings: any) => {
+        if (rankings !== undefined) {
+          this.rankings = rankings.data;
+          console.log(this.rankings[0].id); // Para imprimir el id del primer ranking de la lista
+        } else {
+          console.log('No hay rankings disponibles.');
+          this.rankings = [];
+        }
+      },
+      error: (error: any) => {
+        console.log('Error al obtener los rankings: ', error);
+        console.log(this.rankings[0].id);
         this.rankings = [];
-      }      
-    }).catch(error => {
-      console.log('Error al obtener los rankings: ', error);
-      console.log(this.rankings[0].id);
-      this.rankings = [];
+      }
     });
   }
-  
+
 
   unirseRanking(): void {
     // Comprobamos si el código de ranking introducido es válido
