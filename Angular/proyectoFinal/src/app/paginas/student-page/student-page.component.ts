@@ -18,7 +18,7 @@ export class StudentPageComponent implements OnInit {
   mensajeRankings: string = 'Estás matriculado en los siguientes rankings:'; // Mensaje a mostrar si el alumno tiene rankings
   id = this.studentService.student.id;
 
-  constructor(private rankingService: RankingService, private studentService: StudentService) {
+  constructor(private rankingService: RankingService, private studentService: StudentService,private router: Router) {
     // this.rankings = [];
   }
 
