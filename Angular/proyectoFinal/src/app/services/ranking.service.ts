@@ -52,7 +52,9 @@ data:any;
     let options = { headers: headers };
 
 
-    return this.http.get<Ranking[]>(`${this.baseUrl}/student/get-ranking-studen/${rankingId}`,options);
+
+    return this.http.get<RankingAnalysis[]>(`${this.baseUrl}/student/get-all-ranking-by-id/${rankingId}`,options);
+
   }
 
   validarCodigoRanking(codigoRanking: string): Observable<boolean> {
