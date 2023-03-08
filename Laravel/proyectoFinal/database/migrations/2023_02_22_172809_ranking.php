@@ -13,13 +13,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('ranking', function (Blueprint $table) {
+        Schema::create('rankings', function (Blueprint $table) {
             $table->id();
-            $table->string('nombre')->nullable();
-            $table->unsignedBigInteger('idTeacher');
-            $table->integer('codigo_sala')->unique();
+            $table->string('name')->nullable();
+            $table->unsignedBigInteger('id_teacher');
+            $table->string('cod_room')->unique();
+            $table->timestamps();
 
-            $table->foreign('idTeacher')
+            $table->foreign('id_teacher')
             ->references('id')
             ->on('teachers')
             ->onDelete('cascade');

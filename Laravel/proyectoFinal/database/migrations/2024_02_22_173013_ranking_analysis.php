@@ -13,21 +13,21 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('ranking_analysis', function (Blueprint $table) {
+        Schema::create('ranking_analyses', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('idStudent');
-            $table->unsignedBigInteger('id_sala');
-            $table->integer('puntos');
+            $table->unsignedBigInteger('id_student');
+            $table->unsignedBigInteger('id_rank');
+            $table->integer('points');
             $table->timestamps();
 
-            $table->foreign('idStudent')
+            $table->foreign('id_student')
                 ->references('id')
                 ->on('students')
                 ->onDelete('cascade');
 
-            $table->foreign('id_sala')
+            $table->foreign('id_rank')
                 ->references('id')
-                ->on('ranking')
+                ->on('rankings')
                 ->onDelete('cascade');
         });
     }
@@ -37,6 +37,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('ranking_analysis');
+        Schema::dropIfExists('ranking_analyses');
     }
 };
