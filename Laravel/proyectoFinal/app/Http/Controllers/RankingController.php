@@ -70,10 +70,12 @@ class RankingController extends Controller
     {
         $rankingAnalyses = DB::table('ranking_analyses')
             ->where('id_rank', $id)
+            ->orderByDesc('points')
             ->get();
-
+    
         return $rankingAnalyses;
     }
+    
 
     public function getRankingByStuden($id)
     {
