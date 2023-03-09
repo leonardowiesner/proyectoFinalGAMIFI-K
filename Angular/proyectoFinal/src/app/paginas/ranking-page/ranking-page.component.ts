@@ -13,8 +13,7 @@ import { Ranking, RankingAnalysis, RankingService } from 'src/app/services/ranki
 export class RankingPageComponent implements OnInit {
 
   rankingId: number | null;
-  rankingAnalises!: RankingAnalysis;
-
+  rankingAnalises: RankingAnalysis[] = [];
 
   constructor(private route: ActivatedRoute,private rankingService: RankingService) {
     this.rankingId=0;
@@ -23,8 +22,8 @@ export class RankingPageComponent implements OnInit {
   ngOnInit() {
      this.rankingId = Number(this.route.snapshot.paramMap.get('id'));
     
-     this.rankingService.getRanking(this.rankingId).subscribe(ranking => {
-       
+     this.rankingService.getRanking(this.rankingId).subscribe(data => {
+       this.rankingAnalises=data;
       });
 
   }
