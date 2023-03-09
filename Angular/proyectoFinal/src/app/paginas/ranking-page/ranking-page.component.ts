@@ -1,4 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { StudentData } from 'src/app/interfaces/alumnos-data.interface';
+
+import { Ranking, RankingAnalysis, RankingService } from 'src/app/services/ranking.service';
+
 
 @Component({
   selector: 'app-ranking-page',
@@ -7,9 +12,21 @@ import { Component, OnInit } from '@angular/core';
 })
 export class RankingPageComponent implements OnInit {
 
-  constructor() { }
+  rankingId: number | null;
+  rankingAnalises!: RankingAnalysis;
 
-  ngOnInit(): void {
+
+  constructor(private route: ActivatedRoute,private rankingService: RankingService) {
+    this.rankingId=0;
+   }
+
+  ngOnInit() {
+     this.rankingId = Number(this.route.snapshot.paramMap.get('id'));
+    
+     this.rankingService.getRanking(this.rankingId).subscribe(ranking => {
+       
+      });
+
   }
 
 }

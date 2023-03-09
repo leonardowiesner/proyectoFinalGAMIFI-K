@@ -44,6 +44,19 @@ data:any;
     return this.http.get<Ranking[]>(`${this.baseUrl}/student/get-ranking-studen/${alumnoId}`,options);
   }
 
+  getRanking(rankingId:number){
+    let headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Accept': 'application/json'
+    });
+    let options = { headers: headers };
+
+
+
+    return this.http.get<RankingAnalysis[]>(`${this.baseUrl}/student/get-all-ranking-by-id/${rankingId}`,options);
+
+  }
+
   validarCodigoRanking(codigoRanking: string): Observable<boolean> {
     return this.http.get<boolean>(`${this.baseUrl}/rankings/${codigoRanking}/validar`);
   }
