@@ -65,8 +65,8 @@ data:any;
     return this.http.get<boolean>(`${this.baseUrl}/student/${alumnoId}/rankings/${codigoRanking}/enranking`);
   }
 
-  anadirAlumnoRanking(alumnoId: number, codigoRanking: string): Observable<any> {
-    return this.http.post<any>(`${this.baseUrl}/student/${alumnoId}/rankings`, { codigoRanking });
+  anadirAlumnoRanking(id_student: number, cod_room: string, points:number): Observable<any> {
+    return this.http.post<any>(`${this.baseUrl}/student/add-student-ranking-analysis`, { id_student,points,cod_room });
   }
 
 }

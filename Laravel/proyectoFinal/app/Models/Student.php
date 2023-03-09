@@ -27,6 +27,7 @@ class Student extends Model
         'name',
         'surnames',
         'birth_date',
+        'img',
     ];
 
     public static function createFromRequest(Request $request): Student
@@ -38,6 +39,7 @@ class Student extends Model
             'email' => 'required|email|unique:students|unique:teachers',
             'password' => 'required|confirmed',
             'birth_date' => 'required|date'
+            
         ]);
 
         return Student::create([

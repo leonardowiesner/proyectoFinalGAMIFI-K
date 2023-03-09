@@ -56,7 +56,7 @@ export class StudentService {
       'Accept': 'application/json'
     });
     let options = { headers: headers };
-    this.student!.img = img;
+    this.student.img = img;
     return this.http.post<StudentData>(`${this.apiURL}/student/updateimg`, this.student, options);
   }
 
