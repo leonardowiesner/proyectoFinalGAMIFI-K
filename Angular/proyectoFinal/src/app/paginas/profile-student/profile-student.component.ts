@@ -14,7 +14,7 @@ import { CookieService } from 'ngx-cookie-service';
 })
 export class ProfileStudentComponent implements OnInit {
   student: StudentData;
-  cambiar:boolean  =false;
+  cambiar:boolean =false;
   constructor(
     private studentService: StudentService,
     private dialog: MatDialog,
@@ -62,8 +62,16 @@ export class ProfileStudentComponent implements OnInit {
     });
   }
 
-  changeImg(){
+  mostrar(){
+    if(this.cambiar==false){
     this.cambiar=true;
+    }else{
+      this.cambiar=false
+    }
+  }
+  changeImg(){
+
+
      this.studentService.changeImg(this.student.img)//.subscribe(() => {
     //   console.log('Imagen guardada');
     // });

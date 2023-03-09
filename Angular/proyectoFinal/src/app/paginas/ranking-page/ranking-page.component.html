@@ -1,6 +1,6 @@
-<h2>Ranking #{{ rankingId }}</h2>
+<h2 class="ranking-header">Ranking #{{ rankingId }}</h2>
 
-<table>
+<table class="ranking-table">
   <thead>
     <tr>
       <th>Posición</th>
@@ -17,5 +17,5 @@
   </tbody>
 </table>
 
-<div *ngIf="!rankingAnalises">Cargando...</div>
-<div *ngIf="!rankingAnalises">No se encontraron datos del ranking.</div>
+<div *ngIf="!rankingAnalises" class="loading-message">Cargando...</div>
+<div *ngIf="!rankingAnalises" class="error-message">No se encontraron datos del ranking.</div>

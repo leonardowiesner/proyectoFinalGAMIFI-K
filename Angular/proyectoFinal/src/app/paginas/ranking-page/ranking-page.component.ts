@@ -24,6 +24,7 @@ export class RankingPageComponent implements OnInit {
     
      this.rankingService.getRanking(this.rankingId).subscribe(data => {
        this.rankingAnalises=data;
+       console.log(data)
       });
 
   }

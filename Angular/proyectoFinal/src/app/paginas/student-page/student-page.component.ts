@@ -17,7 +17,7 @@ export class StudentPageComponent implements OnInit {
   mensajeNoRankings: string = 'Ups! Parece que no estás matriculado en ningún ranking.'; // Mensaje a mostrar si el alumno no tiene rankings
   mensajeRankings: string = 'Estás matriculado en los siguientes rankings:'; // Mensaje a mostrar si el alumno tiene rankings
   id = this.studentService.student.id;
-
+  points: number=0;
   constructor(private rankingService: RankingService, private studentService: StudentService,private router: Router) {
     // this.rankings = [];
   }
@@ -46,31 +46,31 @@ export class StudentPageComponent implements OnInit {
   unirseRanking(): void {
     // Comprobamos si el código de ranking introducido es válido
     // Suponemos que el método devuelve un Observable que emite true si el código es válido y false si no lo es
-    this.rankingService.validarCodigoRanking(this.nuevoCodigoRanking).subscribe(
-      valido => {
-        if (valido) {
+    // this.rankingService.validarCodigoRanking(this.nuevoCodigoRanking).subscribe(
+    //   valido => {
+    //     if (valido) {
           // Comprobamos si el alumno ya está matriculado en el ranking
           // Suponemos que el método devuelve un Observable que emite true si el alumno está matriculado y false si no lo está
-          this.rankingService.alumnoEnRanking(this.id, this.nuevoCodigoRanking).subscribe(
-            enRanking => {
-              if (!enRanking) {
+          // this.rankingService.alumnoEnRanking(this.id, this.nuevoCodigoRanking).subscribe(
+          //   enRanking => {
+          //     if (!enRanking) {
                 // Si el alumno no está matriculado, lo añadimos al ranking
-                this.rankingService.anadirAlumnoRanking(this.id, this.nuevoCodigoRanking).subscribe(
+                this.rankingService.anadirAlumnoRanking(this.id, this.nuevoCodigoRanking, this.points).subscribe(
                   () => {
                     // Actualizamos la lista de rankings matriculados
                     this.rankingService.getRankingsAlumno(this.id).subscribe(
-                      rankings => {
-                        this.rankings = rankings;
+                      data => {
+                        this.rankings = data;
                       }
                     );
                   }
                 );
               }
-            }
-          );
-        }
-      }
-    );
-  }
+        //     }
+        //   );
+        // }
+  //     }
+  //   );
+  // }
 
 }
