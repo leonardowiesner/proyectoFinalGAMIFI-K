@@ -112,7 +112,7 @@
 }
 .form-v8-content .form-detail .form-row .input-text:focus{
 	border-bottom: 1px solid #53c83c;
-	background: transparent;
+	background: #3d5983;
 }
 .form-v8-content .form-detail .form-row .input-text:focus + .label, 
 .form-v8-content .form-detail .form-row .input-text:valid + .label {
@@ -278,4 +278,30 @@
 
 .mat-erroremail{
 	margin-top: 0px;
+}
+
+.form-row label .form-row-inner mat-form-field input{
+background-color: #3d5983 !important;
+}
+
+mat-input-element mat-form-field-autofill-control input-text ng-tns-c68-0 cdk-text-field-autofill-monitored cdk-text-field-autofilled ng-dirty ng-valid ng-touched{
+	background-color: #3d5983 !important;
+
+}
+
+input:-internal-autofill-selected :focus {
+ background: #3d5983;
+}
+
+/* Cambiar cuando se auto rellena con chrome*/
+input:-webkit-autofill,
+input:-webkit-autofill:hover, 
+input:-webkit-autofill:focus, 
+input:-webkit-autofill:active{
+    -webkit-box-shadow: 0 0 0 30px #3d5983 inset !important;
+}
+
+/*Change text in autofill textbox*/
+input:-webkit-autofill{
+    -webkit-text-fill-color: white !important;
 }
