@@ -4,7 +4,7 @@ export class TeachersData extends UserData {
 
     constructor(
       id: number,
-      nick: string,
+      nickname: string,
       name: string,
       surnames: string,
       email: string,
@@ -12,7 +12,7 @@ export class TeachersData extends UserData {
       img: string,
       public centro: string
     ) {
-      super(id,nick, name, surnames, email, password,img);
+      super(id,nickname, name, surnames, email, password,img);
     }
   }
   

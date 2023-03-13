@@ -14,7 +14,7 @@ export class TeacherPageComponent implements OnInit {
   nombreRanking: string="";
 
   constructor(private rankingservice:RankingService,private teacherService:TeacherService) {
-    this.teacher = {id: 0, nick : "", name:"", surnames:"", email:"", password:"",img:"",centro: "" }
+    this.teacher = {id: 0, nickname : "", name:"", surnames:"", email:"", password:"",img:"",centro: "" }
     }
   ngOnInit(): void {
     if(this.teacherService.teacher){

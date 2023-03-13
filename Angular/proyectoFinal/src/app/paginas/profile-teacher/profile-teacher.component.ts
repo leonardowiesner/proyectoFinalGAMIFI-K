@@ -19,7 +19,7 @@ export class ProfileTeacherComponent implements OnInit {
 
   ) { 
 
-    this.teacher = {id: 0, nick : "", name:"", surnames:"", email:"", password:"",img:"",centro: ""}
+    this.teacher = {id: 0, nickname : "", name:"", surnames:"", email:"", password:"",img:"",centro: ""}
 
   }
 

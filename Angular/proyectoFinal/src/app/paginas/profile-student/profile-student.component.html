@@ -38,7 +38,7 @@
     <!-- left column -->
     <div class="col-3">
       <div class="text-center">
-        <img src="https://i.imgur.com/n6F53V0.jpg" class="avatar img-circle" alt="avatar">
+        <img [src]="student.img" class="avatar img-circle" alt="avatar">
         <h6>Selecciona una foto diferente...</h6>
         
         <input type="file" class="form-control">
@@ -59,26 +59,26 @@
         <div class="form-group">
           <label class="col-lg-3 control-label text-center">Nombre:</label>
           <div class="col-lg-8">
-            <input class="form-control" type="text" [(ngModel)]="student.name">
+            <input class="form-control" type="text" [(ngModel)]="student.name" name="name">
           </div>
         </div>
         <div class="form-group">
           <label class="col-lg-3 control-label">Apellido:</label>
           <div class="col-lg-8">
-            <input class="form-control" type="text" value="Bishop">
+            <input class="form-control" type="text" [(ngModel)]="student.surnames" name="surnames">
           </div>
         </div>
 
         <div class="form-group">
           <label class="col-lg-3 control-label">Email:</label>
           <div class="col-lg-8">
-            <input class="form-control" type="text" value="janesemail@gmail.com">
+            <input class="form-control" type="text" [(ngModel)]="student.email" name="email">
           </div>
         </div>
         <div class="form-group">
           <label class="col-md-3 control-label">Username:</label>
           <div class="col-md-8">
-            <input class="form-control" type="text" value="janeuser">
+            <input class="form-control" type="text" [(ngModel)]="student.nickname" name="nickname">
           </div>
         </div>
           <div class="col-md-8">
