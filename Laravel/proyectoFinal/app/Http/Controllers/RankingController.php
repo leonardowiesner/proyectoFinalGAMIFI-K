@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Ranking;
-use App\Models\ranking_analysis;
+use App\Models\Ranking_analysis;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 
@@ -33,57 +33,63 @@ class RankingController extends Controller
         ]);
     }
 
-
-    public function addToRanking(Request $request)
+    public function addStudentToRanking(Request $request)
     {
+        // Validar los datos recibidos
         $request->validate([
-            'id_user' => 'required',
-            'cod_ranking' => 'required',
+            'id_student' => 'required|exists:students,id',
+            'points' => 'required|integer',
+            'cod_room' => 'required|string'
         ]);
 
-        $ranking = new Ranking();
-        $ranking->idUser = $request->idUser;
-        $ranking->codeRanking = $request->codeRanking;
-        $ranking->save();
+        $id_student = $request->input('id_student');
+        $points = $request->input('points');
+        $cod_room = $request->input('cod_room');
 
-        return response()->json([
-            "status" => 1,
-            "msg" => "Usuario registrado en el ranking",
-        ]);
+        // Hash del código de sala proporcionado por el usuario
+
+        // Buscar el ranking con el código de sala proporcionado y verificar si el código hash coincide
+        foreach (Ranking::all() as $ranking) {
+            if (!Hash::check($cod_room, $ranking['cod_room'])) {
+                continue;
+            }
+            // Si el ranking existe y el código hash coincide, agregar el estudiante a la tabla ranking_analysis
+            Ranking_analysis::create([
+                'id_student' => $id_student,
+                'id_rank' => $ranking->id,
+                'points' => $points
+            ]);
+
+            return response()->json(['message' => 'Estudiante agregado correctamente a la tabla ranking_analysis.']);
+        }
+        // Si el ranking no existe o el código hash no coincide, devolver un error
+        return response()->json(['error' => 'No se pudo agregar el estudiante al ranking debido a que el código de la sala no coincide.'], 400);
     }
 
-    /* public function addStudentToRanking(Request $request, $ranking_id)
-{
-    // Obtener los datos del estudiante
-    $student = Student::find($request->student_id);
-    if (!$student) {
-        return response()->json(['error' => 'El estudiante no existe.'], 404);
+    public function getRankingAnalysesByRankId($id)
+    {
+        $rankingAnalyses = DB::table('ranking_analyses')
+            ->where('id_rank', $id)
+            ->orderByDesc('points')
+            ->get();
+    
+        return $rankingAnalyses;
     }
+    
 
-    // Obtener el ranking correspondiente
-    $ranking = Ranking::find($ranking_id);
-    if (!$ranking) {
-        return response()->json(['error' => 'El ranking no existe.'], 404);
-    }
-
-    // Crear el nuevo registro de ranking_analyses
-    $analysis = new RankingAnalysis;
-    $analysis->id_student = $student->id;
-    $analysis->id_rank = $ranking->id;
-    $analysis->points = 0; // Asignar puntos iniciales
-    $analysis->save();
-
-    return response()->json(['success' => true, 'message' => 'El estudiante ha sido añadido correctamente al ranking.']);
-} */
-
-    public function getRankingByStuden(Request $request)
+    public function getRankingByStuden($id)
     {
         //esto funciona perfecto
-        $request->validate([
-            "id_student" => "required",
-        ]);
+        // $request->validate([
+        //     "id_student" => "required",
+        // ]);
 
-        $rankings = ranking_analysis::where('id_student', $request->id_student)->get();
+        $rankings = DB::table('Rankings')
+            ->join('ranking_analyses', 'Rankings.id', '=', 'ranking_analyses.id_rank')
+            ->select('Rankings.id', 'Rankings.name', 'Rankings.id_teacher', 'Rankings.cod_room', 'ranking_analyses.id', 'ranking_analyses.id_student', 'ranking_analyses.points')
+            ->where('ranking_analyses.id_student', $id)
+            ->get();
+
 
         if ($rankings->count() > 0) {
             return response()->json([

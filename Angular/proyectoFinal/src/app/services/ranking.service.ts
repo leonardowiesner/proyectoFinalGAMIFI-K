@@ -4,9 +4,19 @@ import { Observable } from 'rxjs';
 
 export interface Ranking {
   id: number;
-  nombre: string;
-  idTeacher: string;
-  codigo_sala: number;
+  name: string;
+  id_teacher: string;
+  cod_room:string;
+  id_student:number;
+  points:number;
+
+}
+
+export interface RankingAnalysis {
+  id: number ;
+  id_student:number;
+  id_rank:number;
+  points:number;
 }
 
 @Injectable({
@@ -26,11 +36,25 @@ data:any;
       'Accept': 'application/json'
     });
     let options = { headers: headers };
-    let data={
-      id:alumnoId
-    };
+    // let data={
+    //   id:alumnoId
+    // };
 
-    return this.http.post<Ranking[]>(`${this.baseUrl}/student/rankings`,data,options);
+    
+    return this.http.get<Ranking[]>(`${this.baseUrl}/student/get-ranking-studen/${alumnoId}`,options);
+  }
+
+  getRanking(rankingId:number){
+    let headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Accept': 'application/json'
+    });
+    let options = { headers: headers };
+
+
+
+    return this.http.get<RankingAnalysis[]>(`${this.baseUrl}/student/get-all-ranking-by-id/${rankingId}`,options);
+
   }
 
   validarCodigoRanking(codigoRanking: string): Observable<boolean> {
@@ -41,8 +65,8 @@ data:any;
     return this.http.get<boolean>(`${this.baseUrl}/student/${alumnoId}/rankings/${codigoRanking}/enranking`);
   }
 
-  anadirAlumnoRanking(alumnoId: number, codigoRanking: string): Observable<any> {
-    return this.http.post<any>(`${this.baseUrl}/student/${alumnoId}/rankings`, { codigoRanking });
+  anadirAlumnoRanking(id_student: number, cod_room: string, points:number): Observable<any> {
+    return this.http.post<any>(`${this.baseUrl}/student/add-student-ranking-analysis`, { id_student,points,cod_room });
   }
 
 }
