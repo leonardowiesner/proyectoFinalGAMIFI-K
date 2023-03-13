@@ -1,3 +1,13 @@
-
         <a class="text-decoration-none text-info fw-semibold" [routerLink]="['/teacherProfile']"
         routerLinkActive="router-link-active">Foto de perfil</a>
+
+<h2>Crear un nuevo ranking</h2>
+
+<form (ngSubmit)="crearRanking()">
+  <div class="form-group">
+    <label for="nombreRanking">Nombre del ranking:</label>
+    <input type="text" class="form-control" id="nombreRanking" name="nombreRanking" [(ngModel)]="nombreRanking">
+  </div>
+
+  <button type="submit" class="btn btn-primary">Crear ranking</button>
+</form>

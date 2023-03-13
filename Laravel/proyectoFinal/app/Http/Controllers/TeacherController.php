@@ -24,10 +24,12 @@ class TeacherController extends Controller
                 //creamos el token
                 $token = $teacher->createToken("auth_token")->plainTextToken;
                 //si está todo ok
+                
                 return response()->json([
                     "status" => 1,
                     "msg" => "¡Usuario logueado exitosamente!",
-                    "access_token" => $token
+                    "access_token" => $token,
+                    "teacher" => $teacher
                 ]);
             } else {
                 return response()->json([
