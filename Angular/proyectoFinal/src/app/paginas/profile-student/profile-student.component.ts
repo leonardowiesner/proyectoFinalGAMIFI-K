@@ -18,7 +18,7 @@ export class ProfileStudentComponent implements OnInit {
     private studentService: StudentService,
     private dialog: MatDialog,
   ) { 
-    this.student = {id: 0, nick : "", name:"", surnames:"", email:"", password:"",img:"",nacimiento: new Date }
+    this.student = {id: 0, nickname:"", name:"", surnames:"", email:"", password:"",img:"",nacimiento: new Date }
   }
 
 

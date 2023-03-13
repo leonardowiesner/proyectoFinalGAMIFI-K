@@ -2,7 +2,7 @@ export class UserData {
     
   constructor(
     public id: number,
-    public nick: string,
+    public nickname: string,
     public name: string,
     public surnames: string,
     public email: string,
