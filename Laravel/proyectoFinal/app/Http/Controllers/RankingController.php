@@ -76,6 +76,14 @@ class RankingController extends Controller
         return $rankingAnalyses;
     }
     
+    public function getRankingById($id){
+        $ranking = DB::table('rankings')
+        ->where('id', $id)
+        ->orderByDesc('points')
+        ->get();
+
+    return $ranking;
+    }
 
     public function getRankingByStuden($id)
     {

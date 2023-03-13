@@ -1,34 +1,47 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-
+import { v4 as uuidv4 } from 'uuid';
+import { RankingService } from 'src/app/services/ranking.service';
+import { TeacherService } from 'src/app/services/teacher.service';
+import { TeachersData } from 'src/app/interfaces/profesores-data.interface';
 @Component({
   selector: 'app-teacher-page',
   templateUrl: './teacher-page.component.html',
   styleUrls: ['./teacher-page.component.css']
 })
 export class TeacherPageComponent implements OnInit {
+  teacher:TeachersData;
+  nombreRanking: string="";
 
-  teacherForm: FormGroup;
-
-  constructor(private formBuilder: FormBuilder) {
-    this.teacherForm = this.formBuilder.group({
-    nickname: ['', Validators.required],
-    email: ['', [Validators.required, Validators.email]],
-    password: ['', Validators.required],
-    confirmarpassword: ['', Validators.required],
-    name: ['', Validators.required],
-    surnames: ['', Validators.required],
-    center: ['', Validators.required]
-    });
+  constructor(private rankingservice:RankingService,private teacherService:TeacherService) {
+    this.teacher = {id: 0, nick : "", name:"", surnames:"", email:"", password:"",img:"",centro: "" }
     }
   ngOnInit(): void {
-    throw new Error('Method not implemented.');
+    if(this.teacherService.teacher){
+      this.teacher=this.teacherService.teacher;
+    }
+    this.teacherService.getTeacher().subscribe(teacher => {
+
+      console.log(teacher);
+      this.teacher = teacher;
+  
+    });
+    
   }
     
-    enviar() {
-    if (this.teacherForm.valid) {
-    console.log(this.teacherForm.value);
-    // Aquí puedes enviar la información a un servicio o almacenarla en algún lugar
-      }
-    }
+crearRanking(){
+  const uuid = uuidv4();
+  this.teacherService.getTeacher().subscribe(teacher => {
+
+    console.log(teacher);
+    this.teacher = teacher;
+
+  });
+  debugger
+  this.rankingservice.crearRanking(this.nombreRanking,uuid,this.teacher.id).subscribe();
+
+  
+}
+
+ 
 }

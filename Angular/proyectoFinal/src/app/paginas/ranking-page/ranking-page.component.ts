@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { StudentData } from 'src/app/interfaces/alumnos-data.interface';
 
-import { Ranking, RankingAnalysis, RankingService } from 'src/app/services/ranking.service';
+import { Ranking, RankingAnalysis, RankingService, RankingSolo } from 'src/app/services/ranking.service';
 
 
 @Component({
@@ -11,7 +11,7 @@ import { Ranking, RankingAnalysis, RankingService } from 'src/app/services/ranki
   styleUrls: ['./ranking-page.component.css']
 })
 export class RankingPageComponent implements OnInit {
-
+  rankingSolo: RankingSolo[]=[];
   rankingId: number | null;
   rankingAnalises: RankingAnalysis[] = [];
 
@@ -21,11 +21,14 @@ export class RankingPageComponent implements OnInit {
 
   ngOnInit() {
      this.rankingId = Number(this.route.snapshot.paramMap.get('id'));
-    
-     this.rankingService.getRanking(this.rankingId).subscribe(data => {
+   
+
+     this.rankingService.getRankingAnalysis(this.rankingId).subscribe(data => {
        this.rankingAnalises=data;
        console.log(data)
+      
       });
+  
 
   }
 
