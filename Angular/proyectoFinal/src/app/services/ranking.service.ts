@@ -51,6 +51,20 @@ data:any;
     return this.http.get<Ranking[]>(`${this.baseUrl}/student/get-ranking-studen/${alumnoId}`,options);
   }
 
+
+  getRankingsTeacher(teacherId: number): Observable<Ranking[]> {
+    let headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Accept': 'application/json'
+    });
+    let options = { headers: headers };
+    // let data={
+    //   id:alumnoId
+    // };
+
+    return this.http.get<Ranking[]>(`${this.baseUrl}/teacher/get-ranking-teacher/${teacherId}`,options);
+  }
+
   getRanking(rankingId:number){
     let headers = new HttpHeaders({
       'Content-Type': 'application/json',

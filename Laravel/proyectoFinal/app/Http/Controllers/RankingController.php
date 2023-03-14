@@ -24,6 +24,7 @@ class RankingController extends Controller
             "id_teacher" => $request->id_teacher,
             "name" => $request->name,
             "cod_room" => Hash::make($request->cod_room)
+        
         ]);
 
         return response()->json([
@@ -84,6 +85,27 @@ class RankingController extends Controller
 
     return $ranking;
     }
+
+    public function getRankingByTeacher($id){
+        $rankings = DB::table('Rankings')
+        ->select('Rankings.id', 'Rankings.name', 'Rankings.id_teacher', 'Rankings.cod_room')
+        ->where('Rankings.id_teacher', $id)
+        ->get();
+        if ($rankings->count() > 0) {
+            return response()->json([
+                "status" => 1,
+                "msg" => "Se han encontrado las salas correctamente",
+                "data" => $rankings
+            ]);
+        } else {
+            return response()->json([
+                "status" => 0,
+                "msg" => "No se encontraron salas para el usuario especificado",
+            ], 404);
+        }
+
+    }
+
 
     public function getRankingByStuden($id)
     {

@@ -1,5 +1,14 @@
         <a class="text-decoration-none text-info fw-semibold" [routerLink]="['/teacherProfile']"
         routerLinkActive="router-link-active">Foto de perfil</a>
+        
+        
+        
+<h2>Listado de rankings</h2>
+
+<div class="list-group">
+<a *ngFor="let ranking of rankings" class="list-group-item list-group-item-action"
+            [routerLink]="['/ranking', ranking.id]">{{ ranking.name }}</a>
+</div>
 
 <h2>Crear un nuevo ranking</h2>
 
@@ -11,3 +20,5 @@
 
   <button type="submit" class="btn btn-primary">Crear ranking</button>
 </form>
+
+<!-- <button mat-raised-button color="primary" (click)="openAddPracticeDialog()">Añadir práctica/entrega</button> -->

@@ -51,14 +51,14 @@ Route::prefix('student')->group(function () {
 Route::prefix('teacher')->group(function () {
     Route::post('create-ranking', [RankingController::class, 'createRanking']);
     Route::get('get-all-ranking-by-id/{id}', [RankingController::class, 'getRankingAnalysesByRankId']);
-    Route::get('get-ranking-studen/{id}', [RankingController::class, 'getRankingByStuden']);
+    Route::get('get-ranking-teacher/{id}', [RankingController::class, 'getRankingByTeacher']);
     Route::get('/all', [TeacherController::class, 'all']);
     Route::get('/get/{id}', [TeacherController::class, 'get']);
     Route::post('register', [TeacherController::class, 'create']);
     Route::post('', [TeacherController::class, 'update']);
     Route::post('/updateimg', [TeacherController::class, 'updateimg']);
     Route::get('get-ranking/{id}', [RankingController::class, 'getRankingById']);
-    
+
     Route::delete('', [TeacherController::class, 'delete']);
 });
 
