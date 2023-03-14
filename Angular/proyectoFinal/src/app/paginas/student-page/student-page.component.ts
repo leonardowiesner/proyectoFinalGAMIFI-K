@@ -58,11 +58,17 @@ export class StudentPageComponent implements OnInit {
                 this.rankingService.anadirAlumnoRanking(this.id, this.nuevoCodigoRanking, this.points).subscribe(
                   () => {
                     // Actualizamos la lista de rankings matriculados
-                    this.rankingService.getRankingsAlumno(this.id).subscribe(
-                      data => {
-                        this.rankings = data;
-                      }
-                    );
+                    this.rankingService.getRankingsAlumno(this.id).subscribe({
+                      next: (rankings: any) => {
+                        if (rankings !== undefined) {
+                          this.rankings = rankings.data;
+                          console.log(this.rankings[2].id); // Para imprimir el id del primer ranking de la lista
+                        } else {
+                          console.log('No hay rankings disponibles.');
+                          this.rankings = [];
+                        }
+                      },
+                    });
                   }
                 );
               }
