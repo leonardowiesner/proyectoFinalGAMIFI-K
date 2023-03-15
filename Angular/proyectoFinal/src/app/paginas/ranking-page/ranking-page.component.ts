@@ -13,7 +13,7 @@ import { Ranking, RankingAnalysis, RankingService, RankingSolo } from 'src/app/s
 })
 export class RankingPageComponent implements OnInit {
   rankingSolo: RankingSolo[]=[];
-  rankingId: number | null;
+  rankingId?: number | null;
   rankingAnalises: RankingAnalysis[] = [];
   teacher?:TeachersData;
 
@@ -35,7 +35,9 @@ export class RankingPageComponent implements OnInit {
 
   }
 
-  eliminarRegistro(id:number){
-    
+  eliminarRegistro(id_student:number){
+    this.rankingService.deleteStudenRanking(id_student)
+
+
   }
 }

@@ -99,9 +99,14 @@ data:any;
   }
 
   deleteRanking(id_rank:number){
+    let headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Accept': 'application/json'
+    });
+    let options = { headers: headers };
     //Funcion que sirve para eliminar un ranking mediante la id de ese ranking, 
     //tambien se eliminaran todas las columnas que tenga la misma id_rank en la tabla de analisis
-    return this.http.get<boolean>(`${this.baseUrl}/teacher/delete-ranking-id/${id_rank}`);
+    return this.http.get<boolean>(`${this.baseUrl}/teacher/delete-ranking-id/${id_rank}`,options);
   }
   deleteStudenRanking(id_student:number){
     //elimina un estudiante del ranking 

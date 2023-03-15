@@ -5,9 +5,11 @@
         
 <h2>Listado de rankings</h2>
 
-<div class="list-group">
-<a *ngFor="let ranking of rankings" class="list-group-item list-group-item-action"
+<div class="list-group" *ngFor="let ranking of rankings" >
+
+<a class="list-group-item list-group-item-action"
             [routerLink]="['/ranking', ranking.id]">{{ ranking.name }}</a>
+            <button (click)="eliminarRegistro(ranking.id)">Eliminar</button>
 </div>
 
 <h2>Crear un nuevo ranking</h2>
