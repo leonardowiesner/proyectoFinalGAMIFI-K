@@ -49,6 +49,8 @@ Route::prefix('student')->group(function () {
 });
 
 Route::prefix('teacher')->group(function () {
+    Route::get('delete-ranking-id/{id}', [RankingController::class, 'deleteRanking']);
+    Route::get('delete-studen-ranking-id/{id}', [RankingController::class, 'deleteStudenRanking']);
     Route::post('create-ranking', [RankingController::class, 'createRanking']);
     Route::get('get-all-ranking-by-id/{id}', [RankingController::class, 'getRankingAnalysesByRankId']);
     Route::get('get-ranking-teacher/{id}', [RankingController::class, 'getRankingByTeacher']);
