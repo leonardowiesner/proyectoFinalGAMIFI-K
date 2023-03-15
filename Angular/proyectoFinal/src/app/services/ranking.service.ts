@@ -17,6 +17,7 @@ export interface RankingAnalysis {
   id_student:number;
   id_rank:number;
   points:number;
+  name:string;
 }
 
 @Injectable({
@@ -51,10 +52,7 @@ data:any;
     });
     let options = { headers: headers };
 
-
-
     return this.http.get<RankingAnalysis[]>(`${this.baseUrl}/student/get-all-ranking-by-id/${rankingId}`,options);
-
   }
 
   validarCodigoRanking(codigoRanking: string): Observable<boolean> {

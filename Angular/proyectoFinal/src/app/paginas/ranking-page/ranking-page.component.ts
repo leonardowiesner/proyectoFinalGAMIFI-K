@@ -17,14 +17,15 @@ export class RankingPageComponent implements OnInit {
 
   constructor(private route: ActivatedRoute,private rankingService: RankingService) {
     this.rankingId=0;
-   }
-
+  }
+  
   ngOnInit() {
-     this.rankingId = Number(this.route.snapshot.paramMap.get('id'));
+    this.rankingId = Number(this.route.snapshot.paramMap.get('id'));
     
-     this.rankingService.getRanking(this.rankingId).subscribe(data => {
-       this.rankingAnalises=data;
-       console.log(data)
+    this.rankingService.getRanking(this.rankingId).subscribe(data => {
+      this.rankingAnalises=data;
+      console.log(this.rankingAnalises)
+      console.log(data)
       });
 
   }
