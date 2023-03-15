@@ -46,6 +46,23 @@ export class TeacherPageComponent implements OnInit {
     console.log(this.rankings.values);
   }
     
+  eliminarRegistro(ranking_id:number){
+    this.rankingservice.deleteRanking(ranking_id).subscribe();
+    this.rankingservice.getRankingsTeacher(this.teacher.id).subscribe({
+      next: (rankings: any) => {
+        if (rankings !== undefined) {
+          this.rankings = rankings.data; // Para imprimir el id del primer ranking de la lista
+          console.log(this.rankings);
+        } else {
+          console.log('No hay rankings disponibles.');
+          this.rankings = [];
+        }      
+      },
+
+    });
+    console.log(this.rankings.values);
+  }
+
 crearRanking(){
   const uuid = uuidv4();
   this.teacherService.getTeacher().subscribe(teacher => {
