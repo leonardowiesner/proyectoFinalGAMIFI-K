@@ -56,7 +56,19 @@ crearRanking(){
   });
 
   this.rankingservice.crearRanking(this.nombreRanking,uuid,this.teacher.id).subscribe();
+  
+  this.rankingservice.getRankingsTeacher(this.teacher.id).subscribe({
+    next: (rankings: any) => {
+      if (rankings !== undefined) {
+        this.rankings = rankings.data; // Para imprimir el id del primer ranking de la lista
+        console.log(this.rankings);
+      } else {
+        console.log('No hay rankings disponibles.');
+        this.rankings = [];
+      }      
+    },
 
+  });
   
 }
 
