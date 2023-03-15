@@ -9,7 +9,6 @@ import { HttpClient } from '@angular/common/http';
 import { StudentService } from 'src/app/services/student.service';
 import { RespuestaServidor } from 'src/app/interfaces/respuesta-servidor';
 // import Swal from 'sweetalert2/dist/sweetalert2.js';
-import { CookieService } from 'ngx-cookie-service';
 
 export class MyErrorStateMatcher implements ErrorStateMatcher {
   isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
@@ -29,7 +28,6 @@ export class LoginStudentComponent implements OnInit {
     private readonly router: Router,
     private readonly navBarService: NavBarService,
     private http: HttpClient,
-    private cookieService: CookieService // Agrega esto
   ) {
     navBarService.showNavbar = false;
   }
@@ -68,7 +66,6 @@ export class LoginStudentComponent implements OnInit {
             token: response.token!,
             student: response.student
           };
-          this.cookieService.set('studentData', JSON.stringify(userData));
         }
         
 
@@ -82,13 +79,7 @@ export class LoginStudentComponent implements OnInit {
   
   }
   ngOnInit() {
-    const userData = JSON.parse(this.cookieService.get('studentData') || '{}');
-    if (userData.token) {
-      this.studentService.token = userData.token;
-      this.studentService.student = userData.student;
-    } else {
-      this.router.navigate(['/login/student']);
-    }
+ 
   }
   
 

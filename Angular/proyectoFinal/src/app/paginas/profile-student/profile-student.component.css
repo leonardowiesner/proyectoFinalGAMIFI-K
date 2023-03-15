@@ -1,6 +1,3 @@
-
-l
-    
     .jumbotron-flat {
     background-color: #4DB8FF;
     height: 100%;
@@ -42,3 +39,11 @@ l
         padding-left: calc(var(--bs-gutter-x) * .5);
         margin-top: var(--bs-gutter-y); 
     } */
+
+    .container {
+        margin-left: 250px;
+    }
+    .edit-profile{
+        /* display: flex; */
+
+    }

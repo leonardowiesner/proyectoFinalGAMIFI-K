@@ -20,7 +20,7 @@
 .page-content {
 	width: 100%;
 	margin:  0 auto;
-	background-image: linear-gradient(to right, #0f0c29, #302b63, #24243e);
+	/* background-image: linear-gradient(to right, #0f0c29, #302b63, #24243e); */
 
 	display: flex;
 	display: -webkit-flex;
@@ -407,15 +407,4 @@
 	transform: rotateX(-90deg);
   }
 
-  /* Cambiar cuando se auto rellena con chrome*/
-  input:-webkit-autofill,
-  input:-webkit-autofill:hover, 
-  input:-webkit-autofill:focus, 
-  input:-webkit-autofill:active{
-	  -webkit-box-shadow: 0 0 0 30px #3d5983 inset !important;
-  }
   
-  /*Change text in autofill textbox*/
-  input:-webkit-autofill{
-	  -webkit-text-fill-color: white !important;
-  }

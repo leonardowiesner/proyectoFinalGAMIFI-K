@@ -4,6 +4,8 @@ import { Router } from '@angular/router';
 import { StudentData } from 'src/app/interfaces/alumnos-data.interface';
 import { Ranking, RankingAnalysis, RankingService } from 'src/app/services/ranking.service';
 import { StudentService } from 'src/app/services/student.service';
+import { NavBarService } from 'src/app/services/nav-bar.service';
+
 
 @Component({
   selector: 'app-student-page',
@@ -17,9 +19,14 @@ export class StudentPageComponent implements OnInit {
   mensajeNoRankings: string = 'Ups! Parece que no estás matriculado en ningún ranking.'; // Mensaje a mostrar si el alumno no tiene rankings
   mensajeRankings: string = 'Estás matriculado en los siguientes rankings:'; // Mensaje a mostrar si el alumno tiene rankings
   id = this.studentService.student.id;
-  points: number=0;
-  constructor(private rankingService: RankingService, private studentService: StudentService,private router: Router) {
+  points: number = 0;
+  constructor(private rankingService: RankingService,
+              private studentService: StudentService,
+              private router: Router,
+              private readonly navBarService: NavBarService
+              ) {
     // this.rankings = [];
+              navBarService.showNavbar = true;
   }
 
   ngOnInit(): void {
@@ -49,26 +56,26 @@ export class StudentPageComponent implements OnInit {
     // this.rankingService.validarCodigoRanking(this.nuevoCodigoRanking).subscribe(
     //   valido => {
     //     if (valido) {
-          // Comprobamos si el alumno ya está matriculado en el ranking
-          // Suponemos que el método devuelve un Observable que emite true si el alumno está matriculado y false si no lo está
-          // this.rankingService.alumnoEnRanking(this.id, this.nuevoCodigoRanking).subscribe(
-          //   enRanking => {
-          //     if (!enRanking) {
-                // Si el alumno no está matriculado, lo añadimos al ranking
-                this.rankingService.anadirAlumnoRanking(this.id, this.nuevoCodigoRanking, this.points).subscribe(
-                  () => {
-                    // Actualizamos la lista de rankings matriculados
-                    this.rankingService.getRankingsAlumno(this.id).subscribe(
-                      data => {
-                        this.rankings = data;
-                      }
-                    );
-                  }
-                );
-              }
-        //     }
-        //   );
-        // }
+    // Comprobamos si el alumno ya está matriculado en el ranking
+    // Suponemos que el método devuelve un Observable que emite true si el alumno está matriculado y false si no lo está
+    // this.rankingService.alumnoEnRanking(this.id, this.nuevoCodigoRanking).subscribe(
+    //   enRanking => {
+    //     if (!enRanking) {
+    // Si el alumno no está matriculado, lo añadimos al ranking
+    this.rankingService.anadirAlumnoRanking(this.id, this.nuevoCodigoRanking, this.points).subscribe(
+      () => {
+        // Actualizamos la lista de rankings matriculados
+        this.rankingService.getRankingsAlumno(this.id).subscribe(
+          data => {
+            this.rankings = data;
+          }
+        );
+      }
+    );
+  }
+  //     }
+  //   );
+  // }
   //     }
   //   );
   // }

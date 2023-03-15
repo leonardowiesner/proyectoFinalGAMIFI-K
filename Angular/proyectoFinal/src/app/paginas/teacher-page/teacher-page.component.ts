@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
+
 @Component({
   selector: 'app-teacher-page',
   templateUrl: './teacher-page.component.html',
@@ -19,8 +20,10 @@ export class TeacherPageComponent implements OnInit {
     name: ['', Validators.required],
     surnames: ['', Validators.required],
     center: ['', Validators.required]
-    });
     }
+    );
+    }
+
   ngOnInit(): void {
     throw new Error('Method not implemented.');
   }

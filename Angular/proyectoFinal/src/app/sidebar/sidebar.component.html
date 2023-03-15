@@ -9,7 +9,7 @@
             <div class="logo-details">
               <i class='bx bxl-c-plus-plus icon'></i>
                 <div class="logo_name">Vortex Ed</div>
-                <i class='bx bx-menu' id="btn" (click)="toggleMenu()"></i>
+                <!-- <i class='bx bx-menu' id="btn" (click)="toggleMenu()"></i> -->
             </div>
             <ul class="nav-list">
               <li>
@@ -19,17 +19,18 @@
                 </a>
                  <span class="tooltip">Dashboard</span>
               </li>
-              <!-- <router-link to="/">
-                <i class='bx bx-grid-alt'></i>
-                <span class="links_name">Dashboard</span>
-              </router-link> -->
+
               <li>
-               <a href="#">
+               <a routerLink="/editstudentprofile">
                  <i class='bx bx-user' ></i>
                  <span class="links_name">Tu perfil de usuario</span>
                </a>
                <span class="tooltip">User</span>
              </li>
+               <!-- <router-link to="/editstudentprofile" routerLinkActive="router-link-active">
+                <i class='bx bx-grid-alt'></i>
+                <span class="links_name">Dashboard</span>
+              </router-link>  -->
              <li>
                <a href="#">
                  <i class='bx bx-chat' ></i>

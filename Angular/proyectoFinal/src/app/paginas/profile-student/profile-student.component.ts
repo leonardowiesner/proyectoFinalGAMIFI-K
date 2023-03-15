@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { StudentData } from 'src/app/interfaces/alumnos-data.interface';
 import { StudentService } from 'src/app/services/student.service';
 import { MatDialog } from '@angular/material/dialog';
+import { NavBarService } from 'src/app/services/nav-bar.service';
 import { ChangePasswordDialogComponent } from './change-password-dialog/change-password-dialog.component';
-import { CookieService } from 'ngx-cookie-service';
 
 
 
@@ -18,16 +18,15 @@ export class ProfileStudentComponent implements OnInit {
   constructor(
     private studentService: StudentService,
     private dialog: MatDialog,
-    private cookieService: CookieService
+    private readonly navBarService: NavBarService
   ) { 
+    navBarService.showNavbar = true;
     this.student = {id: 0, nick : "", name:"", surnames:"", email:"", password:"",img:"",nacimiento: new Date }
   }
 
 
   ngOnInit(): void {
      // Obtener el valor de la cookie 'user_id'
-    const userId = this.cookieService.get('user_id');
-    console.log('User ID:', userId);
 
     if(this.studentService.student){
     this.student=this.studentService.student;

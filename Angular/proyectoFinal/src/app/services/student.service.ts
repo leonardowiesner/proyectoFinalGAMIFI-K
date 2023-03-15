@@ -4,7 +4,6 @@ import { filter, Observable } from 'rxjs';
 import { LoginData } from '../interfaces/login-data.interface';
 import { RespuestaServidor } from '../interfaces/respuesta-servidor';
 import { StudentData } from '../interfaces/alumnos-data.interface';
-import { CookieService } from 'ngx-cookie-service';
 
 @Injectable({
   providedIn: 'root'
@@ -18,7 +17,6 @@ export class StudentService {
 
   constructor(
     private http: HttpClient,
-    private cookieService: CookieService
   ) { 
     this.student = new StudentData(
       0,"","","","","","",new Date
