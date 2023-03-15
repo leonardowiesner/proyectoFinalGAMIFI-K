@@ -160,11 +160,21 @@ class RankingController extends Controller
         return response()->json(['message' => 'El ranking y sus registros relacionados han sido eliminados correctamente.']);
     }
 
-    public function deleteStudenRanking($id)
+    public function deleteStudentRankingAnalysis($id_rank, $id_student)
     {
-        // Eliminar todos los registros relacionados en la tabla de análisis de rankings
-        $rankingAnalyses = Ranking_analysis::where('id_student', $id)->delete();
+        // Buscar el registro que se quiere eliminar
+        $rankingAnalysis = Ranking_analysis::where('id_rank', $id_rank)
+            ->where('id_student', $id_student)
+            ->first();
 
-        return response()->json(['message' => 'El ranking y sus registros relacionados han sido eliminados correctamente.']);
+        if ($rankingAnalysis) {
+            // Si se encontró el registro, eliminarlo
+            $rankingAnalysis->delete();
+
+            return response()->json(['message' => 'Registro eliminado correctamente.']);
+        } else {
+            // Si no se encontró el registro, devolver un error
+            return response()->json(['error' => 'No se pudo encontrar el registro que se quiere eliminar.'], 404);
+        }
     }
 }
