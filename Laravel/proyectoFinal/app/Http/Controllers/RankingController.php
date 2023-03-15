@@ -24,7 +24,7 @@ class RankingController extends Controller
             "id_teacher" => $request->id_teacher,
             "name" => $request->name,
             "cod_room" => Hash::make($request->cod_room)
-        
+
         ]);
 
         return response()->json([
@@ -69,7 +69,7 @@ class RankingController extends Controller
 
     public function getRankingAnalysesByRankId($id)
     {
-        
+
         $rankingAnalyses = DB::table('ranking_analyses')
             ->join('students', 'ranking_analyses.id_student', '=', 'students.id')
             ->where('ranking_analyses.id_rank', $id)
@@ -80,21 +80,23 @@ class RankingController extends Controller
         return $rankingAnalyses;
     }
 
-    
-    public function getRankingById($id){
-        $ranking = DB::table('rankings')
-        ->where('id', $id)
-        ->orderByDesc('points')
-        ->get();
 
-    return $ranking;
+    public function getRankingById($id)
+    {
+        $ranking = DB::table('rankings')
+            ->where('id', $id)
+            ->orderByDesc('points')
+            ->get();
+
+        return $ranking;
     }
 
-    public function getRankingByTeacher($id){
+    public function getRankingByTeacher($id)
+    {
         $rankings = DB::table('Rankings')
-        ->select('Rankings.id', 'Rankings.name', 'Rankings.id_teacher', 'Rankings.cod_room')
-        ->where('Rankings.id_teacher', $id)
-        ->get();
+            ->select('Rankings.id', 'Rankings.name', 'Rankings.id_teacher', 'Rankings.cod_room')
+            ->where('Rankings.id_teacher', $id)
+            ->get();
         if ($rankings->count() > 0) {
             return response()->json([
                 "status" => 1,
@@ -107,7 +109,6 @@ class RankingController extends Controller
                 "msg" => "No se encontraron salas para el usuario especificado",
             ], 404);
         }
-
     }
 
 
@@ -138,5 +139,32 @@ class RankingController extends Controller
                 "msg" => "No se encontraron salas para el usuario especificado",
             ], 404);
         }
+    }
+
+    public function deleteRanking($id)
+    {
+        // Buscar el ranking por ID
+        $ranking = Ranking::find($id);
+
+        if (!$ranking) {
+            // Si no se encuentra el ranking, devolver un error 404
+            return response()->json(['error' => 'No se encontró el ranking especificado.'], 404);
+        }
+
+        // Eliminar todos los registros relacionados en la tabla de análisis de rankings
+        $rankingAnalyses = Ranking_analysis::where('id_rank', $id)->delete();
+
+        // Eliminar el ranking
+        $ranking->delete();
+
+        return response()->json(['message' => 'El ranking y sus registros relacionados han sido eliminados correctamente.']);
+    }
+
+    public function deleteStudenRanking($id)
+    {
+        // Eliminar todos los registros relacionados en la tabla de análisis de rankings
+        $rankingAnalyses = Ranking_analysis::where('id_student', $id)->delete();
+
+        return response()->json(['message' => 'El ranking y sus registros relacionados han sido eliminados correctamente.']);
     }
 }
