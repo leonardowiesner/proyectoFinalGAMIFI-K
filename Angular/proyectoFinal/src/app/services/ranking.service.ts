@@ -98,6 +98,16 @@ data:any;
     return this.http.post<any>(`${this.baseUrl}/teacher/create-ranking`, { id_teacher,name,cod_room });
   }
 
+  deleteRanking(id_rank:number){
+    //Funcion que sirve para eliminar un ranking mediante la id de ese ranking, 
+    //tambien se eliminaran todas las columnas que tenga la misma id_rank en la tabla de analisis
+    return this.http.get<boolean>(`${this.baseUrl}/teacher/delete-ranking-id/${id_rank}`);
+  }
+  deleteStudenRanking(id_student:number){
+    //elimina un estudiante del ranking 
+    return this.http.get<boolean>(`${this.baseUrl}/teacher/delete-ranking-id/${id_student}`);
+  }
+
   validarCodigoRanking(codigoRanking: string): Observable<boolean> {
     return this.http.get<boolean>(`${this.baseUrl}/rankings/${codigoRanking}/validar`);
   }
