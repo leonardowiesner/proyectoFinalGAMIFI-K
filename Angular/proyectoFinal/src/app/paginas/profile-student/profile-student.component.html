@@ -1,7 +1,6 @@
-
+<!-- 
+<div class="profilecontainer">
     <h2>Perfil</h2>
-    
-
     <form>
       <div>
         <img [src]="student.img" alt="">
@@ -29,5 +28,69 @@
       </div>
       <button type="submit" (click)="save()">Guardar</button>
     </form>
+</div> -->
+<div class="container">
+  <div class="text-center">
+    <h1>Editar Perfil</h1>
+  </div>
+  <hr>
+<div class="row ">
+    <!-- left column -->
+    <div class="col-3">
+      <div class="text-center">
+        <img [src]="student.img" class="avatar img-circle" alt="avatar">
+        <h6>Selecciona una foto diferente...</h6>
+        
+        <input type="file" class="form-control">
+      </div>
+    </div>
+    
+    <!-- edit form column -->
+    
+    <div class="col-md-4 personal-info ">
+      <div class="alert alert-info alert-dismissable">
+        <a class="panel-close close" data-dismiss="alert">×</a> 
+        <i class="fa fa-coffee"></i>
+        This is an <strong>.alert</strong>. Use this to show important messages to the user.
+      </div>
+      <h3>Info de tu perfil</h3>
+      
+      <form class="form-horizontal" role="form">
+        <div class="form-group">
+          <label class="col-lg-3 control-label text-center">Nombre:</label>
+          <div class="col-lg-8">
+            <input class="form-control" type="text" [(ngModel)]="student.name" name="name">
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-lg-3 control-label">Apellido:</label>
+          <div class="col-lg-8">
+            <input class="form-control" type="text" [(ngModel)]="student.surnames" name="surnames">
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="col-lg-3 control-label">Email:</label>
+          <div class="col-lg-8">
+            <input class="form-control" type="text" [(ngModel)]="student.email" name="email">
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-md-3 control-label">Username:</label>
+          <div class="col-md-8">
+            <input class="form-control" type="text" [(ngModel)]="student.nickname" name="nickname">
+          </div>
+        </div>
+          <div class="col-md-8">
+            <div class="buttonsavechanges">
+            <input type="button" class="btn btn-primary" value="Guardar Cambios">
+            <span></span>
+            <input type="reset" class="btn btn-danger" value="Cancelar Cambios">
+            </div>
+          </div>
+      </form>
+    </div>
+</div>
+</div>
 
   

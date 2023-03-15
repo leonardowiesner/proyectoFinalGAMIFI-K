@@ -1,3 +1,44 @@
-img{
-    width: 30px;
-}
+
+l
+    
+    .jumbotron-flat {
+    background-color: #4DB8FF;
+    height: 100%;
+    border: 1px solid #4DB8FF;
+    background: white;
+    width: 100%;
+    text-align: center;
+    overflow: auto;
+    }
+    
+    .paymentAmt {
+    font-size: 80px;
+    }
+    
+    .centered {
+    text-align: center;
+    }
+    
+    .title {
+    padding-top: 15px;
+    }
+
+    img, svg {
+        vertical-align: middle;
+        border-radius: 50%;
+        width: 8rem;
+        height: 8rem;
+    }
+
+    [type=button]:not(:disabled), [type=reset]:not(:disabled), [type=submit]:not(:disabled), button:not(:disabled){
+        margin: 0.5rem 12rem;
+    }
+    
+    /* .row>* {
+        flex-shrink: 0;
+        width: 90%;
+        max-width: 100%;
+        padding-right: calc(var(--bs-gutter-x) * .5);
+        padding-left: calc(var(--bs-gutter-x) * .5);
+        margin-top: var(--bs-gutter-y); 
+    } */

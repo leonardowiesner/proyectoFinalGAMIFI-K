@@ -3,7 +3,7 @@ import { TeachersData } from 'src/app/interfaces/profesores-data.interface';
 import { TeacherService } from 'src/app/services/teacher.service';
 import { MatDialog } from '@angular/material/dialog';
 //import { ChangePasswordDialogComponent } from './change-password-dialog/change-password-dialog.component';
-import { CookieService } from 'ngx-cookie-service';
+
 
 @Component({
   selector: 'app-profile-teacher',
@@ -16,10 +16,10 @@ export class ProfileTeacherComponent implements OnInit {
   constructor(
     private teacherService: TeacherService,
     private dialog: MatDialog,
-    private cookieService: CookieService
+
   ) { 
 
-    this.teacher = {id: 0, nick : "", name:"", surnames:"", email:"", password:"",img:"",centro: ""}
+    this.teacher = {id: 0, nickname : "", name:"", surnames:"", email:"", password:"",img:"",centro: ""}
 
   }
 
@@ -27,7 +27,7 @@ export class ProfileTeacherComponent implements OnInit {
     if(this.teacherService.teacher){
     this.teacher=this.teacherService.teacher;
   }
-    this.teacherService.getTeacher(this.teacher.id).subscribe(teacher => {
+    this.teacherService.getTeacher().subscribe(teacher => {
 
       console.log(teacher);
       this.teacher = teacher;

@@ -30,8 +30,8 @@ export class TeacherService {
 
     return this.http.post<RespuestaServidor>(`${this.apiURL}/login/teacher`, data,options);
   }
-  getTeacher(id:number): Observable<TeachersData> {
-    return this.http.get<TeachersData>(`${this.apiURL}/teacher/get/${id}`);
+  getTeacher(): Observable<TeachersData> {
+    return this.http.get<TeachersData>(`${this.apiURL}/teacher/get/${this.teacher?.id}`);
   }
   
   saveUser(teacher: TeachersData): Observable<any> {

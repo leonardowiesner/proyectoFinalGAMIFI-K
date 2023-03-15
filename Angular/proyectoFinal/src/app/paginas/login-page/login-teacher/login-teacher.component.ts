@@ -59,7 +59,10 @@ export class LoginTeacherComponent implements OnInit {
         
         // El se loguea correctamente y guardamos el token
         if (response.status == 1) {
+          console.log(response);
+          
           this.teacherService.token = response.token!;
+          this.teacherService.teacher=response.teacher;
         }
 
         // En caso de error mostrar al usuario el problema

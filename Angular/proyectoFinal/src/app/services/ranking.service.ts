@@ -2,6 +2,13 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
+export interface RankingSolo {
+  id: number;
+  name: string;
+  id_teacher: string;
+  cod_room:string;
+}
+
 export interface Ranking {
   id: number;
   name: string;
@@ -31,7 +38,7 @@ export class RankingService {
     
    }
 data:any;
-  getRankingsAlumno(alumnoId: number): Observable<Ranking[]> {
+  getRankingsAlumno(alumnoId: number): Observable<any> {
     let headers = new HttpHeaders({
       'Content-Type': 'application/json',
       'Accept': 'application/json'
@@ -42,7 +49,21 @@ data:any;
     // };
 
     
-    return this.http.get<Ranking[]>(`${this.baseUrl}/student/get-ranking-studen/${alumnoId}`,options);
+    return this.http.get<any>(`${this.baseUrl}/student/get-ranking-studen/${alumnoId}`,options);
+  }
+
+
+  getRankingsTeacher(teacherId: number): Observable<Ranking[]> {
+    let headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Accept': 'application/json'
+    });
+    let options = { headers: headers };
+    // let data={
+    //   id:alumnoId
+    // };
+
+    return this.http.get<Ranking[]>(`${this.baseUrl}/teacher/get-ranking-teacher/${teacherId}`,options);
   }
 
   getRanking(rankingId:number){
@@ -52,7 +73,29 @@ data:any;
     });
     let options = { headers: headers };
 
-    return this.http.get<RankingAnalysis[]>(`${this.baseUrl}/student/get-all-ranking-by-id/${rankingId}`,options);
+
+    return this.http.get<RankingSolo[]>(`${this.baseUrl}/student/get-ranking/${rankingId}`,options);
+
+  }
+
+  getRankingAnalysis(rankingId:number){
+    let headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Accept': 'application/json'
+    });
+    let options = { headers: headers };
+
+
+    console.log(`ID RANKING: ${rankingId}`);
+    
+    return this.http.get<RankingAnalysis[]>(`${this.baseUrl}/student/get-all-ranking-by-id/${rankingId}`, options);
+
+  }
+
+  crearRanking(name:string,cod_room:string,id_teacher:number){
+    
+
+    return this.http.post<any>(`${this.baseUrl}/teacher/create-ranking`, { id_teacher,name,cod_room });
   }
 
   validarCodigoRanking(codigoRanking: string): Observable<boolean> {
