@@ -69,13 +69,17 @@ class RankingController extends Controller
 
     public function getRankingAnalysesByRankId($id)
     {
+        
         $rankingAnalyses = DB::table('ranking_analyses')
-            ->where('id_rank', $id)
-            ->orderByDesc('points')
+            ->join('students', 'ranking_analyses.id_student', '=', 'students.id')
+            ->where('ranking_analyses.id_rank', $id)
+            ->select('ranking_analyses.*', 'students.name')
             ->get();
-    
+
+
         return $rankingAnalyses;
     }
+
     
     public function getRankingById($id){
         $ranking = DB::table('rankings')
@@ -105,6 +109,7 @@ class RankingController extends Controller
         }
 
     }
+
 
 
     public function getRankingByStuden($id)

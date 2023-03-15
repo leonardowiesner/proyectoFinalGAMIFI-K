@@ -17,17 +17,17 @@ export class RankingPageComponent implements OnInit {
 
   constructor(private route: ActivatedRoute,private rankingService: RankingService) {
     this.rankingId=0;
-   }
-
+  }
+  
   ngOnInit() {
+
      this.rankingId = Number(this.route.snapshot.paramMap.get('id'));
    
 
      this.rankingService.getRankingAnalysis(this.rankingId).subscribe(data => {
        this.rankingAnalises=data;
        console.log(this.rankingAnalises)
-      
-      });
+            });
   
 
   }

@@ -24,6 +24,7 @@ export interface RankingAnalysis {
   id_student:number;
   id_rank:number;
   points:number;
+  name:string;
 }
 
 @Injectable({
@@ -71,7 +72,6 @@ data:any;
       'Accept': 'application/json'
     });
     let options = { headers: headers };
-
 
 
     return this.http.get<RankingSolo[]>(`${this.baseUrl}/student/get-ranking/${rankingId}`,options);
