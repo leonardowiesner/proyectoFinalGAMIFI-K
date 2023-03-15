@@ -116,7 +116,7 @@ class RankingController extends Controller
 
         $rankings = DB::table('Rankings')
             ->join('ranking_analyses', 'Rankings.id', '=', 'ranking_analyses.id_rank')
-            ->select('Rankings.id', 'Rankings.name', 'Rankings.id_teacher', 'Rankings.cod_room', 'ranking_analyses.id', 'ranking_analyses.id_student', 'ranking_analyses.points')
+            ->select('Rankings.id', 'Rankings.name', 'Rankings.id_teacher', 'Rankings.cod_room', 'ranking_analyses.id_student', 'ranking_analyses.points')
             ->where('ranking_analyses.id_student', $id)
             ->get();
 

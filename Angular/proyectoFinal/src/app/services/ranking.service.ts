@@ -37,7 +37,7 @@ export class RankingService {
     
    }
 data:any;
-  getRankingsAlumno(alumnoId: number): Observable<Ranking[]> {
+  getRankingsAlumno(alumnoId: number): Observable<any> {
     let headers = new HttpHeaders({
       'Content-Type': 'application/json',
       'Accept': 'application/json'
@@ -48,7 +48,7 @@ data:any;
     // };
 
     
-    return this.http.get<Ranking[]>(`${this.baseUrl}/student/get-ranking-studen/${alumnoId}`,options);
+    return this.http.get<any>(`${this.baseUrl}/student/get-ranking-studen/${alumnoId}`,options);
   }
 
 
@@ -86,8 +86,9 @@ data:any;
     let options = { headers: headers };
 
 
-
-    return this.http.get<RankingAnalysis[]>(`${this.baseUrl}/student/get-all-ranking-by-id/${rankingId}`,options);
+    console.log(`ID RANKING: ${rankingId}`);
+    
+    return this.http.get<RankingAnalysis[]>(`${this.baseUrl}/student/get-all-ranking-by-id/${rankingId}`, options);
 
   }
 
