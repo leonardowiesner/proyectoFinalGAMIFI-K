@@ -33,15 +33,16 @@ export interface RankingAnalysis {
 export class RankingService {
 
   baseUrl: string = "http://127.0.0.1:8000/api"; // URL base del servidor
-
+  token:string="";
   constructor(private http: HttpClient) {
-
+    window.localStorage.getItem(this.token);
   }
   data: any;
   getRankingsAlumno(alumnoId: number): Observable<any> {
     let headers = new HttpHeaders({
       'Content-Type': 'application/json',
-      'Accept': 'application/json'
+      'Accept': 'application/json',
+      'Authorization': `Bearer ${this.token}`
     });
     let options = { headers: headers };
     // let data={
@@ -56,7 +57,8 @@ export class RankingService {
   getRankingsTeacher(teacherId: number): Observable<Ranking[]> {
     let headers = new HttpHeaders({
       'Content-Type': 'application/json',
-      'Accept': 'application/json'
+      'Accept': 'application/json',
+      'Authorization': `Bearer ${this.token}`
     });
     let options = { headers: headers };
     // let data={
@@ -69,7 +71,8 @@ export class RankingService {
   getRanking(rankingId: number) {
     let headers = new HttpHeaders({
       'Content-Type': 'application/json',
-      'Accept': 'application/json'
+      'Accept': 'application/json',
+      'Authorization': `Bearer ${this.token}`
     });
     let options = { headers: headers };
 
@@ -81,52 +84,90 @@ export class RankingService {
   getRankingAnalysis(rankingId: number) {
     let headers = new HttpHeaders({
       'Content-Type': 'application/json',
-      'Accept': 'application/json'
+      'Accept': 'application/json',
+      'Authorization': `Bearer ${this.token}`
     });
     let options = { headers: headers };
 
 
-    console.log(`ID RANKING: ${rankingId}`);
+    //console.log(`ID RANKING: ${rankingId}`);
 
     return this.http.get<RankingAnalysis[]>(`${this.baseUrl}/student/get-all-ranking-by-id/${rankingId}`, options);
 
   }
 
   crearRanking(name: string, cod_room: string, id_teacher: number) {
+    let headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Accept': 'application/json',
+      'Authorization': `Bearer ${this.token}`
+    });
+    let options = { headers: headers };
 
-
-    return this.http.post<any>(`${this.baseUrl}/teacher/create-ranking`, { id_teacher, name, cod_room });
+    return this.http.post<any>(`${this.baseUrl}/teacher/create-ranking`, { id_teacher, name, cod_room },options);
   }
 
   deleteRanking(id_rank: number) {
     let headers = new HttpHeaders({
       'Content-Type': 'application/json',
-      'Accept': 'application/json'
+      'Accept': 'application/json',
+      'Authorization': `Bearer ${this.token}`
     });
     let options = { headers: headers };
     //Funcion que sirve para eliminar un ranking mediante la id de ese ranking, 
     //tambien se eliminaran todas las columnas que tenga la misma id_rank en la tabla de analisis
     return this.http.get<boolean>(`${this.baseUrl}/teacher/delete-ranking-id/${id_rank}`, options);
   }
-  deleteStudenRanking(id_student: number) {
+  deleteStudenRanking(id_rank:number,id_student: number) {
+    let headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Accept': 'application/json',
+      'Authorization': `Bearer ${this.token}`
+    });
+    let options = { headers: headers };
     //elimina un estudiante del ranking 
-    return this.http.get<boolean>(`${this.baseUrl}/teacher/delete-ranking-id/${id_student}`);
+
+    return this.http.get<boolean>(`${this.baseUrl}/teacher/delete-studen-ranking-id/${id_rank}/${id_student}`,options);
   }
 
   validarCodigoRanking(codigoRanking: string): Observable<boolean> {
-    return this.http.get<boolean>(`${this.baseUrl}/rankings/${codigoRanking}/validar`);
+    let headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Accept': 'application/json',
+      'Authorization': `Bearer ${this.token}`
+    });
+    let options = { headers: headers };
+    return this.http.get<boolean>(`${this.baseUrl}/rankings/${codigoRanking}/validar`,options);
   }
 
   alumnoEnRanking(alumnoId: number, codigoRanking: string): Observable<boolean> {
-    return this.http.get<boolean>(`${this.baseUrl}/student/${alumnoId}/rankings/${codigoRanking}/enranking`);
+    let headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Accept': 'application/json',
+      'Authorization': `Bearer ${this.token}`
+    });
+    let options = { headers: headers };
+    return this.http.get<boolean>(`${this.baseUrl}/student/${alumnoId}/rankings/${codigoRanking}/enranking`,options);
   }
 
   anadirAlumnoRanking(id_student: number, cod_room: string, points: number): Observable<any> {
-    return this.http.post<any>(`${this.baseUrl}/student/add-student-ranking-analysis`, { id_student, points, cod_room });
+    let headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Accept': 'application/json',
+      'Authorization': `Bearer ${this.token}`
+    });
+    let options = { headers: headers };
+    return this.http.post<any>(`${this.baseUrl}/student/add-student-ranking-analysis`, { id_student, points, cod_room },options);
   }
 
-  editPointStuden(id_student: number, id_rank: string, points: number): Observable<any> {
-    return this.http.post<any>(`${this.baseUrl}/teacher/edit`, { id_student, id_rank, points });
+  editPointStuden(id_student: number, id_rank: number, points: number): Observable<any> {
+    let headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Accept': 'application/json',
+      'Authorization': `Bearer ${this.token}`
+    });
+    let options = { headers: headers };
+    return this.http.post<any>(`${this.baseUrl}/teacher/edit`, { id_student, id_rank, points },options);
   }
 
 }
