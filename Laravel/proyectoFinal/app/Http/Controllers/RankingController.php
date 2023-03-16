@@ -177,4 +177,28 @@ class RankingController extends Controller
             return response()->json(['error' => 'No se pudo encontrar el registro que se quiere eliminar.'], 404);
         }
     }
+
+    public function editRankingPoints(Request $request)
+    {
+        $id_student = $request->input('id_student');
+        $id_rank = $request->input('id_rank');
+        $new_points = $request->input('point');
+
+        $rankingAnalysis = DB::table('ranking_analyses')
+            ->where('id_student', $id_student)
+            ->where('id_rank', $id_rank)
+            ->first();
+
+        if (!$rankingAnalysis) {
+            // Si no existe el registro en la tabla, podrías lanzar una excepción o hacer algo en consecuencia
+            return false;
+        }
+
+        DB::table('ranking_analyses')
+            ->where('id_student', $id_student)
+            ->where('id_rank', $id_rank)
+            ->update(['points' => $new_points]);
+
+        return true;
+    }
 }
