@@ -33,9 +33,11 @@ export interface RankingAnalysis {
 export class RankingService {
 
   baseUrl: string = "http://127.0.0.1:8000/api"; // URL base del servidor
+
   token:string="";
   constructor(private http: HttpClient) {
     window.localStorage.getItem(this.token);
+
   }
   data: any;
   getRankingsAlumno(alumnoId: number): Observable<any> {
@@ -90,13 +92,16 @@ export class RankingService {
     let options = { headers: headers };
 
 
-    //console.log(`ID RANKING: ${rankingId}`);
+
+    console.log(`ID RANKING: ${rankingId}`);
+
 
     return this.http.get<RankingAnalysis[]>(`${this.baseUrl}/student/get-all-ranking-by-id/${rankingId}`, options);
 
   }
 
   crearRanking(name: string, cod_room: string, id_teacher: number) {
+
     let headers = new HttpHeaders({
       'Content-Type': 'application/json',
       'Accept': 'application/json',
@@ -105,6 +110,7 @@ export class RankingService {
     let options = { headers: headers };
 
     return this.http.post<any>(`${this.baseUrl}/teacher/create-ranking`, { id_teacher, name, cod_room },options);
+
   }
 
   deleteRanking(id_rank: number) {
@@ -118,6 +124,7 @@ export class RankingService {
     //tambien se eliminaran todas las columnas que tenga la misma id_rank en la tabla de analisis
     return this.http.get<boolean>(`${this.baseUrl}/teacher/delete-ranking-id/${id_rank}`, options);
   }
+
   deleteStudenRanking(id_rank:number,id_student: number) {
     let headers = new HttpHeaders({
       'Content-Type': 'application/json',
@@ -125,6 +132,7 @@ export class RankingService {
       'Authorization': `Bearer ${this.token}`
     });
     let options = { headers: headers };
+
     //elimina un estudiante del ranking 
 
     return this.http.get<boolean>(`${this.baseUrl}/teacher/delete-studen-ranking-id/${id_rank}/${id_student}`,options);
@@ -160,6 +168,7 @@ export class RankingService {
     return this.http.post<any>(`${this.baseUrl}/student/add-student-ranking-analysis`, { id_student, points, cod_room },options);
   }
 
+
   editPointStuden(id_student: number, id_rank: number, points: number): Observable<any> {
     let headers = new HttpHeaders({
       'Content-Type': 'application/json',
@@ -168,6 +177,7 @@ export class RankingService {
     });
     let options = { headers: headers };
     return this.http.post<any>(`${this.baseUrl}/teacher/edit`, { id_student, id_rank, points },options);
+
   }
 
 }
