@@ -15,11 +15,10 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { CommonModule } from '@angular/common';
 import { MatInputModule } from '@angular/material/input';
 import { RankingPageComponent } from './ranking-page/ranking-page.component';
-import { AddPracticeDialogComponent } from './teacher-page/add-practice-dialog/add-practice-dialog.component';
 
 
 @NgModule({
-  declarations: [MainPageComponent, StudentPageComponent,TeacherPageComponent, ProfileTeacherComponent, ProfileStudentComponent, ChangePasswordDialogComponent, RankingPageComponent, AddPracticeDialogComponent  ],
+  declarations: [MainPageComponent, StudentPageComponent,TeacherPageComponent, ProfileTeacherComponent, ProfileStudentComponent, ChangePasswordDialogComponent, RankingPageComponent  ],
   imports: [
     PagesRoutingModule,
     MatFormFieldModule,
