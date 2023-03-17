@@ -22,8 +22,9 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
   templateUrl: './login-student.component.html',
   styleUrls: ['./login-student.component.css']
 })
-export class LoginStudentComponent implements OnInit {
 
+export class LoginStudentComponent implements OnInit {
+token:string;
   constructor(
     private readonly studentService: StudentService,
     private readonly router: Router,
@@ -31,6 +32,7 @@ export class LoginStudentComponent implements OnInit {
     private http: HttpClient,
 
   ) {
+    this.token="";
     navBarService.showNavbar = false;
   }
   
@@ -68,6 +70,9 @@ export class LoginStudentComponent implements OnInit {
             token: response.token!,
             student: response.student
           };
+          this.token=userData.token
+          window.localStorage.setItem(this.token, userData.token);
+          console.log(  window.localStorage.getItem(this.token));
           
         }
         
