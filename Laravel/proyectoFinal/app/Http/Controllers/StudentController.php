@@ -43,12 +43,10 @@ class StudentController extends Controller
             ], 404);
         }
     }
-
     public function all()
     {
         return Student::all();
     }
-
     public function get($id)
     {
         
@@ -61,7 +59,6 @@ class StudentController extends Controller
 
         return $student;
     }
-
     public function create(Request $request)
     {
         $student = new Student();
@@ -76,7 +73,6 @@ class StudentController extends Controller
         // Created
         return response(status: 201);
     }
-
     public function update(Request $request)
     {
         $student = Student::updateFromRequest($request);
@@ -88,7 +84,6 @@ class StudentController extends Controller
 
         return response($student);
     }
-
     public function changePassword(Request $request, $id)
     {
         $validatedData = $request->validate([
@@ -104,7 +99,6 @@ class StudentController extends Controller
             'student' => $student
         ]);
     }
-
     public function delete(Request $request)
     {
         $data = $request->validate([
