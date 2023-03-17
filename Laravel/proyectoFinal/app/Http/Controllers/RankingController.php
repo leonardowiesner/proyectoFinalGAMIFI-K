@@ -10,7 +10,6 @@ use Illuminate\Support\Facades\Hash;
 
 class RankingController extends Controller
 {
-
     public function createRanking(Request $request)
     {
         //funciona correctamente
@@ -33,7 +32,6 @@ class RankingController extends Controller
             "data" => $ranking
         ]);
     }
-
     public function addStudentToRanking(Request $request)
     {
         // Validar los datos recibidos
@@ -66,7 +64,6 @@ class RankingController extends Controller
         // Si el ranking no existe o el código hash no coincide, devolver un error
         return response()->json(['error' => 'No se pudo agregar el estudiante al ranking debido a que el código de la sala no coincide.'], 400);
     }
-
     public function getRankingAnalysesByRankId($id)
     {
 
@@ -79,8 +76,6 @@ class RankingController extends Controller
 
         return $rankingAnalyses;
     }
-
-
     public function getRankingById($id)
     {
         $ranking = DB::table('rankings')
@@ -90,7 +85,6 @@ class RankingController extends Controller
 
         return $ranking;
     }
-
     public function getRankingByTeacher($id)
     {
         $rankings = DB::table('Rankings')
@@ -110,9 +104,6 @@ class RankingController extends Controller
             ], 404);
         }
     }
-
-
-
     public function getRankingByStuden($id)
     {
         //esto funciona perfecto
@@ -140,7 +131,6 @@ class RankingController extends Controller
             ], 404);
         }
     }
-
     public function deleteRanking($id)
     {
         // Buscar el ranking por ID
@@ -159,7 +149,6 @@ class RankingController extends Controller
 
         return response()->json(['message' => 'El ranking y sus registros relacionados han sido eliminados correctamente.']);
     }
-
     public function deleteStudentRankingAnalysis($id_rank, $id_student)
     {
         // Buscar el registro que se quiere eliminar
@@ -177,7 +166,6 @@ class RankingController extends Controller
             return response()->json(['error' => 'No se pudo encontrar el registro que se quiere eliminar.'], 404);
         }
     }
-
     public function editRankingPoints(Request $request)
     {
         $id_student = $request->input('id_student');
