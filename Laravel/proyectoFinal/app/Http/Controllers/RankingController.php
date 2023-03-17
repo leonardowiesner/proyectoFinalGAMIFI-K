@@ -7,6 +7,7 @@ use App\Models\Ranking;
 use App\Models\Ranking_analysis;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
+use Laravel\Sanctum\PersonalAccessToken;
 
 class RankingController extends Controller
 {
@@ -133,21 +134,28 @@ class RankingController extends Controller
     }
     public function deleteRanking($id)
     {
-        // Buscar el ranking por ID
-        $ranking = Ranking::find($id);
+        $bearerToken = request()->bearerToken();
+        $user = PersonalAccessToken::findToken($bearerToken)->tokenable;
 
-        if (!$ranking) {
-            // Si no se encuentra el ranking, devolver un error 404
-            return response()->json(['error' => 'No se encontró el ranking especificado.'], 404);
+        if ($user->center) {
+            // Buscar el ranking por ID
+            $ranking = Ranking::find($id);
+
+            if (!$ranking) {
+                // Si no se encuentra el ranking, devolver un error 404
+                return response()->json(['error' => 'No se encontró el ranking especificado.'], 404);
+            }
+
+            // Eliminar todos los registros relacionados en la tabla de análisis de rankings
+            $rankingAnalyses = Ranking_analysis::where('id_rank', $id)->delete();
+
+            // Eliminar el ranking
+            $ranking->delete();
+
+            return response()->json(['message' => 'El ranking y sus registros relacionados han sido eliminados correctamente.']);
+        } else {
+            return response()->json(['message' => 'No estas autorizado.']);
         }
-
-        // Eliminar todos los registros relacionados en la tabla de análisis de rankings
-        $rankingAnalyses = Ranking_analysis::where('id_rank', $id)->delete();
-
-        // Eliminar el ranking
-        $ranking->delete();
-
-        return response()->json(['message' => 'El ranking y sus registros relacionados han sido eliminados correctamente.']);
     }
     public function deleteStudentRankingAnalysis($id_rank, $id_student)
     {
