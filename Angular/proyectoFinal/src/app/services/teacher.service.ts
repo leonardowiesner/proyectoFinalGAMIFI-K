@@ -22,6 +22,8 @@ export class TeacherService {
       0,"","","","","","",""
     );
     window.localStorage.getItem(this.token);
+      
+      
   }
 
   login(data: LoginData) : Observable<RespuestaServidor> {

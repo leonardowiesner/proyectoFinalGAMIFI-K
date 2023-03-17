@@ -22,7 +22,7 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
   styleUrls: ['./login-teacher.component.css']
 })
 export class LoginTeacherComponent implements OnInit {
-
+  token:string;
   constructor(
     private readonly teacherService: TeacherService,
     private readonly router: Router,
@@ -30,6 +30,7 @@ export class LoginTeacherComponent implements OnInit {
     private readonly navBarService: NavBarService,
     private http: HttpClient
   ) { 
+    this.token="";
     navBarService.showNavbar = false;
   }
 
@@ -63,6 +64,14 @@ export class LoginTeacherComponent implements OnInit {
           
           this.teacherService.token = response.token!;
           this.teacherService.teacher=response.teacher;
+
+          const userData = {
+            token: response.token!,
+            student: response.student
+          };
+          
+          window.localStorage.setItem(this.token, userData.token);
+          
         }
 
         // En caso de error mostrar al usuario el problema

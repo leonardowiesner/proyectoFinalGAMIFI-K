@@ -73,7 +73,7 @@ export class RankingService {
   getRanking(rankingId: number) {
     let headers = new HttpHeaders({
       'Content-Type': 'application/json',
-      'Accept': 'application/json',
+      'Accept': 'application/json', 
       'Authorization': `Bearer ${this.token}`
     });
     let options = { headers: headers };
@@ -114,6 +114,8 @@ export class RankingService {
   }
 
   deleteRanking(id_rank: number) {
+    console.log("hola"+this.token);
+    
     let headers = new HttpHeaders({
       'Content-Type': 'application/json',
       'Accept': 'application/json',
