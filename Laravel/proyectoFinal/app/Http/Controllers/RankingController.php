@@ -8,6 +8,7 @@ use App\Models\Ranking_analysis;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Laravel\Sanctum\PersonalAccessToken;
+use PhpParser\Node\Stmt\TryCatch;
 
 class RankingController extends Controller
 {
@@ -134,27 +135,31 @@ class RankingController extends Controller
     }
     public function deleteRanking($id)
     {
-        $bearerToken = request()->bearerToken();
-        $user = PersonalAccessToken::findToken($bearerToken)->tokenable;
+        try {
+            $bearerToken = request()->bearerToken();
+            $user = PersonalAccessToken::findToken($bearerToken)->tokenable;
 
-        if ($user->center) {
-            // Buscar el ranking por ID
-            $ranking = Ranking::find($id);
+            if ($user->center) {
+                // Buscar el ranking por ID
+                $ranking = Ranking::find($id);
 
-            if (!$ranking) {
-                // Si no se encuentra el ranking, devolver un error 404
-                return response()->json(['error' => 'No se encontró el ranking especificado.'], 404);
+                if (!$ranking) {
+                    // Si no se encuentra el ranking, devolver un error 404
+                    return response()->json(['error' => 'No se encontró el ranking especificado.'], 404);
+                }
+
+                // Eliminar todos los registros relacionados en la tabla de análisis de rankings
+                $rankingAnalyses = Ranking_analysis::where('id_rank', $id)->delete();
+
+                // Eliminar el ranking
+                $ranking->delete();
+
+                return response()->json(['message' => 'El ranking y sus registros relacionados han sido eliminados correctamente.']);
+            } else {
+                return response()->json(['message' => 'No estas autorizado.']);
             }
-
-            // Eliminar todos los registros relacionados en la tabla de análisis de rankings
-            $rankingAnalyses = Ranking_analysis::where('id_rank', $id)->delete();
-
-            // Eliminar el ranking
-            $ranking->delete();
-
-            return response()->json(['message' => 'El ranking y sus registros relacionados han sido eliminados correctamente.']);
-        } else {
-            return response()->json(['message' => 'No estas autorizado.']);
+        } catch (\Throwable $th) {
+            return response()->json(['error' => 'Peto el token.'], 404);
         }
     }
     public function deleteStudentRankingAnalysis($id_rank, $id_student)
