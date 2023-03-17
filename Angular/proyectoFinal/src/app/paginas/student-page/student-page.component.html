@@ -1,8 +1,8 @@
   <!-- Imagen de perfil -->
   <div class="limitsContainer">
-    <a class="profile-link" [routerLink]="['/studentProfile']" routerLinkActive="router-link-active">
+    <!-- <a class="profile-link" [routerLink]="['/studentProfile']" routerLinkActive="router-link-active">
       <img src="https://example.com/profile-image.jpg" alt="Imagen de perfil">
-    </a>
+    </a> -->
 
     <!-- Contenedor de rankings -->
     <div class="ranking-container">
@@ -15,7 +15,7 @@
           <img src="https://i.imgur.com/M7t09Un.png" alt="Imagen de robot">
         </div>
       </ng-container>
-
+      
       <!-- Lista de rankings si el alumno tiene al menos uno -->
       <ng-template #rankingList>
         <p class="rankings-message">{{mensajeRankings}}</p>
