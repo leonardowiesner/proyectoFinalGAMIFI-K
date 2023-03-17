@@ -70,8 +70,10 @@ token:string;
             token: response.token!,
             student: response.student
           };
-          
+          this.token=userData.token
           window.localStorage.setItem(this.token, userData.token);
+          console.log(  window.localStorage.getItem(this.token));
+          
         }
         
 

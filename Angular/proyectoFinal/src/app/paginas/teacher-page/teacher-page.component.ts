@@ -13,7 +13,7 @@ export class TeacherPageComponent implements OnInit {
   teacher:TeachersData;
   nombreRanking: string="";
   rankings: Ranking[]=[];
-
+  token:string="";
   constructor(private rankingservice:RankingService,private teacherService:TeacherService) {
     this.teacher = {id: 0, nickname : "", name:"", surnames:"", email:"", password:"",img:"",centro: "" }
     
@@ -24,9 +24,11 @@ export class TeacherPageComponent implements OnInit {
     }
     this.teacherService.getTeacher().subscribe(teacher => {
  
-      console.log(teacher);
+      //console.log(teacher);
       this.teacher = teacher;
-  
+      window.localStorage.getItem(this.token)
+      console.log(  this.token);
+    
     });
     
 
@@ -70,6 +72,7 @@ crearRanking(){
     console.log(teacher);
     this.teacher = teacher;
     console.log(uuid)
+
   });
 
   this.rankingservice.crearRanking(this.nombreRanking,uuid,this.teacher.id).subscribe();
