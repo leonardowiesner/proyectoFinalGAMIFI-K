@@ -18,6 +18,7 @@ export class ProfileStudentComponent implements OnInit {
   constructor(
     private studentService: StudentService,
     private dialog: MatDialog,
+    private readonly navBarService: NavBarService
   ) { 
     this.student = {id: 0, nickname:"", name:"", surnames:"", email:"", password:"",img:"",nacimiento: new Date }
   }
