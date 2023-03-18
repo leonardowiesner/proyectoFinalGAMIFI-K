@@ -13,14 +13,6 @@
             </div>
             <ul class="nav-list">
               <li>
-                <a href="#">
-                  <i class='bx bx-grid-alt'></i>
-                  <span class="links_name">Menu Principal</span>
-                </a>
-                 <span class="tooltip">Dashboard</span>
-              </li>
-
-              <li>
                <a routerLink="/studentProfile">
                  <i class='bx bx-user' ></i>
                  <span class="links_name">Tu perfil de usuario</span>
@@ -61,13 +53,17 @@
              </li>
              <li class="profile">
                  <div class="profile-details">
+                  <a class="justlink"routerLink="/studentProfile">
                    <img src="https://i.imgur.com/n6F53V0.jpg" alt="profileImg">
+                   </a>
                    <div class="name_job">
                      <div class="name">Valentí Casas</div>
                      <div class="job">Profesor</div>
                    </div>
                  </div>
+                 <a routerLink="/login">
                  <i class='bx bx-log-out' id="log_out" ></i>
+                </a>
              </li>
             </ul>
           </div>
