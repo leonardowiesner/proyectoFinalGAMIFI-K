@@ -20,7 +20,7 @@ export class ProfileTeacherComponent implements OnInit {
     private readonly navBarService: NavBarService
   ) { 
     navBarService.showNavbar = true;
-    this.teacher = {id: 0, nick : "", name:"", surnames:"", email:"", password:"",img:"",centro: ""}
+    this.teacher = {id: 0, nickname : "", name:"", surnames:"", email:"", password:"",img:"",centro: ""}
 
   }
 
@@ -28,7 +28,7 @@ export class ProfileTeacherComponent implements OnInit {
     if(this.teacherService.teacher){
     this.teacher=this.teacherService.teacher;
   }
-    this.teacherService.getTeacher(this.teacher.id).subscribe(teacher => {
+    this.teacherService.getTeacher().subscribe(teacher => {
 
       console.log(teacher);
       this.teacher = teacher;

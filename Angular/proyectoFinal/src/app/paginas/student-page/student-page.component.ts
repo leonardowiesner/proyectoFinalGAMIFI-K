@@ -33,9 +33,11 @@ export class StudentPageComponent implements OnInit {
     // Obtenemos la lista de rankings matriculados por el alumno
     this.rankingService.getRankingsAlumno(this.id).subscribe({
       next: (rankings: any) => {
+
+
         if (rankings !== undefined) {
           this.rankings = rankings.data;
-          console.log(this.rankings[0].id); // Para imprimir el id del primer ranking de la lista
+          console.log(rankings); // Para imprimir el id del primer ranking de la lista
         } else {
           console.log('No hay rankings disponibles.');
           this.rankings = [];
@@ -56,26 +58,32 @@ export class StudentPageComponent implements OnInit {
     // this.rankingService.validarCodigoRanking(this.nuevoCodigoRanking).subscribe(
     //   valido => {
     //     if (valido) {
-    // Comprobamos si el alumno ya está matriculado en el ranking
-    // Suponemos que el método devuelve un Observable que emite true si el alumno está matriculado y false si no lo está
-    // this.rankingService.alumnoEnRanking(this.id, this.nuevoCodigoRanking).subscribe(
-    //   enRanking => {
-    //     if (!enRanking) {
-    // Si el alumno no está matriculado, lo añadimos al ranking
-    this.rankingService.anadirAlumnoRanking(this.id, this.nuevoCodigoRanking, this.points).subscribe(
-      () => {
-        // Actualizamos la lista de rankings matriculados
-        this.rankingService.getRankingsAlumno(this.id).subscribe(
-          data => {
-            this.rankings = data;
-          }
-        );
-      }
-    );
-  }
-  //     }
-  //   );
-  // }
+          // Comprobamos si el alumno ya está matriculado en el ranking
+          // Suponemos que el método devuelve un Observable que emite true si el alumno está matriculado y false si no lo está
+          // this.rankingService.alumnoEnRanking(this.id, this.nuevoCodigoRanking).subscribe(
+          //   enRanking => {
+          //     if (!enRanking) {
+                // Si el alumno no está matriculado, lo añadimos al ranking
+                this.rankingService.anadirAlumnoRanking(this.id, this.nuevoCodigoRanking, this.points).subscribe(
+                  () => {
+                    // Actualizamos la lista de rankings matriculados
+                    this.rankingService.getRankingsAlumno(this.id).subscribe({
+                      next: (rankings: any) => {
+                        if (rankings !== undefined) {
+                          this.rankings = rankings.data;
+                          console.log(this.rankings[2].id); // Para imprimir el id del primer ranking de la lista
+                        } else {
+                          console.log('No hay rankings disponibles.');
+                          this.rankings = [];
+                        }
+                      },
+                    });
+                  }
+                );
+              }
+        //     }
+        //   );
+        // }
   //     }
   //   );
   // }

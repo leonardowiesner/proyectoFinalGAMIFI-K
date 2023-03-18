@@ -13,11 +13,18 @@ export class TeacherService {
   user: LoginData = { email: '', password: '' };
   token: string = "";
   apiURL: string = "http://127.0.0.1:8000/api";
-  teacher: TeachersData | undefined;
+  teacher: TeachersData;
 
   constructor(
     private http: HttpClient
-  ) { }
+  ) { 
+    this.teacher = new TeachersData(
+      0,"","","","","","",""
+    );
+    window.localStorage.getItem(this.token);
+      
+      
+  }
 
   login(data: LoginData) : Observable<RespuestaServidor> {
     let headers = new HttpHeaders({
@@ -30,17 +37,31 @@ export class TeacherService {
 
     return this.http.post<RespuestaServidor>(`${this.apiURL}/login/teacher`, data,options);
   }
-  getTeacher(id:number): Observable<TeachersData> {
-    return this.http.get<TeachersData>(`${this.apiURL}/teacher/get/${id}`);
+  getTeacher(): Observable<TeachersData> {
+    let headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Accept': 'application/json',
+      'Authorization': `Bearer ${this.token}`
+    });
+    let options = { headers: headers };
+    return this.http.get<TeachersData>(`${this.apiURL}/teacher/get/${this.teacher?.id}`,options);
   }
   
   saveUser(teacher: TeachersData): Observable<any> {
-    return this.http.put(`${this.apiURL}/teacher/update`, teacher);
+    let headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Accept': 'application/json',
+      'Authorization': `Bearer ${this.token}`
+    });
+    let options = { headers: headers };
+
+    return this.http.put(`${this.apiURL}/teacher/update`, teacher,options);
   }
   register(data: string) {
     let headers = new HttpHeaders({
       'Content-Type': 'application/json',
-      'Accept': 'application/json'
+      'Accept': 'application/json',
+      'Authorization': `Bearer ${this.token}`
     });
     
     let options = { headers: headers };

@@ -18,15 +18,15 @@ export class ProfileStudentComponent implements OnInit {
   constructor(
     private studentService: StudentService,
     private dialog: MatDialog,
-    private readonly navBarService: NavBarService
   ) { 
-    navBarService.showNavbar = true;
-    this.student = {id: 0, nick : "", name:"", surnames:"", email:"", password:"",img:"",nacimiento: new Date }
+    this.student = {id: 0, nickname:"", name:"", surnames:"", email:"", password:"",img:"",nacimiento: new Date }
   }
 
 
   ngOnInit(): void {
      // Obtener el valor de la cookie 'user_id'
+   
+  
 
     if(this.studentService.student){
     this.student=this.studentService.student;

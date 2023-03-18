@@ -5,6 +5,8 @@ import { LoginData } from '../interfaces/login-data.interface';
 import { RespuestaServidor } from '../interfaces/respuesta-servidor';
 import { StudentData } from '../interfaces/alumnos-data.interface';
 
+
+
 @Injectable({
   providedIn: 'root'
 })
@@ -17,17 +19,20 @@ export class StudentService {
 
   constructor(
     private http: HttpClient,
+
   ) { 
     this.student = new StudentData(
       0,"","","","","","",new Date
     );
+    window.localStorage.getItem(this.token);
   }
 
 
   login(data: LoginData): Observable<RespuestaServidor> {
     let headers = new HttpHeaders({
       'Content-Type': 'application/json',
-      'Accept': 'application/json'
+      'Accept': 'application/json',
+      'Authorization': `Bearer ${this.token}`
     });
     let options = { headers: headers };
     console.log(data);
@@ -40,7 +45,8 @@ export class StudentService {
   changePasword(password: string): Observable<StudentData> {
     let headers = new HttpHeaders({
       'Content-Type': 'application/json',
-      'Accept': 'application/json'
+      'Accept': 'application/json',
+      'Authorization': `Bearer ${this.token}`
     });
     let options = { headers: headers };
     this.student!.password = password;
@@ -51,7 +57,8 @@ export class StudentService {
   changeImg(img:string){
     let headers = new HttpHeaders({
       'Content-Type': 'application/json',
-      'Accept': 'application/json'
+      'Accept': 'application/json',
+      'Authorization': `Bearer ${this.token}`
     });
     let options = { headers: headers };
     this.student.img = img;
@@ -60,17 +67,31 @@ export class StudentService {
 
 
   getStudent(id:number): Observable<StudentData> {
-    
-    return this.http.get<StudentData>(`${this.apiURL}/student/get/${id}`);
+    let headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Accept': 'application/json',
+      'Authorization': `Bearer ${this.token}`
+    });
+    let options = { headers: headers };
+
+    return this.http.get<StudentData>(`${this.apiURL}/student/get/${id}`,options);
   }
   saveUser(student: StudentData): Observable<any> {
-    return this.http.put(`${this.apiURL}/student/update`, student);
+    let headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Accept': 'application/json',
+      'Authorization': `Bearer ${this.token}`
+    });
+    let options = { headers: headers };
+
+    return this.http.put(`${this.apiURL}/student/update`, student,options);
   }
   
   register(data: string) {
     let headers = new HttpHeaders({
       'Content-Type': 'application/json',
-      'Accept': 'application/json'
+      'Accept': 'application/json',
+      'Authorization': `Bearer ${this.token}`
     });
     
     let options = { headers: headers };

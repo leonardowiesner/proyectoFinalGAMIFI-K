@@ -11,8 +11,11 @@
   <tbody>
     <tr *ngFor="let analysis of rankingAnalises; let i = index">
       <td>{{ i + 1 }}</td>
-      <td>{{ analysis.id_student }}</td>
+      <td>{{ analysis.name }}</td>
       <td>{{ analysis.points }}</td>
+      <td *ngIf="teacher"><button (click)="eliminarRegistro(analysis.id_rank,analysis.id_student)">Eliminar</button></td>
+
+      <td *ngIf="teacher"><input [(ngModel)]="new_points" name="new_points" type="number"><button (click)="editarPuntos(analysis.id_rank,analysis.id_student)">Editar</button></td>
     </tr>
   </tbody>
 </table>
