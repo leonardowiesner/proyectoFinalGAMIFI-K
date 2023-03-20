@@ -1,5 +1,5 @@
 <h2 class="ranking-header">Ranking #{{ rankingId }}</h2>
-<div *ngIf="teacher">
+<div *ngIf="teacher && teacher.email !== ''">
   <input type="text" name="name_practica" id="name_practica" [(ngModel)]="name_practica"><button (click)="nuevaPractica">Añadir nueva Tarea</button>
 </div>
 
@@ -16,9 +16,13 @@
       <td>{{ i + 1 }}</td>
       <td>{{ analysis.name }}</td>
       <td>{{ analysis.points }}</td>
-      <td *ngIf="teacher"><button (click)="eliminarRegistro(analysis.id_rank,analysis.id_student)">Eliminar</button></td>
+      <td *ngIf="teacher && teacher.email !== ''">
+        <button (click)="eliminarRegistro(analysis.id_rank,analysis.id_student)">Eliminar</button>
+      </td>
 
-      <td *ngIf="teacher">
+
+      <td *ngIf="teacher && teacher.email !== ''">
+
         <input #newPoints name="new_points" type="number">
         <button (click)="editarPuntos(analysis.id_rank,analysis.id_student,+newPoints.value)">Editar</button>
        </td>

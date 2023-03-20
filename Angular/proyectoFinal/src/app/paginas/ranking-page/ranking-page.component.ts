@@ -35,7 +35,8 @@ export class RankingPageComponent implements OnInit {
        this.rankingAnalises=data;
        console.log(this.rankingAnalises)
             });
-  
+      console.log(this.teacher);
+      
 
   }
 
