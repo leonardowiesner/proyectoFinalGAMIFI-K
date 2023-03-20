@@ -4,6 +4,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\TeacherController;
 use App\Http\Controllers\RankingController;
+use App\Http\Controllers\RankPracticeController;
 use App\Models\Ranking;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -50,6 +51,16 @@ Route::prefix('student')->group(function () {
 
 Route::prefix('teacher')->group(function () {
 
+    /* create-practice
+    Creamos una nueva practica elementos necesarios que pasarle
+        'name' => 'required',
+        'description' => 'required',
+        'id_teacher' => 'required',
+        "date_end" => "required"
+        'id_rank' => 'required'
+    */
+    Route::post('create-practice', [RankPracticeController::class, 'createPractice']);
+
     Route::get('delete-ranking-id/{id}', [RankingController::class, 'deleteRanking']);
 
     Route::post('edit', [RankingController::class, 'editRankingPoints']);
@@ -57,7 +68,7 @@ Route::prefix('teacher')->group(function () {
     Route::get('delete-studen-ranking-id/{id_rank}/{id_student}', [RankingController::class, 'deleteStudentRankingAnalysis']);
 
     Route::post('create-ranking', [RankingController::class, 'createRanking']);
-    
+
     Route::get('get-all-ranking-by-id/{id}', [RankingController::class, 'getRankingAnalysesByRankId']);
 
     Route::get('get-ranking-teacher/{id}', [RankingController::class, 'getRankingByTeacher']);

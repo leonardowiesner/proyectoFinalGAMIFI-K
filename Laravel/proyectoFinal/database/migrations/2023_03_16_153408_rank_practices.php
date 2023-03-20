@@ -17,14 +17,14 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('description');
-            $table->unsignedBigInteger('id_teacher');
+            $table->unsignedBigInteger('id_rank');
             //$table->integer('points')->default(0);
             $table->timestamps();
 
             
-            $table->foreign('id_teacher')
+            $table->foreign('id_rank')
             ->references('id')
-            ->on('teachers')
+            ->on('rankings')
             ->onDelete('cascade');
             });
     }

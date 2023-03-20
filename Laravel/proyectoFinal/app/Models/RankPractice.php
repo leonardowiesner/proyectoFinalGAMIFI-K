@@ -15,5 +15,6 @@ class RankPractice extends Model
         'name',
         'description',
         'id_teacher',
+        'date_end',
     ];
 }
