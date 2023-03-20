@@ -4,6 +4,8 @@ import { Router } from '@angular/router';
 import { StudentData } from 'src/app/interfaces/alumnos-data.interface';
 import { Ranking, RankingAnalysis, RankingService } from 'src/app/services/ranking.service';
 import { StudentService } from 'src/app/services/student.service';
+import { NavBarService } from 'src/app/services/nav-bar.service';
+
 
 @Component({
   selector: 'app-student-page',
@@ -17,9 +19,14 @@ export class StudentPageComponent implements OnInit {
   mensajeNoRankings: string = 'Ups! Parece que no estás matriculado en ningún ranking.'; // Mensaje a mostrar si el alumno no tiene rankings
   mensajeRankings: string = 'Estás matriculado en los siguientes rankings:'; // Mensaje a mostrar si el alumno tiene rankings
   id = this.studentService.student.id;
-  points: number=0;
-  constructor(private rankingService: RankingService, private studentService: StudentService,private router: Router) {
+  points: number = 0;
+  constructor(private rankingService: RankingService,
+              private studentService: StudentService,
+              private router: Router,
+              private readonly navBarService: NavBarService
+              ) {
     // this.rankings = [];
+              navBarService.showNavbar = true;
   }
 
   ngOnInit(): void {

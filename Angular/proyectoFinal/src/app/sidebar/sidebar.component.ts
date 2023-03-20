@@ -10,7 +10,7 @@ export class SidebarComponent {
   constructor(private app: NavBarService) {
     this.app.showNavbar = true;
   }
-  isMenuOpen = false;
+  isMenuOpen = true;
   toggleMenu() {
     this.isMenuOpen = !this.isMenuOpen;
   }

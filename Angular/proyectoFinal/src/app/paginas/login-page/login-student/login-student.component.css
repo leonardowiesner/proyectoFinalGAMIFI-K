@@ -87,7 +87,7 @@
 .form-v8-content .form-detail input {
 	width: 100%;
     padding: 0px 10px 15px 10px;
-    border: 1px solid transparent;
+    border: 0px solid transparent;
     border-bottom: 1px solid;
     border-bottom-color: rgba(255, 255, 255, 0.2);
     background: transparent;

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { StudentData } from 'src/app/interfaces/alumnos-data.interface';
 import { StudentService } from 'src/app/services/student.service';
 import { MatDialog } from '@angular/material/dialog';
+import { NavBarService } from 'src/app/services/nav-bar.service';
 import { ChangePasswordDialogComponent } from './change-password-dialog/change-password-dialog.component';
 
 
@@ -17,6 +18,7 @@ export class ProfileStudentComponent implements OnInit {
   constructor(
     private studentService: StudentService,
     private dialog: MatDialog,
+    private readonly navBarService: NavBarService
   ) { 
     this.student = {id: 0, nickname:"", name:"", surnames:"", email:"", password:"",img:"",nacimiento: new Date }
   }
