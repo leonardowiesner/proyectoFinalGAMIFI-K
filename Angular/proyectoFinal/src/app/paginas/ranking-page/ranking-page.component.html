@@ -1,4 +1,7 @@
 <h2 class="ranking-header">Ranking #{{ rankingId }}</h2>
+<div *ngIf="teacher">
+  <input type="text" name="name_practica" id="name_practica" [(ngModel)]="name_practica"><button (click)="nuevaPractica">Añadir nueva Tarea</button>
+</div>
 
 <table class="ranking-table">
   <thead>
