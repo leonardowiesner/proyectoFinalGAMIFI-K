@@ -8,7 +8,9 @@ import { NavBarService } from 'src/app/services/nav-bar.service';
 import { TeacherService } from 'src/app/services/teacher.service';
 import { HttpClient } from '@angular/common/http';
 import { RespuestaServidor } from 'src/app/interfaces/respuesta-servidor';
-
+//SweetAlert2
+import 'sweetalert2/src/sweetalert2.scss';
+import Swal from 'sweetalert2';
 
 export class MyErrorStateMatcher implements ErrorStateMatcher {
   isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
@@ -53,33 +55,42 @@ export class LoginTeacherComponent implements OnInit {
       email: (mail) ? mail : '',
       password: (pass) ? pass : ''
     };
-   
     console.log(this.loginForm.value);
     this.teacherService.login(logData)
-      .subscribe((response: RespuestaServidor) => {
+      .subscribe({
+        next: (response: RespuestaServidor) => {
         
         // El se loguea correctamente y guardamos el token
         if (response.status == 1) {
-          console.log(response);
-          
+          console.log(response);          
           this.teacherService.token = response.token!;
           this.teacherService.teacher=response.teacher;
+
+        // Agrega esto para guardar los datos del usuario en la cookie
 
           const userData = {
             token: response.token!,
             student: response.student
           };
-          
+          this.token = userData.token
           window.localStorage.setItem(this.token, userData.token);
-          
+          console.log(window.localStorage.getItem(this.token));
+          Swal.fire({
+            icon: 'success',
+            title: 'Login exitoso !!',
+            text: 'Te has logueado correctamente!',
+          })
+          this.router.navigate(['/teacher']); // redirigimos al usuario a la página de dashboard
         }
-
-        // En caso de error mostrar al usuario el problema
-        // Swal.fire('Hello world!');
-        
-
-         this.router.navigate(['/teacher']); // redirigimos al usuario a la página de dashboard
-      });
+      },
+      error: (error) => {
+        Swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          text: 'Usuario o contraseña incorrectos, verifica tus credenciales !',
+        })
+       }
+    });;
   
   }
   ngOnInit(): void {
