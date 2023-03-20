@@ -17,9 +17,15 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('description');
+            $table->unsignedBigInteger('id_teacher');
             //$table->integer('points')->default(0);
             $table->timestamps();
 
+            
+            $table->foreign('id_teacher')
+            ->references('id')
+            ->on('teachers')
+            ->onDelete('cascade');
             });
     }
 

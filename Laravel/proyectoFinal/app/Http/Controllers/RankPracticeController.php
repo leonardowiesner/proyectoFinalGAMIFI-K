@@ -8,11 +8,6 @@ use App\Models\RankPractice;
 
 class RankPracticeController extends Controller
 {
-    public function index()
-    {
-        $practices = RankPractice::all();
-        return view('rank_practices.index', compact('practices'));
-    }
 
     
     /* 
