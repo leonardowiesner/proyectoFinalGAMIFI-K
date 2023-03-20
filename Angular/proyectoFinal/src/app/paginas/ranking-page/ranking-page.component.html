@@ -18,7 +18,10 @@
       <td>{{ analysis.points }}</td>
       <td *ngIf="teacher"><button (click)="eliminarRegistro(analysis.id_rank,analysis.id_student)">Eliminar</button></td>
 
-      <td *ngIf="teacher"><input [(ngModel)]="new_points" name="new_points" type="number"><button (click)="editarPuntos(analysis.id_rank,analysis.id_student)">Editar</button></td>
+      <td *ngIf="teacher">
+        <input #newPoints name="new_points" type="number">
+        <button (click)="editarPuntos(analysis.id_rank,analysis.id_student,+newPoints.value)">Editar</button>
+       </td>
     </tr>
   </tbody>
 </table>
