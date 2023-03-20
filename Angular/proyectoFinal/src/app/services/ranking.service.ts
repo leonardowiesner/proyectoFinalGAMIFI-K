@@ -34,12 +34,13 @@ export class RankingService {
 
   baseUrl: string = "http://127.0.0.1:8000/api"; // URL base del servidor
 
-  token:string="";
+  token: string = "";
   constructor(private http: HttpClient) {
     window.localStorage.getItem(this.token);
 
   }
   data: any;
+
   getRankingsAlumno(alumnoId: number): Observable<any> {
     let headers = new HttpHeaders({
       'Content-Type': 'application/json',
@@ -54,7 +55,6 @@ export class RankingService {
 
     return this.http.get<any>(`${this.baseUrl}/student/get-ranking-studen/${alumnoId}`, options);
   }
-
 
   getRankingsTeacher(teacherId: number): Observable<Ranking[]> {
     let headers = new HttpHeaders({
@@ -73,7 +73,7 @@ export class RankingService {
   getRanking(rankingId: number) {
     let headers = new HttpHeaders({
       'Content-Type': 'application/json',
-      'Accept': 'application/json', 
+      'Accept': 'application/json',
       'Authorization': `Bearer ${this.token}`
     });
     let options = { headers: headers };
@@ -109,13 +109,23 @@ export class RankingService {
     });
     let options = { headers: headers };
 
-    return this.http.post<any>(`${this.baseUrl}/teacher/create-ranking`, { id_teacher, name, cod_room },options);
+    return this.http.post<any>(`${this.baseUrl}/teacher/create-ranking`, { id_teacher, name, cod_room }, options);
+  }
 
+  crearPractice(name: string, description: string, id_teacher: number, date_end: Date, id_rank: number) {
+    let headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Accept': 'application/json',
+      'Authorization': `Bearer ${this.token}`
+    });
+    let options = { headers: headers };
+
+    return this.http.post<any>(`${this.baseUrl}/teacher/create-practice`, { name,description, id_teacher,date_end , id_rank }, options);
   }
 
   deleteRanking(id_rank: number) {
-    console.log("hola"+this.token);
-    
+    console.log("hola" + this.token);
+
     let headers = new HttpHeaders({
       'Content-Type': 'application/json',
       'Accept': 'application/json',
@@ -127,7 +137,7 @@ export class RankingService {
     return this.http.get<boolean>(`${this.baseUrl}/teacher/delete-ranking-id/${id_rank}`, options);
   }
 
-  deleteStudenRanking(id_rank:number,id_student: number) {
+  deleteStudenRanking(id_rank: number, id_student: number) {
     let headers = new HttpHeaders({
       'Content-Type': 'application/json',
       'Accept': 'application/json',
@@ -137,7 +147,7 @@ export class RankingService {
 
     //elimina un estudiante del ranking 
 
-    return this.http.get<boolean>(`${this.baseUrl}/teacher/delete-studen-ranking-id/${id_rank}/${id_student}`,options);
+    return this.http.get<boolean>(`${this.baseUrl}/teacher/delete-studen-ranking-id/${id_rank}/${id_student}`, options);
   }
 
   validarCodigoRanking(codigoRanking: string): Observable<boolean> {
@@ -147,7 +157,7 @@ export class RankingService {
       'Authorization': `Bearer ${this.token}`
     });
     let options = { headers: headers };
-    return this.http.get<boolean>(`${this.baseUrl}/rankings/${codigoRanking}/validar`,options);
+    return this.http.get<boolean>(`${this.baseUrl}/rankings/${codigoRanking}/validar`, options);
   }
 
   alumnoEnRanking(alumnoId: number, codigoRanking: string): Observable<boolean> {
@@ -157,7 +167,7 @@ export class RankingService {
       'Authorization': `Bearer ${this.token}`
     });
     let options = { headers: headers };
-    return this.http.get<boolean>(`${this.baseUrl}/student/${alumnoId}/rankings/${codigoRanking}/enranking`,options);
+    return this.http.get<boolean>(`${this.baseUrl}/student/${alumnoId}/rankings/${codigoRanking}/enranking`, options);
   }
 
   anadirAlumnoRanking(id_student: number, cod_room: string, points: number): Observable<any> {
@@ -167,7 +177,7 @@ export class RankingService {
       'Authorization': `Bearer ${this.token}`
     });
     let options = { headers: headers };
-    return this.http.post<any>(`${this.baseUrl}/student/add-student-ranking-analysis`, { id_student, points, cod_room },options);
+    return this.http.post<any>(`${this.baseUrl}/student/add-student-ranking-analysis`, { id_student, points, cod_room }, options);
   }
 
 
