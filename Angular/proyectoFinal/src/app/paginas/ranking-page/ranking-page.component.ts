@@ -57,11 +57,14 @@ export class RankingPageComponent implements OnInit {
 
   }
 
-  editarPuntos(id_rank:number,id_student:number){
-    console.log(this.new_points)
-   this.rankingService.editPointStuden(id_student,id_rank,this.new_points).subscribe(
+  editarPuntos(id_rank:number,id_student:number,point:number){
+    console.log(point)
+   this.rankingService.editPointStuden(id_student,id_rank,point).subscribe(
    
    );
+   this.rankingService.getRankingAnalysis(id_rank).subscribe(data => {
+    this.rankingAnalises=data;
+  });
 
   }
 }

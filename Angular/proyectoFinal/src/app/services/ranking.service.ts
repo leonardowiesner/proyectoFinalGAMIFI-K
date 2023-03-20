@@ -171,14 +171,14 @@ export class RankingService {
   }
 
 
-  editPointStuden(id_student: number, id_rank: number, points: number): Observable<any> {
+  editPointStuden(id_student: number, id_rank: number, point: number): Observable<any> {
     let headers = new HttpHeaders({
       'Content-Type': 'application/json',
       'Accept': 'application/json',
       'Authorization': `Bearer ${this.token}`
     });
     let options = { headers: headers };
-    return this.http.post<any>(`${this.baseUrl}/teacher/edit`, { id_student, id_rank, points },options);
+    return this.http.post<any>(`${this.baseUrl}/teacher/edit`, { id_student, id_rank, point },options);
 
   }
 
