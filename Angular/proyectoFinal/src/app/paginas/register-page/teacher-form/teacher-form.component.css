@@ -95,10 +95,11 @@ input,
 	margin-bottom: 12px;
 	display: block;
 	font-weight: bold;
+  color: white;
 }
 
 .input-text {
-	background-color: lightgray;
+	background-color: #e8f0fe;
     color: #0f0c29;
 	box-sizing: border-box;
 	padding: 15px 12px;

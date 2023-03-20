@@ -144,6 +144,16 @@
   transition: all 0.4s ease;
   background: #11101D;
 }
+.sidebar li a.justlink{
+  display: flex;
+  height: 100%;
+  width: 20%;
+  border-radius: 12px;
+  align-items: center;
+  text-decoration: none;
+  transition: all 0.4s ease;
+  background: #11101D;
+}
 .sidebar li a:hover{
   background: #FFF;
 }

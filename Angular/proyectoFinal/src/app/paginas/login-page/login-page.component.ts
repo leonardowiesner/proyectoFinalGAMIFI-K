@@ -20,10 +20,13 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
   styleUrls: ['./login-page.component.css']
 })
 export class LoginPageComponent {
-
+  constructor(
+    private readonly navBarService: NavBarService,
+  ) {
+    navBarService.showNavbar = false;
+  }
   mostrarFormulario1 = false;
   mostrarFormulario2 = true;
-
 
   
 

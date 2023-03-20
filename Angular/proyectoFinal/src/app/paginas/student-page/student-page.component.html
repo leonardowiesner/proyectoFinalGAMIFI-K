@@ -1,36 +1,37 @@
-<!-- Imagen de perfil -->
-<div class="limitsContainer">
-  <a class="profile-link" [routerLink]="['/studentProfile']" routerLinkActive="router-link-active">
-    <img src="https://example.com/profile-image.jpg" alt="Imagen de perfil">
-  </a>
+<div class="container-fluid text-center">
+  <div class="row">
+    <div class="mx-auto col-md-8 ">
+      <!-- Contenedor de rankings -->
+      <!-- <div class="ranking-container"> -->
+        <!-- Mensaje si el alumno no tiene rankings -->
+         <ng-container *ngIf="rankings.length == 0; else rankingList">
+          <div>
+            <p class="no-rankings-message">{{mensajeNoRankings}}</p>
+          </div>
+          <div class="roboimage">
+            <img src="https://i.imgur.com/M7t09Un.png" alt="Imagen de robot">
+          </div>
+        </ng-container> 
 
-  <!-- Contenedor de rankings -->
-  <div class="ranking-container">
-    <!-- Mensaje si el alumno no tiene rankings -->
-    <ng-container *ngIf="rankings.length == 0; else rankingList">
-      <div>
-        <p class="no-rankings-message">{{mensajeNoRankings}}</p>
-      </div>
-      <div class="roboimage">
-        <img class="roboimage" src="https://i.imgur.com/M7t09Un.png" alt="Imagen de robot">
-      </div>
-    </ng-container>
+        <!-- Lista de rankings si el alumno tiene al menos uno -->
+        <ng-template #rankingList>
+          <p class="rankings-message">{{mensajeRankings}}</p>
+          <ul class="rankings-list">
+            <li *ngFor="let ranking of rankings">
+              <a [routerLink]="['/ranking', ranking.id]">{{ranking.name}}</a>
+            </li>
+          </ul>
+        </ng-template>
 
-    <!-- Lista de rankings si el alumno tiene al menos uno -->
-    <ng-template #rankingList>
-      <p class="rankings-message">{{mensajeRankings}}</p>
-      <ul class="rankings-list">
-        <li *ngFor="let ranking of rankings">
-          <a [routerLink]="['/ranking', ranking.id]">{{ranking.name}}</a>
-        </li>
-      </ul>
-    </ng-template>
-
-    <!-- Formulario para unirse a un nuevo ranking -->
-    <div class="form-group">
-      <label class="form-label" for="nuevo-codigo-ranking">Introduce un código de ranking para unirte a uno nuevo:</label>
-      <input class="form-control" type="text" id="nuevo-codigo-ranking" [(ngModel)]="nuevoCodigoRanking">
-      <button class="btn btn-primary" (click)="unirseRanking()">Unirse a ranking</button>
+        <!-- Formulario para unirse a un nuevo ranking -->
+        <div class="form-group">
+          <label class="form-label" for="nuevo-codigo-ranking">Introduce un código de ranking para unirte a uno
+            nuevo:</label>
+          <input class="form-control" type="text" id="nuevo-codigo-ranking" [(ngModel)]="nuevoCodigoRanking">
+          <button class="btn btn-primary" (click)="unirseRanking()">Unirse a ranking</button>
+        </div>
+      <!-- </div> -->
     </div>
   </div>
+
 </div>

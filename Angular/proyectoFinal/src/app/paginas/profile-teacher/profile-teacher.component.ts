@@ -2,8 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { TeachersData } from 'src/app/interfaces/profesores-data.interface'; 
 import { TeacherService } from 'src/app/services/teacher.service';
 import { MatDialog } from '@angular/material/dialog';
-//import { ChangePasswordDialogComponent } from './change-password-dialog/change-password-dialog.component';
+import { NavBarService } from 'src/app/services/nav-bar.service';
 
+//import { ChangePasswordDialogComponent } from './change-password-dialog/change-password-dialog.component';
 
 @Component({
   selector: 'app-profile-teacher',
@@ -16,9 +17,9 @@ export class ProfileTeacherComponent implements OnInit {
   constructor(
     private teacherService: TeacherService,
     private dialog: MatDialog,
-
+    private readonly navBarService: NavBarService
   ) { 
-
+    navBarService.showNavbar = true;
     this.teacher = {id: 0, nickname : "", name:"", surnames:"", email:"", password:"",img:"",centro: ""}
 
   }
