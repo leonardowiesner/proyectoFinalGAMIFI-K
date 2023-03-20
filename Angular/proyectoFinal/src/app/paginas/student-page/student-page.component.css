@@ -46,6 +46,7 @@
     justify-content: center;
     margin:0 auto;
     font-size: 21px;
+    color:White;
   }
   
   .form-control {
@@ -83,13 +84,21 @@
   }
 
  .ranking-container .roboimage img  , svg{
-    display: block;
+    /* display: block;
     margin: 0 auto;
     width: 30rem !important;
-    height: 21rem !important;
+    height: 21rem !important; */
   }
 
   .limitsContainer {
     margin-left: 250px;
     /* background-image: linear-gradient(0deg, #2b2f77 0%, #141852 50%, #070b34 100%) !important; */
   }
+
+   .row .col-md-8{
+    margin-left: 15.62rem;
+    margin-top: 5rem;
+  } 
+
+  /* content no ranking */
+  

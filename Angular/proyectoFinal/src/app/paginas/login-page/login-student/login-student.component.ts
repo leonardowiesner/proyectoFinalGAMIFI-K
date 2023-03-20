@@ -5,11 +5,12 @@ import { ErrorStateMatcher } from '@angular/material/core';
 import { AuthService } from 'src/app/services/auth.service';
 import { LoginData } from 'src/app/interfaces/login-data.interface';
 import { NavBarService } from 'src/app/services/nav-bar.service';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { StudentService } from 'src/app/services/student.service';
 import { RespuestaServidor } from 'src/app/interfaces/respuesta-servidor';
-// import Swal from 'sweetalert2/dist/sweetalert2.js';
-
+//SweetAlert2
+import 'sweetalert2/src/sweetalert2.scss';
+import Swal from 'sweetalert2';
 export class MyErrorStateMatcher implements ErrorStateMatcher {
   isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
     const isSubmitted = form && form.submitted;
@@ -71,16 +72,23 @@ token:string;
           this.token=userData.token
           window.localStorage.setItem(this.token, userData.token);
           console.log(  window.localStorage.getItem(this.token));
-          
-        }
-        
+          // swal.fire('Logueado Correctamente !! ', this.alertWrong, 'success');
+          Swal.fire({
+            icon: 'success',
+            title: 'Login exitoso !!',
+            text: 'Te has logueado correctamente!',
+          })
+          this.router.navigate(['/student']); // redirigimos al usuario a la página de dashboard
 
+        }else{
         // En caso de error mostrar al usuario el problema
-        // Swal.fire('Hello world!');
-        
-
-
-         this.router.navigate(['/student']); // redirigimos al usuario a la página de dashboard
+        console.log("Status valor: "+response.status);
+        Swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          text: 'Parece que no estas registrado!',
+        })
+        }
       });
   
   }
