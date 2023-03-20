@@ -1,11 +1,29 @@
+ <body>
+  <div class="container from-header">
+    <img class="form-icon" src="https://i.imgur.com/jKe1FjX.png" alt="" />
+    <h1 class="form-title">Crear una cuenta</h1>
+    <h2 class="form-subtitle">Regístrate para poder acceder a Vortex Education Platform ©️</h2>
+  </div>
+  <main class="container">
+    <form action="" method="post" class="form-body">
+      <div>
+        <div class="buttonsregion">
+          <button class="custom-btn btn-3" (click)="mostrarFormulario1 = true; mostrarFormulario2 = false">
+            <span>Alumnos</span>
+          </button>
 
-<button (click)="mostrarFormulario1 = true; mostrarFormulario2 = false">Alumnos</button>
-    <button (click)="mostrarFormulario1 = false; mostrarFormulario2 = true">Profesores</button>
+          <button class="custom-btn btn-4" (click)="mostrarFormulario1 = false; mostrarFormulario2 = true">
+            <span>Profesores</span>
+          </button>
+        </div>
+        <ng-container *ngIf="mostrarFormulario1">
+          <app-student-form></app-student-form>
+        </ng-container>
 
-    <ng-container *ngIf="mostrarFormulario1">
-      <app-student-form></app-student-form>
-    </ng-container>
-
-    <ng-container *ngIf="mostrarFormulario2">
-      <app-teacher-form></app-teacher-form>
-    </ng-container>
+        <ng-container *ngIf="mostrarFormulario2">
+          <app-teacher-form></app-teacher-form>
+        </ng-container>
+      </div>
+    </form>
+</main>
+</body> 

@@ -8,7 +8,8 @@ import { RegisterPageComponent } from './paginas/register-page/register-page.com
 const routes: Routes = [
   { path: 'login', component: LoginPageComponent },
   { path: 'register', component: RegisterPageComponent },
-  { path: '', loadChildren: () => import('./paginas/pages.module').then((m) => m.PagesModule), canActivate: [AuthGuard]},
+  { path: '', loadChildren: () => import('./paginas/pages.module').then((m) => m.PagesModule)//, canActivate: [AuthGuard]
+},
   { path: '**', redirectTo: '/login', pathMatch: 'full' },
 ];
 

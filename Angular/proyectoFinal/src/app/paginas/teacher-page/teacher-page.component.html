@@ -1,0 +1,26 @@
+        <a class="text-decoration-none text-info fw-semibold" [routerLink]="['/teacherProfile']"
+        routerLinkActive="router-link-active">Foto de perfil</a>
+        
+        
+        
+<h2>Listado de rankings</h2>
+
+<div class="list-group" *ngFor="let ranking of rankings" >
+
+<a class="list-group-item list-group-item-action"
+            [routerLink]="['/ranking', ranking.id]">{{ ranking.name }}</a>
+            <button (click)="eliminarRegistro(ranking.id)">Eliminar</button>
+</div>
+
+<h2>Crear un nuevo ranking</h2>
+
+<form (ngSubmit)="crearRanking()">
+  <div class="form-group">
+    <label for="nombreRanking">Nombre del ranking:</label>
+    <input type="text" class="form-control" id="nombreRanking" name="nombreRanking" [(ngModel)]="nombreRanking">
+  </div>
+
+  <button type="submit" class="btn btn-primary">Crear ranking</button>
+</form>
+
+<!-- <button mat-raised-button color="primary" (click)="openAddPracticeDialog()">Añadir práctica/entrega</button> -->

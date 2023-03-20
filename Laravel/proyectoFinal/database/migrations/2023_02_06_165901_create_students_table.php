@@ -13,19 +13,17 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('teachers', function (Blueprint $table) {
+        Schema::create('students', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string('last_name');
-            $table->string('nick_name');
+            $table->string('surnames');
+            $table->string('img')->default("https://www.softzone.es/app/uploads-softzone.es/2018/04/guest.png");  
             $table->string('email')->unique();
-            $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
-            $table->number('school_center');
-            $table->rememberToken();
+            $table->string('nickname')->unique();
+            $table->date('birth_date');
             $table->timestamps();
         });
-
     }
 
     /**
@@ -35,6 +33,6 @@ return new class extends Migration
      */
     public function down()
     {
-        //
+        Schema::dropIfExists('students');
     }
 };
