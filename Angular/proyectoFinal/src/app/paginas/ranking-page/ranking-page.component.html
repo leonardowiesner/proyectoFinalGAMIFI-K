@@ -1,4 +1,4 @@
-<h2 class="ranking-header">Ranking #{{ rankingId }}</h2>
+<h2 class="ranking-header">Ranking #{{ rankingName }}</h2>
 <div *ngIf="teacher && teacher.email !== ''">
 
   <button (click)="nuevaTarea = true">Añadir nueva Tarea</button>
@@ -17,7 +17,7 @@
   </form>
 </div>
 
-<table class="ranking-table">
+<table *ngIf="!nuevaTarea" class="ranking-table">
   <thead>
     <tr>
       <th>Posición</th>
