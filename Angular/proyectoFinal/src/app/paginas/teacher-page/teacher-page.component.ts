@@ -5,7 +5,9 @@ import { Ranking, RankingService } from 'src/app/services/ranking.service';
 import { TeacherService } from 'src/app/services/teacher.service';
 import { TeachersData } from 'src/app/interfaces/profesores-data.interface';
 import { NavBarService } from 'src/app/services/nav-bar.service';
-
+//SweetAlert2
+import 'sweetalert2/src/sweetalert2.scss';
+import Swal from 'sweetalert2';
 @Component({
   selector: 'app-teacher-page',
   templateUrl: './teacher-page.component.html',
@@ -79,9 +81,15 @@ crearRanking(){
     console.log(uuid)
 
   });
-
   this.rankingservice.crearRanking(this.nombreRanking,uuid,this.teacher.id).subscribe();
-  
+  // if(this.nombreRanking == ""){
+  //   Swal.fire({
+  //     icon: 'warning',
+  //     title: 'Nombre de Ranking vacio !!',
+  //     text: 'El nombre de ranking no puede ser nulo!',
+  //   })
+  // }
+
   this.rankingservice.getRankingsTeacher(this.teacher.id).subscribe({
     next: (rankings: any) => {
       if (rankings !== undefined) {
@@ -94,6 +102,11 @@ crearRanking(){
     },
 
   });
+  Swal.fire({
+    icon: 'success',
+    title: 'Nuevo Ranking !!',
+    text: 'El ranking se ha creado correctamente!',
+  })
   
 }
 
