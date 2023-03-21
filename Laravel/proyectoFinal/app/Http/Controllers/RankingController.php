@@ -73,6 +73,7 @@ class RankingController extends Controller
             ->join('students', 'ranking_analyses.id_student', '=', 'students.id')
             ->where('ranking_analyses.id_rank', $id)
             ->select('ranking_analyses.*', 'students.name')
+            ->orderByDesc('points')
             ->get();
 
 

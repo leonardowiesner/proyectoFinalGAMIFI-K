@@ -132,7 +132,7 @@ export class RankingService {
   }
 
   deleteRanking(id_rank: number) {
-    console.log("hola" + this.token);
+
 
     let headers = new HttpHeaders({
       'Content-Type': 'application/json',

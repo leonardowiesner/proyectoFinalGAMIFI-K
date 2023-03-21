@@ -14,9 +14,10 @@ import { StudentService } from 'src/app/services/student.service';
 })
 export class RankingPageComponent implements OnInit {
   rankingSolo: RankingSolo[]=[];
-  rankingId?: number | null;
+  rankingId: number;
+  rankingName:String | null;
   rankingAnalises: RankingAnalysis[] = [];
-  teacher?:TeachersData;
+  teacher:TeachersData;
   return:any;
   new_points:number;
   name_practica:string;
@@ -28,6 +29,7 @@ export class RankingPageComponent implements OnInit {
     this.rankingId=0;
     this.teacher=this.teacherService.teacher;
     this.new_points=0;
+    this.rankingName="";
     this.name_practica="";
     this.tarea = {
       id: 0,
@@ -45,14 +47,20 @@ export class RankingPageComponent implements OnInit {
   ngOnInit() {
 
      this.rankingId = Number(this.route.snapshot.paramMap.get('id'));
-    
+     this.rankingName = this.route.snapshot.paramMap.get('name');
 
      this.rankingService.getRankingAnalysis(this.rankingId).subscribe(data => {
        this.rankingAnalises=data;
-       console.log(this.rankingAnalises)
             });
-      console.log(this.teacher);
+            
+      this.route.queryParamMap.subscribe(params => {
+              const id = params.get('id');
+              const rankingName = params.get('rankingName');
+              // ... código para utilizar los valores de id y rankingName en el componente
+            });
       
+console.log(this.rankingSolo[1]);
+
 
   }
 
@@ -86,6 +94,8 @@ export class RankingPageComponent implements OnInit {
   }
   agregarTarea(){
     console.log(this.tarea);
-    
+    this.tarea.id_teacher=this.teacher.id
+    console.log(this.tarea);
+    this.rankingService.crearPractice(this.tarea.nombre,this.tarea.descripcion,this.tarea.id_teacher,this.tarea.fechaEntrega,this.rankingId).subscribe();
   }
 }
