@@ -1,0 +1,11 @@
+.form-control{
+    display: inline-flex;
+    width: 30%;
+}
+
+.form-control::-webkit-input-placeholder {
+    text-align: center;
+}
+button{
+    margin: 2rem;
+}

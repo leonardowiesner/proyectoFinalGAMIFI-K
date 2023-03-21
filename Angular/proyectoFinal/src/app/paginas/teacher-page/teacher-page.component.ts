@@ -4,6 +4,8 @@ import { v4 as uuidv4 } from 'uuid';
 import { Ranking, RankingService } from 'src/app/services/ranking.service';
 import { TeacherService } from 'src/app/services/teacher.service';
 import { TeachersData } from 'src/app/interfaces/profesores-data.interface';
+import { NavBarService } from 'src/app/services/nav-bar.service';
+
 @Component({
   selector: 'app-teacher-page',
   templateUrl: './teacher-page.component.html',
@@ -14,9 +16,12 @@ export class TeacherPageComponent implements OnInit {
   nombreRanking: string="";
   rankings: Ranking[]=[];
   token:string="";
-  constructor(private rankingservice:RankingService,private teacherService:TeacherService) {
+  constructor(private rankingservice:RankingService,
+              private teacherService:TeacherService,
+              private readonly navBarService: NavBarService
+              ) {
     this.teacher = {id: 0, nickname : "", name:"", surnames:"", email:"", password:"",img:"",centro: "" }
-    
+              navBarService.showNavbar = true;
     }
   ngOnInit(): void {
     if(this.teacherService.teacher){
