@@ -5,7 +5,9 @@ import { passwordmatch } from 'src/validators/passwordMatch';
 import { Router } from '@angular/router';
 import { TeacherService } from 'src/app/services/teacher.service';
 import { NavBarService } from 'src/app/services/nav-bar.service';
-
+//SweetAlert2
+import 'sweetalert2/src/sweetalert2.scss';
+import Swal from 'sweetalert2';
 @Component({
   selector: 'app-teacher-form',
   templateUrl: './teacher-form.component.html',
@@ -39,10 +41,20 @@ enviar() {
   this.teacher.register(JSON.stringify(this.teacherForm.value)).subscribe(
     response => {
       console.log(response);
+      Swal.fire({
+        icon: 'success',
+        title: 'Te has registrado correctamente!',
+        text: 'Inicia Sesión para empezar !',
+      })
     this.router.navigate(['/login/teacher']); 
   },
   error => {
     console.log(error);
+    Swal.fire({
+      icon: 'error',
+      title: 'Oops...',
+      text: 'No se ha podido completar el registro, verífica los datos ingresados e inténtalo de nuevo!',
+    })
   });
   
 }
