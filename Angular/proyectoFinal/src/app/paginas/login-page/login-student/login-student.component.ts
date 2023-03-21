@@ -81,17 +81,13 @@ export class LoginStudentComponent implements OnInit {
             })
             this.router.navigate(['/student']); // redirigimos al usuario a la página de dashboard
 
-          } else {
-            // En caso de error mostrar al usuario el problema
-            console.log("Status valor: " + response.status);
-        
-          }
+          } 
         },
         error: (error) => {
           Swal.fire({
             icon: 'error',
             title: 'Oops...',
-            text: 'Parece que no estas registrado!',
+            text: 'Usuario o contraseña incorrectos, verifica tus credenciales !',
           })
          }
       });

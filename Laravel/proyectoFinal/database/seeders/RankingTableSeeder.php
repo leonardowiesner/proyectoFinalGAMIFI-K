@@ -24,18 +24,58 @@ class RankingTableSeeder extends Seeder
             'cod_room'=>Hash::make('12345678'),
         ]);
         Ranking::create([
-            'id_teacher'=>1,
+            'id_teacher'=>2,
             'name' => 'Test2',
             'cod_room'=>Hash::make('1234'),
         ]);
-        Ranking_analysis::create([
-            'id_student'=>1,
-            'id_rank'=>1,
-            'points'=>100
+        Ranking::create([
+            'id_teacher'=>1,
+            'name' => 'Test1.1',
+            'cod_room'=>Hash::make('123456789'),
+        ]);
+        Ranking::create([
+            'id_teacher'=>2,
+            'name' => 'Test2.2',
+            'cod_room'=>Hash::make('12345'),
         ]);
         Ranking_analysis::create([
             'id_student'=>1,
             'id_rank'=>2,
+            'points'=>100
+        ]);
+        Ranking_analysis::create([
+            'id_student'=>1,
+            'id_rank'=>1,
+            'points'=>50
+        ]);
+        Ranking_analysis::create([
+            'id_student'=>1,
+            'id_rank'=>3,
+            'points'=>100
+        ]);
+        Ranking_analysis::create([
+            'id_student'=>1,
+            'id_rank'=>4,
+            'points'=>50
+        ]);
+        Ranking_analysis::create([
+            'id_student'=>2,
+            'id_rank'=>3,
+            'points'=>100
+        ]);
+        Ranking_analysis::create([
+            'id_student'=>2,
+            'id_rank'=>4,
+            'points'=>50
+        ]);
+        Ranking_analysis::create([
+            'id_student'=>2,
+            'id_rank'=>2,
+            'points'=>100
+        ]);
+        Ranking_analysis::create([
+            'id_student'=>2,
+            'id_rank'=>1,
             'points'=>50
         ]);
     }

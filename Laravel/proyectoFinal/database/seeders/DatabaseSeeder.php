@@ -32,12 +32,28 @@ class DatabaseSeeder extends Seeder
             'surnames' => 'pepo',
             'birth_date' => '2003-04-01'
         ]);
+        Student::create([
+            'nickname' => 'nil1',
+            'email' => 'nil1@gmail.com',
+            'password' => Hash::make('12345678'),
+            'name' => 'nil1',
+            'surnames' => 'pepo1',
+            'birth_date' => '2003-04-01'
+        ]);
         Teacher::create([
             'nickname' => 'nilTeacher',
             'email' => 'nilteacher@gmail.com',
             'password' => Hash::make('12345678'),
             'name' => 'nilTeacher',
             'surnames' => 'pepo',
+            'center' => 'ilerna'
+        ]);
+        Teacher::create([
+            'nickname' => 'nilTeacher1',
+            'email' => 'nilteacher1@gmail.com',
+            'password' => Hash::make('12345678'),
+            'name' => 'nilTeacher',
+            'surnames' => 'pepo1',
             'center' => 'ilerna'
         ]);
     }

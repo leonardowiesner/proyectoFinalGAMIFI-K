@@ -14,5 +14,7 @@ class RankPractice extends Model
     protected $fillable = [
         'name',
         'description',
+        'id_teacher',
+        'date_end',
     ];
 }
