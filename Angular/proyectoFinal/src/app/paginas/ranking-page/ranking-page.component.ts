@@ -3,7 +3,8 @@ import { ActivatedRoute } from '@angular/router';
 import { StudentData } from 'src/app/interfaces/alumnos-data.interface';
 import { TeachersData } from 'src/app/interfaces/profesores-data.interface';
 import { TeacherService } from 'src/app/services/teacher.service';
-import { Ranking, RankingAnalysis, RankingService, RankingSolo } from 'src/app/services/ranking.service';
+import { Ranking, RankingAnalysis, RankingService, RankingSolo, Tarea } from 'src/app/services/ranking.service';
+import { StudentService } from 'src/app/services/student.service';
 
 
 @Component({
@@ -19,12 +20,27 @@ export class RankingPageComponent implements OnInit {
   return:any;
   new_points:number;
   name_practica:string;
+  tarea:Tarea;
+  nuevaTarea: boolean = false;
+  
+
   constructor(private route: ActivatedRoute,private rankingService: RankingService,private teacherService: TeacherService) {
     this.rankingId=0;
     this.teacher=this.teacherService.teacher;
     this.new_points=0;
     this.name_practica="";
+    this.tarea = {
+      id: 0,
+      nombre: "",
+      descripcion: "",
+      id_teacher: 0,
+      fechaEntrega: new Date()
+    }
   }
+  
+
+
+
   
   ngOnInit() {
 
@@ -67,5 +83,9 @@ export class RankingPageComponent implements OnInit {
     this.rankingAnalises=data;
   });
 
+  }
+  agregarTarea(){
+    console.log(this.tarea);
+    
   }
 }
