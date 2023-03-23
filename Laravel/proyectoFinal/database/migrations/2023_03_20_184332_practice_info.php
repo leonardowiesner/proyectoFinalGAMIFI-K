@@ -15,10 +15,11 @@ return new class extends Migration
     {
         Schema::create('practice_info', function (Blueprint $table) {
             $table->id();
+            
             $table->unsignedBigInteger('id_student');
             $table->unsignedBigInteger('id_practice');
-            $table->integer('points_practice');
-            $table->string('name_file')->unique();
+            $table->integer('points_practice')->nullable();
+            $table->string('name_file')->unique()->nullable();
             $table->date('deadline_practice');
             $table->timestamps();
 

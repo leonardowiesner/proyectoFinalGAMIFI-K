@@ -137,10 +137,11 @@ class RankingController extends Controller
     public function deleteRanking($id)
     {
         try {
-            $bearerToken = request()->bearerToken();
+            /* $bearerToken = request()->bearerToken();
             $user = PersonalAccessToken::findToken($bearerToken)->tokenable;
 
-            if ($user->center) {
+            echo "nopeta";die;
+            if ($user->center) { */
                 // Buscar el ranking por ID
                 $ranking = Ranking::find($id);
 
@@ -156,9 +157,9 @@ class RankingController extends Controller
                 $ranking->delete();
 
                 return response()->json(['message' => 'El ranking y sus registros relacionados han sido eliminados correctamente.']);
-            } else {
+            /* } else {
                 return response()->json(['message' => 'No estas autorizado.']);
-            }
+            } */
         } catch (\Throwable $th) {
             return response()->json(['error' => 'Peto el token.'], 404);
         }
