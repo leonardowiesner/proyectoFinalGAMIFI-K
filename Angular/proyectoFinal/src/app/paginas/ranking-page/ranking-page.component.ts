@@ -93,9 +93,7 @@ console.log(this.rankingSolo[1]);
 
   }
   agregarTarea(){
-    console.log(this.tarea);
-    this.tarea.id_teacher=this.teacher.id
-    console.log(this.tarea);
-    this.rankingService.crearPractice(this.tarea.nombre,this.tarea.descripcion,this.tarea.id_teacher,this.tarea.fechaEntrega,this.rankingId).subscribe();
+    console.log(this.rankingId);
+    this.rankingService.crearPractice(this.tarea.nombre,this.tarea.descripcion,this.tarea.fechaEntrega,this.rankingId).subscribe();
   }
 }
