@@ -120,7 +120,7 @@ export class RankingService {
     return this.http.post<any>(`${this.baseUrl}/teacher/create-ranking`, { id_teacher, name, cod_room }, options);
   }
 
-  crearPractice(name: string, description: string, id_teacher: number, date_end: Date, id_rank: number) {
+  crearPractice(name: string, description: string, date_end: Date, id_rank: number) {
     let headers = new HttpHeaders({
       'Content-Type': 'application/json',
       'Accept': 'application/json',
@@ -128,7 +128,7 @@ export class RankingService {
     });
     let options = { headers: headers };
 
-    return this.http.post<any>(`${this.baseUrl}/teacher/create-practice`, { name,description, id_teacher,date_end , id_rank }, options);
+    return this.http.post<any>(`${this.baseUrl}/teacher/create-practice`, { name,description,date_end , id_rank }, options);
   }
 
   deleteRanking(id_rank: number) {
