@@ -1,9 +1,23 @@
-<h2 class="ranking-header">Ranking #{{ rankingId }}</h2>
-<div *ngIf="teacher">
-  <input type="text" name="name_practica" id="name_practica" [(ngModel)]="name_practica"><button (click)="nuevaPractica">Añadir nueva Tarea</button>
+<h2 class="ranking-header">Ranking #{{ rankingName }}</h2>
+<div *ngIf="teacher && teacher.email !== ''">
+
+  <button (click)="nuevaTarea = true">Añadir nueva Tarea</button>
 </div>
 
-<table class="ranking-table">
+<div *ngIf="nuevaTarea">
+  <form>
+    <label>Nombre:</label>
+    <input type="text" name="tarea.nombre" id="tarea.nombre" [(ngModel)]="tarea.nombre"><br>
+    <label>Descripción:</label>
+    <textarea name="descripcion" id="descripcion" [(ngModel)]="tarea.descripcion"></textarea><br>
+    <label>Fecha límite:</label>
+    <input type="date" name="fecha" id="fecha" [(ngModel)]="tarea.fechaEntrega"><br>
+    <button type="submit" (click)="agregarTarea()">Agregar tarea</button>
+    <button type="button" (click)="nuevaTarea = false">Cancelar</button>
+  </form>
+</div>
+
+<table *ngIf="!nuevaTarea" class="ranking-table">
   <thead>
     <tr>
       <th>Posición</th>
@@ -16,12 +30,13 @@
       <td>{{ i + 1 }}</td>
       <td>{{ analysis.name }}</td>
       <td>{{ analysis.points }}</td>
-      <td *ngIf="teacher"><button (click)="eliminarRegistro(analysis.id_rank,analysis.id_student)">Eliminar</button></td>
-
-      <td *ngIf="teacher">
+      <td *ngIf="teacher && teacher.email !== ''">
+        <button (click)="eliminarRegistro(analysis.id_rank,analysis.id_student)">Eliminar</button>
+      </td>
+      <td *ngIf="teacher && teacher.email !== ''">
         <input #newPoints name="new_points" type="number">
         <button (click)="editarPuntos(analysis.id_rank,analysis.id_student,+newPoints.value)">Editar</button>
-       </td>
+      </td>
     </tr>
   </tbody>
 </table>

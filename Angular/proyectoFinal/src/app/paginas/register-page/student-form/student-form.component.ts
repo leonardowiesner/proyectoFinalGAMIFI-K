@@ -4,6 +4,9 @@ import { passwordmatch } from 'src/validators/passwordMatch';
 import { Router } from '@angular/router';
 import { StudentService } from 'src/app/services/student.service';
 import { NavBarService } from 'src/app/services/nav-bar.service';
+//SweetAlert2
+import 'sweetalert2/src/sweetalert2.scss';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-student-form',
@@ -36,10 +39,20 @@ export class StudentFormComponent  {
     this.student.register(JSON.stringify(this.studentForm.value)).subscribe(
       response => {
         console.log(response);
+        Swal.fire({
+          icon: 'success',
+          title: 'Te has registrado correctamente!',
+          text: 'Inicia Sesión para empezar !',
+        })
         this.router.navigate(['/login/student']);
       },
       error => {
         console.log(error);
+        Swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          text: 'No se ha podido completar el registro, verífica los datos ingresados e inténtalo de nuevo!',
+        })
       });
   }
 

@@ -3,7 +3,8 @@ import { ActivatedRoute } from '@angular/router';
 import { StudentData } from 'src/app/interfaces/alumnos-data.interface';
 import { TeachersData } from 'src/app/interfaces/profesores-data.interface';
 import { TeacherService } from 'src/app/services/teacher.service';
-import { Ranking, RankingAnalysis, RankingService, RankingSolo } from 'src/app/services/ranking.service';
+import { Ranking, RankingAnalysis, RankingService, RankingSolo, Tarea } from 'src/app/services/ranking.service';
+import { StudentService } from 'src/app/services/student.service';
 
 
 @Component({
@@ -13,29 +14,53 @@ import { Ranking, RankingAnalysis, RankingService, RankingSolo } from 'src/app/s
 })
 export class RankingPageComponent implements OnInit {
   rankingSolo: RankingSolo[]=[];
-  rankingId?: number | null;
+  rankingId: number;
+  rankingName:String | null;
   rankingAnalises: RankingAnalysis[] = [];
-  teacher?:TeachersData;
+  teacher:TeachersData;
   return:any;
   new_points:number;
   name_practica:string;
+  tarea:Tarea;
+  nuevaTarea: boolean = false;
+  
+
   constructor(private route: ActivatedRoute,private rankingService: RankingService,private teacherService: TeacherService) {
     this.rankingId=0;
     this.teacher=this.teacherService.teacher;
     this.new_points=0;
+    this.rankingName="";
     this.name_practica="";
+    this.tarea = {
+      id: 0,
+      nombre: "",
+      descripcion: "",
+      id_teacher: 0,
+      fechaEntrega: new Date()
+    }
   }
+  
+
+
+
   
   ngOnInit() {
 
      this.rankingId = Number(this.route.snapshot.paramMap.get('id'));
-    
+     this.rankingName = this.route.snapshot.paramMap.get('name');
 
      this.rankingService.getRankingAnalysis(this.rankingId).subscribe(data => {
        this.rankingAnalises=data;
-       console.log(this.rankingAnalises)
             });
-  
+            
+      this.route.queryParamMap.subscribe(params => {
+              const id = params.get('id');
+              const rankingName = params.get('rankingName');
+              // ... código para utilizar los valores de id y rankingName en el componente
+            });
+      
+console.log(this.rankingSolo[1]);
+
 
   }
 
@@ -66,5 +91,11 @@ export class RankingPageComponent implements OnInit {
     this.rankingAnalises=data;
   });
 
+  }
+  agregarTarea(){
+    console.log(this.tarea);
+    this.tarea.id_teacher=this.teacher.id
+    console.log(this.tarea);
+    this.rankingService.crearPractice(this.tarea.nombre,this.tarea.descripcion,this.tarea.id_teacher,this.tarea.fechaEntrega,this.rankingId).subscribe();
   }
 }

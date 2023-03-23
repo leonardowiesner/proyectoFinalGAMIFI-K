@@ -19,6 +19,14 @@ export interface Ranking {
 
 }
 
+export interface Tarea {
+  id:number;
+  nombre: string;
+  descripcion: string;
+  id_teacher: number;
+  fechaEntrega:Date;
+}
+
 export interface RankingAnalysis {
   id: number;
   id_student: number;
@@ -37,7 +45,7 @@ export class RankingService {
   token: string = "";
   constructor(private http: HttpClient) {
     window.localStorage.getItem(this.token);
-
+  
   }
   data: any;
 
@@ -124,7 +132,7 @@ export class RankingService {
   }
 
   deleteRanking(id_rank: number) {
-    console.log("hola" + this.token);
+
 
     let headers = new HttpHeaders({
       'Content-Type': 'application/json',
