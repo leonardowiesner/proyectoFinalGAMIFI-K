@@ -5,36 +5,47 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\RankPractice;
 use App\Models\ranking_analysis;
+use App\Models\PracticeInfo;
 
 
 class RankPracticeController extends Controller
 {
 
     public function createPractice(Request $request)
-    {
-        // Validar los datos enviados por el cliente
-        $request->validate([
-            'name' => 'required',
-            'description' => 'required',
-            'id_teacher' => 'required',
-            "date_end" => "required",
-            "id_rank" => "required",
+{
+    // Validar los datos enviados por el cliente
+    $request->validate([
+        'name' => 'required',
+        'description' => 'required',
+        "date_end" => "required",
+        "id_rank" => "required",
+    ]);
+
+    // Crear la nueva práctica
+    $practice = RankPractice::create([
+        'name' => $request->input('name'),
+        'description' => $request->input('description'),
+        'id_rank' => $request->input('id_rank'),
+    ]);
+
+    
+    
+    // Buscar los estudiantes que tienen el ranking especificado
+    $students = Ranking_analysis::where('id_rank', $request->input('id_rank'))->pluck('id_student');
+    
+    
+    // Crear una entrada en la tabla de prácticas para cada estudiante
+    foreach ($students as $student) {
+       //return response($student);
+        PracticeInfo::create([
+            'id_student' => $student,
+            'id_practice' => $practice->id,
+            'deadline_practice'=> $request->date_end
         ]);
-
-        // Crear la nueva práctica
-        $practice = RankPractice::create([
-            'name' => $request->input('name'),
-            'description' => $request->input('description'),
-            'id_teacher' => $request->input('id_teacher'),
-            'date_end' => $request->input('date_end'),
-        ]);
-
-        // Actualizar los registros en la tabla de análisis de rankings
-        Ranking_analysis::where('id_rank', $request->id_rank)->update(['id_practice' => $practice->id]);
-
-        // Devolver una respuesta con un mensaje de éxito
-        return response()->json(['message' => 'La práctica ha sido creada correctamente.']);
     }
+
+    return response()->json(['message' => 'La práctica se ha creado correctamente.']);
+}
 
     /* 
     Esto es para guardarlo en la tabla de 
