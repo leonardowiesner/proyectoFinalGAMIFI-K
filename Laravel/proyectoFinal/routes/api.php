@@ -53,14 +53,19 @@ Route::prefix('teacher')->group(function () {
 
     /* create-practice
     Creamos una nueva practica elementos necesarios que pasarle
-        'name' => 'required',
-        'description' => 'required',
-        'id_teacher' => 'required',
-        "date_end" => "required"
-        'id_rank' => 'required'
+            'name' => 'required',
+            'description' => 'required',
+            "date_end" => "required",
+            "id_rank" => "required",
     */
     Route::post('create-practice', [RankPracticeController::class, 'createPractice']);
+    
+    //editamos los puntos de la practica del studen, {id_student, id_practice, points_practice} 
+    Route::post('edit-practice-point', [RankPracticeController::class, 'editPracticePoints']);
 
+    //editamos la fecha de entrega de un estudiante en espesifico, {'id_student' => 'required','id_practice' => 'required','date_end' => 'required',}         
+    Route::post('edit-practice-date', [RankPracticeController::class, 'editPracticeDateline']);
+    
     Route::get('delete-ranking-id/{id}', [RankingController::class, 'deleteRanking']);
 
     Route::post('edit', [RankingController::class, 'editRankingPoints']);

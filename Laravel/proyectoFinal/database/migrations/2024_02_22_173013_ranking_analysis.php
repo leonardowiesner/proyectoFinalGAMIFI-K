@@ -17,7 +17,6 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('id_student');
             $table->unsignedBigInteger('id_rank');
-            $table->unsignedBigInteger('id_practice')->nullable();
             $table->integer('points');
             $table->timestamps();
 
@@ -29,11 +28,6 @@ return new class extends Migration
             $table->foreign('id_rank')
                 ->references('id')
                 ->on('rankings')
-                ->onDelete('cascade');
-
-            $table->foreign('id_practice')
-                ->references('id')
-                ->on('rank_practices')
                 ->onDelete('cascade');
         });
     }
