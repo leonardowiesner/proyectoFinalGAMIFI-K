@@ -8,6 +8,8 @@ use App\Models\ranking_analysis;
 use App\Models\PracticeInfo;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Http\UploadedFile;
+use Illuminate\Support\Facades\DB;
+
 
 class RankPracticeController extends Controller
 {
@@ -71,11 +73,10 @@ class RankPracticeController extends Controller
         $practice->points_practice = $request->input('points_practice');
         $practice->save();
 
-        
 
         $id_student = $practice->id_student;
         $id_rank = RankPractice::where('id', $request->input('id_practice'))
-        ->first();;
+            ->first();;
 
         $rankingAnalysis = ranking_analysis::where('id_student', $id_student)
             ->where('id_rank', $id_rank->id_rank)
@@ -149,20 +150,33 @@ class RankPracticeController extends Controller
 
         return response()->json(['message' => 'Archivo guardado correctamente.']);
     }
-    /* 
-    Esto es para guardarlo en la tabla de 
 
-    public function guardarDocumento(Request $request)
+    public function getPractice(Request $request)
     {
-        $documento = $request->file('documento');
-        $contenido = file_get_contents($documento);
+        // Validar el archivo enviado por el cliente
+        $request->validate([
+            'id_student' => 'required',
+            'id_rank' => 'required',
+        ]);
 
-        $registro = new Documento();
-        $registro->nombre = $documento->getClientOriginalName();
-        $registro->tipo = $documento->getClientOriginalExtension();
-        $registro->contenido = $contenido;
-        $registro->save();
+        $rankings = RankPractice::join('PracticeInfo', 'RankParctice.id', '=', 'PracticeInfo.id_practice')
+            ->where('PracticeInfo.id_student', $request->input('id_student'))
+            ->where('RankPractice.id_rank', $request->input('id_rank'))
+            ->select('RankPractice.name', 'RankPractice.description', 'PracticeInfo.points_practice', 'PracticeInfo.deadline_practice')
+            ->get();
 
-        return "Documento guardado correctamente.";
-    } */
+
+        if ($rankings->count() > 0) {
+            return response()->json([
+                "status" => 1,
+                "msg" => "Se han encontrado las salas correctamente",
+                "data" => $rankings
+            ]);
+        } else {
+            return response()->json([
+                "status" => 0,
+                "msg" => "No se encontraron salas para el usuario especificado",
+            ], 404);
+        }
+    }
 }
