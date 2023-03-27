@@ -85,7 +85,6 @@ class RankPracticeController extends Controller
             $rankingAnalysis->points += $request->input('points_practice');
             $rankingAnalysis->save();
         }
-
         return response()->json(['message' => 'Los puntos de práctica se han actualizado correctamente.']);
     }
 

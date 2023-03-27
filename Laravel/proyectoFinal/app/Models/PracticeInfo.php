@@ -12,7 +12,7 @@ class PracticeInfo extends Model
     protected $table = 'practice_info';
 
     protected $fillable = [
-         'id_student',
+        'id_student',
         'id_practice',
         'points_practice',
         'name_file',
