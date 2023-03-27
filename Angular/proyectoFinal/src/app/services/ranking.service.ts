@@ -19,6 +19,7 @@ export interface Ranking {
 
 }
 
+
 export interface Tarea {
   id:number;
   nombre: string;
@@ -62,6 +63,17 @@ export class RankingService {
 
 
     return this.http.get<any>(`${this.baseUrl}/student/get-ranking-studen/${alumnoId}`, options);
+  }
+
+  getPractices(alumnoID:number, rankingId:number){
+    let headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Accept': 'application/json',
+      'Authorization': `Bearer ${this.token}`
+    });
+    let options = { headers: headers };
+
+    return this.http.post<any>(`${this.baseUrl}/student/get-practices`, options);
   }
 
   getRankingsTeacher(teacherId: number): Observable<Ranking[]> {

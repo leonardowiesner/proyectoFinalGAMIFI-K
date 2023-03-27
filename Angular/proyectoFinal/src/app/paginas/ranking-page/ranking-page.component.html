@@ -1,6 +1,9 @@
 <h2 class="ranking-header">Ranking #{{ rankingName }}</h2>
 <div *ngIf="teacher && teacher.email !== ''">
 
+    info
+
+
   <button (click)="nuevaTarea = true">Añadir nueva Tarea</button>
 </div>
 
@@ -40,6 +43,8 @@
     </tr>
   </tbody>
 </table>
+
+
 
 <div *ngIf="!rankingAnalises" class="loading-message">Cargando...</div>
 <div *ngIf="!rankingAnalises" class="error-message">No se encontraron datos del ranking.</div>

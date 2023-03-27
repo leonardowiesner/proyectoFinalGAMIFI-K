@@ -19,13 +19,14 @@ export class RankingPageComponent implements OnInit {
   rankingAnalises: RankingAnalysis[] = [];
   teacher:TeachersData;
   return:any;
+  practicas:Tarea[]=[];
   new_points:number;
   name_practica:string;
   tarea:Tarea;
   nuevaTarea: boolean = false;
   
 
-  constructor(private route: ActivatedRoute,private rankingService: RankingService,private teacherService: TeacherService) {
+  constructor(private route: ActivatedRoute,private rankingService: RankingService,private teacherService: TeacherService,private studentService: StudentService) {
     this.rankingId=0;
     this.teacher=this.teacherService.teacher;
     this.new_points=0;
@@ -38,6 +39,11 @@ export class RankingPageComponent implements OnInit {
       id_teacher: 0,
       fechaEntrega: new Date()
     }
+
+
+    
+
+
   }
   
 
@@ -59,8 +65,12 @@ export class RankingPageComponent implements OnInit {
               // ... código para utilizar los valores de id y rankingName en el componente
             });
       
+       
 console.log(this.rankingSolo[1]);
 
+this.rankingService.getPractices(this.studentService.student.id,this.rankingId).subscribe(data => {
+    
+       });
 
   }
 
