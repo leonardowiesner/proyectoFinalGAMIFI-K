@@ -19,13 +19,14 @@ export class RankingPageComponent implements OnInit {
   rankingAnalises: RankingAnalysis[] = [];
   teacher:TeachersData;
   return:any;
+  practicas:Tarea[]=[];
   new_points:number;
   name_practica:string;
   tarea:Tarea;
   nuevaTarea: boolean = false;
-  
+  selectedFiles: { [practiceId: number]: File } = {};
 
-  constructor(private route: ActivatedRoute,private rankingService: RankingService,private teacherService: TeacherService) {
+  constructor(private route: ActivatedRoute,private rankingService: RankingService,private teacherService: TeacherService,private studentService: StudentService) {
     this.rankingId=0;
     this.teacher=this.teacherService.teacher;
     this.new_points=0;
@@ -33,11 +34,17 @@ export class RankingPageComponent implements OnInit {
     this.name_practica="";
     this.tarea = {
       id: 0,
-      nombre: "",
-      descripcion: "",
-      id_teacher: 0,
-      fechaEntrega: new Date()
+      name: "",
+      description: "",
+      points_practice: 0,
+      deadline_practice: new Date()
     }
+    
+
+
+    
+
+
   }
   
 
@@ -59,9 +66,32 @@ export class RankingPageComponent implements OnInit {
               // ... código para utilizar los valores de id y rankingName en el componente
             });
       
-console.log(this.rankingSolo[1]);
+       
 
 
+            this.rankingService.getPractices(this.studentService.student.id, this.rankingId)
+            .subscribe(response => {
+              if (response.error) {
+                console.log(response.error);
+                // Puedes manejar errores específicos aquí
+              } else if (response.status === 1) {
+                console.log(response);
+                this.practicas = response.data; // Asignar 'response.data' directamente a 'this.practicas'
+              } else {
+                console.log(response.error);
+                //console.error('Error al obtener las tareas pendientes'+response.error);
+              }
+              console.log(this.practicas);
+            });
+          
+
+
+
+  }
+  onFileSelected(event: any, practiceId: number): void {
+    if (event.target.files && event.target.files.length > 0) {
+      this.selectedFiles[practiceId] = event.target.files[0];
+    }
   }
 
   eliminarRegistro(id_rank:number,id_student:number){
@@ -78,8 +108,24 @@ console.log(this.rankingSolo[1]);
     }
   }
 
-  nuevaPractica(){
-
+  uploadFile(practiceId: number): void {
+    console.log(this.practicas[0].id);
+    
+    if (this.selectedFiles[practiceId]) {
+      const fileToUpload = this.selectedFiles[practiceId];
+      this.rankingService.uploadPracticeFile(this.studentService.student.id, practiceId, fileToUpload)
+        .subscribe(response => {
+          if (response.message) {
+            alert('Archivo subido correctamente.');
+          } else {
+            alert('Error al subir el archivo.');
+          }
+        }, error => {
+          alert('Error al subir el archivo.');
+        });
+    } else {
+      alert('Por favor, selecciona un archivo para subir.');
+    }
   }
 
   editarPuntos(id_rank:number,id_student:number,point:number){
@@ -94,6 +140,6 @@ console.log(this.rankingSolo[1]);
   }
   agregarTarea(){
     console.log(this.rankingId);
-    this.rankingService.crearPractice(this.tarea.nombre,this.tarea.descripcion,this.tarea.fechaEntrega,this.rankingId).subscribe();
+    this.rankingService.crearPractice(this.tarea.name,this.tarea.description,this.tarea.deadline_practice,this.rankingId).subscribe();
   }
 }

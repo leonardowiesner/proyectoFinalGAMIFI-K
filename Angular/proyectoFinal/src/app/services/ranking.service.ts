@@ -20,12 +20,13 @@ export interface Ranking {
 }
 
 export interface Tarea {
-  id:number;
-  nombre: string;
-  descripcion: string;
-  id_teacher: number;
-  fechaEntrega:Date;
+  id: number;
+  name: string; // Cambia 'nombre' a 'name'
+  description: string; // Cambia 'descripcion' a 'description'
+  points_practice: number | null; // Agrega 'points_practice'
+  deadline_practice: Date; // Agrega 'deadline_practice'
 }
+
 
 export interface RankingAnalysis {
   id: number;
@@ -62,6 +63,18 @@ export class RankingService {
 
 
     return this.http.get<any>(`${this.baseUrl}/student/get-ranking-studen/${alumnoId}`, options);
+  }
+
+  getPractices(id_student:number, id_rank:number){
+    let headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Accept': 'application/json',
+      'Authorization': `Bearer ${this.token}`
+    });
+
+    let options = { headers: headers };
+
+    return this.http.post<any>(`${this.baseUrl}/student/get-practices`,{id_student,id_rank}, options);
   }
 
   getRankingsTeacher(teacherId: number): Observable<Ranking[]> {
@@ -108,6 +121,14 @@ export class RankingService {
 
   }
 
+  uploadPracticeFile(id_student: number, id_practice: number, file: File): Observable<any> {
+    const formData: FormData = new FormData();
+    formData.append('id_student', id_student.toString());
+    formData.append('id_practice', id_practice.toString());
+    formData.append('file', file, file.name);
+  
+    return this.http.post<any>(`${this.baseUrl}/student/uploadPracticeFile`, formData);
+  }
   crearRanking(name: string, cod_room: string, id_teacher: number) {
 
     let headers = new HttpHeaders({
