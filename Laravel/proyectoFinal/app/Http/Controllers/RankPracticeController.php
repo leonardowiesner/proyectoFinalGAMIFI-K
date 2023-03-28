@@ -159,7 +159,7 @@ class RankPracticeController extends Controller
             'id_rank' => 'required',
         ]);
 
-        $rankings = RankPractice::join('PracticeInfo', 'RankParctice.id', '=', 'PracticeInfo.id_practice')
+        $rankings = RankPractice::join('PracticeInfo', 'RankPractice.id', '=', 'PracticeInfo.id_practice')
             ->where('PracticeInfo.id_student', $request->input('id_student'))
             ->where('RankPractice.id_rank', $request->input('id_rank'))
             ->select('RankPractice.name', 'RankPractice.description', 'PracticeInfo.points_practice', 'PracticeInfo.deadline_practice')
