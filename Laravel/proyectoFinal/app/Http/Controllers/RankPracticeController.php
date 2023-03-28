@@ -158,14 +158,14 @@ class RankPracticeController extends Controller
             'id_student' => 'required',
             'id_rank' => 'required',
         ]);
-
-        $rankings = RankPractice::join('PracticeInfo', 'RankPractice.id', '=', 'PracticeInfo.id_practice')
-            ->where('PracticeInfo.id_student', $request->input('id_student'))
-            ->where('RankPractice.id_rank', $request->input('id_rank'))
-            ->select('RankPractice.name', 'RankPractice.description', 'PracticeInfo.points_practice', 'PracticeInfo.deadline_practice')
+    
+        $rankings = DB::table('rank_practices')
+            ->join('practice_info', 'rank_practices.id', '=', 'practice_info.id_practice')
+            ->where('practice_info.id_student', $request->input('id_student'))
+            ->where('rank_practices.id_rank', $request->input('id_rank'))
+            ->select('rank_practices.id','rank_practices.name', 'rank_practices.description', 'practice_info.points_practice', 'practice_info.deadline_practice')
             ->get();
-
-
+    
         if ($rankings->count() > 0) {
             return response()->json([
                 "status" => 1,
