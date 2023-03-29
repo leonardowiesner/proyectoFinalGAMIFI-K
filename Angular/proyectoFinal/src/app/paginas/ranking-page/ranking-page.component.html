@@ -16,7 +16,7 @@
       <td>{{ practica.points_practice }}</td>
       <td>{{ practica.deadline_practice | date:'shortDate' }}</td>
       <td>
-        <input type="file" (change)="onFileSelected($event, practica.id)">
+        <input type="file" (change)="onFileSelected($event,practica.id)" />
         <button (click)="uploadFile(practica.id)">Subir</button>
       </td>
     </tr>

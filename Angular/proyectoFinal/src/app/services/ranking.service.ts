@@ -121,13 +121,17 @@ export class RankingService {
 
   }
 
-  uploadPracticeFile(id_student: number, id_practice: number, file: File): Observable<any> {
-    const formData: FormData = new FormData();
-    formData.append('id_student', id_student.toString());
-    formData.append('id_practice', id_practice.toString());
+  uploadPracticeFile(studentId: number, practiceId: number, file: File): Observable<any> {
+    const formData = new FormData();
+    formData.append('id_student', studentId.toString());
+    formData.append('id_practice', practiceId.toString());
     formData.append('file', file, file.name);
   
-    return this.http.post<any>(`${this.baseUrl}/student/uploadPracticeFile`, formData);
+    return this.http.post<any>(`${this.baseUrl}/student/uploadPracticeFile`, formData, {
+      observe: 'response',
+      reportProgress: true,
+      responseType: 'json',
+    });
   }
   crearRanking(name: string, cod_room: string, id_teacher: number) {
 
@@ -210,14 +214,15 @@ export class RankingService {
   }
 
 
-  editPointStuden(id_student: number, id_rank: number, point: number): Observable<any> {
+  editarPuntos(id_student: number, id_rank: number, points: number): Observable<any> {
     let headers = new HttpHeaders({
       'Content-Type': 'application/json',
       'Accept': 'application/json',
       'Authorization': `Bearer ${this.token}`
     });
     let options = { headers: headers };
-    return this.http.post<any>(`${this.baseUrl}/teacher/edit`, { id_student, id_rank, point },options);
+
+    return this.http.post<any>(`${this.baseUrl}/teacher/edit`, { id_student, id_rank, points }, options);
 
   }
 

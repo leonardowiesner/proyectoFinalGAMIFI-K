@@ -88,11 +88,17 @@ export class RankingPageComponent implements OnInit {
 
 
   }
-  onFileSelected(event: any, practiceId: number): void {
-    if (event.target.files && event.target.files.length > 0) {
-      this.selectedFiles[practiceId] = event.target.files[0];
+  onFileSelected(event: Event, practiceId: number): void {
+    const target = event.target as HTMLInputElement;
+    const files = target.files;
+  
+    if (files && files.length > 0) {
+      const file = files[0];
+      this.selectedFiles[practiceId] = file;
     }
   }
+  
+  
 
   eliminarRegistro(id_rank:number,id_student:number){
     if (confirm('¿Estás seguro de que quieres eliminar este registro?')) {
@@ -109,8 +115,6 @@ export class RankingPageComponent implements OnInit {
   }
 
   uploadFile(practiceId: number): void {
-    console.log(this.practicas[0].id);
-    
     if (this.selectedFiles[practiceId]) {
       const fileToUpload = this.selectedFiles[practiceId];
       this.rankingService.uploadPracticeFile(this.studentService.student.id, practiceId, fileToUpload)
@@ -130,7 +134,7 @@ export class RankingPageComponent implements OnInit {
 
   editarPuntos(id_rank:number,id_student:number,point:number){
     console.log(point)
-   this.rankingService.editPointStuden(id_student,id_rank,point).subscribe(
+   this.rankingService.editarPuntos(id_student,id_rank,point).subscribe(
    
    );
    this.rankingService.getRankingAnalysis(id_rank).subscribe(data => {
