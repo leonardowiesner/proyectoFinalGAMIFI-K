@@ -117,13 +117,17 @@ class RankPracticeController extends Controller
 
     public function uploadPracticeFile(Request $request)
     {
+        
         // Validar el archivo enviado por el cliente
         $request->validate([
             'id_student' => 'required',
             'id_practice' => 'required',
-            'file' => 'required|file|mimes:pdf,doc,docx|max:2048',
+            'file' => 'required|file|max:2048',
+            //'file' => 'required|file|mimes:pdf,doc,docx|max:2048',
         ]);
-
+        error_log('id_student: ' . $request->input('id_student'));
+        error_log('id_practice: ' . $request->input('id_practice'));
+        error_log('file: ' . json_encode($request->file('file')));
         // Buscar la práctica por ID
         $practice = PracticeInfo::where('id_student', $request->input('id_student'))
             ->where('id_practice', $request->input('id_practice'))
