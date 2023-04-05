@@ -25,9 +25,17 @@
 
 
 
-<div *ngIf="teacher && teacher.email !== ''">
 
-   
+<div *ngIf="teacher && teacher.email !== ''">
+  <ul>
+    <li *ngFor="let practice of practicesDelivered">
+      <span>{{ practice.student_name }}</span>
+      <span>{{ practice.student_surname }}</span>
+      <span>{{ practice.practice_name }}</span>
+    </li>
+  </ul>
+
+
 
 
   <button (click)="nuevaTarea = true">Añadir nueva Tarea</button>

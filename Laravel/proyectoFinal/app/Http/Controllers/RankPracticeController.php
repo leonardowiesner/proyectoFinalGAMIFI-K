@@ -115,9 +115,33 @@ class RankPracticeController extends Controller
         return response()->json(['message' => 'La fecha de entrega se ha actualizado correctamente.']);
     }
 
+    public function get_practices_delivered(Request $request)
+    {
+        $request->validate([
+            'id_ranking' => 'required',
+        ]);
+
+        $practice = DB::table('practice_info')
+            ->join('ranking_practices', 'practice_info.id_practice', '=', 'ranking_practices.id')
+            ->where('id_practice', $request->input('id_practice'))
+            ->join('students', 'practice_info.student_id', '=', 'students.id')
+            ->select('students.name as student_name', 'students.surnames as student_surname', 'rank_practices.name', 'rank_practices.description', 'practice_info.points_practice', 'practice_info.name_file')
+            ->first();
+
+        if (!$practice) {
+            // Si no se encuentra la práctica, devolver un error 404
+            return response()->json(['error' => 'No se encontró la práctica especificada.'], 404);
+        }
+        $response = response()->json($practice);
+        $response->header('Access-Control-Allow-Origin', '*');
+        $response->header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
+        $response->header('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+        return $response->send();
+    }
+
     public function uploadPracticeFile(Request $request)
     {
-        
+
         // Validar el archivo enviado por el cliente
         $request->validate([
             'id_student' => 'required',
@@ -162,14 +186,14 @@ class RankPracticeController extends Controller
             'id_student' => 'required',
             'id_rank' => 'required',
         ]);
-    
+
         $rankings = DB::table('rank_practices')
             ->join('practice_info', 'rank_practices.id', '=', 'practice_info.id_practice')
             ->where('practice_info.id_student', $request->input('id_student'))
             ->where('rank_practices.id_rank', $request->input('id_rank'))
-            ->select('rank_practices.id','rank_practices.name', 'rank_practices.description', 'practice_info.points_practice', 'practice_info.deadline_practice')
+            ->select('rank_practices.id', 'rank_practices.name', 'rank_practices.description', 'practice_info.points_practice', 'practice_info.deadline_practice')
             ->get();
-    
+
         if ($rankings->count() > 0) {
             return response()->json([
                 "status" => 1,

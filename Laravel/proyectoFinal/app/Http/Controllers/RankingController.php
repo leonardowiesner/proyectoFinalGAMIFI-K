@@ -142,21 +142,21 @@ class RankingController extends Controller
 
             echo "nopeta";die;
             if ($user->center) { */
-                // Buscar el ranking por ID
-                $ranking = Ranking::find($id);
+            // Buscar el ranking por ID
+            $ranking = Ranking::find($id);
 
-                if (!$ranking) {
-                    // Si no se encuentra el ranking, devolver un error 404
-                    return response()->json(['error' => 'No se encontró el ranking especificado.'], 404);
-                }
+            if (!$ranking) {
+                // Si no se encuentra el ranking, devolver un error 404
+                return response()->json(['error' => 'No se encontró el ranking especificado.'], 404);
+            }
 
-                // Eliminar todos los registros relacionados en la tabla de análisis de rankings
-                $rankingAnalyses = Ranking_analysis::where('id_rank', $id)->delete();
+            // Eliminar todos los registros relacionados en la tabla de análisis de rankings
+            $rankingAnalyses = Ranking_analysis::where('id_rank', $id)->delete();
 
-                // Eliminar el ranking
-                $ranking->delete();
+            // Eliminar el ranking
+            $ranking->delete();
 
-                return response()->json(['message' => 'El ranking y sus registros relacionados han sido eliminados correctamente.']);
+            return response()->json(['message' => 'El ranking y sus registros relacionados han sido eliminados correctamente.']);
             /* } else {
                 return response()->json(['message' => 'No estas autorizado.']);
             } */
@@ -185,7 +185,7 @@ class RankingController extends Controller
     {
         $id_student = $request->input('id_student');
         $id_rank = $request->input('id_rank');
-        $new_points = $request->input('point');
+        $new_points = $request->input('points');
 
         $rankingAnalysis = DB::table('ranking_analyses')
             ->where('id_student', $id_student)
