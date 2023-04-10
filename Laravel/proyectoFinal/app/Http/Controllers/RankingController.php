@@ -73,6 +73,7 @@ class RankingController extends Controller
             ->join('students', 'ranking_analyses.id_student', '=', 'students.id')
             ->where('ranking_analyses.id_rank', $id)
             ->select('ranking_analyses.*', 'students.name')
+            ->orderByDesc('points')
             ->get();
 
 
@@ -136,28 +137,29 @@ class RankingController extends Controller
     public function deleteRanking($id)
     {
         try {
-            $bearerToken = request()->bearerToken();
+            /* $bearerToken = request()->bearerToken();
             $user = PersonalAccessToken::findToken($bearerToken)->tokenable;
 
-            if ($user->center) {
-                // Buscar el ranking por ID
-                $ranking = Ranking::find($id);
+            echo "nopeta";die;
+            if ($user->center) { */
+            // Buscar el ranking por ID
+            $ranking = Ranking::find($id);
 
-                if (!$ranking) {
-                    // Si no se encuentra el ranking, devolver un error 404
-                    return response()->json(['error' => 'No se encontró el ranking especificado.'], 404);
-                }
-
-                // Eliminar todos los registros relacionados en la tabla de análisis de rankings
-                $rankingAnalyses = Ranking_analysis::where('id_rank', $id)->delete();
-
-                // Eliminar el ranking
-                $ranking->delete();
-
-                return response()->json(['message' => 'El ranking y sus registros relacionados han sido eliminados correctamente.']);
-            } else {
-                return response()->json(['message' => 'No estas autorizado.']);
+            if (!$ranking) {
+                // Si no se encuentra el ranking, devolver un error 404
+                return response()->json(['error' => 'No se encontró el ranking especificado.'], 404);
             }
+
+            // Eliminar todos los registros relacionados en la tabla de análisis de rankings
+            $rankingAnalyses = Ranking_analysis::where('id_rank', $id)->delete();
+
+            // Eliminar el ranking
+            $ranking->delete();
+
+            return response()->json(['message' => 'El ranking y sus registros relacionados han sido eliminados correctamente.']);
+            /* } else {
+                return response()->json(['message' => 'No estas autorizado.']);
+            } */
         } catch (\Throwable $th) {
             return response()->json(['error' => 'Peto el token.'], 404);
         }
@@ -183,7 +185,7 @@ class RankingController extends Controller
     {
         $id_student = $request->input('id_student');
         $id_rank = $request->input('id_rank');
-        $new_points = $request->input('point');
+        $new_points = $request->input('points');
 
         $rankingAnalysis = DB::table('ranking_analyses')
             ->where('id_student', $id_student)

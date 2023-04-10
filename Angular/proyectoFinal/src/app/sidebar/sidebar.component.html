@@ -1,75 +1,99 @@
 <html>
+    <head>
+     <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
+     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <link rel="stylesheet" href="">
+    </head>
+    <body>
+        <div class="sidebar" [ngClass]="{ 'open': isMenuOpen }">
+            <div class="logo-details">
+              <i class='bx bxl-c-plus-plus icon'></i>
+                <div class="logo_name">Vortex Ed</div>
+                 <i class='bx bx-menu' id="btn" (click)="toggleMenu()"></i> 
+            </div>
+            <ul class="nav-list">
+              <li>
+                
+               <a *ngIf="student && student.email !== ''" routerLink="/studentProfile">
+                 <i class='bx bx-user' ></i>
+                 <span class="links_name">Tu perfil de usuario</span>
+               </a>
 
-<head>
-  <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="">
-</head>
-
-<body>
-  <div class="sidebar" [ngClass]="{ 'open': isMenuOpen }">
-    <div class="logo-details">
-      <i class='bx bxl-c-plus-plus icon'></i>
-      <div class="logo_name">Vortex Ed</div>
-      <i class='bx bx-menu' id="btn" (click)="toggleMenu()"></i>
-    </div>
-    <ul class="nav-list">
-      <li>
-        <a routerLink="/studentProfile">
-          <i class='bx bx-user'></i>
-          <span class="links_name">Tu perfil de usuario</span>
-        </a>
-        <span class="tooltip">User</span>
-      </li>
-      <!-- <router-link to="/editstudentprofile" routerLinkActive="router-link-active">
+               <a *ngIf="teacher && teacher.email !== ''" routerLink="/teacherProfile">
+                <i class='bx bx-user' ></i>
+                <span class="links_name">Tu perfil de usuario</span>
+              </a>
+               <span class="tooltip">User</span>
+             </li>
+               <!-- <router-link to="/editstudentprofile" routerLinkActive="router-link-active">
                 <i class='bx bx-grid-alt'></i>
                 <span class="links_name">Dashboard</span>
               </router-link>  -->
-      <li>
-        <a href="#">
-          <i class='bx bx-chat'></i>
-          <span class="links_name">Notificaciones</span>
-        </a>
-        <span class="tooltip">Messages</span>
-      </li>
-      <li>
-        <a href="#">
-          <i class='bx bx-pie-chart-alt-2'></i>
-          <span class="links_name">Analisis de Ranking</span>
-        </a>
-        <span class="tooltip">Analytics</span>
-      </li>
-      <li>
-        <a href="#">
-          <i class='bx bx-folder'></i>
-          <span class="links_name">Lista (Cursos-Ranking)</span>
-        </a>
-        <span class="tooltip">Files</span>
-      </li>
-      <li>
-        <a href="#">
-          <i class='bx bx-cog'></i>
-          <span class="links_name">Configuración</span>
-        </a>
-        <span class="tooltip">Setting</span>
-      </li>
-      <li class="profile">
-        <div class="profile-details">
-          <a class="justlink" routerLink="/studentProfile">
-            <img src="https://i.imgur.com/n6F53V0.jpg" alt="profileImg">
-          </a>
-          <div class="name_job">
-            <div class="name">Valentí Casas</div>
-            <div class="job">Profesor</div>
+             <li>
+               <a href="#">
+                 <i class='bx bx-chat' ></i>
+                 <span class="links_name">Notificaciones</span>
+               </a>
+               <span class="tooltip">Messages</span>
+             </li>
+             <li>
+               <a href="#">
+                 <i class='bx bx-pie-chart-alt-2' ></i>
+                 <span class="links_name">Analisis de Ranking</span>
+               </a>
+               <span class="tooltip">Analytics</span>
+             </li>
+             <li>
+               <a href="#">
+                 <i class='bx bx-folder' ></i>
+                 <span class="links_name">Lista (Cursos-Ranking)</span>
+               </a>
+               <span class="tooltip">Files</span>
+             </li>
+             <li>
+               <a href="#">
+                 <i class='bx bx-cog' ></i>
+                 <span class="links_name">Configuración</span>
+               </a>
+               <span class="tooltip">Setting</span>
+             </li>
+             <li  *ngIf="student && student.email !== ''"  class="profile">
+                 <div class="profile-details">
+                  <a class="justlink"routerLink="/studentProfile">
+                   <img src="{{student.img}}" alt="profileImg">
+                   </a>
+
+                   <div class="name_job">
+                     <div class="name">{{student.nickname}}</div>
+                     <div class="job">Estudiante</div>
+                   </div>
+
+                 </div>
+                 <a routerLink="/login">
+                 <i class='bx bx-log-out' id="log_out" ></i>
+                </a>
+             </li>
+
+
+             <li  *ngIf="teacher && teacher.email !== ''"  class="profile">
+              <div class="profile-details">
+               <a class="justlink"routerLink="/teacherProfile">
+                <img src="{{teacher.img}}" alt="profileImg">
+                </a>
+
+                <div  *ngIf="teacher && teacher.email !== ''" class="name_job">
+                  <div class="name">{{teacher.nickname}}</div>
+                  <div class="job">Profesor</div>
+                </div>
+
+              </div>
+              <a routerLink="/login">
+              <i class='bx bx-log-out' id="log_out" ></i>
+             </a>
+          </li>
+            </ul>
           </div>
-        </div>
-        <a routerLink="/login">
-          <i class='bx bx-log-out' id="log_out"></i>
-        </a>
-      </li>
-    </ul>
-  </div>
-  <!-- <section class="home-section">
+        <!-- <section class="home-section">
         <div class="text">Dashboard</div>
     </section> -->
 </body>
