@@ -115,18 +115,20 @@ class RankPracticeController extends Controller
         return response()->json(['message' => 'La fecha de entrega se ha actualizado correctamente.']);
     }
 
-    public function get_practices_delivered(Request $request)
+    public function get_practices_delivered(Request $request, $rankingId)
     {
         $request->validate([
-            'id_ranking' => 'required',
+            'rankingId' => 'required',
         ]);
-
+        $practice = RankPractice::find($rankingId);
+        $students= $practice->students();
+      
         $practice = DB::table('practice_info')
-            ->join('ranking_practices', 'practice_info.id_practice', '=', 'ranking_practices.id')
-            ->where('id_practice', $request->input('id_practice'))
+            ->join('rank_practices', 'practice_info.id_practice', '=', 'rank_practices.id')
+            ->where('rank_practices.id_rank', $request->input('rankingId'))
             ->join('students', 'practice_info.student_id', '=', 'students.id')
             ->select('students.name as student_name', 'students.surnames as student_surname', 'rank_practices.name', 'rank_practices.description', 'practice_info.points_practice', 'practice_info.name_file')
-            ->first();
+            ->get();
 
         if (!$practice) {
             // Si no se encuentra la práctica, devolver un error 404
