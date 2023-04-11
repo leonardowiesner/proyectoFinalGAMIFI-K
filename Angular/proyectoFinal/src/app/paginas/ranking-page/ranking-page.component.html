@@ -1,28 +1,30 @@
-<h2 class="ranking-header">Ranking #{{ rankingName }}</h2>
-<table>
-  <thead>
-    <tr>
-      <th>Nombre</th>
-      <th>Descripción</th>
-      <th>Puntos</th>
-      <th>Fecha límite</th>
-      <th>Entregar archivo</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr *ngFor="let practica of practicas">
-      <td>{{ practica.name }}</td>
-      <td>{{ practica.description }}</td>
-      <td>{{ practica.points_practice }}</td>
-      <td>{{ practica.deadline_practice | date:'shortDate' }}</td>
-      <td>
-        <input type="file" (change)="onFileSelected($event,practica.id)" />
-        <button (click)="uploadFile(practica.id)">Subir</button>
-      </td>
-    </tr>
-  </tbody>
-</table>
 
+  <h2 class="ranking-header">Ranking #{{ rankingName }}</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>Nombre</th>
+        <th>Descripción</th>
+        <th>Puntos</th>
+        <th>Fecha límite</th>
+        <th>Entregar archivo</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let practica of practicas">
+        <td>{{ practica.name }}</td>
+        <td>{{ practica.description }}</td>
+        <td>{{ practica.points_practice }}</td>
+        <td>{{ practica.deadline_practice | date:'shortDate' }}</td>
+        <td>
+          <input type="file" (change)="onFileSelected($event,practica.id)" />
+          <button (click)="uploadFile(practica.id)">Subir</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  
 
 
 
