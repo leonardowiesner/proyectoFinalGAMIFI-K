@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Student;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\DB;
@@ -29,16 +30,16 @@ return new class extends Migration
             $table->timestamps();
         });
 
-        for ($i = 0; $i > 50; $i++) {
-            DB::table('students')->insert(
-                array(
+        for ($i = 0; $i < 50; $i++) {
+            Student::create(
+                [
                     'nickname' => $faker->firstName(),
                     'email' => $faker->email(),
                     'password' => Hash::make('12345678'),
                     'name' => $faker->firstName(),
                     'surnames' => $faker->firstName(),
-                    'birth_date' => '2003-04-01'
-                )
+                    'birth_date' => '2003-04-01',
+                ]
             );
         }
     }
