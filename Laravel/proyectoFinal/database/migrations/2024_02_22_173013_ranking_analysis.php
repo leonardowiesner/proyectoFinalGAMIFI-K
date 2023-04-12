@@ -32,16 +32,6 @@ return new class extends Migration
                 ->on('rankings')
                 ->onDelete('cascade');
         });
-
-        for ($i = 0; $i < 20; $i++) {
-            ranking_analysis::create([
-                    'id_student' => $i + 1 ,
-                    'id_rank' => 1,
-                    'points' => 50
-            ]
-            );
-        }
-
     }
 
     /**

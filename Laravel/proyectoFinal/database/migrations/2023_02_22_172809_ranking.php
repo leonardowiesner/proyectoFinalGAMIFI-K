@@ -27,16 +27,6 @@ return new class extends Migration
                 ->on('teachers')
                 ->onDelete('cascade');
         });
-
-
-
-        DB::table('rankings')->insert(
-            array(
-                'id_teacher' => 1,
-                'name' => 'angular',
-                'cod_room' => Hash::make('12345678'),
-            )
-        );
     }
 
     /**
