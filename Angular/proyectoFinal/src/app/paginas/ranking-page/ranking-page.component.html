@@ -1,28 +1,30 @@
-<h2 class="ranking-header">Ranking #{{ rankingName }}</h2>
-<table>
-  <thead>
-    <tr>
-      <th>Nombre</th>
-      <th>Descripción</th>
-      <th>Puntos</th>
-      <th>Fecha límite</th>
-      <th>Entregar archivo</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr *ngFor="let practica of practicas">
-      <td>{{ practica.name }}</td>
-      <td>{{ practica.description }}</td>
-      <td>{{ practica.points_practice }}</td>
-      <td>{{ practica.deadline_practice | date:'shortDate' }}</td>
-      <td>
-        <input type="file" (change)="onFileSelected($event,practica.id)" />
-        <button (click)="uploadFile(practica.id)">Subir</button>
-      </td>
-    </tr>
-  </tbody>
-</table>
 
+  <h2 class="ranking-header">Ranking #{{ rankingName }}</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>Nombre</th>
+        <th>Descripción</th>
+        <th>Puntos</th>
+        <th>Fecha límite</th>
+        <th>Entregar archivo</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let practica of practicas">
+        <td>{{ practica.name }}</td>
+        <td>{{ practica.description }}</td>
+        <td>{{ practica.points_practice }}</td>
+        <td>{{ practica.deadline_practice | date:'shortDate' }}</td>
+        <td>
+          <input type="file" (change)="onFileSelected($event,practica.id)" />
+          <button (click)="uploadFile(practica.id)">Subir</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  
 
 
 
@@ -38,7 +40,7 @@
 
 
 
-  <button *ngIf="teacher && teacher.email !== ''" (click)="nuevaTarea = true">Añadir nueva Tarea</button>
+  <button (click)="nuevaTarea = true">Añadir nueva Tarea</button>
 </div>
 
 <div *ngIf="nuevaTarea">
@@ -54,33 +56,31 @@
   </form>
 </div>
 
+<table *ngIf="!nuevaTarea" class="ranking-table">
+  <thead>
+    <tr>
+      <th>Posición</th>
+      <th>Nombre</th>
+      <th>Puntuación</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let analysis of rankingAnalises; let i = index">
+      <td>{{ i + 1 }}</td>
+      <td>{{ analysis.name }}</td>
+      <td>{{ analysis.points }}</td>
+      <td *ngIf="teacher && teacher.email !== ''">
+        <button (click)="eliminarRegistro(analysis.id_rank,analysis.id_student)">Eliminar</button>
+      </td>
+      <td *ngIf="teacher && teacher.email !== ''">
+        <input #newPoints name="new_points" type="number">
+        <button (click)="editarPuntos(analysis.id_rank,analysis.id_student,+newPoints.value)">Editar</button>
+      </td>
+    </tr>
+  </tbody>
+</table>
 
-    <table *ngIf="!nuevaTarea" class="ranking-table">
-      <thead>
-        <tr>
-          <th>Posición</th>
-          <th>Nombre</th>
-          <th>Puntuación</th>
-        </tr>
-      </thead>
-      
 
-      <tbody>
-        <tr *ngFor="let analysis of rankingAnalises; let i = index">
-          <td>{{ i + 1 }}</td>
-          <td>{{ analysis.name }}</td>
-          <td>{{ analysis.points }}</td>
-          <td *ngIf="teacher && teacher.email !== ''">
-            <button (click)="eliminarRegistro(analysis.id_rank,analysis.id_student)">Eliminar</button>
-          </td>
-          <td *ngIf="teacher && teacher.email !== ''">
-            <input #newPoints name="new_points" type="number" />
-            <button (click)="editarPuntos(analysis.id_rank,analysis.id_student,+newPoints.value)">Editar</button>
-          </td>
-        </tr>
-      </tbody>
-    </table>
 
-  <div *ngIf="!rankingAnalises" class="loading-message">Cargando...</div>
-  <div *ngIf="!rankingAnalises" class="error-message">No se encontraron datos del ranking.</div>
-
+<div *ngIf="!rankingAnalises" class="loading-message">Cargando...</div>
+<div *ngIf="!rankingAnalises" class="error-message">No se encontraron datos del ranking.</div>
