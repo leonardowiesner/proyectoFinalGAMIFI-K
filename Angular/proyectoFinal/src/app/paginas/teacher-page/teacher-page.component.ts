@@ -25,6 +25,7 @@ export class TeacherPageComponent implements OnInit {
     this.teacher = {id: 0, nickname : "", name:"", surnames:"", email:"", password:"",img:"",centro: "" }
               navBarService.showNavbar = true;
     }
+
   ngOnInit(): void {
     if(this.teacherService.teacher){
       this.teacher=this.teacherService.teacher;
