@@ -1,7 +1,9 @@
 <?php
 
+use App\Models\Teacher;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
@@ -24,6 +26,15 @@ return new class extends Migration
             $table->string('center');
             $table->timestamps();
         });
+
+        Teacher::create([
+            'nickname' => 'nilTeacher',
+            'email' => 'nilteacher@gmail.com',
+            'password' => Hash::make('12345678'),
+            'name' => 'nilTeacher',
+            'surnames' => 'pepo',
+            'center' => 'ilerna'
+        ]);
     }
 
     /**

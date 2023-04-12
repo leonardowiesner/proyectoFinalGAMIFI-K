@@ -1,7 +1,9 @@
 <?php
 
+use App\Models\ranking_analysis;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
@@ -30,6 +32,16 @@ return new class extends Migration
                 ->on('rankings')
                 ->onDelete('cascade');
         });
+
+        for ($i = 0; $i < 20; $i++) {
+            ranking_analysis::create([
+                    'id_student' => $i + 1 ,
+                    'id_rank' => 1,
+                    'points' => 50
+            ]
+            );
+        }
+
     }
 
     /**
