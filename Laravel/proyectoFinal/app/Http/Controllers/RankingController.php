@@ -24,7 +24,7 @@ class RankingController extends Controller
         $ranking = Ranking::create([
             "id_teacher" => $request->id_teacher,
             "name" => $request->name,
-            "cod_room" => Hash::make($request->cod_room)
+            "cod_room" => $request->cod_room
 
         ]);
 
