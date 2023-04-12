@@ -73,7 +73,7 @@ export class RankingService
     return this.http.get<any>( `${ this.baseUrl }/student/get-ranking-studen/${ alumnoId }`, options );
   }
 
-  getPractices ( id_student: number, rankingId: number )
+  getPractices ( id_student: number, id_rank: number )
   {
     let headers = new HttpHeaders( {
       'Content-Type': 'application/json',
@@ -83,7 +83,7 @@ export class RankingService
 
     let options = { headers: headers };
 
-    return this.http.post<any>( `${ this.baseUrl }/student/get-practices`, { id_student, rankingId }, options );
+    return this.http.post<any>( `${ this.baseUrl }/student/get-practices`, { id_student, id_rank }, options );
   }
 
   getRankingsTeacher ( teacherId: number ): Observable<Ranking[]>
@@ -247,9 +247,9 @@ export class RankingService
 
   }
 
-  getPracticesDelivered ( rankingId: number )
+  getPracticesDelivered ( id_rank: number )
   {
-    return this.http.get<any>( `${ this.baseUrl }/teacher/get-practices-delivered`, { params: { rankingId } } );
+    return this.http.get<any>( `${ this.baseUrl }/teacher/get-practices-delivered?id_practice=${ id_rank }` );
 
   }
 

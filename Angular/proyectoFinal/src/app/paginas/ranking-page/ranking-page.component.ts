@@ -20,7 +20,6 @@ export class RankingPageComponent implements OnInit
   rankingName: String | null;
   rankingAnalises: RankingAnalysis[] = [];
   teacher: TeachersData;
-
   return: any;
   practicas: Tarea[] = [];
   new_points: number;
@@ -100,14 +99,9 @@ export class RankingPageComponent implements OnInit
 
     if ( this.teacher )
     {
-      console.log(this.rankingId);
-      
       this.rankingService.getPracticesDelivered( this.rankingId ).subscribe( ( response ) =>
       {
-        console.log(response.data + "Antes");
-        
         this.practicesDelivered = response.data;
-        console.log(response.data + "Despues");
       } );
     }
 
