@@ -19,19 +19,24 @@ class RankingTableSeeder extends Seeder
     public function run()
     {
         Ranking::create([
+            'id_teacher'=>1,
+            'name' => 'Test',
+            'cod_room'=>Hash::make('12345678'),
+        ]);
+        Ranking::create([
             'id_teacher'=>2,
-            'name' => 'php',
-            'cod_room'=>'1234',
+            'name' => 'Test2',
+            'cod_room'=>Hash::make('1234'),
         ]);
         Ranking::create([
             'id_teacher'=>1,
-            'name' => 'html',
-            'cod_room'=>'123456789',
+            'name' => 'Test1.1',
+            'cod_room'=>Hash::make('123456789'),
         ]);
         Ranking::create([
             'id_teacher'=>2,
-            'name' => 'css',
-            'cod_room'=>'12345',
+            'name' => 'Test2.2',
+            'cod_room'=>Hash::make('12345'),
         ]);
         Ranking_analysis::create([
             'id_student'=>1,

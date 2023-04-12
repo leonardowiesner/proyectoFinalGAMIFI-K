@@ -27,14 +27,6 @@ return new class extends Migration
             $table->timestamps();
         });
 
-        Teacher::create([
-            'nickname' => 'nilTeacher',
-            'email' => 'nilteacher@gmail.com',
-            'password' => Hash::make('12345678'),
-            'name' => 'nilTeacher',
-            'surnames' => 'pepo',
-            'center' => 'ilerna'
-        ]);
     }
 
     /**
