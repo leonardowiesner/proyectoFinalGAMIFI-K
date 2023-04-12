@@ -115,15 +115,45 @@ class RankPracticeController extends Controller
         return response()->json(['message' => 'La fecha de entrega se ha actualizado correctamente.']);
     }
 
+    public function get_practices_delivered(Request $request, $rankingId)
+    {
+        $request->validate([
+            'rankingId' => 'required',
+        ]);
+        $practice = RankPractice::find($rankingId);
+        $students= $practice->students();
+      
+        $practice = DB::table('practice_info')
+            ->join('rank_practices', 'practice_info.id_practice', '=', 'rank_practices.id')
+            ->where('rank_practices.id_rank', $request->input('rankingId'))
+            ->join('students', 'practice_info.student_id', '=', 'students.id')
+            ->select('students.name as student_name', 'students.surnames as student_surname', 'rank_practices.name', 'rank_practices.description', 'practice_info.points_practice', 'practice_info.name_file')
+            ->get();
+
+        if (!$practice) {
+            // Si no se encuentra la práctica, devolver un error 404
+            return response()->json(['error' => 'No se encontró la práctica especificada.'], 404);
+        }
+        $response = response()->json($practice);
+        $response->header('Access-Control-Allow-Origin', '*');
+        $response->header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
+        $response->header('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+        return $response->send();
+    }
+
     public function uploadPracticeFile(Request $request)
     {
+
         // Validar el archivo enviado por el cliente
         $request->validate([
             'id_student' => 'required',
             'id_practice' => 'required',
-            'file' => 'required|file|mimes:pdf,doc,docx|max:2048',
+            'file' => 'required|file|max:2048',
+            //'file' => 'required|file|mimes:pdf,doc,docx|max:2048',
         ]);
-
+        error_log('id_student: ' . $request->input('id_student'));
+        error_log('id_practice: ' . $request->input('id_practice'));
+        error_log('file: ' . json_encode($request->file('file')));
         // Buscar la práctica por ID
         $practice = PracticeInfo::where('id_student', $request->input('id_student'))
             ->where('id_practice', $request->input('id_practice'))
@@ -158,14 +188,14 @@ class RankPracticeController extends Controller
             'id_student' => 'required',
             'id_rank' => 'required',
         ]);
-    
+
         $rankings = DB::table('rank_practices')
             ->join('practice_info', 'rank_practices.id', '=', 'practice_info.id_practice')
             ->where('practice_info.id_student', $request->input('id_student'))
             ->where('rank_practices.id_rank', $request->input('id_rank'))
-            ->select('rank_practices.id','rank_practices.name', 'rank_practices.description', 'practice_info.points_practice', 'practice_info.deadline_practice')
+            ->select('rank_practices.id', 'rank_practices.name', 'rank_practices.description', 'practice_info.points_practice', 'practice_info.deadline_practice')
             ->get();
-    
+
         if ($rankings->count() > 0) {
             return response()->json([
                 "status" => 1,

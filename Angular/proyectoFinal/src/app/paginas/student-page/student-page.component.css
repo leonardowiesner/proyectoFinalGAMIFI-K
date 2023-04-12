@@ -1,25 +1,74 @@
+h2{
+  text-align: center;
+  font-weight: 700;
+  font-size: 80px;
+  color:white;
+
+
+}
+.mainimageContainer{
+  background: #2b2f77;
+  background: -webkit-linear-gradient(0deg, #2b2f77 0%, #141852 50%, #070b34 100%);
+  background: linear-gradient(0deg, #2b2f77 0%, #141852 50%, #070b34 100%);
+  
+  border-radius: 17% 18% 13% 8% / 11% 12% 9% 16%;
+}
+
+.mainimageContainer:hover,
+.imageContainer:hover{
+  background: hsla(213, 77%, 14%, 1);
+  background: linear-gradient(90deg, hsla(213, 77%, 14%, 1) 0%, hsla(202, 27%, 45%, 1) 100%);
+  background: -moz-linear-gradient(90deg, hsla(213, 77%, 14%, 1) 0%, hsla(202, 27%, 45%, 1) 100%);
+  background: -webkit-linear-gradient(90deg, hsla(213, 77%, 14%, 1) 0%, hsla(202, 27%, 45%, 1) 100%);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(76,22,195,0.25);
+  border-radius: 17% 18% 13% 8% / 11% 12% 9% 16%;
+  transition: 0.5s ease;
+  rotate: 2deg;
+  
+}
+
+.imageContainer img:hover{
+  transition: 0.5s ease;
+  rotate: 2deg;
+ 
+}
+.imageContainer{
+  padding-top: 20px;
+}
+.imageContainer img{
+  width: 400px;
+  height: 350px;
+}
 .profile-link {
     text-decoration: none;
     color: #333;
   }
-  
   .profile-link:hover {
     text-decoration: underline;
   }
-  
-  .ranking-container {
-    margin-top: 20px;
+  .noRankJoinNew{
+    display: grid;
+    place-items: center;
+    margin-top: 50px;
+
   }
   
   .no-rankings-message {
-    font-size: 2.0rem;
+    font-size: 20px;
     font-weight: bolder;
     text-align: center;
-    margin-top: 0rem;
-    margin-bottom: 0rem;
-    color:white;  
+    color:white;
+
   }
-  
+  p .no-rankings-message {
+    border: 10px solid #ff4f32; /* Borde naranja */
+
+  }
+
+ p.no-rankings-message span{
+  margin-top: 2px;
+ }
   .rankings-message {
     font-size: 18px;
     font-weight: bold;
@@ -37,28 +86,28 @@
   }
   
   .form-group {
-    margin-top: 10px;
+    margin-top: 5px;
   }
   
   .form-label {
 
     display: flex;
     justify-content: center;
-    margin:0 auto;
+    margin:15px auto;
     font-size: 21px;
-    color:White;
+    color:white;
   }
   
   .form-control {
-    width: 40%;
+    width: 80%;
     padding: 15px;
     border: 1px solid #ccc;
     border-radius: 4px;
     font-size: 16px;
-    margin:2rem auto;
+    margin:1rem auto;
   }
   
-  .btn {
+  /* .btn {
     cursor: pointer;
     padding: 10px 20px;
     font-size: 16px;
@@ -73,7 +122,7 @@
   
   .btn:hover {
     background-color: #0062cc;
-  }
+  } */
   .img, svg{
     width: 2rem !important; 
     height: 2rem !important;
@@ -101,4 +150,147 @@
   } 
 
   /* content no ranking */
+
+  .neon {
+    width: -webkit-fill-available;
+    height: 60px;
+    background: #e92197;
+    border: 10px solid #d11d87;
+    border-radius: 20px;
+    text-align: center;
+    -webkit-box-shadow: 0px 0px 16px 7px rgba(233,33,150,1);
+    -moz-box-shadow: 0px 0px 16px 7px rgba(233,33,150,1);
+    box-shadow: 0px 0px 16px 7px rgba(233,33,150,1);
+    transition: ease 0.3s;
+    margin: 20px 0;
+    color: white;
+
+  }
   
+  .neon:hover {
+    background: #30fbd7;
+    border: 10px solid #2be1c1;
+    -webkit-box-shadow: 0px 0px 16px 7px rgba(48,251,214,1);
+    -moz-box-shadow: 0px 0px 16px 7px rgba(48,251,214,1);
+    box-shadow: 0px 0px 16px 7px rgba(48,251,214,1);
+    color: black;
+  }
+  
+  
+  
+  .neon:hover > span {
+    color: #fff;
+    letter-spacing: 0.4em;
+  }
+  
+  .neon span {
+    font-size: 15px;
+    color: #222;
+    text-align: center;
+    line-height: 40px;
+    font-family: 'Nunito', sans-serif !important;
+    font-weight: 300;
+    letter-spacing: 0.2em;
+    transition: ease 0.3s;
+  }
+
+  .destacados{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    position: relative;
+    }
+    
+    .destacados::before{
+        content: 'Rankings';
+        position: absolute;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-weight: 600;
+        font-size: 12em;
+        color: rgba(0, 0, 0, 0.20);
+    }
+
+    /* CARD RANKINGCITO */
+    .rankingcito{
+      position: relative;
+      width: 45%;
+      height: 200px;
+      margin: 40px 20px;
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+      transition: all .5s;
+      background: linear-gradient(45deg, #10214c, #c31c7e);
+    }
+    .rankingcito:hover{
+      -webkit-box-shadow: 0 0 17px 5.5px #e92297;
+      -moz-box-shadow: 0 0 17px 5.5px #e92297;
+      box-shadow: 0 0 17px 5.5px #e92297;
+    }
+
+  .rankingcito img{
+    position: absolute;
+    top:-50%;
+    left:90%;
+    bottom:0;
+    transform: translate(-50%);
+    height: 350px;
+    z-index: 1;
+    opacity: 0.7;
+}
+
+.rankingcito:hover img{
+    left: 85%;
+    z-index: 2;
+    height: 400px;
+    transition: all .5s;
+    opacity: 1;
+}
+.btn{
+  z-index: 1 !important;
+}
+.btn:hover{
+  z-index: 1 !important;
+}
+
+.rankingcito .contencito{
+    position: relative;
+    width: 50%;
+    left: 15%;
+    padding: 20px 20px 20px 40px;
+    color: white;
+    opacity: 1;
+    transition: all .5s;
+    margin-left: -2px;
+}
+
+.rankingcito:hover .contencito{
+    left: 0;
+    opacity: 1;
+}
+
+.rankingcito .contencito h2{
+    text-transform: uppercase;
+    font-size: 2.2em;
+    line-height: 1em;
+}
+
+.rankingcito .contencito a{
+    position: relative;
+    background: white;
+    display: inline-block;
+    padding: 10px 20px;
+    margin-top: 10px;
+    font-weight: 700;
+}
+
+h3{
+  font-size: 2.2em;
+  line-height: 1em;
+}
+
+    
+
