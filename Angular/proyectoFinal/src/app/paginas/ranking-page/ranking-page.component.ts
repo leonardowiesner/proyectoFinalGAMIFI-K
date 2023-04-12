@@ -81,6 +81,8 @@ export class RankingPageComponent implements OnInit
     this.rankingService.getPractices( this.studentService.student.id, this.rankingId )
       .subscribe( response =>
       {
+        console.log("student"+this.studentService.student.id);
+        console.log("ID_rank"+this.rankingId);
         if ( response.error )
         {
           console.log( response.error );
@@ -88,7 +90,8 @@ export class RankingPageComponent implements OnInit
         } else if ( response.status === 1 )
         {
           console.log( response );
-          this.practicas = response.data; // Asignar 'response.data' directamente a 'this.practicas'
+          this.practicas = response.data;
+           // Asignar 'response.data' directamente a 'this.practicas'
         } else
         {
           console.log( response.error );
