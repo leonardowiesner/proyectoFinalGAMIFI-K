@@ -243,11 +243,11 @@ h2{
 }
 
 .rankingcito:hover img{
-    left: 75%;
+    left: 85%;
+    z-index: 2;
     height: 400px;
     transition: all .5s;
     opacity: 1;
-    z-index: 0;
 }
 .btn{
   z-index: 1 !important;
