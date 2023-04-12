@@ -1,38 +1,42 @@
-
-    
-   
-  <div class="container text-center ">
-    <div class="row align-items-start">
-      <div class="col mt-3 mb-3">
-        <h2>Crear un nuevo ranking</h2>
+<div class="form-group">
+    <div class="blurredwallpaper">
+      <h2>Crear un nuevo ranking </h2>
+      <form (ngSubmit)="crearRanking()">
+      <input placeholder="Nombre de tu nuevo ranking "type="text" class="form-control" id="nombreRanking" name="nombreRanking"[(ngModel)]="nombreRanking"/>
+      <div class="flex-profile">
+        <button type="submit" class="neon">Crear ranking     ✅</button>
       </div>
-    </div>
-    <form (ngSubmit)="crearRanking()">
-      <div class="form-group">
-        <div class="row align-items-center">
-          <div class="col mt-1 mb-3">
-            <input placeholder="Nombre de tu nuevo ranking"type="text" class="form-control" id="nombreRanking" name="nombreRanking" [(ngModel)]="nombreRanking">
-          </div>
-        </div>
-      </div>
-      <button type="submit" class="btn btn-primary">Crear ranking</button>
-    </form>
-    <a class="text-decoration-none text-info fw-semibold" [routerLink]="['/teacherProfile']"
-    routerLinkActive="router-link-active">Ir a editar perfil de profesor</a>
+      </form>
   </div>
   
-  <div class="container-fluid mt-5">
-    <div class="row ">
-      <div class="col text-center">
-        <h2>Listado de rankings</h2>
-      </div>
-    </div>
-    <div class="list-group" *ngFor="let ranking of rankings">
-      <a class="list-group-item list-group-item-action" [routerLink]="['/ranking', ranking.id]">{{ ranking.name }}</a>
-      <button (click)="eliminarRegistro(ranking.id)">Eliminar</button>
-    </div>
+  <div class="flex-profile">
+    <a
+    class="btn btn-primary mt-1 mb-2"[routerLink]="['/teacherProfile']"routerLinkActive="router-link-active">Editar perfil de profesor 📝
+  </a>
   </div>
- 
 
+
+
+
+  <div class="">
+    <h2>Listado de rankings 🎯</h2>
+    <section id="destacados" class="destacados">
+      <div class="rankingcito" *ngFor="let ranking of rankings">
+        <a class="contencito"[routerLink]="['/ranking', ranking.id]">{{ ranking.name }}</a>
+        <!-- <div class="list-group" *ngFor="let ranking of rankings">
+          <a class="list-group-item list-group-item-action"[routerLink]="['/ranking', ranking.id]">{{ ranking.name }}</a> -->
+          <button class="neon-warning" (click)="eliminarRegistro(ranking.id)">
+            Eliminar Ranking ⚠️
+          </button>
+      </div>
+    </section>
+
+  </div>
+</div>
 
 <!-- <button mat-raised-button color="primary" (click)="openAddPracticeDialog()">Añadir práctica/entrega</button> -->
+<!-- <div class="flex-profile">
+  <button class="neon-warning" (click)="eliminarRegistro(ranking.id)">
+    Eliminar Ranking ⚠️
+  </button>
+</div> -->
