@@ -1,74 +1,25 @@
-h2{
-  text-align: center;
-  font-weight: 700;
-  font-size: 80px;
-  color:white;
-
-
-}
-.mainimageContainer{
-  background: #2b2f77;
-  background: -webkit-linear-gradient(0deg, #2b2f77 0%, #141852 50%, #070b34 100%);
-  background: linear-gradient(0deg, #2b2f77 0%, #141852 50%, #070b34 100%);
-  
-  border-radius: 17% 18% 13% 8% / 11% 12% 9% 16%;
-}
-
-.mainimageContainer:hover,
-.imageContainer:hover{
-  background: hsla(213, 77%, 14%, 1);
-  background: linear-gradient(90deg, hsla(213, 77%, 14%, 1) 0%, hsla(202, 27%, 45%, 1) 100%);
-  background: -moz-linear-gradient(90deg, hsla(213, 77%, 14%, 1) 0%, hsla(202, 27%, 45%, 1) 100%);
-  background: -webkit-linear-gradient(90deg, hsla(213, 77%, 14%, 1) 0%, hsla(202, 27%, 45%, 1) 100%);
-  backdrop-filter: blur(10px);
-  border: 1px solid rgba(76,22,195,0.25);
-  border-radius: 17% 18% 13% 8% / 11% 12% 9% 16%;
-  transition: 0.5s ease;
-  rotate: 2deg;
-  
-}
-
-.imageContainer img:hover{
-  transition: 0.5s ease;
-  rotate: 2deg;
- 
-}
-.imageContainer{
-  padding-top: 20px;
-}
-.imageContainer img{
-  width: 400px;
-  height: 350px;
-}
 .profile-link {
     text-decoration: none;
     color: #333;
   }
+  
   .profile-link:hover {
     text-decoration: underline;
   }
-  .noRankJoinNew{
-    display: grid;
-    place-items: center;
-    margin-top: 50px;
-
+  
+  .ranking-container {
+    margin-top: 20px;
   }
   
   .no-rankings-message {
-    font-size: 20px;
+    font-size: 2.0rem;
     font-weight: bolder;
     text-align: center;
-    color:white;
-
+    margin-top: 0rem;
+    margin-bottom: 0rem;
+    color:white;  
   }
-  p .no-rankings-message {
-    border: 10px solid #ff4f32; /* Borde naranja */
-
-  }
-
- p.no-rankings-message span{
-  margin-top: 2px;
- }
+  
   .rankings-message {
     font-size: 18px;
     font-weight: bold;
@@ -86,27 +37,43 @@ h2{
   }
   
   .form-group {
-    margin-top: 5px;
+    margin-top: 10px;
   }
   
   .form-label {
 
     display: flex;
     justify-content: center;
-    margin:15px auto;
+    margin:0 auto;
     font-size: 21px;
-    color:white;
+    color:White;
   }
   
   .form-control {
-    width: 80%;
+    width: 40%;
     padding: 15px;
     border: 1px solid #ccc;
     border-radius: 4px;
     font-size: 16px;
-    margin:1rem auto;
+    margin:2rem auto;
   }
   
+  .btn {
+    cursor: pointer;
+    padding: 10px 20px;
+    font-size: 16px;
+    border: none;
+    border-radius: 4px;
+    background-color: #007bff;
+    color: #fff;
+    transition: background-color 0.3s ease;
+    display: block;
+    margin: 0 auto;
+  }
+  
+  .btn:hover {
+    background-color: #0062cc;
+  }
   .img, svg{
     width: 2rem !important; 
     height: 2rem !important;
