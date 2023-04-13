@@ -40,7 +40,7 @@
 
 
 
-  <button (click)="nuevaTarea = true">Añadir nueva Tarea</button>
+  <button *ngIf="!nuevaTarea" (click)="nuevaTarea = true">Añadir nueva Tarea</button>
 </div>
 
 <div *ngIf="nuevaTarea">

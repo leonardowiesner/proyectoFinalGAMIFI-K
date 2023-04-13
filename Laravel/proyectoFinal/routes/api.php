@@ -82,7 +82,7 @@ Route::prefix('teacher')->group(function () {
 
     //muestra las practicas de los alumnos de ese ranking las cuales estan entregadas al profesor.
 
-    Route::get('get-practices-delivered', [RankPracticeController::class, 'get_practices_delivered']);
+    Route::post('get-practices-delivered', [RankPracticeController::class, 'getPracticesDelivered']);
 
     //editamos la fecha de entrega de un estudiante en espesifico, {'id_student' => 'required','id_practice' => 'required','date_end' => 'required',}
     Route::post('edit-practice-date', [RankPracticeController::class, 'editPracticeDateline']);
