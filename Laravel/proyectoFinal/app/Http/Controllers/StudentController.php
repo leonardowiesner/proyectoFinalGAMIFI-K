@@ -73,17 +73,14 @@ class StudentController extends Controller
         // Created
         return response(status: 201);
     }
-    public function update(Request $request)
+    public function update(Request $request, $id)
     {
-        $student = Student::updateFromRequest($request);
+        $student = Student::findOrFail($id);
+        $student->update($request->all());
 
-        if (empty($student)) {
-            // No Content
-            return response(status: 204);
-        }
-
-        return response($student);
+        return response()->json($student, 200);
     }
+
     public function changePassword(Request $request, $id)
     {
         $validatedData = $request->validate([

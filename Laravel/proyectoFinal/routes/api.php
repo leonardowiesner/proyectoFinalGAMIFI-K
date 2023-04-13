@@ -51,7 +51,7 @@ Route::prefix('student')->group(function () {
 
     Route::post('/create', [StudentController::class, 'create']);
 
-    Route::post('/update', [StudentController::class, 'update']);
+    Route::put('/update/{id}', [StudentController::class, 'update']);
 
     Route::post('/updateimg', [StudentController::class, 'updateimg']);
 

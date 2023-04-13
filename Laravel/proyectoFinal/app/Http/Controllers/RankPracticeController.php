@@ -186,13 +186,13 @@ class RankPracticeController extends Controller
         // Validar el archivo enviado por el cliente
         $request->validate([
             'id_student' => 'required',
-            'id_rank' => 'required',
+            'rankingId' => 'required',
         ]);
 
         $rankings = DB::table('rank_practices')
             ->join('practice_info', 'rank_practices.id', '=', 'practice_info.id_practice')
             ->where('practice_info.id_student', $request->input('id_student'))
-            ->where('rank_practices.id_rank', $request->input('id_rank'))
+            ->where('rank_practices.id_rank', $request->input('rankingId'))
             ->select('rank_practices.id', 'rank_practices.name', 'rank_practices.description', 'practice_info.points_practice', 'practice_info.deadline_practice')
             ->get();
 

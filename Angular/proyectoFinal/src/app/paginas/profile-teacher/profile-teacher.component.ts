@@ -3,6 +3,7 @@ import { TeachersData } from 'src/app/interfaces/profesores-data.interface';
 import { TeacherService } from 'src/app/services/teacher.service';
 import { MatDialog } from '@angular/material/dialog';
 import { NavBarService } from 'src/app/services/nav-bar.service';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 
 //import { ChangePasswordDialogComponent } from './change-password-dialog/change-password-dialog.component';
 
@@ -13,15 +14,22 @@ import { NavBarService } from 'src/app/services/nav-bar.service';
 })
 export class ProfileTeacherComponent implements OnInit {
   teacher: TeachersData;
-
+  teacherForm:FormGroup;
   constructor(
+    private fb: FormBuilder,
     private teacherService: TeacherService,
     private dialog: MatDialog,
     private readonly navBarService: NavBarService
   ) { 
     navBarService.showNavbar = true;
     this.teacher = {id: 0, nickname : "", name:"", surnames:"", email:"", password:"",img:"",centro: ""}
-
+    this.teacherForm = this.fb.group({
+      nickname: [this.teacher.nickname, Validators.required],
+      email: [this.teacher.email, [Validators.required, Validators.pattern(/^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$/)]],
+      password: [this.teacher.password, [Validators.required, Validators.minLength(8)]],
+      name: [this.teacher.name, Validators.required],
+      surnames: [this.teacher.surnames, Validators.required],
+    });
   }
 
   ngOnInit(): void {

@@ -15,11 +15,13 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { CommonModule } from '@angular/common';
 import { MatInputModule } from '@angular/material/input';
 import { RankingPageComponent } from './ranking-page/ranking-page.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 
 @NgModule({
   declarations: [MainPageComponent, StudentPageComponent,TeacherPageComponent, ProfileTeacherComponent, ProfileStudentComponent, ChangePasswordDialogComponent, RankingPageComponent  ],
   imports: [
+    ReactiveFormsModule,
     PagesRoutingModule,
     MatFormFieldModule,
     FormsModule,

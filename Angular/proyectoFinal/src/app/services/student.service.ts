@@ -76,7 +76,7 @@ export class StudentService {
 
     return this.http.get<StudentData>(`${this.apiURL}/student/get/${id}`,options);
   }
-  saveUser(student: StudentData): Observable<any> {
+  saveUser(student: StudentData): Observable<StudentData> {
     let headers = new HttpHeaders({
       'Content-Type': 'application/json',
       'Accept': 'application/json',
@@ -84,7 +84,7 @@ export class StudentService {
     });
     let options = { headers: headers };
 
-    return this.http.put(`${this.apiURL}/student/update`, student,options);
+    return this.http.put<StudentData>(`${this.apiURL}/student/update/${student.id}`, student,options);
   }
   
   register(data: string) {
