@@ -59,7 +59,7 @@ export class RankingPageComponent implements OnInit
 
   ngOnInit ()
   {
-    
+
     this.rankingId = Number( this.route.snapshot.paramMap.get( 'id' ) );
     this.rankingName = this.route.snapshot.paramMap.get( 'name' );
 

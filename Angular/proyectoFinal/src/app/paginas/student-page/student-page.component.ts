@@ -16,8 +16,8 @@ export class StudentPageComponent implements OnInit {
   rankings: Ranking[] = [];
   // Lista de rankings matriculados por el alumno
   nuevoCodigoRanking: string = ''; // Código del nuevo ranking al que unirse
-  mensajeNoRankings: string = 'No estás matriculado en ningún ranking.'; // Mensaje a mostrar si el alumno no tiene rankings
-  // mensajeRankings: string = 'Estás matriculado en los siguientes rankings:'; // Mensaje a mostrar si el alumno tiene rankings
+  mensajeNoRankings: string = 'Ups! Parece que no estás matriculado en ningún ranking.'; // Mensaje a mostrar si el alumno no tiene rankings
+  mensajeRankings: string = 'Estás matriculado en los siguientes rankings:'; // Mensaje a mostrar si el alumno tiene rankings
   id = this.studentService.student.id;
   points: number = 0;
   constructor(private rankingService: RankingService,
@@ -27,9 +27,6 @@ export class StudentPageComponent implements OnInit {
               ) {
     // this.rankings = [];
               navBarService.showNavbar = true;
-  }
-  verRanking(id: number) {
-    this.router.navigate(['/ranking', id]);
   }
 
   ngOnInit(): void {
