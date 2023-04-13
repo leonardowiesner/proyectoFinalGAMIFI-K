@@ -199,13 +199,13 @@ class RankPracticeController extends Controller
         if ($rankings->count() > 0) {
             return response()->json([
                 "status" => 1,
-                "msg" => "Se han encontrado las salas correctamente",
+                "msg" => "Se han encontrado las Practica correctamente",
                 "data" => $rankings
             ]);
         } else {
             return response()->json([
                 "status" => 0,
-                "msg" => "No se encontraron salas para el usuario especificado",
+                "msg" => "No se encontraron practi para el usuario especificado",
             ], 404);
         }
     }
