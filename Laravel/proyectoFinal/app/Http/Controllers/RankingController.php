@@ -24,7 +24,7 @@ class RankingController extends Controller
         $ranking = Ranking::create([
             "id_teacher" => $request->id_teacher,
             "name" => $request->name,
-            "cod_room" => Hash::make($request->cod_room)
+            "cod_room" => $request->cod_room
 
         ]);
 
@@ -51,7 +51,7 @@ class RankingController extends Controller
 
         // Buscar el ranking con el código de sala proporcionado y verificar si el código hash coincide
         foreach (Ranking::all() as $ranking) {
-            if (!Hash::check($cod_room, $ranking['cod_room'])) {
+            if ($cod_room == $ranking['cod_room']) {
                 continue;
             }
             // Si el ranking existe y el código hash coincide, agregar el estudiante a la tabla ranking_analysis
