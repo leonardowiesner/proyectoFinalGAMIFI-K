@@ -115,30 +115,31 @@ class RankPracticeController extends Controller
         return response()->json(['message' => 'La fecha de entrega se ha actualizado correctamente.']);
     }
 
-    public function get_practices_delivered(Request $request, $rankingId)
+    public function getPracticesDelivered(Request $request)
     {
+        //busca todas las practicas de un estudiante en un ranking
         $request->validate([
             'rankingId' => 'required',
+            'id_student' => 'required',
         ]);
-        $practice = RankPractice::find($rankingId);
-        $students= $practice->students();
-      
-        $practice = DB::table('practice_info')
-            ->join('rank_practices', 'practice_info.id_practice', '=', 'rank_practices.id')
-            ->where('rank_practices.id_rank', $request->input('rankingId'))
-            ->join('students', 'practice_info.student_id', '=', 'students.id')
-            ->select('students.name as student_name', 'students.surnames as student_surname', 'rank_practices.name', 'rank_practices.description', 'practice_info.points_practice', 'practice_info.name_file')
+
+        $rankPractices = RankPractice::where('id_rank', $request->input('rankingId'))->pluck('id');
+        $practiceInfo = PracticeInfo::where('id_student', $request->input('id_student'))
+            ->whereIn('id_practice', $rankPractices)
             ->get();
 
-        if (!$practice) {
-            // Si no se encuentra la práctica, devolver un error 404
-            return response()->json(['error' => 'No se encontró la práctica especificada.'], 404);
+        if ($practiceInfo->count() > 0) {
+            return response()->json([
+                "status" => 1,
+                "msg" => "Se han encontrado las Practica del student en el rank",
+                "data" => $practiceInfo
+            ]);
+        } else {
+            return response()->json([
+                "status" => 0,
+                "msg" => "No se encontraron practi para el usuario especificado",
+            ], 404);
         }
-        $response = response()->json($practice);
-        $response->header('Access-Control-Allow-Origin', '*');
-        $response->header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
-        $response->header('Access-Control-Allow-Headers', 'Content-Type, Authorization');
-        return $response->send();
     }
 
     public function uploadPracticeFile(Request $request)
