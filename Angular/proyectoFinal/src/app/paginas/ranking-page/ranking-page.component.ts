@@ -7,6 +7,7 @@ import { Ranking, RankingAnalysis, RankingService, RankingSolo, Tarea } from 'sr
 import { StudentService } from 'src/app/services/student.service';
 import { Entregas } from 'src/app/interfaces/entrgas.interface';
 //SweetAlert2
+import { saveAs } from 'file-saver'; // Agrega esta línea
 import 'sweetalert2/src/sweetalert2.scss';
 import Swal from 'sweetalert2';
 
@@ -97,15 +98,21 @@ export class RankingPageComponent implements OnInit {
     if (this.teacher) {
       console.log(this.rankingId);
 
-      this.rankingService.getPracticesDelivered(this.rankingId).subscribe((response) => {
-        console.log(response.data + "Antes");
-
-        this.practicesDelivered = response.data;
-        console.log(response.data + "Despues");
-      });
     }
 
   }
+
+  verPracticas(id_student:number){
+
+    this.rankingService.getPracticesDelivered(id_student,this.rankingId).subscribe((response) => {
+      console.log(response.data + "Antes");
+
+      this.practicesDelivered = response.data;
+      console.log(response.data + "Despues");
+    });
+    
+  }
+
   onFileSelected(event: Event, practiceId: number): void {
     const target = event.target as HTMLInputElement;
     const files = target.files;
@@ -131,7 +138,11 @@ export class RankingPageComponent implements OnInit {
       });
     }
   }
-
+downloadPracticeFile(id_student: number, id_practice: number): void {
+    this.rankingService.downloadPracticeFile(id_student, id_practice).subscribe((file: Blob) => {
+      saveAs(file, 'practice_file.pdf');
+    });
+  }
   uploadFile(practiceId: number): void {
     if (this.selectedFiles[practiceId]) {
       const fileToUpload = this.selectedFiles[practiceId];
