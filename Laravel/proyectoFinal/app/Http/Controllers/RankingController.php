@@ -204,4 +204,28 @@ class RankingController extends Controller
 
         return true;
     }
+
+    public function updateRankingName(Request $request, $id_rank)
+{
+    // Validar los datos recibidos
+    $request->validate([
+        'name' => 'required|string'
+    ]);
+
+    $new_name = $request->input('name');
+
+    // Buscar el ranking por ID
+    $ranking = Ranking::find($id_rank);
+
+    if (!$ranking) {
+        // Si no se encuentra el ranking, devolver un error 404
+        return response()->json(['error' => 'No se encontró el ranking especificado.'], 404);
+    }
+
+    // Actualizar el nombre del ranking
+    $ranking->name = $new_name;
+    $ranking->save();
+
+    return response()->json(['message' => 'El nombre del ranking ha sido actualizado correctamente.', 'data' => $ranking]);
+}
 }

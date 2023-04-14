@@ -14,6 +14,7 @@ use Illuminate\Support\Facades\DB;
 class RankPracticeController extends Controller
 {
 
+
     public function createPractice(Request $request)
     {
         // Validar los datos enviados por el cliente
@@ -114,7 +115,30 @@ class RankPracticeController extends Controller
 
         return response()->json(['message' => 'La fecha de entrega se ha actualizado correctamente.']);
     }
-
+    public function downloadPracticeFile(Request $request)
+    {
+        $request->validate([
+            'id_student' => 'required',
+            'id_practice' => 'required',
+        ]);
+    
+        $practice = PracticeInfo::where('id_student', $request->input('id_student'))
+            ->where('id_practice', $request->input('id_practice'))
+            ->first();
+    
+        if (!$practice) {
+            return response()->json(['error' => 'No se encontró la práctica especificada.'], 404);
+        }
+    
+        $pathToFile = storage_path('app/public/practices/' . $practice->name_file);
+    
+        if (!file_exists($pathToFile)) {
+            return response()->json(['error' => 'No se encontró el archivo especificado.'], 404);
+        }
+    
+        return response()->download($pathToFile);
+    }
+    
     public function getPracticesDelivered(Request $request)
     {
         //busca todas las practicas de un estudiante en un ranking
@@ -142,6 +166,30 @@ class RankPracticeController extends Controller
         }
     }
 
+    public function deletePractice(Request $request)
+    {
+        // Validar los datos enviados por el cliente
+        $request->validate([
+            'id_practice' => 'required',
+        ]);
+    
+        // Buscar la práctica por ID
+        $practice = RankPractice::find($request->input('id_practice'));
+    
+        if (!$practice) {
+            // Si no se encuentra la práctica, devolver un error 404
+            return response()->json(['error' => 'No se encontró la práctica especificada.'], 404);
+        }
+    
+        // Eliminar las entradas relacionadas en la tabla de prácticas
+        PracticeInfo::where('id_practice', $practice->id)->delete();
+    
+        // Eliminar la práctica
+        $practice->delete();
+    
+        return response()->json(['message' => 'La práctica se ha eliminado correctamente.']);
+    }
+
     public function uploadPracticeFile(Request $request)
     {
 
@@ -149,8 +197,7 @@ class RankPracticeController extends Controller
         $request->validate([
             'id_student' => 'required',
             'id_practice' => 'required',
-            'file' => 'required|file|max:2048',
-            //'file' => 'required|file|mimes:pdf,doc,docx|max:2048',
+            'file' => 'required|file|mimes:pdf|max:2048',
         ]);
         error_log('id_student: ' . $request->input('id_student'));
         error_log('id_practice: ' . $request->input('id_practice'));
