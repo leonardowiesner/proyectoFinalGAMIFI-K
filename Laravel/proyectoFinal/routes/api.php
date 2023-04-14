@@ -45,6 +45,8 @@ Route::prefix('student')->group(function () {
 
     Route::get('/get/{id}', [StudentController::class, 'get']);
 
+    Route::post('/update-picture', [StudentController::class, 'updatePicture']);
+
     Route::post('/rankings', [RankingController::class, 'getRanking']);
 
     Route::post('/uploadPracticeFile', [RankPracticeController::class, 'uploadPracticeFile']);

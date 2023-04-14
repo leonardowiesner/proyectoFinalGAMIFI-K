@@ -15,16 +15,19 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 })
 export class ProfileStudentComponent implements OnInit {
   student: StudentData;
-  cambiar:boolean =false;
+  srcImg: string = "https://i.imgur.com/n6F53V0.jpg";
+  cambiar: boolean = false;
   studentForm: FormGroup;
+  fileToUpload: File | null = null;
+
   constructor(
     private fb: FormBuilder,
     private studentService: StudentService,
     private dialog: MatDialog,
     private readonly navBarService: NavBarService
-  ) { 
-    this.student = {id: 0, nickname:"", name:"", surnames:"", email:"", password:"",img:"",nacimiento: new Date };
-  
+  ) {
+    this.student = { id: 0, nickname: "", name: "", surnames: "", email: "", password: "", img: "", nacimiento: new Date };
+
     this.studentForm = this.fb.group({
       nickname: [this.student.nickname, Validators.required],
       email: [this.student.email, [Validators.required, Validators.pattern(/^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$/)]],
@@ -36,11 +39,11 @@ export class ProfileStudentComponent implements OnInit {
 
 
   ngOnInit(): void {
-     // Obtener el valor de la cookie 'user_id'
-   
-  
+    // Obtener el valor de la cookie 'user_id'
 
-     if (this.studentService.student) {
+
+
+    if (this.studentService.student) {
       this.student = this.studentService.student;
     }
     this.studentService.getStudent(this.student.id).subscribe(student => {
@@ -62,28 +65,51 @@ export class ProfileStudentComponent implements OnInit {
     const surnamesControl = this.studentForm.get('surnames');
 
     if (nicknameControl) this.student.nickname = nicknameControl.value;
-  if (emailControl) this.student.email = emailControl.value;
-  if (passwordControl) this.student.password = passwordControl.value;
-  if (nameControl) this.student.name = nameControl.value;
-  if (surnamesControl) this.student.surnames = surnamesControl.value;
-  
+    if (emailControl) this.student.email = emailControl.value;
+    if (passwordControl) this.student.password = passwordControl.value;
+    if (nameControl) this.student.name = nameControl.value;
+    if (surnamesControl) this.student.surnames = surnamesControl.value;
+
     this.studentService.saveUser(this.student).subscribe(() => {
       console.log('Usuario guardado');
     });
   }
 
+
+  //img upload
+
+  onFileSelected(event: any) {
+    
+    this.fileToUpload = event.target.files[0];
+  }
+
+  updatePicture() {
+    console.log("file"+this.fileToUpload?.name);
+    console.log("id Student file"+this.student.id);
+
+    if (this.fileToUpload && this.student.id) {
+      this.srcImg = "http://localhost:8000/storage/images/"+this.fileToUpload.name;
+      this.studentService.updatePicture(this.student.id, this.fileToUpload)
+        .subscribe(
+          response => console.log('Picture updated successfully.'),
+          error => console.error(error)
+        );
+    }
+  }
+
   openChangePasswordDialog() {
     const dialogRef = this.dialog.open(ChangePasswordDialogComponent);
-  
+
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
         // El usuario ha ingresado una nueva contraseña
         this.student.password = result;
-        
+
         this.save();
       }
     });
   }
+
   updateFormValues() {
     this.studentForm.patchValue({
       nickname: this.student.nickname,
@@ -93,22 +119,12 @@ export class ProfileStudentComponent implements OnInit {
       surnames: this.student.surnames,
     });
   }
-  mostrar(){
-    if(this.cambiar==false){
-    this.cambiar=true;
-    }else{
-      this.cambiar=false
+  mostrar() {
+    if (this.cambiar == false) {
+      this.cambiar = true;
+    } else {
+      this.cambiar = false
     }
   }
-  changeImg(){
-
-
-     this.studentService.changeImg(this.student.img)//.subscribe(() => {
-    //   console.log('Imagen guardada');
-    // });
-    console.log(this.student.img);
-  }
-
-
 
 }

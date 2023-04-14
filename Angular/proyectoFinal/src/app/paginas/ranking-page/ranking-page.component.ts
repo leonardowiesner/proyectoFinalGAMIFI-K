@@ -47,11 +47,6 @@ export class RankingPageComponent implements OnInit {
       deadline_practice: new Date()
     }
 
-
-
-
-
-
   }
 
 
