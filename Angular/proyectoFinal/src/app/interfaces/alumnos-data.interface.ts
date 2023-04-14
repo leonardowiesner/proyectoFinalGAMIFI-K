@@ -11,7 +11,7 @@ export class StudentData extends UserData {
     img: string,
     public nacimiento: Date,
   ) {
-    super(id,nickname, name, surnames, email, password,img);
+    super(id,nickname, name, surnames, email, password, img);
   }
   }
   

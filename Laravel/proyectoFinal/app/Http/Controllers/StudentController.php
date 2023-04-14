@@ -49,7 +49,7 @@ class StudentController extends Controller
     }
     public function get($id)
     {
-        
+
         $student = Student::find($id);
 
         if (!$student) {
@@ -114,8 +114,8 @@ class StudentController extends Controller
         );
     }
     public function updateimg(Request $request)
-    {   
-        
+    {
+
         $student = Student::find($request->id);
         $student->img = $request->img;
         $student->save();
@@ -124,7 +124,39 @@ class StudentController extends Controller
             // No Content
             return response(status: 204);
         }
-        
+
         return response($student);
+    }
+
+    public function updatePicture(Request $request)
+    {
+        // Validar la solicitud del cliente
+        $request->validate([
+            'id_student' => 'required',
+            'img' => 'required|file|max:2048',
+        ]);
+
+        // Buscar al estudiante por ID
+        $student = Student::find($request->input('id_student'));
+
+        if (!$student) {
+            // Si no se encuentra al estudiante, devolver un error 404
+            return response()->json(['error' => 'No se encontró al estudiante especificado.'], 404);
+        }
+
+        // Obtener la imagen del request
+        $image = $request->file('img');
+
+        // Generar un nombre único para la imagen
+        $imageName = $image->getClientOriginalName();
+
+        // Guardar la imagen en el almacenamiento local
+        $image->storeAs('public/images', $imageName);
+
+        // Actualizar el campo "image" en el estudiante
+        $student->img = $imageName;
+        $student->save();
+
+        return response()->json(['message' => 'Imagen guardada correctamente.']);
     }
 }

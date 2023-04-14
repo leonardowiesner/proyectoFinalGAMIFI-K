@@ -46,11 +46,6 @@ export class RankingPageComponent implements OnInit {
       deadline_practice: new Date()
     }
 
-
-
-
-
-
   }
 
 
@@ -106,6 +101,7 @@ export class RankingPageComponent implements OnInit {
     }
 
   }
+  
   onFileSelected(event: Event, practiceId: number): void {
     const target = event.target as HTMLInputElement;
     const files = target.files;
