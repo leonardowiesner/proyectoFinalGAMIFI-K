@@ -75,6 +75,12 @@ Route::prefix('teacher')->group(function () {
             "date_end" => "required",
             "id_rank" => "required",
     */
+    Route::get('/download-practice-file', [RankPracticeController::class, 'downloadPracticeFile']);
+
+    Route::delete('delete-practice', [RankPracticeController::class, 'deletePractice']);
+
+    Route::put('rankings/{id_rank}/update-name', [RankingController::class, 'updateRankingName']);
+
     Route::post('create-practice', [RankPracticeController::class, 'createPractice']);
 
     //editamos los puntos de la practica del studen, {id_student, id_practice, points_practice}

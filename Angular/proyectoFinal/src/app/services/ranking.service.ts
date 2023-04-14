@@ -57,6 +57,17 @@ export class RankingService
   }
   data: any;
 
+  downloadPracticeFile(id_student: number, id_practice: number): Observable<Blob> {
+    let headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Accept': 'application/json',
+      'Authorization': `Bearer ${this.token}`
+    });
+  
+    return this.http.get(`${this.baseUrl}/download-practice-file?id_student=${id_student}&id_practice=${id_practice}`, { headers: headers, responseType: 'blob' as 'json' }) as Observable<Blob>;
+  }
+  
+
   getRankingsAlumno ( alumnoId: number ): Observable<any>
   {
     let headers = new HttpHeaders( {
@@ -246,11 +257,16 @@ export class RankingService
     return this.http.post<any>( `${ this.baseUrl }/teacher/edit`, { id_student, id_rank, points }, options );
 
   }
-
-  getPracticesDelivered ( rankingId: number )
-  {
-    return this.http.get<any>( `${ this.baseUrl }/teacher/get-practices-delivered`, { params: { rankingId } } );
-
+  getPracticesDelivered(id_student: number, rankingId: number): Observable<any> {
+    let headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Accept': 'application/json',
+      'Authorization': `Bearer ${this.token}`
+    });
+  
+    const options = { headers: headers };
+  
+    return this.http.post<any>(`${this.baseUrl}/teacher/get-practices-delivered`, { id_student, rankingId }, options);
   }
 
 

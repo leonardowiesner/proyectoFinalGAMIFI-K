@@ -1,6 +1,6 @@
 
   <h2 class="ranking-header">Ranking #{{ rankingName }}</h2>
-  <table >
+  <table *ngIf="teacher && teacher.email !== ''" >
     <thead>
       <tr>
         <th>Nombre</th>
@@ -75,6 +75,9 @@
       <td *ngIf="teacher && teacher.email !== ''">
         <input #newPoints name="new_points" type="number">
         <button (click)="editarPuntos(analysis.id_rank,analysis.id_student,+newPoints.value)">Editar</button>
+      </td>
+      <td *ngIf="teacher && teacher.email !== ''">
+        <button (click)="verPracticas(analysis.id_student)">Ver Pracricas</button>
       </td>
     </tr>
   </tbody>
