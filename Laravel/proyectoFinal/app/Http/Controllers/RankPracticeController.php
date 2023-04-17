@@ -146,17 +146,21 @@ class RankPracticeController extends Controller
             'rankingId' => 'required',
             'id_student' => 'required',
         ]);
-
-        $rankPractices = RankPractice::where('id_rank', $request->input('rankingId'))->pluck('id');
-        $practiceInfo = PracticeInfo::where('id_student', $request->input('id_student'))
-            ->whereIn('id_practice', $rankPractices)
+        
+        // Unir las tres tablas utilizando join
+        $data = DB::table('rank_practices')
+            ->join('practice_info', 'rank_practices.id', '=', 'practice_info.id_practice')
+            ->join('students', 'practice_info.id_student', '=', 'students.id')
+            ->select('rank_practices.*', 'practice_info.*', 'students.*')
+            ->where('rank_practices.id_rank', $request->input('rankingId'))
+            ->where('practice_info.id_student', $request->input('id_student'))
             ->get();
-
-        if ($practiceInfo->count() > 0) {
+    
+        if ($data->count() > 0) {
             return response()->json([
                 "status" => 1,
                 "msg" => "Se han encontrado las Practica del student en el rank",
-                "data" => $practiceInfo
+                "data" => $data
             ]);
         } else {
             return response()->json([
@@ -165,6 +169,8 @@ class RankPracticeController extends Controller
             ], 404);
         }
     }
+    
+
 
     public function deletePractice(Request $request)
     {
