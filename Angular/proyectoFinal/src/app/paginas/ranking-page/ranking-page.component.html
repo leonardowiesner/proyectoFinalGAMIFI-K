@@ -1,4 +1,4 @@
-
+<div *ngIf="!showPracticasComponent">
   <h2 class="ranking-header">Ranking #{{ rankingName }}</h2>
   <table *ngIf="teacher && teacher.email !== ''" >
     <thead>
@@ -23,10 +23,6 @@
       </tr>
     </tbody>
   </table>
-
-  
-
-
 
 <div *ngIf="teacher && teacher.email !== ''">
   <ul>
@@ -87,3 +83,14 @@
 
 <div *ngIf="!rankingAnalises" class="loading-message">Cargando...</div>
 <div *ngIf="!rankingAnalises" class="error-message">No se encontraron datos del ranking.</div>
+</div>
+
+<div *ngIf="showPracticasComponent">
+  <app-practicas
+  *ngIf="showPracticasComponent"
+  [rankingId]="rankingId"
+  [practicasDelivered]="practicesDelivered"
+  (onPracticeSelected)="verPracticas($event)"
+  (goBack)="showPracticasComponent = false"
+></app-practicas>
+</div>

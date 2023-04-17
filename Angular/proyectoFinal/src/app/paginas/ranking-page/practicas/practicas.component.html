@@ -1,4 +1,25 @@
-<H1>Practicas de </H1>
-<table>
-    
-</table>
+<div *ngIf="practicasDelivered.length > 0; else noData">
+    <table>
+      <thead>
+        <tr>
+          <th>Nombre del estudiante</th>
+          <th>Apellido del estudiante</th>
+          <th>Nombre de la práctica</th>
+          <th>Descripción de la práctica</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let entrega of practicasDelivered">
+          <td>{{ entrega.id_student }}</td>
+          <td>{{ entrega.student_surname }}</td>
+          <td>{{ entrega.practice_name }}</td>
+          <td>{{ entrega.practice_description }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  
+  <ng-template #noData>
+    <p>No hay entregas disponibles.</p>
+  </ng-template>
+  <button (click)="goBack.emit()">Volver a Ranking</button>
