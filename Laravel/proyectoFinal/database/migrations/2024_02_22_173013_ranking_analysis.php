@@ -18,6 +18,7 @@ return new class extends Migration
             $table->unsignedBigInteger('id_student');
             $table->unsignedBigInteger('id_rank');
             $table->integer('points');
+            $table->boolean('accepted')->default(0); // Agregar el campo "accepted" con valor predeterminado de 0
             $table->timestamps();
 
             $table->foreign('id_student')
