@@ -22,7 +22,7 @@ export class RankingPageComponent implements OnInit {
   rankingName: String | null;
   rankingAnalises: RankingAnalysis[] = [];
   teacher: TeachersData;
-
+  showPracticasComponent: boolean = false;
   return: any;
   practicas: Tarea[] = [];
   new_points: number;
@@ -30,7 +30,7 @@ export class RankingPageComponent implements OnInit {
   tarea: Tarea;
   nuevaTarea: boolean = false;
   selectedFiles: { [practiceId: number]: File } = {};
-  practicesDelivered: Entregas[] = [];
+  practicesDelivered: any[] = [];
 
 
   constructor(private route: ActivatedRoute, private rankingService: RankingService, private teacherService: TeacherService, private studentService: StudentService) {
@@ -97,16 +97,20 @@ export class RankingPageComponent implements OnInit {
 
   }
 
-  verPracticas(id_student:number){
+  verPracticas(id_student: number) {
 
-    this.rankingService.getPracticesDelivered(id_student,this.rankingId).subscribe((response) => {
+  
+    this.rankingService.getPracticesDelivered(id_student, this.rankingId).subscribe((response) => {
       console.log(response.data + "Antes");
-
+  
       this.practicesDelivered = response.data;
+      
+      
       console.log(response.data + "Despues");
+      this.showPracticasComponent = true;
     });
-    
   }
+
 
   onFileSelected(event: Event, practiceId: number): void {
     const target = event.target as HTMLInputElement;
@@ -133,7 +137,7 @@ export class RankingPageComponent implements OnInit {
       });
     }
   }
-downloadPracticeFile(id_student: number, id_practice: number): void {
+  downloadPracticeFile(id_student: number, id_practice: number): void {
     this.rankingService.downloadPracticeFile(id_student, id_practice).subscribe((file: Blob) => {
       saveAs(file, 'practice_file.pdf');
     });
