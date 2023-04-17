@@ -31,4 +31,50 @@
   .error-message {
     color: red;
   }
+
+  /* request */
   
+  .Request{
+    background: rgba(80,120,102,0.25);
+    -webkit-backdrop-filter: blur(3px);
+    backdrop-filter: blur(3px);
+    border: 1px solid rgba(80,120,102,0.125);
+    width: 50vw;
+    height: 50vh;
+    position: absolute;
+    left: 50vh;
+  }
+
+  .containertablerequest table{
+    width: 30vw;
+    height: 20vh;
+    position: absolute;
+    left: 0vh;
+  }
+
+  .Request h2{
+    text-align: center;
+    font-size: 2rem;
+    font-weight: 600;
+  }
+
+  .Request table{
+    border-collapse: collapse;
+    position: absolute !important;
+    left: 15vh;
+    text-align: center;
+  }
+
+  th,td{
+    border: 1px solid #ddd;
+    padding: 2px;
+  }
+
+  .btn{
+    margin: 4px;
+  }
+
+  img{
+    width:50px;
+    height: 50px;
+  }

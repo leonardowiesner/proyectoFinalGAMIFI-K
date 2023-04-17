@@ -15,18 +15,18 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 })
 export class ProfileStudentComponent implements OnInit {
   student: StudentData;
-  srcImg: string = "https://i.imgur.com/n6F53V0.jpg";
   cambiar: boolean = false;
   studentForm: FormGroup;
   fileToUpload: File | null = null;
-
+  srcImg: string = "https://i.imgur.com/n6F53V0.jpg";
+  
   constructor(
     private fb: FormBuilder,
     private studentService: StudentService,
     private dialog: MatDialog,
     private readonly navBarService: NavBarService
-  ) {
-    this.student = { id: 0, nickname: "", name: "", surnames: "", email: "", password: "", img: "", nacimiento: new Date };
+    ) {
+      this.student = { id: 0, nickname: "", name: "", surnames: "", email: "", password: "", img: "", nacimiento: new Date };
 
     this.studentForm = this.fb.group({
       nickname: [this.student.nickname, Validators.required],
