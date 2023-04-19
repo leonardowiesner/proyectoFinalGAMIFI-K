@@ -10,6 +10,7 @@ import { Entregas } from 'src/app/interfaces/entrgas.interface';
 import { saveAs } from 'file-saver'; // Agrega esta línea
 import 'sweetalert2/src/sweetalert2.scss';
 import Swal from 'sweetalert2';
+import { v4 as uuidv4 } from 'uuid';
 
 @Component({
   selector: 'app-ranking-page',
@@ -112,7 +113,31 @@ export class RankingPageComponent implements OnInit {
       this.showPracticasComponent = true;
     });
   }
-
+  changeCodeRank() {
+    const uuid = uuidv4();
+  
+    this.rankingService.changeCodeRank(this.rankingId, uuid).subscribe(response => {
+      if (response.status === 1) {
+        Swal.fire({
+          icon: 'success',
+          title: 'Código de ranking actualizado',
+          text: 'El código del ranking se ha actualizado exitosamente.',
+        });
+      } else {
+        Swal.fire({
+          icon: 'error',
+          title: 'Error al actualizar el código de ranking',
+          text: 'Ocurrió un error al actualizar el código del ranking.',
+        });
+      }
+    }, error => {
+      Swal.fire({
+        icon: 'error',
+        title: 'Error al actualizar el código de ranking',
+        text: 'Ocurrió un error al actualizar el código del ranking.',
+      });
+    });
+  }
 
   onFileSelected(event: Event, practiceId: number): void {
     const target = event.target as HTMLInputElement;

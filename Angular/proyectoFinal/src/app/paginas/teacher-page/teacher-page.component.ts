@@ -72,6 +72,8 @@ export class TeacherPageComponent implements OnInit {
     console.log(this.rankings.values);
   }
 
+ 
+
 crearRanking(){
   const uuid = uuidv4();
   this.teacherService.getTeacher().subscribe(teacher => {

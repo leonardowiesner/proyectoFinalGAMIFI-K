@@ -75,6 +75,8 @@ Route::prefix('teacher')->group(function () {
             "date_end" => "required",
             "id_rank" => "required",
     */
+    Route::post('/change-code-rank',  [RankingController::class, 'changeCodeRank']);
+
     Route::post('/download-practice-file', [RankPracticeController::class, 'downloadPracticeFile']);
 
     Route::delete('delete-practice', [RankPracticeController::class, 'deletePractice']);
