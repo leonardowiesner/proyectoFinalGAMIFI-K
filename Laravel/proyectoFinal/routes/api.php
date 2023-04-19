@@ -74,17 +74,18 @@ Route::prefix('teacher')->group(function () {
     'description' => 'required',
             "date_end" => "required",
             "id_rank" => "required",
-<<<<<<< Updated upstream
+
     */
-=======
-            */
+
+    Route::post('/change-code-rank',  [RankingController::class, 'changeCodeRank']);
+
+    Route::post('/download-practice-file', [RankPracticeController::class, 'downloadPracticeFile']);
+
     Route::post('/update-picture', [TeacherController::class, 'updatePicture']);
 
->>>>>>> Stashed changes
     Route::post('accept-student', [RankingController::class, 'acceptStudent']);
     Route::post('denegate-student', [RankingController::class, 'denegateStudent']);
 
-    Route::get('/download-practice-file', [RankPracticeController::class, 'downloadPracticeFile']);
 
     Route::delete('delete-practice', [RankPracticeController::class, 'deletePractice']);
 

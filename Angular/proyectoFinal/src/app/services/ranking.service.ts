@@ -68,7 +68,13 @@ export class RankingService
     return this.http.get(`${this.baseUrl}/download-practice-file?id_student=${id_student}&id_practice=${id_practice}`, { headers: headers, responseType: 'blob' as 'json' }) as Observable<Blob>;
   }
   
-
+  changeCodeRank(rankingId: number, newCode: string): Observable<any> {
+    const body = {
+      id_rank: rankingId,
+      new_code: newCode,
+    };
+    return this.http.post<any>(`${this.baseUrl}/teacher/change-code-rank`, body);
+  }
   getRankingsAlumno ( alumnoId: number ): Observable<any>
   {
     let headers = new HttpHeaders( {

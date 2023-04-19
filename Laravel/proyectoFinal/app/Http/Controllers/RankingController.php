@@ -79,6 +79,26 @@ class RankingController extends Controller
 
         return $rankingAnalyses;
     }
+
+    public function changeCodeRank(Request $request)
+    {
+        $request->validate([
+            'id_rank' => 'required',
+            'new_code' => 'required',
+        ]);
+    
+        $ranking = Ranking::find($request->input('id_rank'));
+    
+        if (!$ranking) {
+            return response()->json(['error' => 'No se encontró el ranking especificado.'], 404);
+        }
+    
+        $ranking->cod_room = $request->input('new_code');
+        $ranking->save();
+    
+        return response()->json(['status' => 1, 'message' => 'El código del ranking se ha actualizado correctamente.']);
+    }
+
     public function getRankingById($id)
     {
         $ranking = DB::table('rankings')
