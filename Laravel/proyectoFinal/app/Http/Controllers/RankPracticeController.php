@@ -139,6 +139,8 @@ class RankPracticeController extends Controller
         return response()->download($pathToFile);
     }
     
+
+    
     public function getPracticesDelivered(Request $request)
     {
         //busca todas las practicas de un estudiante en un ranking
