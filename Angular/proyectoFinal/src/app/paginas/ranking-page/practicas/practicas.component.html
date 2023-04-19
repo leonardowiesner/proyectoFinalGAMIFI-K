@@ -6,14 +6,27 @@
           <th>Apellido del estudiante</th>
           <th>Nombre de la práctica</th>
           <th>Descripción de la práctica</th>
+          <th>Puntos de Practica</th>
         </tr>
       </thead>
       <tbody>
         <tr *ngFor="let entrega of practicasDelivered">
-          <td>{{ entrega.id_student }}</td>
-          <td>{{ entrega.student_surname }}</td>
-          <td>{{ entrega.practice_name }}</td>
+          <td>{{ entrega.name }}</td>
+          <td>{{ entrega.surnames }}</td>
+          <td>{{ entrega.name_file }}</td>
           <td>{{ entrega.practice_description }}</td>
+          <td>{{ entrega.points_practice}}</td>
+          <td>
+            <button (click)="downloadFile(entrega.id_student, entrega.id_practice)">Descargar</button>
+          </td>
+          <td>
+            <input [(ngModel)]="entrega.points_practice" type="number" min="0">
+          </td>
+          <td>
+            <button (click)="updatePracticePoints(entrega.id_student, entrega.id_practice, entrega.points_practice)">
+              Actualizar puntos
+            </button>
+          </td>
         </tr>
       </tbody>
     </table>
