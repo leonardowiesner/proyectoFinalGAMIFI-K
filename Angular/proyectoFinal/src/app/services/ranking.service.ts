@@ -13,6 +13,7 @@ export interface RankingSolo
 
 export interface Ranking
 {
+  image: string;
   id: number;
   name: string;
   id_teacher: string;
