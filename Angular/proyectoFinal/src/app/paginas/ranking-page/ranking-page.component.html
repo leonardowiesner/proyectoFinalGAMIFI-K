@@ -1,6 +1,6 @@
 <div *ngIf="!showPracticasComponent">
   <h2 class="ranking-header">Ranking #{{ rankingName }}</h2>
-  <table *ngIf="teacher && teacher.email !== ''" >
+  <table *ngIf="student && student.email !== ''" >
     <thead>
       <tr>
         <th>Nombre</th>
@@ -51,7 +51,9 @@
     <button type="button" (click)="nuevaTarea = false">Cancelar</button>
   </form>
 </div>
-
+<td *ngIf="student && student.email !== ''">
+<button (click)="verPracticas(student.id)">Ver mis Practicas</button>
+</td>
 <table *ngIf="!nuevaTarea" class="ranking-table">
   <thead>
     <tr>
@@ -73,7 +75,7 @@
         <button (click)="editarPuntos(analysis.id_rank,analysis.id_student,+newPoints.value)">Editar</button>
       </td>
       <td *ngIf="teacher && teacher.email !== ''">
-        <button (click)="verPracticas(analysis.id_student)">Ver Pracricas</button>
+        <button (click)="verPracticas(analysis.id_student)">Ver Practicas</button>
       </td>
     </tr>
   </tbody>

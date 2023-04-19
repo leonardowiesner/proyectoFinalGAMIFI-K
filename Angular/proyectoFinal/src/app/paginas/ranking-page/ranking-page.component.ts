@@ -22,6 +22,7 @@ export class RankingPageComponent implements OnInit {
   rankingName: String | null;
   rankingAnalises: RankingAnalysis[] = [];
   teacher: TeachersData;
+  student: StudentData;
   showPracticasComponent: boolean = false;
   return: any;
   practicas: Tarea[] = [];
@@ -36,6 +37,7 @@ export class RankingPageComponent implements OnInit {
   constructor(private route: ActivatedRoute, private rankingService: RankingService, private teacherService: TeacherService, private studentService: StudentService) {
     this.rankingId = 0;
     this.teacher = this.teacherService.teacher;
+    this.student =this.studentService.student;
     this.new_points = 0;
     this.rankingName = "";
     this.name_practica = "";
