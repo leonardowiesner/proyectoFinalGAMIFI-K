@@ -70,17 +70,21 @@ Route::prefix('teacher')->group(function () {
 
     /* create-practice
     Creamos una nueva practica elementos necesarios que pasarle
-            'name' => 'required',
-            'description' => 'required',
+    'name' => 'required',
+    'description' => 'required',
             "date_end" => "required",
             "id_rank" => "required",
+<<<<<<< Updated upstream
     */
+=======
+            */
+    Route::post('/update-picture', [TeacherController::class, 'updatePicture']);
 
+>>>>>>> Stashed changes
     Route::post('accept-student', [RankingController::class, 'acceptStudent']);
     Route::post('denegate-student', [RankingController::class, 'denegateStudent']);
-    
-    Route::get('/download-practice-file', [RankPracticeController::class, 'downloadPracticeFile']);
 
+    Route::get('/download-practice-file', [RankPracticeController::class, 'downloadPracticeFile']);
 
     Route::delete('delete-practice', [RankPracticeController::class, 'deletePractice']);
 
