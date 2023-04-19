@@ -206,26 +206,75 @@ class RankingController extends Controller
     }
 
     public function updateRankingName(Request $request, $id_rank)
-{
-    // Validar los datos recibidos
-    $request->validate([
-        'name' => 'required|string'
-    ]);
+    {
+        // Validar los datos recibidos
+        $request->validate([
+            'name' => 'required|string'
+        ]);
 
-    $new_name = $request->input('name');
+        $new_name = $request->input('name');
 
-    // Buscar el ranking por ID
-    $ranking = Ranking::find($id_rank);
+        // Buscar el ranking por ID
+        $ranking = Ranking::find($id_rank);
 
-    if (!$ranking) {
-        // Si no se encuentra el ranking, devolver un error 404
-        return response()->json(['error' => 'No se encontró el ranking especificado.'], 404);
+        if (!$ranking) {
+            // Si no se encuentra el ranking, devolver un error 404
+            return response()->json(['error' => 'No se encontró el ranking especificado.'], 404);
+        }
+
+        // Actualizar el nombre del ranking
+        $ranking->name = $new_name;
+        $ranking->save();
+
+        return response()->json(['message' => 'El nombre del ranking ha sido actualizado correctamente.', 'data' => $ranking]);
     }
 
-    // Actualizar el nombre del ranking
-    $ranking->name = $new_name;
-    $ranking->save();
+    public function acceptStudent(Request $request)
+    {
+        // Validar la solicitud del cliente
+        $request->validate([
+            'id_student' => 'required',
+            'id_rank' => 'required',
+        ]);
 
-    return response()->json(['message' => 'El nombre del ranking ha sido actualizado correctamente.', 'data' => $ranking]);
-}
+        // Buscar el ranking_analysis por id_student e id_rank
+        $rankAnalysis = Ranking_analysis::where('id_student', $request->input('id_student'))
+            ->where('id_rank', $request->input('id_rank'))
+            ->first();
+
+        if (!$rankAnalysis) {
+            // Si no se encuentra el ranking_analysis, devolver un error 404
+            return response()->json(['error' => 'No se encontró el ranking_analysis especificado.'], 404);
+        }
+
+        // Actualizar el campo "accepted" en el ranking_analysis
+        $rankAnalysis->accepted = 1;
+        $rankAnalysis->save();
+
+        return response()->json(['message' => 'Estudiante aceptado correctamente en el ranking.']);
+    }
+
+    public function denegateStudent(Request $request)
+    {
+        // Validar la solicitud del cliente
+        $request->validate([
+            'id_student' => 'required',
+            'id_rank' => 'required',
+        ]);
+
+        // Buscar la fila en la tabla ranking_analyses
+        $rankingAnalysis = Ranking_analysis::where('id_student', $request->input('id_student'))
+            ->where('id_rank', $request->input('id_rank'))
+            ->first();
+
+        if (!$rankingAnalysis) {
+            // Si no se encuentra la fila, devolver un error 404
+            return response()->json(['error' => 'No se encontró el análisis de ranking especificado.'], 404);
+        }
+
+        // Eliminar la fila de la tabla ranking_analyses
+        $rankingAnalysis->delete();
+
+        return response()->json(['message' => 'Análisis de ranking eliminado correctamente.']);
+    }
 }

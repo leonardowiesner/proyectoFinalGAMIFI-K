@@ -97,9 +97,39 @@ export class RankingPageComponent implements OnInit {
 
   }
 
-  verPracticas(id_student: number) {
-
+  acceptStudent (id_student: number,id_rank: number){
+    this.rankingService.acceptStudent(id_student, id_rank).subscribe((response) => {
+      console.log(response.data + "Antes");
   
+      this.practicesDelivered = response.data;
+      
+      
+      console.log(response.data + "Despues");
+      this.showPracticasComponent = true;
+      
+    });
+    this.rankingService.getRankingAnalysis(this.rankingId).subscribe(data => {
+      this.rankingAnalises = data;
+    });
+  }
+  
+  denegateStudent (id_student: number,id_rank: number){
+    this.rankingService.denegateStudent(id_student, id_rank).subscribe((response) => {
+      console.log(response.data + "Antes");
+  
+      this.practicesDelivered = response.data;
+      
+      
+      console.log(response.data + "Despues");
+      this.showPracticasComponent = true;
+      
+    });
+    this.rankingService.getRankingAnalysis(this.rankingId).subscribe(data => {
+      this.rankingAnalises = data;
+    });
+  }
+
+  verPracticas(id_student: number) {
     this.rankingService.getPracticesDelivered(id_student, this.rankingId).subscribe((response) => {
       console.log(response.data + "Antes");
   

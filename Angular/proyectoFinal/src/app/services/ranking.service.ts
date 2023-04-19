@@ -39,6 +39,7 @@ export interface RankingAnalysis
   id_rank: number;
   points: number;
   name: string;
+  accepted: number;
 }
 
 @Injectable( {
@@ -95,6 +96,28 @@ export class RankingService
     let options = { headers: headers };
 
     return this.http.post<any>( `${ this.baseUrl }/student/get-practices`, { id_student, rankingId }, options );
+  }
+
+
+  acceptStudent (id_student:number, id_rank:number){
+    let headers = new HttpHeaders( {
+      'Content-Type': 'application/json',
+      'Accept': 'application/json',
+      'Authorization': `Bearer ${ this.token }`
+    } );
+    let options = { headers: headers };
+
+    return this.http.post<any>( `${ this.baseUrl }/teacher/accept-student`, { id_student, id_rank }, options );
+  }
+  denegateStudent (id_student:number, id_rank:number){
+    let headers = new HttpHeaders( {
+      'Content-Type': 'application/json',
+      'Accept': 'application/json',
+      'Authorization': `Bearer ${ this.token }`
+    } );
+    let options = { headers: headers };
+
+    return this.http.post<any>( `${ this.baseUrl }/teacher/denegate-student`, { id_student, id_rank }, options );
   }
 
   getRankingsTeacher ( teacherId: number ): Observable<Ranking[]>
