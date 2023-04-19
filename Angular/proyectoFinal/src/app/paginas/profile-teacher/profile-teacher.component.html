@@ -40,10 +40,11 @@
       <!-- left column -->
       <div class="col-3">
         <div class="text-center">
-          <img src="https://i.imgur.com/n6F53V0.jpg" class="avatar img-circle" alt="avatar">
+          <img src="{{srcImg}}" class="avatar img-circle" alt="avatar">
           <h6>Selecciona una foto diferente...</h6>
-  
-          <input type="file" class="form-control">
+          
+          <input type="file"  id="image" (change)="onFileSelected($event)" class="form-control">
+          <input class="btn btn-primary" type="submit" value="Guardar foto" (click)="updatePicture()">
         </div>
       </div>
   

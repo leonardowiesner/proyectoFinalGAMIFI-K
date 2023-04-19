@@ -37,6 +37,21 @@ export class TeacherService {
 
     return this.http.post<RespuestaServidor>(`${this.apiURL}/login/teacher`, data,options);
   }
+
+  updatePicture(id_teacher: number, img: File): Observable<any> {
+    const formData = new FormData();
+    formData.append('id_teacher', id_teacher.toString());
+    formData.append('img', img, img.name);
+
+    const options = {
+      observe: 'response' as const,
+      reportProgress: true,
+      responseType: 'json' as const
+    };
+
+    return this.http.post<any>(`${this.apiURL}/teacher/update-picture`, formData, options);
+  }
+
   getTeacher(): Observable<TeachersData> {
     let headers = new HttpHeaders({
       'Content-Type': 'application/json',
