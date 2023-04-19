@@ -16,6 +16,7 @@
           <td>{{ entrega.name_file }}</td>
           <td>{{ entrega.practice_description }}</td>
           <td>{{ entrega.points_practice}}</td>
+          <div >
           <td>
             <button (click)="downloadFile(entrega.id_student, entrega.id_practice)">Descargar</button>
           </td>
@@ -27,6 +28,7 @@
               Actualizar puntos
             </button>
           </td>
+        </div>
         </tr>
       </tbody>
     </table>
