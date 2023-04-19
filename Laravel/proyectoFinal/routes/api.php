@@ -70,14 +70,22 @@ Route::prefix('teacher')->group(function () {
 
     /* create-practice
     Creamos una nueva practica elementos necesarios que pasarle
-            'name' => 'required',
-            'description' => 'required',
+    'name' => 'required',
+    'description' => 'required',
             "date_end" => "required",
             "id_rank" => "required",
+
     */
+
     Route::post('/change-code-rank',  [RankingController::class, 'changeCodeRank']);
 
     Route::post('/download-practice-file', [RankPracticeController::class, 'downloadPracticeFile']);
+
+    Route::post('/update-picture', [TeacherController::class, 'updatePicture']);
+
+    Route::post('accept-student', [RankingController::class, 'acceptStudent']);
+    Route::post('denegate-student', [RankingController::class, 'denegateStudent']);
+
 
     Route::delete('delete-practice', [RankPracticeController::class, 'deletePractice']);
 

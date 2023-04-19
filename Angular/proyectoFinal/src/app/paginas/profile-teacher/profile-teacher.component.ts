@@ -15,6 +15,10 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 export class ProfileTeacherComponent implements OnInit {
   teacher: TeachersData;
   teacherForm:FormGroup;
+  fileToUpload: File | null = null;
+  srcImg: string = "https://i.imgur.com/n6F53V0.jpg";
+
+
   constructor(
     private fb: FormBuilder,
     private teacherService: TeacherService,
@@ -64,5 +68,27 @@ export class ProfileTeacherComponent implements OnInit {
   //     }
   //   });
    }
+
+
+     //img upload
+
+  onFileSelected(event: any) {
+    
+    this.fileToUpload = event.target.files[0];
+  }
+
+  updatePicture() {
+    console.log("file"+this.fileToUpload?.name);
+    console.log("id Teacher file"+this.teacher.id);
+
+    if (this.fileToUpload && this.teacher.id) {
+      this.srcImg = "http://localhost:8000/storage/images/"+this.fileToUpload.name;
+      this.teacherService.updatePicture(this.teacher.id, this.fileToUpload)
+        .subscribe(
+          response => console.log('Picture updated successfully.'),
+          error => console.error(error)
+        );
+    }
+  }
 
 }

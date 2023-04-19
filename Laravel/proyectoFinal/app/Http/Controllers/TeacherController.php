@@ -45,6 +45,38 @@ class TeacherController extends Controller
         }
     }
 
+    public function updatePicture(Request $request)
+    {
+        // Validar la solicitud del cliente
+        $request->validate([
+            'id_teacher' => 'required',
+            'img' => 'required|file|max:2048',
+        ]);
+
+        // Buscar al estudiante por ID
+        $teacher = Teacher::find($request->input('id_teacher'));
+
+        if (!$teacher) {
+            // Si no se encuentra al estudiante, devolver un error 404
+            return response()->json(['error' => 'No se encontró al estudiante especificado.'], 404);
+        }
+
+        // Obtener la imagen del request
+        $image = $request->file('img');
+
+        // Generar un nombre único para la imagen
+        $imageName = $image->getClientOriginalName();
+
+        // Guardar la imagen en el almacenamiento local
+        $image->storeAs('public/images', $imageName);
+
+        // Actualizar el campo "image" en el estudiante
+        $teacher->img = $imageName;
+        $teacher->save();
+
+        return response()->json(['message' => 'Imagen guardada correctamente.']);
+    }
+
     public function all()
     {
         return Teacher::all();
