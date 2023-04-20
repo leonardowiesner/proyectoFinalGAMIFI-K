@@ -71,7 +71,7 @@
     </tbody>
   </table>
 
-  <div *ngIf="teacher && teacher.email !== ''" class="Request">
+  <div *ngIf="!nuevaTarea &&teacher && teacher.email !== ''" class="Request">
     <h2>Solicitudes para unirse a este ranking</h2>
     <div class="containertablerequest">
       <table>
