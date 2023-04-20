@@ -41,42 +41,42 @@ class RankingTableSeeder extends Seeder
         Ranking_analysis::create([
             'id_student'=>1,
             'id_rank'=>2,
-            'points'=>100
+            'points'=>0
         ]);
         Ranking_analysis::create([
             'id_student'=>1,
             'id_rank'=>1,
-            'points'=>50
+            'points'=>0
         ]);
         Ranking_analysis::create([
             'id_student'=>1,
             'id_rank'=>3,
-            'points'=>100
+            'points'=>0
         ]);
         Ranking_analysis::create([
             'id_student'=>1,
             'id_rank'=>4,
-            'points'=>50
+            'points'=>0
         ]);
         Ranking_analysis::create([
             'id_student'=>2,
             'id_rank'=>3,
-            'points'=>100
+            'points'=>0
         ]);
         Ranking_analysis::create([
             'id_student'=>2,
             'id_rank'=>4,
-            'points'=>50
+            'points'=>0
         ]);
         Ranking_analysis::create([
             'id_student'=>2,
             'id_rank'=>2,
-            'points'=>100
+            'points'=>0
         ]);
         Ranking_analysis::create([
             'id_student'=>2,
             'id_rank'=>1,
-            'points'=>50
+            'points'=>0
         ]);
     }
 }
