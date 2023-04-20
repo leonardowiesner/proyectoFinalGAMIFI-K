@@ -1,11 +1,10 @@
 <div *ngIf="!showPracticasComponent">
-  <h2 class="ranking-header">Ranking #{{ rankingName }}</h2>
+  <h2 class="ranking-header">Ranking #{{ rankingId }}</h2>
 
-  <div  *ngIf="teacher && teacher.email !== ''">
+  <div *ngIf="teacher && teacher.email !== ''">
     <button (click)="changeCodeRank()">Regenerar Codigo Ranking</button>
   </div>
   <table *ngIf="student && student.email !== ''">
-
     <thead>
       <tr>
         <th>Nombre</th>
@@ -29,18 +28,6 @@
     </tbody>
   </table>
 
-  <div *ngIf="teacher && teacher.email !== ''">
-    <ul>
-      <li *ngFor="let practice of practicesDelivered">
-        <span>{{ practice.student_name }}</span>
-        <span>{{ practice.student_surname }}</span>
-        <span>{{ practice.practice_name }}</span>
-      </li>
-    </ul>
-
-    <button *ngIf="!nuevaTarea" (click)="nuevaTarea = true">Añadir nueva Tarea</button>
-  </div>
-
   <div *ngIf="nuevaTarea">
     <form>
       <label>Nombre:</label>
@@ -53,25 +40,7 @@
       <button type="button" (click)="nuevaTarea = false">Cancelar</button>
     </form>
   </div>
-
-
-
-
-    <button *ngIf="!nuevaTarea" (click)="nuevaTarea = true">Añadir nueva Tarea</button>
-  </div>
-
-
-  <div *ngIf="nuevaTarea">
-    <form>
-      <label>Nombre:</label>
-      <input type="text" name="tarea.name" id="tarea.name" [(ngModel)]="tarea.name"><br>
-      <label>Descripción:</label>
-      <textarea name="description" id="description" [(ngModel)]="tarea.description"></textarea><br>
-      <label>Fecha límite:</label>
-      <input type="date" name="deadline_practice" id="deadline_practice" [(ngModel)]="tarea.deadline_practice"><br>
-      <button type="submit" (click)="agregarTarea()">Agregar tarea</button>
-      <button type="button" (click)="nuevaTarea = false">Cancelar</button>
-    </form>
+  <button *ngIf="!nuevaTarea" (click)="nuevaTarea = true">Añadir nueva Tarea</button>
 
   <table *ngIf="!nuevaTarea" class="ranking-table">
     <thead>
@@ -83,7 +52,7 @@
     </thead>
     <tbody>
       <tr *ngFor="let analysis of rankingAnalises; let i = index">
-        <div *ngIf="analysis.accepted == 1">
+        <ng-container *ngIf="analysis.accepted == 1">
           <td>{{ i + 1 }}</td>
           <td>{{ analysis.name }}</td>
           <td>{{ analysis.points }}</td>
@@ -97,7 +66,7 @@
           <td *ngIf="teacher && teacher.email !== ''">
             <button (click)="verPracticas(analysis.id_student)">Ver Pracricas</button>
           </td>
-        </div>
+        </ng-container>
       </tr>
     </tbody>
   </table>
@@ -121,8 +90,10 @@
               <td>{{ analysis.id_rank}}</td>
               <td>{{ analysis.accepted }}</td>
               <td *ngIf="teacher && teacher.email !== ''">
-                <button (click)="acceptStudent(analysis.id_student,analysis.id_rank)" class="btn btn-success">Aceptar al ranking</button>
-                <button (click)="denegateStudent(analysis.id_student,analysis.id_rank)" class="btn btn-danger">Eliminar solicitud</button>
+                <button (click)="acceptStudent(analysis.id_student,analysis.id_rank)" class="btn btn-success">Aceptar al
+                  ranking</button>
+                <button (click)="denegateStudent(analysis.id_student,analysis.id_rank)" class="btn btn-danger">Eliminar
+                  solicitud</button>
               </td>
             </div>
           </tr>
@@ -131,64 +102,6 @@
     </div>
 
   </div>
-
-  <td *ngIf="student && student.email !== ''">
-    <button (click)="verPracticas(student.id)">Ver mis Practicas</button>
-  </td>
-  <table *ngIf="!nuevaTarea" class="ranking-table">
-    <thead>
-      <tr>
-        <th>Posición</th>
-        <th>Nombre</th>
-        <th>Puntuación</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let analysis of rankingAnalises; let i = index">
-        <td>{{ i + 1 }}</td>
-        <td>{{ analysis.name }}</td>
-        <td>{{ analysis.points }}</td>
-        <td *ngIf="teacher && teacher.email !== ''">
-          <button (click)="eliminarRegistro(analysis.id_rank,analysis.id_student)">Eliminar</button>
-        </td>
-        <td *ngIf="teacher && teacher.email !== ''">
-          <input #newPoints name="new_points" type="number">
-          <button (click)="editarPuntos(analysis.id_rank,analysis.id_student,+newPoints.value)">Editar</button>
-        </td>
-        <td *ngIf="teacher && teacher.email !== ''">
-          <button (click)="verPracticas(analysis.id_student)">Ver Practicas</button>
-        </td>
-      </tr>
-    </tbody>
-  </table>
-
-  <div class="Request">
-    <h2>Solicitudes para unirse a este ranking</h2>
-    <div class="containertablerequest">
-      <table>
-        <thead>
-          <tr>
-            <th>Foto de perfil</th>
-            <th>Nombre alumno</th>
-            <th>Estado</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td><img
-                src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/7e/Circle-icons-profile.svg/512px-Circle-icons-profile.svg.png"
-                alt="profileImg"></td>
-            <td>Arnulfo Perez</td>
-            <td>
-              <button class="btn btn-success">Aceptar al ranking</button>
-              <button class="btn btn-danger">Eliminar solicitud</button>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-  </div>
-
 
   <div *ngIf="!rankingAnalises" class="loading-message">Cargando...</div>
   <div *ngIf="!rankingAnalises" class="error-message">No se encontraron datos del ranking.</div>
@@ -199,4 +112,3 @@
     (onPracticeSelected)="verPracticas($event)" (goBack)="showPracticasComponent = false"></app-practicas>
 
 </div>
-
