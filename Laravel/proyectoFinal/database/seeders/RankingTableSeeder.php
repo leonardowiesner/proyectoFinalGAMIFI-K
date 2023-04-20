@@ -41,42 +41,82 @@ class RankingTableSeeder extends Seeder
         Ranking_analysis::create([
             'id_student'=>1,
             'id_rank'=>2,
-            'points'=>0
+            'points'=>0,
+            'emotional'=>0,
+            'thinking'=>0,
+            'responsability'=>0,
+            'cooperation'=>0,
+            'initiative'=>0
         ]);
         Ranking_analysis::create([
             'id_student'=>1,
             'id_rank'=>1,
-            'points'=>0
+            'points'=>0,
+            'emotional'=>0,
+            'thinking'=>0,
+            'responsability'=>0,
+            'cooperation'=>0,
+            'initiative'=>0
         ]);
         Ranking_analysis::create([
             'id_student'=>1,
             'id_rank'=>3,
-            'points'=>0
+            'points'=>0,
+            'emotional'=>0,
+            'thinking'=>0,
+            'responsability'=>0,
+            'cooperation'=>0,
+            'initiative'=>0
         ]);
         Ranking_analysis::create([
             'id_student'=>1,
             'id_rank'=>4,
-            'points'=>0
+            'points'=>0,
+            'emotional'=>0,
+            'thinking'=>0,
+            'responsability'=>0,
+            'cooperation'=>0,
+            'initiative'=>0
         ]);
         Ranking_analysis::create([
             'id_student'=>2,
             'id_rank'=>3,
-            'points'=>0
+            'points'=>0,
+            'emotional'=>0,
+            'thinking'=>0,
+            'responsability'=>0,
+            'cooperation'=>0,
+            'initiative'=>0
         ]);
         Ranking_analysis::create([
             'id_student'=>2,
             'id_rank'=>4,
-            'points'=>0
+            'points'=>0,
+            'emotional'=>0,
+            'thinking'=>0,
+            'responsability'=>0,
+            'cooperation'=>0,
+            'initiative'=>0
         ]);
         Ranking_analysis::create([
             'id_student'=>2,
             'id_rank'=>2,
-            'points'=>0
+            'points'=>0,
+            'emotional'=>0,
+            'thinking'=>0,
+            'responsability'=>0,
+            'cooperation'=>0,
+            'initiative'=>0
         ]);
         Ranking_analysis::create([
             'id_student'=>2,
             'id_rank'=>1,
-            'points'=>0
+            'points'=>0,
+            'emotional'=>0,
+            'thinking'=>0,
+            'responsability'=>0,
+            'cooperation'=>0,
+            'initiative'=>0
         ]);
     }
 }

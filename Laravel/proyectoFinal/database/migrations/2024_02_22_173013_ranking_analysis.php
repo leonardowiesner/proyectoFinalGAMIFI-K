@@ -18,6 +18,11 @@ return new class extends Migration
             $table->unsignedBigInteger('id_student');
             $table->unsignedBigInteger('id_rank');
             $table->integer('points');
+            $table->integer('emotional');
+            $table->integer('thinking');
+            $table->integer('responsability');
+            $table->integer('cooperation');
+            $table->integer('initiative');
             $table->boolean('accepted')->default(0); // Agregar el campo "accepted" con valor predeterminado de 0
             $table->timestamps();
 
