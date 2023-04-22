@@ -20,8 +20,9 @@
           <td>
             <button (click)="downloadFile(entrega.id_student, entrega.id_practice)">Descargar</button>
           </td>
+
           <td>
-            <input [(ngModel)]="entrega.points_practice" type="number" min="0">
+            <input [(ngModel)]="entrega.points_practice" type="number" min="0" max="10">
           </td>
           <td>
             <button (click)="updatePracticePoints(entrega.id_student, entrega.id_practice, entrega.points_practice)">
@@ -33,7 +34,7 @@
       </tbody>
     </table>
   </div>
-  
+
   <ng-template #noData>
     <p>No hay entregas disponibles.</p>
   </ng-template>
