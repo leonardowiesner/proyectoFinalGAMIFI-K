@@ -16,7 +16,7 @@ export class ProfileTeacherComponent implements OnInit {
   teacher: TeachersData;
   teacherForm:FormGroup;
   fileToUpload: File | null = null;
-  srcImg: string = "https://i.imgur.com/n6F53V0.jpg";
+  srcImg: string = "";
 
 
   constructor(
