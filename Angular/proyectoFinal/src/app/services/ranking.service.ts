@@ -19,6 +19,7 @@ export interface Ranking
   cod_room: string;
   id_student: number;
   points: number;
+  image: string;
 
 }
 

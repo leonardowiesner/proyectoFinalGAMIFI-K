@@ -1,0 +1,55 @@
+
+.container{
+    justify-content: center;
+    align-items: center;
+    margin: 0% 30%;
+}
+.form-group{
+    margin:2%;
+}
+    .jumbotron-flat {
+    background-color: #4DB8FF;
+    height: 100%;
+    border: 1px solid #4DB8FF;
+    background: white;
+    width: 100%;
+    text-align: center;
+    overflow: auto;
+    }
+    
+    .paymentAmt {
+    font-size: 80px;
+    }
+    
+    .centered {
+    text-align: center;
+    }
+    
+    .title {
+    padding-top: 15px;
+    }
+
+    img, svg {
+        vertical-align: middle;
+        border-radius: 50%;
+        width: 8rem;
+        height: 8rem;
+    }
+
+    [type=button]:not(:disabled), [type=reset]:not(:disabled), [type=submit]:not(:disabled), button:not(:disabled){
+        margin: 0.5rem 2rem;
+    }
+    
+    label{
+        font-size: 1.0rem;
+    }
+
+    h3{
+        font-size: 1.5rem;
+        text-align:justify
+    }
+
+    h6{
+        margin-top: 5%;
+        font-size: 1.0rem;
+    }

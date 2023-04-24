@@ -1,3 +1,13 @@
+    
+.container{
+    justify-content: center;
+    align-items: center;
+    margin: 0% 30%;
+}
+
+.form-group{
+    margin:2%;
+}
     .jumbotron-flat {
     background-color: #4DB8FF;
     height: 100%;
@@ -28,22 +38,18 @@
     }
 
     [type=button]:not(:disabled), [type=reset]:not(:disabled), [type=submit]:not(:disabled), button:not(:disabled){
-        margin: 0.5rem 12rem;
+        margin: 0.5rem 2rem;
     }
     
-    /* .row>* {
-        flex-shrink: 0;
-        width: 90%;
-        max-width: 100%;
-        padding-right: calc(var(--bs-gutter-x) * .5);
-        padding-left: calc(var(--bs-gutter-x) * .5);
-        margin-top: var(--bs-gutter-y); 
-    } */
-
-    .container {
-        /* margin-left: 250px; */
+    label{
+        font-size: 1.0rem;
     }
-    .edit-profile{
-        /* display: flex; */
 
+    h3{
+        font-size: 1.5rem;
+        text-align:justify
+    }
+    h6{
+        margin-top: 5%;
+        font-size: 1.0rem;
     }
