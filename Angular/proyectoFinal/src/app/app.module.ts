@@ -25,6 +25,7 @@ import { LoginStudentComponent } from './paginas/login-page/login-student/login-
 import { TeacherPageComponent } from './paginas/teacher-page/teacher-page.component';
 import { LoginTeacherComponent } from './paginas/login-page/login-teacher/login-teacher.component';
 import { SidebarComponent } from './sidebar/sidebar.component';
+import { StudentSoftSkillEvaluationComponent } from './student-soft-skill-evaluation/student-soft-skill-evaluation.component';
 
 
 @NgModule({
@@ -37,7 +38,8 @@ import { SidebarComponent } from './sidebar/sidebar.component';
     TeacherFormComponent,
     LoginStudentComponent,
     LoginTeacherComponent,
-    SidebarComponent
+    SidebarComponent,
+    StudentSoftSkillEvaluationComponent
   
   ],
   imports: [

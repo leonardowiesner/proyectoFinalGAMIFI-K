@@ -132,8 +132,18 @@ export class RankingPageComponent implements OnInit
     {
       rank = 'Gold';
     }
-
-
+    if ( points >= 4000 )
+    {
+      rank = 'Platino';
+    }
+    if ( points >= 7000 )
+    {
+      rank = 'Diamante';
+    }
+    if ( points >= 10000 )
+    {
+      rank = 'Challenger';
+    }
     return `assets/images/${ rank }.png`;
   }
 
