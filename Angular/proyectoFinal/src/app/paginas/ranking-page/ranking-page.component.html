@@ -64,19 +64,19 @@
             <td>{{ analysis.name }}</td>
             <td>{{ analysis.points }}</td>
             <td>
-              <img [src]="analysis.imageUrls.emotional" alt="Emotional Rank Image" width="50" height="50" />
+              <img (click)="descriptionSoftSkills(analysis.emotional, analysis.imageUrls.emotional,'Emocional')" [src]="analysis.imageUrls.emotional" alt="Emotional Rank Image" width="50" height="50" title="{{analysis.emotional}}" />
             </td>
             <td>
-              <img [src]="analysis.imageUrls.thinking" alt="Thinking Rank Image" width="50" height="50" />
+              <img (click)="descriptionSoftSkills(analysis.thinking, analysis.imageUrls.thinking,'Pensamiento')" [src]="analysis.imageUrls.thinking" alt="Thinking Rank Image" width="50" height="50" title="{{analysis.thinking}}"/>
             </td>
             <td>
-              <img [src]="analysis.imageUrls.responsability" alt="responsability Rank Image" width="50" height="50" />
+              <img (click)="descriptionSoftSkills(analysis.responsability, analysis.imageUrls.responsability,'Responsabilidad')" [src]="analysis.imageUrls.responsability" alt="responsability Rank Image" width="50" height="50" title="{{analysis.responsability}}"/>
             </td>
             <td>
-              <img [src]="analysis.imageUrls.cooperation" alt="cooperation Rank Image" width="50" height="50" />
+              <img (click)="descriptionSoftSkills(analysis.cooperation, analysis.imageUrls.cooperation,'Cooperacion')" [src]="analysis.imageUrls.cooperation" alt="cooperation Rank Image" width="50" height="50" title="{{analysis.cooperation}}"/>
             </td>
             <td>
-              <img [src]="analysis.imageUrls.initiative" alt="initiative Rank Image" width="50" height="50" />
+              <img (click)="descriptionSoftSkills(analysis.initiative, analysis.imageUrls.initiative,'Iniciativa')" [src]="analysis.imageUrls.initiative" alt="initiative Rank Image" width="50" height="50" title="{{analysis.initiative}}"/>
             </td>
             <td *ngIf="teacher && teacher.email !== ''">
               <button (click)="eliminarRegistro(analysis.id_rank,analysis.id_student)">Eliminar</button>
