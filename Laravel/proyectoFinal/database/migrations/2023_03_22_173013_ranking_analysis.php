@@ -18,6 +18,7 @@ return new class extends Migration
             $table->unsignedBigInteger('id_student');
             $table->unsignedBigInteger('id_rank');
             $table->integer('points');
+            $table->integer('weeklyPoints');
             $table->integer('emotional');
             $table->integer('thinking');
             $table->integer('responsability');
