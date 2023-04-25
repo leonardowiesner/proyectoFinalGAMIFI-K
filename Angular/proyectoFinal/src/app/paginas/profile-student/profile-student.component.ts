@@ -5,8 +5,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { NavBarService } from 'src/app/services/nav-bar.service';
 import { ChangePasswordDialogComponent } from './change-password-dialog/change-password-dialog.component';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-
-
+import { ReactiveFormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-profile-student',
@@ -18,7 +17,7 @@ export class ProfileStudentComponent implements OnInit {
   cambiar: boolean = false;
   studentForm: FormGroup;
   fileToUpload: File | null = null;
-  srcImg: string = "https://i.imgur.com/n6F53V0.jpg";
+  srcImg: string = "";
   
   constructor(
     private fb: FormBuilder,

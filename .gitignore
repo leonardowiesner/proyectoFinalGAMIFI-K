@@ -196,3 +196,4 @@ dist
 
 # End of https://www.toptal.com/developers/gitignore/api/angular,laravel,node
 .vscode/settings.json
+.DS_Store

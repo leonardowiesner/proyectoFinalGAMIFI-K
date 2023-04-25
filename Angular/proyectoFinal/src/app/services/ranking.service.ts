@@ -19,6 +19,7 @@ export interface Ranking
   cod_room: string;
   id_student: number;
   points: number;
+  image: string;
 
 }
 
@@ -39,7 +40,19 @@ export interface RankingAnalysis
   id_rank: number;
   points: number;
   name: string;
+  emotional: number;
+  thinking: number;
+  responsability: number;
+  cooperation: number;
+  initiative: number;
   accepted: number;
+  imageUrls: {
+    emotional: string;
+    thinking: string;
+    responsability: string;
+    cooperation: string;
+    initiative: string;
+  };
 }
 
 @Injectable( {
@@ -58,22 +71,24 @@ export class RankingService
   }
   data: any;
 
-  downloadPracticeFile(id_student: number, id_practice: number): Observable<Blob> {
-    let headers = new HttpHeaders({
+  downloadPracticeFile ( id_student: number, id_practice: number ): Observable<Blob>
+  {
+    let headers = new HttpHeaders( {
       'Content-Type': 'application/json',
       'Accept': 'application/json',
-      'Authorization': `Bearer ${this.token}`
-    });
-  
-    return this.http.get(`${this.baseUrl}/download-practice-file?id_student=${id_student}&id_practice=${id_practice}`, { headers: headers, responseType: 'blob' as 'json' }) as Observable<Blob>;
+      'Authorization': `Bearer ${ this.token }`
+    } );
+
+    return this.http.get( `${ this.baseUrl }/download-practice-file?id_student=${ id_student }&id_practice=${ id_practice }`, { headers: headers, responseType: 'blob' as 'json' } ) as Observable<Blob>;
   }
-  
-  changeCodeRank(rankingId: number, newCode: string): Observable<any> {
+
+  changeCodeRank ( rankingId: number, newCode: string ): Observable<any>
+  {
     const body = {
       id_rank: rankingId,
       new_code: newCode,
     };
-    return this.http.post<any>(`${this.baseUrl}/teacher/change-code-rank`, body);
+    return this.http.post<any>( `${ this.baseUrl }/teacher/change-code-rank`, body );
   }
   getRankingsAlumno ( alumnoId: number ): Observable<any>
   {
@@ -105,7 +120,8 @@ export class RankingService
   }
 
 
-  acceptStudent (id_student:number, id_rank:number){
+  acceptStudent ( id_student: number, id_rank: number )
+  {
     let headers = new HttpHeaders( {
       'Content-Type': 'application/json',
       'Accept': 'application/json',
@@ -115,7 +131,8 @@ export class RankingService
 
     return this.http.post<any>( `${ this.baseUrl }/teacher/accept-student`, { id_student, id_rank }, options );
   }
-  denegateStudent (id_student:number, id_rank:number){
+  denegateStudent ( id_student: number, id_rank: number )
+  {
     let headers = new HttpHeaders( {
       'Content-Type': 'application/json',
       'Accept': 'application/json',
@@ -286,16 +303,17 @@ export class RankingService
     return this.http.post<any>( `${ this.baseUrl }/teacher/edit`, { id_student, id_rank, points }, options );
 
   }
-  getPracticesDelivered(id_student: number, rankingId: number): Observable<any> {
-    let headers = new HttpHeaders({
+  getPracticesDelivered ( id_student: number, rankingId: number ): Observable<any>
+  {
+    let headers = new HttpHeaders( {
       'Content-Type': 'application/json',
       'Accept': 'application/json',
-      'Authorization': `Bearer ${this.token}`
-    });
-  
+      'Authorization': `Bearer ${ this.token }`
+    } );
+
     const options = { headers: headers };
-  
-    return this.http.post<any>(`${this.baseUrl}/teacher/get-practices-delivered`, { id_student, rankingId }, options);
+
+    return this.http.post<any>( `${ this.baseUrl }/teacher/get-practices-delivered`, { id_student, rankingId }, options );
   }
 
 
