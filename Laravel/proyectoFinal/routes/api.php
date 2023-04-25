@@ -64,6 +64,12 @@ Route::prefix('student')->group(function () {
     Route::post('get-practices', [RankPracticeController::class, 'getPractice']);
 
     Route::delete('/delete', [StudentController::class, 'delete']);
+
+    Route::post('/soft-skill-evaluation', [SoftSkillEvaluationController::class, 'store']);
+
+    Route::get('/soft-skill-evaluation/student/{student_id}', [SoftSkillEvaluationController::class, 'getEvaluationsByStudent']);
+    
+    Route::get('/students', [SoftSkillEvaluationController::class, 'getStudents']);
 });
 
 Route::prefix('teacher')->group(function () {

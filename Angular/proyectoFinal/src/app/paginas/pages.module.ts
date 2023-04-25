@@ -17,10 +17,11 @@ import { MatInputModule } from '@angular/material/input';
 import { RankingPageComponent } from './ranking-page/ranking-page.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { PracticasComponent } from './ranking-page/practicas/practicas.component';
+import { StudentSoftSkillEvaluationComponent } from './student-soft-skill-evaluation/student-soft-skill-evaluation.component';
 
 
 @NgModule({
-  declarations: [MainPageComponent, StudentPageComponent,TeacherPageComponent, ProfileTeacherComponent, ProfileStudentComponent, ChangePasswordDialogComponent, RankingPageComponent, PracticasComponent  ],
+  declarations: [MainPageComponent, StudentPageComponent,TeacherPageComponent, ProfileTeacherComponent, ProfileStudentComponent, ChangePasswordDialogComponent, RankingPageComponent, PracticasComponent, StudentSoftSkillEvaluationComponent  ],
   imports: [
     ReactiveFormsModule,
     PagesRoutingModule,
