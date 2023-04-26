@@ -140,7 +140,7 @@ export class RankingPageComponent implements OnInit {
 
   descriptionSoftSkills(analysis: RankingAnalysis, skill:string) {
     Swal.fire({
-      title: skill + "<br>Puntos " + analysis.points,
+      title: skill + "<br>Puntos " + analysis.skillsNumber.get(skill),
       text: this.getDescription(skill),
       imageUrl: analysis.imageUrls.get(skill),
       imageWidth: 300,

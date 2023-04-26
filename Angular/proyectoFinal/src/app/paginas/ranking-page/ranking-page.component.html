@@ -56,6 +56,18 @@
           <th>Responsabilidad</th>
           <th>Cooperacion</th>
           <th>Iniciativa</th>
+          <th *ngIf="!nuevaTarea && teacher && teacher.email !== ''">
+            Eliminar
+          </th>
+          
+          <th *ngIf="!nuevaTarea && teacher && teacher.email !== ''">
+            Editar Puntos
+          </th>
+          
+          <th *ngIf="!nuevaTarea && teacher && teacher.email !== ''">
+            Ver Practica
+          </th>
+
         </tr>
       </thead>
       <tbody>
