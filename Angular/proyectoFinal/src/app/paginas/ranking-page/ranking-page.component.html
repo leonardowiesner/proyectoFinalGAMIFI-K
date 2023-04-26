@@ -126,5 +126,8 @@
     <app-practicas *ngIf="showPracticasComponent" [rankingId]="rankingId" [practicasDelivered]="practicesDelivered"
       (onPracticeSelected)="verPracticas($event)" (goBack)="showPracticasComponent = false"></app-practicas>
 
+  
   </div>
+  <button [routerLink]="['/soft-skill-evaluation', rankingId]">Evaluar Soft Skills</button>
+
 </div>
