@@ -1,7 +1,7 @@
 <div class="RankingContenedor">
   <div *ngIf="!showPracticasComponent">
     <h2 class="ranking-header">Ranking #{{ rankingId }}</h2>
-  
+
     <div *ngIf="teacher && teacher.email !== ''">
       <button (click)="changeCodeRank()">Regenerar Codigo Ranking</button>
     </div>
@@ -28,7 +28,7 @@
         </tr>
       </tbody>
     </table>
-  
+
     <div *ngIf="nuevaTarea">
       <form>
         <label>Nombre:</label>
@@ -41,9 +41,10 @@
         <button type="button" (click)="nuevaTarea = false">Cancelar</button>
       </form>
     </div>
-  
-    <button *ngIf="!nuevaTarea && teacher && teacher.email !== ''" (click)="nuevaTarea = true">Añadir nueva Tarea</button>
-  
+
+    <button *ngIf="!nuevaTarea && teacher && teacher.email !== ''" (click)="nuevaTarea = true">Añadir nueva
+      Tarea</button>
+
     <table *ngIf="!nuevaTarea" class="ranking-table">
       <thead>
         <tr>
@@ -63,20 +64,10 @@
             <td>{{ i + 1 }}</td>
             <td>{{ analysis.name }}</td>
             <td>{{ analysis.points }}</td>
-            <td>
-              <img (click)="descriptionSoftSkills(analysis.emotional, analysis.imageUrls.emotional,'Emocional')" [src]="analysis.imageUrls.emotional" alt="Emotional Rank Image" width="50" height="50" title="{{analysis.emotional}}" />
-            </td>
-            <td>
-              <img (click)="descriptionSoftSkills(analysis.thinking, analysis.imageUrls.thinking,'Pensamiento')" [src]="analysis.imageUrls.thinking" alt="Thinking Rank Image" width="50" height="50" title="{{analysis.thinking}}"/>
-            </td>
-            <td>
-              <img (click)="descriptionSoftSkills(analysis.responsability, analysis.imageUrls.responsability,'Responsabilidad')" [src]="analysis.imageUrls.responsability" alt="responsability Rank Image" width="50" height="50" title="{{analysis.responsability}}"/>
-            </td>
-            <td>
-              <img (click)="descriptionSoftSkills(analysis.cooperation, analysis.imageUrls.cooperation,'Cooperacion')" [src]="analysis.imageUrls.cooperation" alt="cooperation Rank Image" width="50" height="50" title="{{analysis.cooperation}}"/>
-            </td>
-            <td>
-              <img (click)="descriptionSoftSkills(analysis.initiative, analysis.imageUrls.initiative,'Iniciativa')" [src]="analysis.imageUrls.initiative" alt="initiative Rank Image" width="50" height="50" title="{{analysis.initiative}}"/>
+            <td *ngFor="let skill of softSkills">
+              <img (click)="descriptionSoftSkills(analysis,skill)"
+                [src]="analysis.imageUrls.get(skill)" alt="skill Rank Image" width="50" height="50"
+                title="{{analysis.skillsNumber.get(skill)}}"/>
             </td>
             <td *ngIf="teacher && teacher.email !== ''">
               <button (click)="eliminarRegistro(analysis.id_rank,analysis.id_student)">Eliminar</button>
@@ -92,7 +83,7 @@
         </tr>
       </tbody>
     </table>
-  
+
     <div *ngIf="!nuevaTarea &&teacher && teacher.email !== ''" class="Request">
       <h2>Solicitudes para unirse a este ranking</h2>
       <div class="containertablerequest">
@@ -112,9 +103,11 @@
                 <td>{{ analysis.id_rank}}</td>
                 <td>{{ analysis.accepted }}</td>
                 <td *ngIf="teacher && teacher.email !== ''">
-                  <button (click)="acceptStudent(analysis.id_student,analysis.id_rank)" class="btn btn-success">Aceptar al
+                  <button (click)="acceptStudent(analysis.id_student,analysis.id_rank)" class="btn btn-success">Aceptar
+                    al
                     ranking</button>
-                  <button (click)="denegateStudent(analysis.id_student,analysis.id_rank)" class="btn btn-danger">Eliminar
+                  <button (click)="denegateStudent(analysis.id_student,analysis.id_rank)"
+                    class="btn btn-danger">Eliminar
                     solicitud</button>
                 </td>
               </div>
@@ -122,17 +115,16 @@
           </tbody>
         </table>
       </div>
-  
+
     </div>
-  
+
     <div *ngIf="!rankingAnalises" class="loading-message">Cargando...</div>
     <div *ngIf="!rankingAnalises" class="error-message">No se encontraron datos del ranking.</div>
   </div>
-  
+
   <div *ngIf="showPracticasComponent">
     <app-practicas *ngIf="showPracticasComponent" [rankingId]="rankingId" [practicasDelivered]="practicesDelivered"
       (onPracticeSelected)="verPracticas($event)" (goBack)="showPracticasComponent = false"></app-practicas>
-  
+
   </div>
 </div>
-

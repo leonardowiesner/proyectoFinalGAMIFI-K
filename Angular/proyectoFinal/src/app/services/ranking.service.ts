@@ -40,19 +40,16 @@ export interface RankingAnalysis
   id_rank: number;
   points: number;
   name: string;
+  accepted: number;
+  
   emotional: number;
   thinking: number;
   responsability: number;
   cooperation: number;
   initiative: number;
-  accepted: number;
-  imageUrls: {
-    emotional: string;
-    thinking: string;
-    responsability: string;
-    cooperation: string;
-    initiative: string;
-  };
+  
+  skillsNumber: Map<string, number>;
+  imageUrls: Map<string, string>;
 }
 
 @Injectable( {

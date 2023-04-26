@@ -33,7 +33,7 @@ export class RankingPageComponent implements OnInit {
   nuevaTarea: boolean = false;
   selectedFiles: { [practiceId: number]: File } = {};
   practicesDelivered: any[] = [];
-
+  softSkills: string[] = ['emotional', 'thinking', 'responsability', 'cooperation', 'initiative'];
 
   constructor(private route: ActivatedRoute, private rankingService: RankingService, private teacherService: TeacherService, private studentService: StudentService) {
     this.rankingId = 0;
@@ -63,15 +63,23 @@ export class RankingPageComponent implements OnInit {
 
     this.rankingService.getRankingAnalysis(this.rankingId).subscribe(data => {
       this.rankingAnalises = data.map(analysis => {
-        const imageUrls = {
-          emotional: this.getImageUrl(analysis.emotional),
-          thinking: this.getImageUrl(analysis.thinking),
-          responsability: this.getImageUrl(analysis.responsability),
-          cooperation: this.getImageUrl(analysis.cooperation),
-          initiative: this.getImageUrl(analysis.initiative),
-        };
+        const skillsNumber: Map<string, number> = new Map<string, number>([
+          ['emotional', analysis.emotional],
+          ['thinking', analysis.thinking],
+          ['responsability', analysis.responsability],
+          ['cooperation', analysis.cooperation],
+          ['initiative', analysis.initiative],
+        ]);
 
-        return { ...analysis, imageUrls };
+        const imageUrls: Map<string, string> = new Map<string, string>([
+          ['emotional', this.getImageUrl(analysis.emotional)],
+          ['thinking', this.getImageUrl(analysis.thinking)],
+          ['responsability', this.getImageUrl(analysis.responsability)],
+          ['cooperation', this.getImageUrl(analysis.cooperation)],
+          ['initiative', this.getImageUrl(analysis.initiative)],
+        ]);
+
+        return { ...analysis, imageUrls, skillsNumber };
       });
     });
 
@@ -130,11 +138,11 @@ export class RankingPageComponent implements OnInit {
     return `assets/images/${rank}.png`;
   }
 
-  descriptionSoftSkills(points: number, images: string, name: string) {
+  descriptionSoftSkills(analysis: RankingAnalysis, skill:string) {
     Swal.fire({
-      title: name+ "<br>Puntos "+ points,
-      text: this.getDescription(name),
-      imageUrl: images,
+      title: skill + "<br>Puntos " + analysis.points,
+      text: this.getDescription(skill),
+      imageUrl: analysis.imageUrls.get(skill),
       imageWidth: 300,
       imageHeight: 300,
       imageAlt: 'Custom image',
@@ -142,22 +150,22 @@ export class RankingPageComponent implements OnInit {
   }
 
   getDescription(name: string) {
-    if (name === "Emocional") {
+    if (name === "emotional") {
       return "Las emociones son reacciones psicofisiológicas que representan modos de adaptación del individuo cuando percibe un objeto, persona, lugar, suceso o recuerdo importante."
     }
-    if (name === "Pensamiento") {
+    if (name === "thinking") {
       return "En su sentido más común, los términos pensamiento y pensar se refieren a procesos cognitivos conscientes que pueden ocurrir independientemente de la estimulación sensorial. Sus formas más paradigmáticas son el juicio, el razonamiento, la formación de conceptos, la resolución de problemas y la deliberación."
     }
-    if (name === "Responsabilidad") {
+    if (name === "responsability") {
       return "La responsabilidad es un valor que está en la conciencia de la persona que estudia la Ética sobre la base de la moral. Puesto en práctica, se establece la magnitud de dichas acciones y de cómo afrontarlas de la manera más positiva e integral para ayudar en un futuro."
     }
-    if (name === "Cooperacion") {
+    if (name === "cooperation") {
       return "La cooperación es el resultado de una estrategia aplicada al objetivo, desarrollado por grupos de personas o instituciones que comparten un mismo interés u objetivo. En este proceso generalmente se emplean métodos colaborativos y asociativos que facilitan la consecución de la meta común."
     }
-    if (name === "Iniciativa") {
+    if (name === "initiative") {
       return "En psicología, la iniciativa es un rasgo de la personalidad que impulsa a un individuo a comenzar algo que ve como necesario, normalmente de cara al ámbito social en el que se mueve. Viene del latín initium, 'principio' y es el ímpetu o el primer paso hacia una acción."
     }
-    return"";
+    return "";
   }
 
   acceptStudent(id_student: number, id_rank: number) {
