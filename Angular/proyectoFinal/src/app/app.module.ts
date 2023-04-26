@@ -27,7 +27,6 @@ import { LoginTeacherComponent } from './paginas/login-page/login-teacher/login-
 import { SidebarComponent } from './sidebar/sidebar.component';
 
 
-
 @NgModule({
   declarations: [
     
@@ -39,7 +38,6 @@ import { SidebarComponent } from './sidebar/sidebar.component';
     LoginStudentComponent,
     LoginTeacherComponent,
     SidebarComponent,
-
   
   ],
   imports: [
