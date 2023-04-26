@@ -141,5 +141,7 @@
   
   </div>
   <button [routerLink]="['/soft-skill-evaluation', rankingId]">Evaluar Soft Skills</button>
+  <button *ngIf="!nuevaTarea &&teacher && teacher.email !== ''" [routerLink]="['/history-skills', rankingId]">Ir a historial</button>
+
 
 </div>

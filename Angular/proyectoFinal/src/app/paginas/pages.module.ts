@@ -18,10 +18,11 @@ import { RankingPageComponent } from './ranking-page/ranking-page.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { PracticasComponent } from './ranking-page/practicas/practicas.component';
 import { StudentSoftSkillEvaluationComponent } from './student-soft-skill-evaluation/student-soft-skill-evaluation.component';
+import { HistorySkillsComponent } from './history-skills/history-skills.component';
 
 
 @NgModule({
-  declarations: [MainPageComponent, StudentPageComponent,TeacherPageComponent, ProfileTeacherComponent, ProfileStudentComponent, ChangePasswordDialogComponent, RankingPageComponent, PracticasComponent, StudentSoftSkillEvaluationComponent  ],
+  declarations: [MainPageComponent, StudentPageComponent,TeacherPageComponent, ProfileTeacherComponent, ProfileStudentComponent, ChangePasswordDialogComponent, RankingPageComponent, PracticasComponent, StudentSoftSkillEvaluationComponent, HistorySkillsComponent  ],
   imports: [
     ReactiveFormsModule,
     PagesRoutingModule,
