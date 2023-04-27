@@ -15,7 +15,7 @@ import { HistorySkillsComponent } from './history-skills/history-skills.componen
 const routes: Routes = [
   { path: 'ranking/:id', component: RankingPageComponent },
   { path: 'soft-skill-evaluation/:rankingId',component: StudentSoftSkillEvaluationComponent, },
-  { path: 'history-skills/:rankingId',component: HistorySkillsComponent, },
+  { path: 'history-skills/:id',component: HistorySkillsComponent, },
   { path: 'studentProfile', component: ProfileStudentComponent },
   { path: 'teacherProfile', component: ProfileTeacherComponent },
   { path: 'student', component: StudentPageComponent}, 
