@@ -4,11 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Models\SoftSkillEvaluation;
 use App\Models\Student;
+use App\Models\RankingAnalysis;
 use Illuminate\Http\Request;
 
 class SoftSkillEvaluationController extends Controller
 {
-    // Agrega cualquier otro método necesario para manejar las evaluaciones de Soft Skills
     public function store(Request $request)
     {
         // Validar datos de la solicitud
@@ -17,21 +17,40 @@ class SoftSkillEvaluationController extends Controller
             'evaluated_student_id' => 'required|integer|different:evaluator_student_id',
             'ranking_analysis_id' => 'required|integer',
             'points' => 'required|integer|min:0|max:1000',
-            'week_start_date' => 'required|date',
+            'soft_skill' => 'required|string',
         ]);
-
+    
         // Crear nueva evaluación de Soft Skills
         $evaluation = new SoftSkillEvaluation([
             'evaluator_student_id' => $request->evaluator_student_id,
             'evaluated_student_id' => $request->evaluated_student_id,
             'ranking_analysis_id' => $request->ranking_analysis_id,
             'points' => $request->points,
-            'week_start_date' => $request->week_start_date,
+            'soft_skill' => $request->soft_skill,
         ]);
-
+    
+        $rankingAnalysis = RankingAnalysis::where('id_student', $request->evaluated_student_id)
+            ->where('week_start_date', /* fecha de inicio de la semana actual */)
+            ->first();
+    
+        if ($rankingAnalysis) {
+            // Actualiza el campo correspondiente de la soft skill con los nuevos puntos
+            $softSkillField = $request->soft_skill;
+            $rankingAnalysis->$softSkillField += $request->points;
+    
+            // Opcionalmente, actualiza también los puntos semanales y/o totales
+            $rankingAnalysis->weeklyPoints += $request->points;
+            $rankingAnalysis->points += $request->points;
+    
+            // Guarda los cambios en la base de datos
+            $rankingAnalysis->save();
+        } else {
+            // Maneja el caso en el que no se encuentre el registro de RankingAnalysis correspondiente
+        }
+    
         // Guardar evaluación en la base de datos
         $evaluation->save();
-
+    
         // Devolver una respuesta de éxito
         return response()->json(['message' => 'Soft Skill Evaluation successfully stored.']);
     }

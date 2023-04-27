@@ -19,11 +19,7 @@ export class SoftSkillsService {
   constructor(private http: HttpClient) { }
 
   // Método para guardar una nueva evaluación de Soft Skills
-  saveEvaluation(evaluationData: any): Observable<any> {
-    const url = `${this.baseUrl}/soft-skills/evaluation`;
 
-    return this.http.post<any>(url, evaluationData);
-  }
 
   getRankingAnalysis ( rankingId: number )
   {
@@ -52,7 +48,9 @@ export class SoftSkillsService {
     });
     return this.http.get(`${this.baseUrl}/soft-skill-evaluation/student/${studentId}`, { headers });
   }
-
+  saveEvaluation(evaluationData: any): Observable<any> {
+    return this.http.post(`${this.baseUrl}/student/soft-skills/evaluations`, evaluationData);
+  }
   // Método para obtener todos los estudiantes
   getStudents(): Observable<any> {
     return this.http.get(`${this.baseUrl}/students`);
