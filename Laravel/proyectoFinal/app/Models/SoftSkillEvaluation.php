@@ -15,7 +15,7 @@ class SoftSkillEvaluation extends Model
         'evaluated_student_id',
         'ranking_analysis_id',
         'points',
-        'week_start_date',
+        'soft_skill',
     ];
 
     public function evaluator_student()

@@ -3,7 +3,7 @@
         <div>
           <label for="evaluatedStudentId">Estudiante evaluado:</label>
           <select id="evaluatedStudentId" formControlName="evaluatedStudentId">
-            <option *ngFor="let student of students" [value]="student.id">{{ student.name }}</option>
+            <option *ngFor="let student of rankingAnalises" [value]="student.id">{{ student.name }}</option>
           </select>
           <div *ngIf="evaluationForm.get('evaluatedStudentId')?.errors?.['selfEvaluation']">
             No puedes evaluarte a ti mismo.
@@ -12,12 +12,12 @@
         <div>
           <label for="softSkillId">Soft Skill:</label>
           <select id="softSkillId" formControlName="softSkillId">
-            <option *ngFor="let softSkill of softSkills" [value]="softSkill.id">{{ softSkill.name }}</option>
+            <option *ngFor="let softSkill of softSkills" [value]="softSkill.realname">{{ softSkill.name }}</option>
           </select>
         </div>
         <div>
           <label for="points">Puntos:</label>
-          <input type="number" id="points" formControlName="points" min="0" max="100" />
+          <input type="number" id="points" formControlName="points" min="0" max="50" />
         </div>
         <button type="submit">Enviar evaluación</button>
       </form>

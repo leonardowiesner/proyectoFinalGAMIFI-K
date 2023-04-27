@@ -40,6 +40,7 @@ export interface RankingAnalysis
   id_student: number;
   id_rank: number;
   points: number;
+  weeklyPoints:number;
   name: string;
   accepted: number;
   

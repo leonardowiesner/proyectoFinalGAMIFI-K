@@ -38,7 +38,10 @@ Route::prefix('login')->group(function () {
 
 
 Route::prefix('student')->group(function () {
+
     Route::get('/all', [StudentController::class, 'all']);
+    
+    Route::post('/soft-skills/evaluations', [SoftSkillEvaluationController::class, 'store']);
 
     Route::get('get-ranking-studen/{id}', [RankingController::class, 'getRankingByStuden']);
 

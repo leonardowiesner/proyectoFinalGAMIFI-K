@@ -3,6 +3,7 @@ import { AbstractControl, FormBuilder, FormControl, FormGroup, ValidationErrors,
 import { RankingAnalysis, RankingService } from 'src/app/services/ranking.service';
 import { SoftSkillsService } from 'src/app/services/soft-skills.service';
 import { ActivatedRoute, Router } from '@angular/router';
+import { StudentService } from 'src/app/services/student.service';
 
 @Component({
   selector: 'app-student-soft-skill-evaluation',
@@ -13,7 +14,7 @@ export class StudentSoftSkillEvaluationComponent implements OnInit {
   evaluationForm: FormGroup;
   rankingAnalises: RankingAnalysis[] = [];
   rankingId: number | null = null;
-  currentUser = { id: 1 }; // Reemplaza esto con la información del usuario actual (estudiante que realiza la evaluación)
+  currentUserId = this.studentService.student.id // Reemplaza esto con la información del usuario actual (estudiante que realiza la evaluación)
   students = [
     { id: 1, name: 'Estudiante 1' },
     { id: 2, name: 'Estudiante 2' },
@@ -21,11 +22,11 @@ export class StudentSoftSkillEvaluationComponent implements OnInit {
   ];
 
   softSkills = [
-    { id: 1, name: 'Emocional' },
-    { id: 2, name: 'Pensamiento' },
-    { id: 3, name: 'Responsabilidad' },
-    { id: 2, name: 'Cooperacion' },
-    { id: 3, name: 'Iniciativa' },
+    { realname: "emotional", name: 'Emocional' },
+    { realname: "thinking", name: 'Pensamiento' },
+    { realname: "responsability", name: 'Responsabilidad' },
+    { realname: "cooperation", name: 'Cooperacion' },
+    { realname: "initiative", name: 'Iniciativa' },
 
   ];
  constructor(
@@ -33,7 +34,8 @@ export class StudentSoftSkillEvaluationComponent implements OnInit {
     private rankingService: RankingService,
     private softSkillsService: SoftSkillsService,
     private route: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private studentService: StudentService
   ) {
     this.evaluationForm = this.formBuilder.group({
       evaluatedStudentId: ['', [Validators.required, this.selfEvaluationValidator.bind(this)]],
@@ -43,6 +45,8 @@ export class StudentSoftSkillEvaluationComponent implements OnInit {
   }
 
   ngOnInit() {
+    console.log("Hola");
+    
     this.route.paramMap.subscribe((params) => {
       const rankingIdParam = params.get('rankingId');
       if (rankingIdParam) {
@@ -52,7 +56,8 @@ export class StudentSoftSkillEvaluationComponent implements OnInit {
             this.rankingAnalises = data;
           } );
           this.students=this.rankingAnalises
-
+          console.log(this.students);
+          
       } else {
         // Maneja el caso en el que 'rankingId' no esté presente en la ruta.
         this.router.navigate(['/rankings']);
@@ -71,15 +76,11 @@ export class StudentSoftSkillEvaluationComponent implements OnInit {
     return null;
   }
 
-  saveSoftSkillEvaluation() {
-    const evaluationData = {
-      id: 0,
-      name: '1',
-    };
-
+  saveSoftSkillEvaluation(evaluationData: any) {
     this.softSkillsService.saveEvaluation(evaluationData).subscribe(
       (response: any) => {
         console.log('Evaluación de Soft Skills guardada con éxito:', response);
+        // Redirigir a una página de éxito o actualizar la vista según sea necesario
       },
       (error: any) => {
         console.error('Error al guardar la evaluación de Soft Skills:', error);
@@ -89,7 +90,14 @@ export class StudentSoftSkillEvaluationComponent implements OnInit {
 
   onSubmit(): void {
     if (this.evaluationForm.valid) {
-      // Llamar al servicio para guardar la evaluación
+        const evaluationData = {
+            evaluator_student_id: this.currentUserId,
+            evaluated_student_id: this.evaluationForm.value.evaluatedStudentId,
+            soft_skill: this.evaluationForm.value.softSkillId, // Cambia esta línea
+            ranking_analysis_id: this.rankingId,
+            points: this.evaluationForm.value.points,
+        };
+        this.saveSoftSkillEvaluation(evaluationData);
     }
-  }
+}
 }
