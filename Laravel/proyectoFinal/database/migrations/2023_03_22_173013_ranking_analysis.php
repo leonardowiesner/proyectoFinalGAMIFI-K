@@ -19,6 +19,7 @@ return new class extends Migration
             $table->unsignedBigInteger('id_rank');
             $table->integer('points');
             $table->integer('weeklyPoints');
+            $table->date('week_start_date');
             $table->integer('emotional');
             $table->integer('thinking');
             $table->integer('responsability');

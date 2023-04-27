@@ -19,7 +19,6 @@ return new class extends Migration
             $table->unsignedBigInteger('evaluated_student_id');
             $table->unsignedBigInteger('ranking_analysis_id');
             $table->integer('points');
-            $table->date('week_start_date');
             $table->timestamps();
 
             // Foreign key constraints
@@ -28,7 +27,7 @@ return new class extends Migration
             $table->foreign('ranking_analysis_id')->references('id')->on('ranking_analyses')->onDelete('cascade');
 
             // Unique constraint to prevent a student from evaluating the same soft skill of another student multiple times in the same week
-            $table->unique(['evaluator_student_id', 'evaluated_student_id', 'ranking_analysis_id', 'week_start_date'], 'unique_soft_skill_evaluation');
+            $table->unique(['evaluator_student_id', 'evaluated_student_id', 'ranking_analysis_id'], 'unique_soft_skill_evaluation');
         });
     }
 
