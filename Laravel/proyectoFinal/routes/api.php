@@ -5,8 +5,11 @@ use App\Http\Controllers\StudentController;
 use App\Http\Controllers\TeacherController;
 use App\Http\Controllers\RankingController;
 use App\Http\Controllers\RankPracticeController;
+use App\Http\Controllers\SoftSkillEvaluationController;
 use App\Models\Ranking;
 use App\Models\RankPractice;
+use App\Models\SoftSkillEvaluation;
+use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -83,6 +86,8 @@ Route::prefix('teacher')->group(function () {
 
     */
 
+    Route::get('get-historial/{id}', [SoftSkillEvaluationController::class, 'getHistorial']);
+
     Route::post('/change-code-rank',  [RankingController::class, 'changeCodeRank']);
 
     Route::post('/download-practice-file', [RankPracticeController::class, 'downloadPracticeFile']);
@@ -90,6 +95,7 @@ Route::prefix('teacher')->group(function () {
     Route::post('/update-picture', [TeacherController::class, 'updatePicture']);
 
     Route::post('accept-student', [RankingController::class, 'acceptStudent']);
+
     Route::post('denegate-student', [RankingController::class, 'denegateStudent']);
 
 

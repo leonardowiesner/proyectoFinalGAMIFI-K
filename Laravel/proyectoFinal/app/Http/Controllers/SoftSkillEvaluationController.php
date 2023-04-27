@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 
 class SoftSkillEvaluationController extends Controller
 {
+    // Agrega cualquier otro método necesario para manejar las evaluaciones de Soft Skills
     public function store(Request $request)
     {
         // Validar datos de la solicitud
@@ -53,5 +54,17 @@ class SoftSkillEvaluationController extends Controller
         return response()->json($students);
     }
 
-    // Agrega cualquier otro método necesario para manejar las evaluaciones de Soft Skills
+    public function getHistorial($id_rank)
+    {
+        /* // Validar la solicitud del cliente
+        $request->validate([
+            'ranking_analysis_id' => 'required',
+        ]); */
+        // Obtener todos los registros de StudentEvaluation ordenados por fecha de creación
+        $studentEvaluations = SoftSkillEvaluation::where("ranking_analysis_id", $id_rank)
+            ->orderBy('created_at', 'desc')
+            ->get();
+        // Devolver los registros en formato JSON
+        return response()->json(['studentEvaluations' => $studentEvaluations]);
+    }
 }

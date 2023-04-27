@@ -20,6 +20,7 @@ export interface Ranking
   id_student: number;
   points: number;
   image: string;
+  accepted: number;
 
 }
 
