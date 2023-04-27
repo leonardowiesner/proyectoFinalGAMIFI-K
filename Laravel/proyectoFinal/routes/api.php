@@ -88,6 +88,8 @@ Route::prefix('teacher')->group(function () {
 
     Route::get('get-historial/{id}', [SoftSkillEvaluationController::class, 'getHistorial']);
 
+    Route::get('delete-student-evaluation/{id}', [SoftSkillEvaluationController::class, 'deleteStudentEvaluation']);
+
     Route::post('/change-code-rank',  [RankingController::class, 'changeCodeRank']);
 
     Route::post('/download-practice-file', [RankPracticeController::class, 'downloadPracticeFile']);

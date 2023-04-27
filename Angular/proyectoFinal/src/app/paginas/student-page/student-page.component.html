@@ -1,47 +1,47 @@
 <div class="containerStudent">
-      <!-- Contenedor de rankings -->
-      <!-- <div class="ranking-container"> -->
-      <!-- Mensaje si el alumno no tiene rankings -->
-      <div class="noRankJoinNew">
-        <div class="noRankingsContainer">
-          <ng-container *ngIf="rankings.length == 0; else rankingList">
-            <h2>¡Ups! 😰</h2><br />
-          <p class="no-rankings-message">
-            <span>{{ mensajeNoRankings }}</span>
-          </p>
-          <!-- <div class="roboimage">
+  <!-- Contenedor de rankings -->
+  <!-- <div class="ranking-container"> -->
+  <!-- Mensaje si el alumno no tiene rankings -->
+  <div class="noRankJoinNew">
+    <div class="noRankingsContainer">
+      <ng-container *ngIf="rankings.length == 0; else rankingList">
+        <h2>¡Ups! 😰</h2><br />
+        <p class="no-rankings-message">
+          <span>{{ mensajeNoRankings }}</span>
+        </p>
+        <!-- <div class="roboimage">
                 <img src="https://i.imgur.com/M7t09Un.png" alt="Imagen de robot">
               </div> -->
-              <div class="mainimageContainer">
-                <div class="imageContainer">
-                  <img src="https://i.imgur.com/Hx7TLZp.png" alt="">
-                </div>
-              </div>
-          </ng-container>
+        <div class="mainimageContainer">
+          <div class="imageContainer">
+            <img src="https://i.imgur.com/Hx7TLZp.png" alt="">
+          </div>
         </div>
+      </ng-container>
+    </div>
 
-        <!-- Formulario para unirse a un nuevo ranking -->
-        <div class="form-group">
-          <label class="form-label" for="nuevo-codigo-ranking">Introduce un código de ranking para unirte a uno
-            nuevo:</label>
-          <input class="form-control" type="text" id="nuevo-codigo-ranking" [(ngModel)]="nuevoCodigoRanking"/>
-          <button class="neon" (click)="unirseRanking()">Unirse a ranking</button>
+    <!-- Formulario para unirse a un nuevo ranking -->
+    <div class="form-group">
+      <label class="form-label" for="nuevo-codigo-ranking">Introduce un código de ranking para unirte a uno
+        nuevo:</label>
+      <input class="form-control" type="text" id="nuevo-codigo-ranking" [(ngModel)]="nuevoCodigoRanking" />
+      <button class="neon" (click)="unirseRanking()">Unirse a ranking</button>
+    </div>
+  </div>
+
+  <!-- Lista de rankings si el alumno tiene al menos uno -->
+  <ng-template #rankingList>
+    <h2 class="rankings-message">Estas matriculado en los siguientes rankings:</h2>
+    <section id="destacados" class="destacados">
+      <div *ngFor="let ranking of rankings">
+        <div class="rankingcito" *ngIf="ranking.accepted == 1">
+          <div class="contencito">
+            <h3>{{ ranking.name }}</h3>
+            <button (click)="verRanking(ranking.id)" type="button" class="btn btn-outline-info">Ver Ranking</button>
+          </div>
+          <img [src]="ranking.image" alt="">
         </div>
       </div>
-
-              <!-- Lista de rankings si el alumno tiene al menos uno -->
-              <ng-template #rankingList>
-                <h2 class="rankings-message">Estas matriculado en los siguientes rankings:</h2>
-                  <section id="destacados" class="destacados">
-                    <div class="rankingcito" *ngFor="let ranking of rankings">
-                      <ng-container *ngIf="ranking.accepted == 1">
-                        <div class="contencito">
-                          <h3>{{ ranking.name }}</h3>
-                          <button (click)="verRanking(ranking.id)" type="button" class="btn btn-outline-info">Ver Ranking</button>
-                        </div>
-                        <img [src]="ranking.image" alt="">
-                      </ng-container>
-                    </div>
-                  </section>
-              </ng-template>
+    </section>
+  </ng-template>
 </div>

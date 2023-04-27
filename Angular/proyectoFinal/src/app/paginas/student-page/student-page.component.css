@@ -26,7 +26,7 @@ h2{
   
   border-radius: 17% 18% 13% 8% / 11% 12% 9% 16%;
   width: 400px;
-  padding: ;
+  /* padding: ; */
 }
 
 .mainimageContainer:hover,
@@ -201,11 +201,12 @@ h2{
     /* CARD RANKINGCITO */
     .rankingcito{
       position: relative;
-      width: 45%;
+      width: 44%;
       height: 200px;
       margin: 40px 20px;
-      display: flex;
-      justify-content: flex-start;
+      display: block flow;
+      /* justify-content: flex-start;
+       */
       align-items: center;
       transition: all .5s;
       /* background: linear-gradient(45deg, #10214c, #c31c7e); */

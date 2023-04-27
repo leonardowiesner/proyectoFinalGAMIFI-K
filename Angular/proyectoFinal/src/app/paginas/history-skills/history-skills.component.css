@@ -1,3 +1,15 @@
 .containerHistory{
     margin-left: 250px;
 }
+
+.ranking-table {
+    border-collapse: collapse;
+    margin-bottom: 20px;
+    width: 100%;
+  }
+  
+  .ranking-table th, .ranking-table td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+  }
