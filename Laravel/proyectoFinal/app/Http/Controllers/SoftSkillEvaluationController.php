@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\ranking_analysis;
 use App\Models\SoftSkillEvaluation;
 use App\Models\Student;
 use App\Models\RankingAnalysis;
@@ -84,6 +85,46 @@ class SoftSkillEvaluationController extends Controller
             ->orderBy('created_at', 'desc')
             ->get();
         // Devolver los registros en formato JSON
-        return response()->json(['studentEvaluations' => $studentEvaluations]);
+        if ($studentEvaluations->count() > 0) {
+            return response()->json([
+                "status" => 1,
+                "msg" => "Se han encontrado las Practica del student en el rank",
+                "data" => $studentEvaluations
+            ]);
+        } else {
+            return response()->json([
+                "status" => 0,
+                "msg" => "No se encontraron practi para el usuario especificado",
+            ], 404);
+        }
+    }
+
+    public function deleteStudentEvaluation($id)
+    {
+        // Buscar el registro de StudentEvaluation por ID
+        $evaluation = SoftSkillEvaluation::find($id);
+
+        if (!$evaluation) {
+            // Si no se encuentra la evaluación, devolver un error 404
+            return response()->json(['error' => 'No se encontró la evaluación especificada.'], 404);
+        }
+
+        // Obtener los puntos a eliminar
+        $points = $evaluation->points;
+
+        // Obtener el evaluador y el evaluado
+        $evaluator = $evaluation->evaluator_student_id;
+        $evaluated = $evaluation->evaluated_student_id;
+
+
+        // Sumar los puntos eliminados en la tabla de ranking_analyses
+        $rank = ranking_analysis::where('id_student', $evaluator)
+            ->where('id_rank', $evaluation->ranking_analysis_id)
+        ->increment('weeklyPoints', $points);
+        
+        // Eliminar la evaluación
+        $evaluation->delete();
+
+        return response()->json(['message' => 'Evaluación eliminada correctamente.']);
     }
 }
