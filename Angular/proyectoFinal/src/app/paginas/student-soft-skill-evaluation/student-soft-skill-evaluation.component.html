@@ -3,7 +3,7 @@
         <div>
           <label for="evaluatedStudentId">Estudiante evaluado:</label>
           <select id="evaluatedStudentId" formControlName="evaluatedStudentId">
-            <option *ngFor="let student of rankingAnalises" [value]="student.id">{{ student.name }}</option>
+            <option *ngFor="let student of rankingAnalises" [value]="student.id_student">{{ student.name }}</option>
           </select>
           <div *ngIf="evaluationForm.get('evaluatedStudentId')?.errors?.['selfEvaluation']">
             No puedes evaluarte a ti mismo.
