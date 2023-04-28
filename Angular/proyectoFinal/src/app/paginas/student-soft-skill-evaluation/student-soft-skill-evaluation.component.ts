@@ -27,7 +27,6 @@ export class StudentSoftSkillEvaluationComponent implements OnInit {
     { realname: "responsability", name: 'Responsabilidad' },
     { realname: "cooperation", name: 'Cooperacion' },
     { realname: "initiative", name: 'Iniciativa' },
-
   ];
  constructor(
     private formBuilder: FormBuilder,
@@ -89,15 +88,17 @@ export class StudentSoftSkillEvaluationComponent implements OnInit {
   }
 
   onSubmit(): void {
+    console.log(this.evaluationForm.value.softSkillId);
+    
     if (this.evaluationForm.valid) {
-        const evaluationData = {
-            evaluator_student_id: this.currentUserId,
-            evaluated_student_id: this.evaluationForm.value.evaluatedStudentId,
-            soft_skill: this.evaluationForm.value.softSkillId, // Cambia esta línea
-            ranking_analysis_id: this.rankingId,
-            points: this.evaluationForm.value.points,
-        };
-        this.saveSoftSkillEvaluation(evaluationData);
+      const evaluationData = {
+        evaluator_student_id: this.currentUserId,
+        evaluated_student_id: this.evaluationForm.value.evaluatedStudentId,
+        soft_skill: this.evaluationForm.value.softSkillId, // Aquí ya debería ser una cadena
+        ranking_analysis_id: this.rankingId,
+        points: this.evaluationForm.value.points,
+      };
+      this.saveSoftSkillEvaluation(evaluationData);
     }
-}
+  }
 }

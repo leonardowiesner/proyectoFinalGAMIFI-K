@@ -19,7 +19,7 @@ return new class extends Migration
         $table->unsignedBigInteger('evaluated_student_id');
         $table->unsignedBigInteger('ranking_analysis_id');
         $table->integer('points');
-        $table->string('soft_skill'); // Añade esta línea
+        $table->string('soft_skill');
         $table->timestamps();
 
         // Foreign key constraints

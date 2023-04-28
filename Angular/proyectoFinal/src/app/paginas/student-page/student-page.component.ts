@@ -34,34 +34,32 @@ export class StudentPageComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.images = ["https://i.imgur.com/r7Oo9k5.png", "https://i.imgur.com/KM2IcKo.png",
-    "https://i.imgur.com/vbahFut.png","https://i.imgur.com/DLxq3AY.png","https://i.imgur.com/MKnwHsy.png","https://i.imgur.com/k6slzA2.png","https://i.imgur.com/4Ujc7UH.png","https://i.imgur.com/uTDjkfa.png"];
-    // Obtenemos la lista de rankings matriculados por el alumno
-    this.rankingService.getRankingsAlumno(this.id).subscribe({
-      next: (rankings: any) => {
-
-
-        if (rankings !== undefined) {
-          this.rankings = rankings.data;
-          console.log(rankings); // Para imprimir el id del primer ranking de la lista
-          this.rankings.forEach(ranking => {
-            let autoExclude: number[] = [];
-            let randomNumber: number = Math.floor(Math.random() * this.images.length);
-            while (autoExclude.includes(randomNumber)) { randomNumber = Math.floor(Math.random() * this.images.length); }
-            ranking.image = this.images[randomNumber];
-          });
-        } else {
-          console.log('No hay rankings disponibles.');
-          this.rankings = [];
-        }
-      },
-      error: (error: any) => {
-        console.log('Error al obtener los rankings: ', error);
-        console.log(this.rankings[0].id);
+  this.images = ["https://i.imgur.com/r7Oo9k5.png", "https://i.imgur.com/KM2IcKo.png",
+  "https://i.imgur.com/vbahFut.png","https://i.imgur.com/DLxq3AY.png","https://i.imgur.com/MKnwHsy.png","https://i.imgur.com/k6slzA2.png","https://i.imgur.com/4Ujc7UH.png","https://i.imgur.com/uTDjkfa.png"];
+  // Obtenemos la lista de rankings matriculados por el alumno
+  this.rankingService.getRankingsAlumno(this.id).subscribe({
+    next: (rankings: {data: Ranking[]}) => {
+      if (rankings !== undefined) {
+        this.rankings = rankings.data.filter((ranking: Ranking) => ranking.accepted == 1);
+        console.log(rankings); // Para imprimir el id del primer ranking de la lista
+        this.rankings.forEach(ranking => {
+          let autoExclude: number[] = [];
+          let randomNumber: number = Math.floor(Math.random() * this.images.length);
+          while (autoExclude.includes(randomNumber)) { randomNumber = Math.floor(Math.random() * this.images.length); }
+          ranking.image = this.images[randomNumber];
+        });
+      } else {
+        console.log('No hay rankings disponibles.');
         this.rankings = [];
       }
-    });
-  }
+    },
+    error: (error: any) => {
+      console.log('Error al obtener los rankings: ', error);
+      console.log(this.rankings[0].id);
+      this.rankings = [];
+    }
+  });
+}
 
 
   unirseRanking(): void {
@@ -76,22 +74,28 @@ export class StudentPageComponent implements OnInit {
           //   enRanking => {
           //     if (!enRanking) {
                 // Si el alumno no está matriculado, lo añadimos al ranking
-                this.rankingService.anadirAlumnoRanking(this.id, this.nuevoCodigoRanking, this.points).subscribe(
-                  () => {
-                    // Actualizamos la lista de rankings matriculados
-                    this.rankingService.getRankingsAlumno(this.id).subscribe({
-                      next: (rankings: any) => {
-                        if (rankings !== undefined) {
-                          this.rankings = rankings.data;
-                          console.log(this.rankings[2].id); // Para imprimir el id del primer ranking de la lista
-                        } else {
-                          console.log('No hay rankings disponibles.');
-                          this.rankings = [];
-                        }
-                      },
-                    });
+                this.rankingService.getRankingsAlumno(this.id).subscribe({
+                  next: (rankings: {data: Ranking[]}) => {
+                    if (rankings !== undefined) {
+                      this.rankings = rankings.data.filter((ranking: Ranking) => ranking.accepted == 1);
+                      console.log(rankings); // Para imprimir el id del primer ranking de la lista
+                      this.rankings.forEach(ranking => {
+                        let autoExclude: number[] = [];
+                        let randomNumber: number = Math.floor(Math.random() * this.images.length);
+                        while (autoExclude.includes(randomNumber)) { randomNumber = Math.floor(Math.random() * this.images.length); }
+                        ranking.image = this.images[randomNumber];
+                      });
+                    } else {
+                      console.log('No hay rankings disponibles.');
+                      this.rankings = [];
+                    }
+                  },
+                  error: (error: any) => {
+                    console.log('Error al obtener los rankings: ', error);
+                    console.log(this.rankings[0].id);
+                    this.rankings = [];
                   }
-                );
+                });
               }
         //     }
         //   );

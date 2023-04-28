@@ -25,9 +25,8 @@ h2{
   background: linear-gradient(0deg, #2b2f77 0%, #141852 50%, #070b34 100%);
   
   border-radius: 17% 18% 13% 8% / 11% 12% 9% 16%;
-  width: 400px;
-  padding: 0;
-
+  /* width: 400px;
+  padding: 0; */
 }
 
 .mainimageContainer:hover,
@@ -202,14 +201,11 @@ h2{
     /* CARD RANKINGCITO */
     .rankingcito{
       position: relative;
-
-      width: 100%;
-
+      width: 45%;
       height: 200px;
       margin: 40px 20px;
-      display: block flow;
-      /* justify-content: flex-start;
-       */
+      display: flex;
+      justify-content: flex-start;
       align-items: center;
       transition: all .5s;
       /* background: linear-gradient(45deg, #10214c, #c31c7e); */

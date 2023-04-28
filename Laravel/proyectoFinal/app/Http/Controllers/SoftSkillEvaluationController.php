@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\RankingAnalysis;
 use App\Models\SoftSkillEvaluation;
 use App\Models\Student;
-
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class SoftSkillEvaluationController extends Controller
@@ -30,8 +30,10 @@ class SoftSkillEvaluationController extends Controller
             'soft_skill' => $request->soft_skill,
         ]);
     
+        $weekStartDate = Carbon::now()->startOfWeek()->toDateString();
+    
         $rankingAnalysis = RankingAnalysis::where('id_student', $request->evaluated_student_id)
-            ->where('week_start_date', /* fecha de inicio de la semana actual */)
+            ->where('week_start_date', $weekStartDate)
             ->first();
     
         if ($rankingAnalysis) {
