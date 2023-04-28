@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\ranking_analysis;
+use App\Models\RankingAnalysis;
 use App\Models\SoftSkillEvaluation;
 use App\Models\Student;
-use App\Models\RankingAnalysis;
+
 use Illuminate\Http\Request;
 
 class SoftSkillEvaluationController extends Controller
@@ -118,7 +118,7 @@ class SoftSkillEvaluationController extends Controller
 
 
         // Sumar los puntos eliminados en la tabla de ranking_analyses
-        $rank = ranking_analysis::where('id_student', $evaluator)
+        $rank = RankingAnalysis::where('id_student', $evaluator)
             ->where('id_rank', $evaluation->ranking_analysis_id)
         ->increment('weeklyPoints', $points);
         
