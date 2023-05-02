@@ -9,7 +9,7 @@
    
           <div class="form-group">
             <div class="blurredwallpaper">
-              <h2>Crear un nuevo ranking </h2>
+              <h3 class="text-center">Crear un nuevo ranking </h3>
               <form (ngSubmit)="crearRanking()">
               <input placeholder="Nombre de tu nuevo ranking "type="text" class="form-control" id="nombreRanking" name="nombreRanking"[(ngModel)]="nombreRanking"/>
               <div class="flex-profile">
@@ -18,7 +18,7 @@
               </form>
           </div>
       <div class="flex-profile">
-        <a class="btn btn-primary mt-1 mb-2"[routerLink]="['/teacherProfile']"routerLinkActive="router-link-active">Editar perfil de profesor 📝 </a>
+        <a class="btn btn-primary mt-3"[routerLink]="['/teacherProfile']"routerLinkActive="router-link-active">Editar perfil de profesor 📝 </a>
       </div>
     </div>
   </div>
