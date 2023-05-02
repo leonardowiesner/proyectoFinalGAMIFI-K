@@ -15,7 +15,9 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        // $schedule->command('inspire')->hourly();
+        $schedule->command('inspire')->hourly();
+         // Ejecuta el comando 'reset:weekly-points' cada semana
+    $schedule->command('reset:weekly-points')->weekly();
     }
 
     /**
@@ -29,4 +31,10 @@ class Kernel extends ConsoleKernel
 
         require base_path('routes/console.php');
     }
+    protected $commands = [
+        // ...
+        Commands\ResetWeeklyPoints::class,
+    ];
+    
+    
 }
