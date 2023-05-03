@@ -1,4 +1,4 @@
-<div class="containerHistory">
+<!-- <div class="containerHistory">
     <table class="ranking-table" *ngIf="teacher && teacher.email !== ''">
         <thead>
             <tr>
@@ -19,5 +19,29 @@
             </tr>
         </tbody>
     </table>
-
+</div> -->
+<div class="containerHistory container">
+    <h2 class="text-center">Historial de transferencia puntos de Soft Skills 🔄</h2>
+    <div class="table-responsive text-center">
+        <table class="table table-bordered table-dark mx-auto" style="width: auto;" *ngIf="teacher && teacher.email !== ''">
+            <thead class="thead-dark"> 
+                <tr>
+                    <th>Estudiante que envia</th>
+                    <th>Estudiante que recibe</th>
+                    <th>Puntos</th>
+                    <th>Fecha</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let histori of historial">
+                    <td>{{ histori.evaluator_student_id }}</td>
+                    <td>{{ histori.evaluated_student_id }}</td>
+                    <td>{{ histori.points }}</td>
+                    <td>{{ histori.created_at }}</td>
+                    <td><button class="btn btn-danger" (click)="deleteStudentEvaluation(histori.id)">Eliminar</button></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
 </div>

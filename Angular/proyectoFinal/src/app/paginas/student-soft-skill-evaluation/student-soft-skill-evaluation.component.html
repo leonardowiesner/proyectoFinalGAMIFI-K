@@ -1,27 +1,33 @@
 <div class="containerSoftSkills">
+  <h2 class="text-center">Evaluar Soft Skills </h2>
+  <div class="d-flex justify-content-center align-items-center form-tarea">
     <form [formGroup]="evaluationForm" (ngSubmit)="onSubmit()">
-        <div>
-          <label for="evaluatedStudentId">Estudiante evaluado:</label>
-          <select id="evaluatedStudentId" formControlName="evaluatedStudentId">
-            <option *ngFor="let student of rankingAnalises" [value]="student.id_student">{{ student.name }}</option>
-          </select>
-          <div *ngIf="evaluationForm.get('evaluatedStudentId')?.errors?.['selfEvaluation']">
-            No puedes evaluarte a ti mismo.
-          </div>
+      <div class="form-group text-center mt-2 mb-3">
+        <label for="evaluatedStudentId">Estudiante evaluado:</label>
+        <select id="evaluatedStudentId" formControlName="evaluatedStudentId">
+          <option *ngFor="let student of rankingAnalises" [value]="student.id_student">{{ student.name }}</option>
+        </select>
+        <div *ngIf="evaluationForm.get('evaluatedStudentId')?.errors?.['selfEvaluation']">
+          No puedes evaluarte a ti mismo.
         </div>
-        <div>
-          <label for="softSkillId">Soft Skill:</label>
-          <select id="softSkillId" formControlName="softSkillId">
-            <option *ngFor="let softSkill of softSkills" [value]="softSkill.realname">{{ softSkill.name }}</option>
-          </select>
-        </div>
-        <div>
-          <label for="points">Puntos:</label>
-          <input type="number" id="points" formControlName="points" min="0"/>
-        </div>
-        <div *ngIf="evaluationForm.get('points')?.errors?.['pointsExceeded']">
-          No puedes asignar más puntos de los que tienes disponibles.
-        </div>
-        <button type="submit">Enviar evaluación</button>
-      </form>
+
+      </div>
+      <div class="form-group text-center mt-2 mb-3">
+        <label for="softSkillId">Soft Skill:</label>
+        <select id="softSkillId" formControlName="softSkillId">
+          <option *ngFor="let softSkill of softSkills" [value]="softSkill.realname">{{ softSkill.name }}</option>
+        </select>
+      </div>
+      <div class="form-group text-center mt-2 mb-3">
+        <label for="points">Puntos:</label>
+        <input type="number" id="points" formControlName="points" min="0" />
+      </div>
+      <div *ngIf="evaluationForm.get('points')?.errors?.['pointsExceeded']">
+        No puedes asignar más puntos de los que tienes disponibles.
+      </div>
+      <button class="btn btn-primary mt-3 mb-3" type="submit">Enviar evaluación</button>
+    </form>
+  </div>
+
+
 </div>

@@ -8,48 +8,30 @@
       <button class="btn btn-outline-info btn-sm" (click)="changeCodeRank()">Regenerar Codigo Ranking ♻️</button> <!--boton regenerar codigo -->
     </div>
 
-    <div class="table-responsive">  <!--TABLA PARA PRACTICA  -->
-      <table class="table table-dark" *ngIf="student && student.email !== ''">
-
-        <thead class="thead-light"> <!--FILA CABECERA DE DESCRIPCION DE PRACTICA -->
-          <tr>
-            <th>Nombre</th>
-            <th>Descripción</th>
-            <th>Puntos</th>
-            <th>Fecha límite</th>
-            <th>Entregar archivo</th>
-          </tr>
-        </thead>
-
-        <tbody> <!--FILA CONTENIDO DE RANKING -->
-          <tr *ngFor="let practica of practicas">
-            <td>{{ practica.name }}</td>
-            <td>{{ practica.description }}</td>
-            <td>{{ practica.points_practice }}</td>
-            <td>{{ practica.deadline_practice | date:'shortDate' }}</td>
-            <td>
-              <input type="file" (change)="onFileSelected($event,practica.id)" /> <!--SUBIR ARCHIVO -->
-              <button (click)="uploadFile(practica.id)">Subir</button>
-            </td>
-          </tr>
-        </tbody>
-
-      </table>
+    <div *ngIf="nuevaTarea">
+      <h2 class="text-center">Añadir nueva Tarea a este Ranking</h2> <!--AÑADIR TAREA-->
+      <div class="d-flex justify-content-center align-items-center form-tarea">
+        <!--AÑADIR TAREA-->
+        <form>
+          <div class="form-group text-center mt-2 mb-3">
+            <label for="tarea.name">Nombre</label>
+            <input class="mt-2" type="text" name="tarea.name" id="tarea.name" [(ngModel)]="tarea.name" class="form-control">
+          </div>
+          <div class="form-group text-center mt-2 mb-3">
+            <label for="description">Descripción</label>
+            <textarea class="mt-2" name="description" id="description" [(ngModel)]="tarea.description" class="form-control"></textarea>
+          </div>
+          <div class="form-group text-center mt-2 mb-3">
+            <label for="deadline_practice">Fecha límite</label>
+            <input class="mt-2" type="date" name="deadline_practice" id="deadline_practice" [(ngModel)]="tarea.deadline_practice" class="form-control">
+          </div>
+          <button class="btn btn-primary mt-3 mb-3" type="submit" (click)="agregarTarea()">Agregar tarea</button>
+          <button class="btn btn-danger ml-3 mt-3 mb-3" type="button" (click)="nuevaTarea = false">Cancelar</button>
+        </form>
+      </div>
+      
     </div>
- 
 
-    <div *ngIf="nuevaTarea"> <!--AÑADIR TAREA-->
-      <form>
-        <label>Nombre:</label>
-        <input type="text" name="tarea.name" id="tarea.name" [(ngModel)]="tarea.name"><br>
-        <label>Descripción:</label>
-        <textarea name="description" id="description" [(ngModel)]="tarea.description"></textarea><br>
-        <label>Fecha límite:</label>
-        <input type="date" name="deadline_practice" id="deadline_practice" [(ngModel)]="tarea.deadline_practice"><br>
-        <button type="submit" (click)="agregarTarea()">Agregar tarea</button>
-        <button type="button" (click)="nuevaTarea = false">Cancelar</button>
-      </form>
-    </div>
 
     <div class="d-flex justify-content-start">
       <button class="btn btn-outline-info btn-sm"*ngIf="!nuevaTarea && teacher && teacher.email !== ''" (click)="nuevaTarea = true">Añadir nueva Tarea ➕</button> <!--BOTON AÑADIR TAREA -->
@@ -101,6 +83,36 @@
         </table>
       </div>
 
+      <div *ngIf="!practicas" class="table-responsive">  <!--TABLA PARA PRACTICA  -->
+        <table class="table table-dark" *ngIf="student && student.email !== ''">
+  
+          <thead class="thead-light"> <!--FILA CABECERA DE DESCRIPCION DE PRACTICA -->
+            <tr>
+              <th>Nombre</th>
+              <th>Descripción</th>
+              <th>Puntos</th>
+              <th>Fecha límite</th>
+              <th>Entregar archivo</th>
+            </tr>
+          </thead>
+  
+          <tbody> <!--FILA CONTENIDO DE RANKING -->
+            <tr *ngFor="let practica of practicas">
+              <td>{{ practica.name }}</td>
+              <td>{{ practica.description }}</td>
+              <td>{{ practica.points_practice }}</td>
+              <td>{{ practica.deadline_practice | date:'shortDate' }}</td>
+              <td>
+                <input type="file" (change)="onFileSelected($event,practica.id)" /> <!--SUBIR ARCHIVO -->
+                <button (click)="uploadFile(practica.id)">Subir</button>
+              </td>
+            </tr>
+          </tbody>
+  
+        </table>
+      </div>
+      <button class="btn btn-outline-info"*ngIf="!nuevaTarea &&teacher && teacher.email !== ''" [routerLink]="['/history-skills', rankingId]">Ir a historial Soft Skills</button>
+
       <!--SOLICITUDES PARA UNIRSE A RANKING SOLO DISP. PARA PROFESOR-->
     <div *ngIf="!nuevaTarea && teacher && teacher.email !== ''" class="Request"> <!--SOLICITUDES PARA UNIRSE A RANKING SOLO DISP. PARA PROFESOR-->
       <h2 class="text-center">Solicitudes para unirse a este ranking 👥</h2>
@@ -147,7 +159,9 @@
 
   <!-- SECCION SOFTS SKILLS -->
   <button  class="btn btn-outline-info" *ngIf="student && student.email !== ''" [routerLink]="['/soft-skill-evaluation', rankingId]">Evaluar Soft Skills</button>
+
   <button class="btn btn-outline-info"*ngIf="!nuevaTarea &&teacher && teacher.email !== ''" [routerLink]="['/history-skills', rankingId]">Ir a historial Soft Skills</button>
+
 
 
 </div>
