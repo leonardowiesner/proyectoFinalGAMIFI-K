@@ -1,85 +1,39 @@
 .RankingContenedor{
-  margin-left: 250px;
+  margin-top: 3%;
+  margin-left: 265px;
+  margin-right: 10px;
+  color: white;
 }
-.ranking-header {
-    font-size: 28px;
+ th{
+    font-size: 17px;
     font-weight: bold;
-    margin-bottom: 20px;
-  }
-  
-  .ranking-table {
-    border-collapse: collapse;
-    margin-bottom: 20px;
-    width: 100%;
-  }
-  
-  .ranking-table th, .ranking-table td {
-    border: 1px solid #ddd;
-    padding: 8px;
-    text-align: left;
-  }
-  
-
-  
-  .loading-message, .error-message {
-    font-size: 20px;
-    margin-top: 20px;
-    text-align: center;
-  }
-  
-  .loading-message {
-    color: #999;
-  }
-  
-  .error-message {
-    color: red;
   }
 
-  /* request */
-  
-  .Request{
-    background: rgba(80,120,102,0.25);
-    -webkit-backdrop-filter: blur(3px);
-    backdrop-filter: blur(3px);
-    border: 1px solid rgba(80,120,102,0.125);
-    width: 50vw;
-    height: 50vh;
-    position: absolute;
-    left: 50vh;
+  .btn-outline-success{
+    margin-right: 5px;
   }
 
-  .containertablerequest table{
-    width: 30vw;
-    height: 20vh;
-    position: absolute;
-    left: 0vh;
+  .btn-outline-danger{
+    margin-left: 5px;
   }
-
-  .Request h2{
-    text-align: center;
-    font-size: 2rem;
-    font-weight: 600;
-  }
-
-  .Request table{
-    border-collapse: collapse;
-    position: absolute !important;
-    left: 15vh;
-    text-align: center;
-  }
-
-  th,td{
-    border: 1px solid #ddd;
-    padding: 2px;
-  }
-
-  .btn{
-    margin: 4px;
-  }
-
-  img{
+   img{
     width:50px;
     height: 50px;
+  } 
+  
+  .btn-info{
+    margin-top:3px;
   }
+
+  .btn-outline-info{
+    margin-top:5px;
+    margin-bottom: 5px;
+  }
+
+  h2{
+    font-size: 35px;
+    font-weight: bold;
+  }
+
 
   
