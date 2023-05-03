@@ -71,7 +71,7 @@ Route::prefix('student')->group(function () {
 
     Route::delete('/delete', [StudentController::class, 'delete']);
 
-    Route::post('/soft-skill-evaluation', [SoftSkillEvaluationController::class, 'store']);
+    Route::post('/soft-skill-evaluations', [SoftSkillEvaluationController::class, 'store']);
 
     Route::get('/soft-skill-evaluation/student/{student_id}', [SoftSkillEvaluationController::class, 'getEvaluationsByStudent']);
     

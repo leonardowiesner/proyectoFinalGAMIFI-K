@@ -201,7 +201,7 @@ h2{
     /* CARD RANKINGCITO */
     .rankingcito{
       position: relative;
-      width: 45%;
+      width: 100%;
       height: 200px;
       margin: 40px 20px;
       display: flex;

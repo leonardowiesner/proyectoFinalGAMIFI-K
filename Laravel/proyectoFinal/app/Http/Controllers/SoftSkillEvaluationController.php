@@ -7,57 +7,93 @@ use App\Models\SoftSkillEvaluation;
 use App\Models\Student;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 
 class SoftSkillEvaluationController extends Controller
 {
     public function store(Request $request)
     {
-        // Validar datos de la solicitud
-        $request->validate([
-            'evaluator_student_id' => 'required|integer',
-            'evaluated_student_id' => 'required|integer|different:evaluator_student_id',
-            'ranking_analysis_id' => 'required|integer',
-            'points' => 'required|integer|min:0|max:1000',
-            'soft_skill' => 'required|string',
-        ]);
-    
-        // Crear nueva evaluación de Soft Skills
-        $evaluation = new SoftSkillEvaluation([
-            'evaluator_student_id' => $request->evaluator_student_id,
-            'evaluated_student_id' => $request->evaluated_student_id,
-            'ranking_analysis_id' => $request->ranking_analysis_id,
-            'points' => $request->points,
-            'soft_skill' => $request->soft_skill,
-        ]);
-    
+        try {
+            // Validar datos de la solicitud
+            $request->validate([
+                'evaluator_student_id' => 'required|integer',
+                'evaluated_student_id' => 'required|integer|different:evaluator_student_id',
+                'ranking_analysis_id' => 'required|integer',
+                'points' => 'required|integer|min:0|max:1000',
+                'soft_skill' => 'required|string',
+            ]);
+
+            // Crear nueva evaluación de Soft Skills
+            $evaluation = new SoftSkillEvaluation([
+                'evaluator_student_id' => $request->evaluator_student_id,
+                'evaluated_student_id' => $request->evaluated_student_id,
+                'ranking_analysis_id' => $request->ranking_analysis_id,
+                'points' => $request->points,
+                'soft_skill' => $request->soft_skill,
+            ]);
+
+
+          
         $weekStartDate = Carbon::now()->startOfWeek()->toDateString();
-    
+
         $rankingAnalysis = RankingAnalysis::where('id_student', $request->evaluated_student_id)
-            ->where('week_start_date', $weekStartDate)
+            //->where('week_start_date', $weekStartDate)
             ->first();
-    
-        if ($rankingAnalysis) {
-            // Actualiza el campo correspondiente de la soft skill con los nuevos puntos
-            $softSkillField = $request->soft_skill;
-            $rankingAnalysis->$softSkillField += $request->points;
-    
-            // Opcionalmente, actualiza también los puntos semanales y/o totales
-            $rankingAnalysis->weeklyPoints += $request->points;
-            $rankingAnalysis->points += $request->points;
-    
+        $evaluatorRankingAnalysis = RankingAnalysis::where('id_student', $request->evaluator_student_id)
+         //   ->where('week_start_date', $weekStartDate)
+            ->first();
+
+        // Si no existe un registro de RankingAnalysis, crea uno.
+        if (!$evaluatorRankingAnalysis) {
+            $evaluatorRankingAnalysis = new RankingAnalysis([
+                'id_student' => $request->evaluator_student_id,
+                'id_rank' => 1, // Asegúrate de establecer el valor adecuado para tu aplicación
+                'points' => 0, // Puedes establecer el valor inicial que necesites
+                'weeklyPoints' => 1000, // O la cantidad de puntos semanales predeterminada.
+                'week_start_date' => $weekStartDate,
+                'emotional' => 0,
+                'thinking' => 0,
+                'responsability' => 0,
+                'cooperation' => 0,
+                'initiative' => 0,
+                'accepted' => 0,
+            ]);
+            $evaluatorRankingAnalysis->save();
+        }
+        if ($evaluatorRankingAnalysis->weeklyPoints < $request->points) {
+            return response()->json(['error' => 'No tienes suficientes puntos semanales para asignar.'], 400);
+        }
+
+
+         // Continúa con el resto del código ...
+         // Restar los puntos semanales del evaluador
+         $evaluatorRankingAnalysis->weeklyPoints -= $request->points;
+         $evaluatorRankingAnalysis->save();
+ 
+         // Continúa con el resto del código ...
+         $softSkillField = $request->soft_skill;
+         $rankingAnalysis[$softSkillField] += $request->points;
+
             // Guarda los cambios en la base de datos
             $rankingAnalysis->save();
-        } else {
-            // Maneja el caso en el que no se encuentre el registro de RankingAnalysis correspondiente
+
+            // Guardar evaluación en la base de datos
+            $evaluation->save();
+
+            // Devolver una respuesta de éxito
+            return response()->json(['message' => 'Soft Skill Evaluation successfully stored.']);
+        } catch (\Exception $e) {
+            // Si algo falla, registra el error y devuelve un mensaje de error genérico
+            Log::error("Error al guardar la evaluación de Soft Skills: {$e->getMessage()} - En la línea {$e->getLine()} del archivo {$e->getFile()}");
+            return response()->json(['error' => 'Error al guardar la evaluación de Soft Skills.'], 500);
         }
-    
-        // Guardar evaluación en la base de datos
-        $evaluation->save();
-    
-        // Devolver una respuesta de éxito
-        return response()->json(['message' => 'Soft Skill Evaluation successfully stored.']);
     }
 
+    public function subtractWeeklyPoints($points)
+    {
+        $this->weeklyPoints -= $points;
+    }
+    
     public function getEvaluationsByStudent($student_id)
     {
         // Obtener evaluaciones de Soft Skills para el estudiante especificado
