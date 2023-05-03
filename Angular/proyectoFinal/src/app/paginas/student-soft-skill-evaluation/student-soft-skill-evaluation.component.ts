@@ -29,7 +29,7 @@ export class StudentSoftSkillEvaluationComponent implements OnInit {
     { realname: "cooperation", name: 'Cooperacion' },
     { realname: "initiative", name: 'Iniciativa' },
   ];
- constructor(
+  constructor(
     private formBuilder: FormBuilder,
     private rankingService: RankingService,
     private softSkillsService: SoftSkillsService,
@@ -40,35 +40,34 @@ export class StudentSoftSkillEvaluationComponent implements OnInit {
     this.evaluationForm = this.formBuilder.group({
       evaluatedStudentId: ['', [Validators.required, this.selfEvaluationValidator.bind(this)]],
       softSkillId: ['', Validators.required],
-      points: ['', [Validators.required, Validators.min(0), Validators.max(1000), this.pointsValidator.bind(this)]],
+      points: ['', [Validators.required, Validators.min(1), Validators.max(1000), this.pointsValidator.bind(this)]],
     });
   }
 
   ngOnInit() {
     console.log("Hola");
-    
+
     this.route.paramMap.subscribe((params) => {
       const rankingIdParam = params.get('rankingId');
       if (rankingIdParam) {
         this.rankingId = +rankingIdParam;
-        this.rankingService.getRankingAnalysis( this.rankingId ).subscribe( data =>
-          {
-            this.rankingAnalises = data;
-          } );
-          this.students=this.rankingAnalises
-          console.log(this.students);
-          
+        this.rankingService.getRankingAnalysis(this.rankingId).subscribe(data => {
+          this.rankingAnalises = data;
+        });
+        this.students = this.rankingAnalises
+        console.log(this.students);
+
       } else {
         // Maneja el caso en el que 'rankingId' no esté presente en la ruta.
         this.router.navigate(['/rankings']);
       }
     });
-    
+
   }
 
   pointsValidator(control: AbstractControl): ValidationErrors | null {
     const points = control.value;
-  
+    console.log('Current student weekly points:', this.currentStudentWeeklyPoints);
     if (points > this.currentStudentWeeklyPoints) {
       return { pointsExceeded: { value: points } };
     }
@@ -77,7 +76,7 @@ export class StudentSoftSkillEvaluationComponent implements OnInit {
 
   selfEvaluationValidator(control: AbstractControl): { [key: string]: any } | null {
     // Reemplaza "currentStudentId" con el ID del estudiante actualmente registrado/logueado
-    const currentStudentId = 1;
+    const currentStudentId = this.currentUserId;
 
     if (control.value == currentStudentId) {
       return { selfEvaluation: { value: control.value } };
@@ -99,8 +98,11 @@ export class StudentSoftSkillEvaluationComponent implements OnInit {
 
   onSubmit(): void {
     console.log(this.evaluationForm.value.softSkillId);
-    
+    console.log("Formulario válido:", this.evaluationForm.valid);
+    console.log("Formulario valor:", this.evaluationForm.value);
+
     if (this.evaluationForm.valid) {
+      console.log(this.evaluationForm.value.softSkillId);
       const evaluationData = {
         evaluator_student_id: this.currentUserId,
         evaluated_student_id: this.evaluationForm.value.evaluatedStudentId,
@@ -108,6 +110,7 @@ export class StudentSoftSkillEvaluationComponent implements OnInit {
         ranking_analysis_id: this.rankingId,
         points: this.evaluationForm.value.points,
       };
+      console.log("Datos de evaluación:", evaluationData);
       this.saveSoftSkillEvaluation(evaluationData);
     }
   }

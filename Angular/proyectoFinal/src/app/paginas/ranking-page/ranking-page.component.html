@@ -160,5 +160,8 @@
   <!-- SECCION SOFTS SKILLS -->
   <button  class="btn btn-outline-info" *ngIf="student && student.email !== ''" [routerLink]="['/soft-skill-evaluation', rankingId]">Evaluar Soft Skills</button>
 
+  <button class="btn btn-outline-info"*ngIf="!nuevaTarea &&teacher && teacher.email !== ''" [routerLink]="['/history-skills', rankingId]">Ir a historial Soft Skills</button>
+
+
 
 </div>
