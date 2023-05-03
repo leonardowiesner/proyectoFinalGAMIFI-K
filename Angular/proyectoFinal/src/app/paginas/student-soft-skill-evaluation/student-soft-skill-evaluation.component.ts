@@ -11,6 +11,7 @@ import { StudentService } from 'src/app/services/student.service';
   styleUrls: ['./student-soft-skill-evaluation.component.css']
 })
 export class StudentSoftSkillEvaluationComponent implements OnInit {
+  currentStudentWeeklyPoints = 1000; // Reemplaza esto con la cantidad real de 'weeklyPoints' del estudiante actual
   evaluationForm: FormGroup;
   rankingAnalises: RankingAnalysis[] = [];
   rankingId: number | null = null;
@@ -39,7 +40,7 @@ export class StudentSoftSkillEvaluationComponent implements OnInit {
     this.evaluationForm = this.formBuilder.group({
       evaluatedStudentId: ['', [Validators.required, this.selfEvaluationValidator.bind(this)]],
       softSkillId: ['', Validators.required],
-      points: ['', [Validators.required, Validators.min(0), Validators.max(1000)]],
+      points: ['', [Validators.required, Validators.min(0), Validators.max(1000), this.pointsValidator.bind(this)]],
     });
   }
 
@@ -63,6 +64,15 @@ export class StudentSoftSkillEvaluationComponent implements OnInit {
       }
     });
     
+  }
+
+  pointsValidator(control: AbstractControl): ValidationErrors | null {
+    const points = control.value;
+  
+    if (points > this.currentStudentWeeklyPoints) {
+      return { pointsExceeded: { value: points } };
+    }
+    return null;
   }
 
   selfEvaluationValidator(control: AbstractControl): { [key: string]: any } | null {
