@@ -25,7 +25,11 @@ import { LoginStudentComponent } from './paginas/login-page/login-student/login-
 import { TeacherPageComponent } from './paginas/teacher-page/teacher-page.component';
 import { LoginTeacherComponent } from './paginas/login-page/login-teacher/login-teacher.component';
 import { SidebarComponent } from './sidebar/sidebar.component';
+import { JwtModule } from '@auth0/angular-jwt';
 
+export function tokenGetter() {
+  return localStorage.getItem('access_token');
+}
 
 @NgModule({
   declarations: [
@@ -52,7 +56,14 @@ import { SidebarComponent } from './sidebar/sidebar.component';
     MatCardModule,
     MatInputModule,
     MatSelectModule,
-    MatIconModule
+    MatIconModule,
+    JwtModule.forRoot({
+      config: {
+        tokenGetter: tokenGetter,
+        allowedDomains: ['example.com'],
+        disallowedRoutes: ['http://example.com/api/auth/']
+      }
+    })
   ],
   providers: [],
   bootstrap: [AppComponent]
