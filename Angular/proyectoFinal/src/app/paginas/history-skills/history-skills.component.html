@@ -23,12 +23,14 @@
 <div class="containerHistory container">
     <h2 class="text-center">Historial de transferencia puntos de Soft Skills 🔄</h2>
     <div class="table-responsive text-center">
-        <table class="table table-bordered table-dark mx-auto" style="width: auto;" *ngIf="teacher && teacher.email !== ''">
-            <thead class="thead-dark"> 
+        <table class="table table-bordered table-dark mx-auto" style="width: auto;"
+            *ngIf="teacher && teacher.email !== ''">
+            <thead class="thead-dark">
                 <tr>
                     <th>Estudiante que envia</th>
                     <th>Estudiante que recibe</th>
                     <th>Puntos</th>
+                    <th>Habilidad</th>
                     <th>Fecha</th>
                     <th>Action</th>
                 </tr>
@@ -38,8 +40,23 @@
                     <td>{{ histori.evaluator_student_id }}</td>
                     <td>{{ histori.evaluated_student_id }}</td>
                     <td>{{ histori.points }}</td>
+                    <td>{{ histori.soft_skill }}</td>
                     <td>{{ histori.created_at }}</td>
-                    <td><button class="btn btn-danger" (click)="deleteStudentEvaluation(histori.id)">Eliminar</button></td>
+                    <td>
+                        <button class="btn btn-danger" (click)="deleteStudentEvaluation(histori.id)">Eliminar</button>
+                        <div>
+                            <button class="btn btn-info"
+                                (click)="filteredByStudentEvaluator(histori.evaluator_student_id)">Buscar Por este Evaluador</button>
+                        </div>
+                        <!-- <div>
+                            <button class="btn btn-info"
+                                (click)="filteredByStudentEvaluator(rankingId,histori.evaluated_student_id)">Buscar Por este Evaluado</button>
+                        </div> -->
+                        <!-- <div>
+                            <button class="btn btn-info"
+                                (click)="filteredByStudentEvaluator(histori.id,histori.soft_skill)">Buscar Por esta Habilidad</button>
+                        </div> -->
+                    </td>
                 </tr>
             </tbody>
         </table>
