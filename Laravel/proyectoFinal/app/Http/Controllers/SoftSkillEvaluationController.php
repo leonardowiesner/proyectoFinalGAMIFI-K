@@ -37,10 +37,11 @@ class SoftSkillEvaluationController extends Controller
         $weekStartDate = Carbon::now()->startOfWeek()->toDateString();
 
         $rankingAnalysis = RankingAnalysis::where('id_student', $request->evaluated_student_id)
-            //->where('week_start_date', $weekStartDate)
+            ->where('id_rank', $request->ranking_analysis_id)
             ->first();
-        $evaluatorRankingAnalysis = RankingAnalysis::where('id_student', $request->evaluator_student_id)
-         //   ->where('week_start_date', $weekStartDate)
+            $evaluatorRankingAnalysis = RankingAnalysis::where('id_student', $request->evaluator_student_id)
+            //   ->where('week_start_date', $weekStartDate)
+            ->where('id_rank', $request->ranking_analysis_id)
             ->first();
 
         // Si no existe un registro de RankingAnalysis, crea uno.
