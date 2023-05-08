@@ -271,3 +271,10 @@
       font-weight: 700;
       text-align: center;
     }
+
+    .closesesion{
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin: auto;
+    }

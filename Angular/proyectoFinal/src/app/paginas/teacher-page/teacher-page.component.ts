@@ -8,6 +8,7 @@ import { NavBarService } from 'src/app/services/nav-bar.service';
 //SweetAlert2
 import 'sweetalert2/src/sweetalert2.scss';
 import Swal from 'sweetalert2';
+import { AuthService } from 'src/app/services/auth.service';
 @Component({
   selector: 'app-teacher-page',
   templateUrl: './teacher-page.component.html',
@@ -20,7 +21,9 @@ export class TeacherPageComponent implements OnInit {
   token:string="";
   constructor(private rankingservice:RankingService,
               private teacherService:TeacherService,
-              private readonly navBarService: NavBarService
+              private readonly navBarService: NavBarService,
+              private authService: AuthService
+              
               ) {
     this.teacher = {id: 0, nickname : "", name:"", surnames:"", email:"", password:"",img:"",centro: "" }
               navBarService.showNavbar = true;
@@ -33,8 +36,8 @@ export class TeacherPageComponent implements OnInit {
  
       //console.log(teacher);
       this.teacher = teacher;
-      window.localStorage.getItem(this.token)
-      console.log(  this.token);
+   this.token = window.localStorage.getItem('authToken') || '';
+this.teacherService.token = this.token;
     
     });
     
@@ -72,7 +75,9 @@ export class TeacherPageComponent implements OnInit {
     console.log(this.rankings.values);
   }
 
- 
+  onLogoutClick(): void {
+    this.authService.logout();
+  }
 
 crearRanking(){
   const uuid = uuidv4();

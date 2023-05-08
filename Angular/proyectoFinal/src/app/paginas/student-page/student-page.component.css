@@ -284,4 +284,9 @@ h3{
   line-height: 1em;
 }
 
-    
+.closesesion{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: auto;
+}
