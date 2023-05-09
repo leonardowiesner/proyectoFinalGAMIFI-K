@@ -24,9 +24,23 @@ export class AuthService {
         // Save the token in the localStorage
         if (response.body && response.body.token) {
           window.localStorage.setItem('authToken', response.body.token);
+          window.localStorage.setItem('student', JSON.stringify(response.body.student)); // Agrega esta línea para guardar la información del usuario
         }
       })
     );
+  }
+  
+  getAccessToken(): string | null {
+    return localStorage.getItem('authToken');
+  }
+  getStudent(): any {
+    const studentData = window.localStorage.getItem('student');
+    return studentData ? JSON.parse(studentData) : null;
+  }
+  
+  getTeacher(): any {
+    const teacherData = window.localStorage.getItem('teacher');
+    return teacherData ? JSON.parse(teacherData) : null;
   }
 
   loginTeacher(email: string, password: string): Observable<HttpResponse<any>> {
@@ -37,6 +51,7 @@ export class AuthService {
         // Save the token in the localStorage
         if (response.body && response.body.token) {
           window.localStorage.setItem('authToken', response.body.token);
+          window.localStorage.setItem('teacher', JSON.stringify(response.body.teacher)); // Agrega esta línea para guardar la información del usuario
         }
       })
     );

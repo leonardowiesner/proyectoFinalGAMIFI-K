@@ -36,7 +36,7 @@ Route::prefix('login')->group(function () {
 });
 
 
-Route::middleware(['auth:api'])->group(function () {
+Route::middleware(['auth:sanctum'])->group(function () {
 Route::prefix('student')->group(function () {
 
     Route::get('/all', [StudentController::class, 'all']);

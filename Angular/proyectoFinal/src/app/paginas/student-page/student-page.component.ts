@@ -17,11 +17,12 @@ export class StudentPageComponent implements OnInit {
   images: string[] = [];
   rankings: Ranking[] = [];
   token:string="";
+  student = this.authService.getStudent();
   // Lista de rankings matriculados por el alumno
   nuevoCodigoRanking: string = ''; // Código del nuevo ranking al que unirse
   mensajeNoRankings: string = 'Ups! Parece que no estás matriculado en ningún ranking.'; // Mensaje a mostrar si el alumno no tiene rankings
   //mensajeRankings: string = 'Estás matriculado en los siguientes rankings:'; // Mensaje a mostrar si el alumno tiene rankings
-  id = this.studentService.student.id;
+  id = this.student.id;
   points: number = 0;
   constructor(private rankingService: RankingService,
               private studentService: StudentService,
@@ -31,12 +32,15 @@ export class StudentPageComponent implements OnInit {
               ) {
     // this.rankings = [];
               navBarService.showNavbar = true;
+              this.token = window.localStorage.getItem('authToken') || '';
   }
   verRanking(id: number) {
     this.router.navigate(['/ranking', id]);
+    
   }
 
   ngOnInit(): void {
+    
   this.images = ["https://i.imgur.com/r7Oo9k5.png", "https://i.imgur.com/KM2IcKo.png",
   "https://i.imgur.com/vbahFut.png","https://i.imgur.com/DLxq3AY.png","https://i.imgur.com/MKnwHsy.png","https://i.imgur.com/k6slzA2.png","https://i.imgur.com/4Ujc7UH.png","https://i.imgur.com/uTDjkfa.png"];
   // Obtenemos la lista de rankings matriculados por el alumno

@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
 
 // Module
@@ -26,6 +26,7 @@ import { TeacherPageComponent } from './paginas/teacher-page/teacher-page.compon
 import { LoginTeacherComponent } from './paginas/login-page/login-teacher/login-teacher.component';
 import { SidebarComponent } from './sidebar/sidebar.component';
 import { JwtModule } from '@auth0/angular-jwt';
+import { AuthInterceptor } from './auth.interceptor';
 
 export function tokenGetter() {
   return localStorage.getItem('access_token');
@@ -65,7 +66,9 @@ export function tokenGetter() {
       }
     })
   ],
-  providers: [],
+  providers: [
+    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

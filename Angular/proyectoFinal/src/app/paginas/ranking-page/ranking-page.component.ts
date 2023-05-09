@@ -11,6 +11,7 @@ import { saveAs } from 'file-saver'; // Agrega esta línea
 import 'sweetalert2/src/sweetalert2.scss';
 import Swal from 'sweetalert2';
 import { v4 as uuidv4 } from 'uuid';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-ranking-page',
@@ -18,12 +19,12 @@ import { v4 as uuidv4 } from 'uuid';
   styleUrls: ['./ranking-page.component.css']
 })
 export class RankingPageComponent implements OnInit {
+  teacher = this.authService.getTeacher();
+  student= this.authService.getStudent();
   rankingSolo: RankingSolo[] = [];
   rankingId: number;
   rankingName: String | null;
   rankingAnalises: RankingAnalysis[] = [];
-  teacher: TeachersData;
-  student: StudentData;
   showPracticasComponent: boolean = false;
   return: any;
   practicas: Tarea[] = [];
@@ -35,10 +36,9 @@ export class RankingPageComponent implements OnInit {
   practicesDelivered: any[] = [];
   softSkills: string[] = ['emotional', 'thinking', 'responsability', 'cooperation', 'initiative'];
 
-  constructor(private route: ActivatedRoute, private rankingService: RankingService, private teacherService: TeacherService, private studentService: StudentService) {
+  constructor(  private authService: AuthService,private route: ActivatedRoute, private rankingService: RankingService, private teacherService: TeacherService, private studentService: StudentService) {
     this.rankingId = 0;
-    this.teacher = this.teacherService.teacher;
-    this.student = this.studentService.student;
+
     this.new_points = 0;
     this.rankingName = "";
     this.name_practica = "";
@@ -60,7 +60,8 @@ export class RankingPageComponent implements OnInit {
 
     this.rankingId = Number(this.route.snapshot.paramMap.get('id'));
     this.rankingName = this.route.snapshot.paramMap.get('name');
-
+console.log(this.student);
+console.log(this.teacher);
     this.rankingService.getRankingAnalysis(this.rankingId).subscribe(data => {
       this.rankingAnalises = data.map(analysis => {
         const skillsNumber: Map<string, number> = new Map<string, number>([
@@ -111,10 +112,7 @@ export class RankingPageComponent implements OnInit {
       });
 
 
-    if (this.teacher) {
-      console.log(this.rankingId);
 
-    }
 
   }
 
