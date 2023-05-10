@@ -5,11 +5,8 @@ import { ErrorStateMatcher } from '@angular/material/core';
 import { AuthService } from 'src/app/services/auth.service';
 import { LoginData } from 'src/app/interfaces/login-data.interface';
 import { NavBarService } from 'src/app/services/nav-bar.service';
-import { TeacherService } from 'src/app/services/teacher.service';
 import { HttpClient } from '@angular/common/http';
 import { RespuestaServidor } from 'src/app/interfaces/respuesta-servidor';
-//SweetAlert2
-import 'sweetalert2/src/sweetalert2.scss';
 import Swal from 'sweetalert2';
 
 export class MyErrorStateMatcher implements ErrorStateMatcher {
@@ -18,21 +15,22 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
     return !!(control && control.invalid && (control.dirty || control.touched || isSubmitted));
   }
 }
+
 @Component({
   selector: 'app-login-teacher',
   templateUrl: './login-teacher.component.html',
   styleUrls: ['./login-teacher.component.css']
 })
 export class LoginTeacherComponent implements OnInit {
-  token:string;
+  token: string;
+
   constructor(
-    private readonly teacherService: TeacherService,
+    private readonly authService: AuthService,
     private readonly router: Router,
-    
     private readonly navBarService: NavBarService,
     private http: HttpClient
-  ) { 
-    this.token="";
+  ) {
+    this.token = "";
     navBarService.showNavbar = false;
   }
 
@@ -44,57 +42,29 @@ export class LoginTeacherComponent implements OnInit {
   matcher = new MyErrorStateMatcher();
 
   onSubmit() {
+    const email = this.loginForm.controls['email'].value ?? '';
+    const password = this.loginForm.controls['password'].value ?? '';
 
-    console.log(this.loginForm);
-    
-
-    const mail = this.loginForm.controls['email'].value;
-    const pass = this.loginForm.controls['password'].value;
-
-    const logData: LoginData = {
-      email: (mail) ? mail : '',
-      password: (pass) ? pass : ''
-    };
-    console.log(this.loginForm.value);
-    this.teacherService.login(logData)
+    this.authService.loginTeacher(email, password)
       .subscribe({
-        next: (response: RespuestaServidor) => {
-        
-        // El se loguea correctamente y guardamos el token
-        if (response.status == 1) {
-          console.log(response);          
-          this.teacherService.token = response.token!;
-          this.teacherService.teacher=response.teacher;
-
-        // Agrega esto para guardar los datos del usuario en la cookie
-
-          const userData = {
-            token: response.token!,
-            student: response.student
-          };
-          this.token = userData.token
-          window.localStorage.setItem(this.token, userData.token);
-          console.log(window.localStorage.getItem(this.token));
+        next: (response) => {
           Swal.fire({
             icon: 'success',
             title: 'Login exitoso !!',
             text: 'Te has logueado correctamente!',
           })
-          this.router.navigate(['/teacher']); // redirigimos al usuario a la página de dashboard
+          this.router.navigate(['/teacher']);
+        },
+        error: (error) => {
+          Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: 'Usuario o contraseña incorrectos, verifica tus credenciales !',
+          })
         }
-      },
-      error: (error) => {
-        Swal.fire({
-          icon: 'error',
-          title: 'Oops...',
-          text: 'Usuario o contraseña incorrectos, verifica tus credenciales !',
-        })
-       }
-    });;
-  
-  }
-  ngOnInit(): void {
+      });
   }
 
-  
+  ngOnInit(): void {
+  }
 }

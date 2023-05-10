@@ -4,7 +4,7 @@
   <div *ngIf="!showPracticasComponent"> 
      <h2 class="ranking-header text-center">Ranking #{{ rankingId }}</h2>  <!--TITULO RANKING -->
 
-    <div class="d-flex justify-content-start"*ngIf="teacher && teacher.email !== ''">
+    <div class="d-flex justify-content-start"*ngIf="teacher">
       <button class="btn btn-outline-info btn-sm" (click)="changeCodeRank()">Regenerar Codigo Ranking ♻️</button> <!--boton regenerar codigo -->
     </div>
 
@@ -34,7 +34,7 @@
 
 
     <div class="d-flex justify-content-start">
-      <button class="btn btn-outline-info btn-sm"*ngIf="!nuevaTarea && teacher && teacher.email !== ''" (click)="nuevaTarea = true">Añadir nueva Tarea ➕</button> <!--BOTON AÑADIR TAREA -->
+      <button class="btn btn-outline-info btn-sm" *ngIf="!nuevaTarea && teacher " (click)="nuevaTarea = true">Añadir nueva Tarea ➕</button> <!--BOTON AÑADIR TAREA -->
     </div>
       
       <div class="table-responsive">  
@@ -50,9 +50,9 @@
               <th>Cooperacion 👥</th>
               <th>Iniciativa ☝🏻</th>
               <!--FILASCABECERA DE RANKING DISP. SOLO PROFESOR -->
-              <th *ngIf="!nuevaTarea && teacher && teacher.email !== ''"> Eliminar ⚠️</th> 
-              <th *ngIf="!nuevaTarea && teacher && teacher.email !== ''"> Editar Puntos 📝</th>
-              <th *ngIf="!nuevaTarea && teacher && teacher.email !== ''"> Ver Practica 🔎</th>
+              <th *ngIf="!nuevaTarea && teacher"> Eliminar ⚠️</th> 
+              <th *ngIf="!nuevaTarea && teacher "> Editar Puntos 📝</th>
+              <th *ngIf="!nuevaTarea && teacher "> Ver Practica 🔎</th>
             </tr>
           </thead>
 
@@ -67,14 +67,14 @@
                     [src]="analysis.imageUrls.get(skill)" alt="skill Rank Image" width="50" height="50"
                     title="{{analysis.skillsNumber.get(skill)}}"/>
                 </td>
-                <td *ngIf="teacher && teacher.email !== ''">  <!--ACCIONES DISP. SOLO PROFESO (ELIMINAR) -->
+                <td *ngIf="teacher ">  <!--ACCIONES DISP. SOLO PROFESO (ELIMINAR) -->
                   <button class="btn btn-danger btn-sm"(click)="eliminarRegistro(analysis.id_rank,analysis.id_student)">Eliminar ⚠️</button>
                 </td>
-                <td *ngIf="teacher && teacher.email !== ''">
+                <td *ngIf="teacher">
                   <input #newPoints name="new_points" type="number">
                   <button class="btn btn-info btn-sm"(click)="editarPuntos(analysis.id_rank,analysis.id_student,+newPoints.value)">Editar 📝</button> <!--ACCIONES DISP. SOLO PROFESOR (EDITAR) -->
                 </td>
-                <td *ngIf="teacher && teacher.email !== ''">
+                <td *ngIf="teacher">
                   <button class="btn btn-info btn-sm"(click)="verPracticas(analysis.id_student)">Ver Practicas</button> <!--ACCIONES DISP. SOLO PROFESOR (ver practicas) -->
                 </td>
               </ng-container>
@@ -83,8 +83,8 @@
         </table>
       </div>
 
-      <div *ngIf="!practicas" class="table-responsive">  <!--TABLA PARA PRACTICA  -->
-        <table class="table table-dark" *ngIf="student && student.email !== ''">
+      <div *ngIf="student" class="table-responsive">  <!--TABLA PARA PRACTICA  -->
+        <table class="table table-dark" *ngIf="student">
   
           <thead class="thead-light"> <!--FILA CABECERA DE DESCRIPCION DE PRACTICA -->
             <tr>
@@ -111,10 +111,10 @@
   
         </table>
       </div>
-      <button class="btn btn-outline-info"*ngIf="!nuevaTarea &&teacher && teacher.email !== ''" [routerLink]="['/history-skills', rankingId]">Ir a historial Soft Skills</button>
+      <button class="btn btn-outline-info"*ngIf="!nuevaTarea && teacher" [routerLink]="['/history-skills', rankingId]">Ir a historial Soft Skills</button>
 
       <!--SOLICITUDES PARA UNIRSE A RANKING SOLO DISP. PARA PROFESOR-->
-    <div *ngIf="!nuevaTarea && teacher && teacher.email !== ''" class="Request"> <!--SOLICITUDES PARA UNIRSE A RANKING SOLO DISP. PARA PROFESOR-->
+    <div *ngIf="!nuevaTarea && teacher " class="Request"> <!--SOLICITUDES PARA UNIRSE A RANKING SOLO DISP. PARA PROFESOR-->
       <h2 class="text-center">Solicitudes para unirse a este ranking 👥</h2>
       <div class="table-responsive text-center">
         <table class="table table-bordered table-dark mx-auto" style="width: auto;">
@@ -132,7 +132,7 @@
                 <td>{{ analysis.name }}</td>
                 <td>{{ analysis.id_rank}}</td>
                 <td>{{ analysis.accepted }}</td>
-                <td *ngIf="teacher && teacher.email !== ''">
+                <td *ngIf="teacher ">
                   <button (click)="acceptStudent(analysis.id_student,analysis.id_rank)" class="btn btn-outline-success btn-sm">Aceptar solicitud ✅</button>
                   <button (click)="denegateStudent(analysis.id_student,analysis.id_rank)"class="btn btn-outline-danger btn-sm">Eliminar solicitud 🗑️</button>
                 </td>
@@ -158,9 +158,9 @@
   </div>
 
   <!-- SECCION SOFTS SKILLS -->
-  <button  class="btn btn-outline-info" *ngIf="student && student.email !== ''" [routerLink]="['/soft-skill-evaluation', rankingId]">Evaluar Soft Skills</button>
+  <button  class="btn btn-outline-info" *ngIf="student " [routerLink]="['/soft-skill-evaluation', rankingId]">Evaluar Soft Skills</button>
 
-  <button class="btn btn-outline-info"*ngIf="!nuevaTarea &&teacher && teacher.email !== ''" [routerLink]="['/history-skills', rankingId]">Ir a historial Soft Skills</button>
+  <button class="btn btn-outline-info"*ngIf="!nuevaTarea && teacher " [routerLink]="['/history-skills', rankingId]">Ir a historial Soft Skills</button>
 
 
 

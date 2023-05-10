@@ -21,43 +21,6 @@
         <a class="btn btn-primary mt-3"[routerLink]="['/teacherProfile']"routerLinkActive="router-link-active">Editar perfil de profesor 📝 </a>
       </div>
     </div>
+    <button class="btn btn-danger closesesion mt-2"(click)="onLogoutClick()">Cerrar sesión</button>
   </div>
 
-
-
-<!-- <div class="containerTeacherIndex">
-  <div class="">
-    <h2>Listado de rankings 🎯</h2>
-    <section id="destacados" class="destacados">
-      <a class="contencito"[routerLink]="['/ranking', ranking.id]">{{ ranking.name }}</a>
-        <!-- <div class="list-group" *ngFor="let ranking of rankings">
-          <a class="list-group-item list-group-item-action"[routerLink]="['/ranking', ranking.id]">{{ ranking.name }}</a> -->
-          <!-- <button class="neon-warning" (click)="eliminarRegistro(ranking.id)">
-            Eliminar Ranking ⚠️
-          </button>
-      </div>
-    </section>
-
-  </div>
-  <div class="form-group">
-    <div class="blurredwallpaper">
-      <h2>Crear un nuevo ranking </h2>
-      <form (ngSubmit)="crearRanking()">
-      <input placeholder="Nombre de tu nuevo ranking "type="text" class="form-control" id="nombreRanking" name="nombreRanking"[(ngModel)]="nombreRanking"/>
-      <div class="flex-profile">
-        <button type="submit" class="neon">Crear ranking     ✅</button>
-      </div>
-      </form>
-  </div>
-  
-  <div class="flex-profile">
-    <a class="btn btn-primary mt-1 mb-2"[routerLink]="['/teacherProfile']"routerLinkActive="router-link-active">Editar perfil de profesor 📝</a>
-  </div>
-
-
-
-
-
-</div>
-</div> 
---> -->

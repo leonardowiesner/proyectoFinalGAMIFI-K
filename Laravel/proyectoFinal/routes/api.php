@@ -36,7 +36,7 @@ Route::prefix('login')->group(function () {
 });
 
 
-
+Route::middleware(['auth:sanctum'])->group(function () {
 Route::prefix('student')->group(function () {
 
     Route::get('/all', [StudentController::class, 'all']);
@@ -148,7 +148,7 @@ Route::prefix('teacher')->group(function () {
 
     Route::delete('', [TeacherController::class, 'delete']);
 });
-
+});
 Route::middleware('auth:sanctum')->group(function () {
     Route::get('/user', fn (Request $request) => $request->user());
 });

@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
 
 // Module
@@ -25,7 +25,12 @@ import { LoginStudentComponent } from './paginas/login-page/login-student/login-
 import { TeacherPageComponent } from './paginas/teacher-page/teacher-page.component';
 import { LoginTeacherComponent } from './paginas/login-page/login-teacher/login-teacher.component';
 import { SidebarComponent } from './sidebar/sidebar.component';
+import { JwtModule } from '@auth0/angular-jwt';
+import { AuthInterceptor } from './auth.interceptor';
 
+export function tokenGetter() {
+  return localStorage.getItem('access_token');
+}
 
 @NgModule({
   declarations: [
@@ -52,9 +57,18 @@ import { SidebarComponent } from './sidebar/sidebar.component';
     MatCardModule,
     MatInputModule,
     MatSelectModule,
-    MatIconModule
+    MatIconModule,
+    JwtModule.forRoot({
+      config: {
+        tokenGetter: tokenGetter,
+        allowedDomains: ['127.0.0.1:8000'],
+        disallowedRoutes: ['http://localhost:4200/api/auth/']
+      }
+    })
   ],
-  providers: [],
+  providers: [
+    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
