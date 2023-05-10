@@ -4,7 +4,7 @@
   <div *ngIf="!showPracticasComponent"> 
      <h2 class="ranking-header text-center">Ranking #{{ rankingId }}</h2>  <!--TITULO RANKING -->
 
-    <div class="d-flex justify-content-start"*ngIf="teacher">
+    <div class="d-flex justify-content-start" *ngIf="!nuevaTarea && teacher ">
       <button class="btn btn-outline-info btn-sm" (click)="changeCodeRank()">Regenerar Codigo Ranking ♻️</button> <!--boton regenerar codigo -->
     </div>
 
@@ -111,7 +111,7 @@
   
         </table>
       </div>
-      <button class="btn btn-outline-info"*ngIf="!nuevaTarea && teacher" [routerLink]="['/history-skills', rankingId]">Ir a historial Soft Skills</button>
+
 
       <!--SOLICITUDES PARA UNIRSE A RANKING SOLO DISP. PARA PROFESOR-->
     <div *ngIf="!nuevaTarea && teacher " class="Request"> <!--SOLICITUDES PARA UNIRSE A RANKING SOLO DISP. PARA PROFESOR-->
