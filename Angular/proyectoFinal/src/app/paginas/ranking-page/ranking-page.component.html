@@ -4,7 +4,7 @@
   <div *ngIf="!showPracticasComponent"> 
      <h2 class="ranking-header text-center">Ranking #{{ rankingId }}</h2>  <!--TITULO RANKING -->
 
-    <div class="d-flex justify-content-start"*ngIf="teacher ">
+    <div class="d-flex justify-content-start"*ngIf="teacher">
       <button class="btn btn-outline-info btn-sm" (click)="changeCodeRank()">Regenerar Codigo Ranking ♻️</button> <!--boton regenerar codigo -->
     </div>
 
@@ -50,7 +50,7 @@
               <th>Cooperacion 👥</th>
               <th>Iniciativa ☝🏻</th>
               <!--FILASCABECERA DE RANKING DISP. SOLO PROFESOR -->
-              <th *ngIf="!nuevaTarea && teacher.centro"> Eliminar ⚠️</th> 
+              <th *ngIf="!nuevaTarea && teacher"> Eliminar ⚠️</th> 
               <th *ngIf="!nuevaTarea && teacher "> Editar Puntos 📝</th>
               <th *ngIf="!nuevaTarea && teacher "> Ver Practica 🔎</th>
             </tr>
@@ -83,7 +83,7 @@
         </table>
       </div>
 
-      <div *ngIf="!practicas" class="table-responsive">  <!--TABLA PARA PRACTICA  -->
+      <div *ngIf="student" class="table-responsive">  <!--TABLA PARA PRACTICA  -->
         <table class="table table-dark" *ngIf="student">
   
           <thead class="thead-light"> <!--FILA CABECERA DE DESCRIPCION DE PRACTICA -->

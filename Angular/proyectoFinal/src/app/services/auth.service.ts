@@ -18,7 +18,8 @@ export class AuthService {
 
   loginStudent(email: string, password: string): Observable<HttpResponse<any>> {
     const body = { email, password };
-  
+    // Elimina los datos del profesor antes de iniciar sesión como estudiante
+    localStorage.removeItem('teacher');
     return this.http.post<any>(`${this.API_URL}/login/student`, body, { observe: 'response' }).pipe(
       tap((response) => {
         // Save the token in the localStorage
@@ -45,7 +46,8 @@ export class AuthService {
 
   loginTeacher(email: string, password: string): Observable<HttpResponse<any>> {
     const body = { email, password };
-  
+    // Elimina los datos del estudiante antes de iniciar sesión como profesor
+    localStorage.removeItem('student');
     return this.http.post<any>(`${this.API_URL}/login/teacher`, body, { observe: 'response' }).pipe(
       tap((response) => {
         // Save the token in the localStorage
@@ -55,6 +57,16 @@ export class AuthService {
         }
       })
     );
+  }
+
+  isTeacher(): boolean {
+    const teacherData = window.localStorage.getItem('teacher');
+    return teacherData !== null;
+  }
+
+  isStudent(): boolean {
+    const studentData = window.localStorage.getItem('student');
+    return studentData !== null;
   }
 
   private login(email: string, password: string, url: string): Observable<AuthResponse> {
@@ -71,6 +83,10 @@ export class AuthService {
   logout(): void {
     // Elimina el token del localStorage
     localStorage.removeItem('authToken');
+
+      // Elimina los datos del estudiante y del profesor
+  localStorage.removeItem('student');
+  localStorage.removeItem('teacher');
 
     // Redirige al usuario a la página de inicio de sesión
     this.router.navigate(['/login']);

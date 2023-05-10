@@ -19,8 +19,8 @@ import { AuthService } from 'src/app/services/auth.service';
   styleUrls: ['./ranking-page.component.css']
 })
 export class RankingPageComponent implements OnInit {
-  teacher = this.authService.getTeacher();
-  student= this.authService.getStudent();
+  teacher: any = null; // El tipo de datos depende de tu implementación
+  student: any = null;
   rankingSolo: RankingSolo[] = [];
   rankingId: number;
   rankingName: String | null;
@@ -57,7 +57,12 @@ export class RankingPageComponent implements OnInit {
 
 
   ngOnInit() {
-
+    if (this.authService.isTeacher()) {
+      this.teacher = this.authService.getTeacher();
+    } else if (this.authService.isStudent()) {
+      this.student = this.authService.getStudent();
+    
+  }
     this.rankingId = Number(this.route.snapshot.paramMap.get('id'));
     this.rankingName = this.route.snapshot.paramMap.get('name');
 console.log(this.student);
@@ -93,9 +98,9 @@ console.log(this.teacher);
 
 
 
-    this.rankingService.getPractices(this.studentService.student.id, this.rankingId)
+    this.rankingService.getPractices(this.student.id, this.rankingId)
       .subscribe(response => {
-        console.log("student" + this.studentService.student.id);
+        console.log("student" + this.student.id);
         console.log("ID_rank" + this.rankingId);
         if (response.error) {
           console.log(response.error);
@@ -268,7 +273,7 @@ console.log(this.teacher);
   uploadFile(practiceId: number): void {
     if (this.selectedFiles[practiceId]) {
       const fileToUpload = this.selectedFiles[practiceId];
-      this.rankingService.uploadPracticeFile(this.studentService.student.id, practiceId, fileToUpload)
+      this.rankingService.uploadPracticeFile(this.student.id, practiceId, fileToUpload)
         .subscribe(response => {
           if (!response.message) {
             Swal.fire({
