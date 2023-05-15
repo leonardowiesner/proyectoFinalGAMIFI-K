@@ -36,7 +36,7 @@ export class RankingPageComponent implements OnInit {
   practicesDelivered: any[] = [];
   softSkills: string[] = ['emotional', 'thinking', 'responsability', 'cooperation', 'initiative'];
 
-  constructor(  private authService: AuthService,private route: ActivatedRoute, private rankingService: RankingService, private teacherService: TeacherService, private studentService: StudentService) {
+  constructor(private authService: AuthService, private route: ActivatedRoute, private rankingService: RankingService, private teacherService: TeacherService, private studentService: StudentService) {
     this.rankingId = 0;
 
     this.new_points = 0;
@@ -61,33 +61,14 @@ export class RankingPageComponent implements OnInit {
       this.teacher = this.authService.getTeacher();
     } else if (this.authService.isStudent()) {
       this.student = this.authService.getStudent();
-    
-  }
+
+    }
     this.rankingId = Number(this.route.snapshot.paramMap.get('id'));
     this.rankingName = this.route.snapshot.paramMap.get('name');
-console.log(this.student);
-console.log(this.teacher);
-    this.rankingService.getRankingAnalysis(this.rankingId).subscribe(data => {
-      this.rankingAnalises = data.map(analysis => {
-        const skillsNumber: Map<string, number> = new Map<string, number>([
-          ['emotional', analysis.emotional],
-          ['thinking', analysis.thinking],
-          ['responsability', analysis.responsability],
-          ['cooperation', analysis.cooperation],
-          ['initiative', analysis.initiative],
-        ]);
+    console.log(this.student);
+    console.log(this.teacher);
 
-        const imageUrls: Map<string, string> = new Map<string, string>([
-          ['emotional', this.getImageUrl(analysis.emotional)],
-          ['thinking', this.getImageUrl(analysis.thinking)],
-          ['responsability', this.getImageUrl(analysis.responsability)],
-          ['cooperation', this.getImageUrl(analysis.cooperation)],
-          ['initiative', this.getImageUrl(analysis.initiative)],
-        ]);
-
-        return { ...analysis, imageUrls, skillsNumber };
-      });
-    });
+    this.refreshData();
 
     this.route.queryParamMap.subscribe(params => {
       const id = params.get('id');
@@ -121,6 +102,32 @@ console.log(this.teacher);
 
   }
 
+  refreshData() {
+    this.rankingService.getRankingAnalysis(this.rankingId).subscribe(data => {
+      this.rankingAnalises = data.map(analysis => {
+        const skillsNumber: Map<string, number> = new Map<string, number>([
+          ['emotional', analysis.emotional],
+          ['thinking', analysis.thinking],
+          ['responsability', analysis.responsability],
+          ['cooperation', analysis.cooperation],
+          ['initiative', analysis.initiative],
+        ]);
+
+        const imageUrls: Map<string, string> = new Map<string, string>([
+          ['emotional', this.getImageUrl(analysis.emotional)],
+          ['thinking', this.getImageUrl(analysis.thinking)],
+          ['responsability', this.getImageUrl(analysis.responsability)],
+          ['cooperation', this.getImageUrl(analysis.cooperation)],
+          ['initiative', this.getImageUrl(analysis.initiative)],
+        ]);
+
+        console.log(  {...analysis, imageUrls, skillsNumber} );
+        
+        return { ...analysis, imageUrls, skillsNumber };
+      });
+    });
+  }
+
   getImageUrl(points: number): string {
     let rank = 'Bronze';
     if (points >= 1000) {
@@ -138,10 +145,12 @@ console.log(this.teacher);
     if (points >= 10000) {
       rank = 'Challenger';
     }
+
+    //debugger;
     return `assets/images/${rank}.png`;
   }
 
-  descriptionSoftSkills(analysis: RankingAnalysis, skill:string) {
+  descriptionSoftSkills(analysis: RankingAnalysis, skill: string) {
     Swal.fire({
       title: skill + "<br>Puntos " + analysis.skillsNumber.get(skill),
       text: this.getDescription(skill),
@@ -173,35 +182,32 @@ console.log(this.teacher);
 
   acceptStudent(id_student: number, id_rank: number) {
     this.rankingService.acceptStudent(id_student, id_rank).subscribe((response) => {
-      console.log(response.data + "Antes");
-
-      this.practicesDelivered = response.data;
-
-
-      console.log(response.data + "Despues");
-      this.showPracticasComponent = true;
-
-    });
-    this.rankingService.getRankingAnalysis(this.rankingId).subscribe(data => {
-      this.rankingAnalises = data;
+      this.refreshData();
     });
   }
 
   denegateStudent(id_student: number, id_rank: number) {
     this.rankingService.denegateStudent(id_student, id_rank).subscribe((response) => {
-      console.log(response.data + "Antes");
-
-      this.practicesDelivered = response.data;
-
-
-      console.log(response.data + "Despues");
-      this.showPracticasComponent = true;
-
+      this.refreshData();
     });
+  }
+
+  /*
+  refreshData() {
     this.rankingService.getRankingAnalysis(this.rankingId).subscribe(data => {
       this.rankingAnalises = data;
     });
+    this.rankingService.getPractices(this.student.id, this.rankingId).subscribe(response => {
+      if (response.error) {
+        console.log(response.error);
+      } else if (response.status === 1) {
+        this.practicas = response.data;
+      } else {
+        console.log(response.error);
+      }
+    });
   }
+*/
 
   verPracticas(id_student: number) {
     this.rankingService.getPracticesDelivered(id_student, this.rankingId).subscribe((response) => {
