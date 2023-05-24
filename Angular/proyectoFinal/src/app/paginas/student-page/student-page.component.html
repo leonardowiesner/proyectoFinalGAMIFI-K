@@ -40,19 +40,6 @@
           </div>
            <img [src]="ranking.image" alt="">
         </div>
-        <div class="rankingcito" *ngFor="let ranking of rankings">
-          <div class="contencito">
-            <h3>{{ ranking.name }}</h3>
-            <button (click)="verRanking(ranking.id)" type="button" class="btn btn-outline-info">Ver Ranking</button>
-          </div>
-           <img [src]="ranking.image" alt="">
-        </div>        <div class="rankingcito" *ngFor="let ranking of rankings">
-          <div class="contencito">
-            <h3>{{ ranking.name }}</h3>
-            <button (click)="verRanking(ranking.id)" type="button" class="btn btn-outline-info">Ver Ranking</button>
-          </div>
-           <img [src]="ranking.image" alt="">
-        </div>    
     </section>
   </ng-template>
   <button class ="btn btn-danger closesesion"(click)="onLogoutClick()">Cerrar sesión</button>
