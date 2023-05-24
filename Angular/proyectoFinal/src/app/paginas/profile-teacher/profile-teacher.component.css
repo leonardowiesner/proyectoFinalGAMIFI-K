@@ -2,7 +2,9 @@
 .container{
     justify-content: center;
     align-items: center;
-    margin: 0% 30%;
+    position:relative;
+    /* left: 250px; */
+    width: calc(100% - 250px) !important;
 }
 .form-group{
     margin:2%;

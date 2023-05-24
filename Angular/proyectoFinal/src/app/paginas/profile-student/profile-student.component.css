@@ -1,8 +1,13 @@
     
-.container{
+.general-box{
     justify-content: center;
     align-items: center;
-    margin: 0% 30%;
+    position:relative;
+    width:calc(100% - 278px);
+    margin: 0px;
+    padding: 0px;
+    padding-top: 60px;
+    left: 250px;
 }
 
 .form-group{

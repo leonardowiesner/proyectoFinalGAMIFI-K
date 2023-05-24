@@ -23,7 +23,7 @@ h2{
   background: #2b2f77;
   background: -webkit-linear-gradient(0deg, #2b2f77 0%, #141852 50%, #070b34 100%);
   background: linear-gradient(0deg, #2b2f77 0%, #141852 50%, #070b34 100%);
-  
+
   border-radius: 17% 18% 13% 8% / 11% 12% 9% 16%;
   /* width: 400px;
   padding: 0; */
@@ -40,13 +40,13 @@ h2{
   border-radius: 17% 18% 13% 8% / 11% 12% 9% 16%;
   transition: 0.5s ease;
   rotate: 2deg;
-  
+
 }
 
 .imageContainer img:hover{
   transition: 0.5s ease;
   rotate: 2deg;
- 
+
 }
 .imageContainer{
   padding-top: 20px;
@@ -68,7 +68,7 @@ h2{
     margin-top: 50px;
 
   }
-  
+
   .no-rankings-message {
     font-size: 20px;
     font-weight: bolder;
@@ -87,23 +87,23 @@ h2{
   .rankings-message {
     font-size: 30px;
     font-weight: bold;
-    margin-bottom: 10px;
+    margin-bottom: 40px;
   }
-  
+
   .rankings-list {
     list-style: none;
     padding: 0;
     margin: 0;
   }
-  
+
   .rankings-list li {
     margin-bottom: 5px;
   }
-  
+
   .form-group {
     margin-top: 5px;
   }
-  
+
   .form-label {
 
     display: flex;
@@ -112,7 +112,7 @@ h2{
     font-size: 21px;
     color:white;
   }
-  
+
   .form-control {
     width: 80%;
     padding: 15px;
@@ -121,9 +121,9 @@ h2{
     font-size: 16px;
     margin:1rem auto;
   }
-  
+
   .img, svg{
-    width: 2rem !important; 
+    width: 2rem !important;
     height: 2rem !important;
   }
 
@@ -151,7 +151,7 @@ h2{
     font-size: 20px;
 
   }
-  
+
   .neon:hover {
     background: #e92197;
     border: 10px solid #d11d87;
@@ -160,14 +160,14 @@ h2{
     box-shadow: 0px 0px 16px 7px rgba(233,33,150,1);
     color: black;
   }
-  
-  
-  
+
+
+
   .neon:hover > span {
     color: #fff;
     letter-spacing: 0.4em;
   }
-  
+
   .neon span {
     font-size: 15px;
     color: #222;
@@ -181,16 +181,22 @@ h2{
 
   .destacados{
     display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-wrap: wrap;
+    justify-content: space-between;
+    /* align-items: center; */
+    /* flex-wrap: wrap; */
+    flex-flow: row wrap;
     position: relative;
+
     }
-    
+
     .destacados::before{
-        content: 'Rankings';
+        left: 0;
+        top:50% ;
         position: absolute;
-        display: flex;
+        width: 100%;
+        content: 'Rankings';
+        text-align: center;
+        display: block;
         justify-content: center;
         align-items: center;
         font-weight: 600;
@@ -201,9 +207,12 @@ h2{
     /* CARD RANKINGCITO */
     .rankingcito{
       position: relative;
-      width: 100%;
+      /* width: 100%; */
+      flex-basis: 45%;
+      min-width: 300px;
       height: 200px;
-      margin: 40px 20px;
+      margin-bottom: 20px;
+      /* margin: 40px 20px; */
       display: flex;
       justify-content: flex-start;
       align-items: center;
@@ -211,9 +220,7 @@ h2{
       /* background: linear-gradient(45deg, #10214c, #c31c7e); */
       background: #606c88;
       background: -webkit-linear-gradient(0deg, #606c88 0%, #3f4c6b 100%);
-      background: linear-gradient(0deg, #606c88 0%, #3f4c6b 100%); 
-        
-      
+      background: linear-gradient(0deg, #606c88 0%, #3f4c6b 100%);
     }
     .rankingcito:hover{
       -webkit-box-shadow: 0 0 17px 5.5px #c4c2c3;

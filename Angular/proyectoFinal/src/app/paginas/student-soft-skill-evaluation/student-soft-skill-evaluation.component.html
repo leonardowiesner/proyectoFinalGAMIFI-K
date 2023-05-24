@@ -1,26 +1,25 @@
 <div class="containerSoftSkills">
   <h2 class="text-center">Evaluar Soft Skills </h2>
-  <div class="d-flex justify-content-center align-items-center form-tarea">
+  <div class="rounded d-flex justify-content-center align-items-center form-tarea mt-2 pt-3">
     <form [formGroup]="evaluationForm" (ngSubmit)="onSubmit()">
-      <div class="form-group text-center mt-2 mb-3">
-        <label for="evaluatedStudentId">Estudiante evaluado:</label>
-        <select id="evaluatedStudentId" formControlName="evaluatedStudentId">
+      <div class="d-flex flex-column form-group text-left mt-2 mb-3 justify-content-start ">
+        <label class="mb-2 text-left"for="evaluatedStudentId">Estudiante evaluado:</label>
+        <select class="p-1" id="evaluatedStudentId" formControlName="evaluatedStudentId">
           <option *ngFor="let student of rankingAnalises" [value]="student.id_student">{{ student.name }}</option>
         </select>
         <div *ngIf="evaluationForm.get('evaluatedStudentId')?.errors?.['selfEvaluation']">
           No puedes evaluarte a ti mismo.
         </div>
-
       </div>
-      <div class="form-group text-center mt-2 mb-3">
-        <label for="softSkillId">Soft Skill:</label>
-        <select id="softSkillId" formControlName="softSkillId">
+      <div class="d-flex flex-column form-group text-left mt-2 mb-3 justify-content-start">
+        <label class="mb-2 text-left" for="softSkillId">Soft Skill:</label>
+        <select class="p-1" id="softSkillId" formControlName="softSkillId">
           <option *ngFor="let softSkill of softSkills" [value]="softSkill.realname">{{ softSkill.name }}</option>
         </select>
       </div>
-      <div class="form-group text-center mt-2 mb-3">
-        <label for="points">Puntos:</label>
-        <input type="number" id="points" formControlName="points" min="0" />
+      <div class=" d-flex flex-column form-group text-left mt-2 mb-3 justify-content-start">
+        <label class="mb-2 text-left" for="points">Puntos:</label>
+        <input class="p-1" type="number" id="points" formControlName="points" min="0" />
       </div>
       <div *ngIf="evaluationForm.get('points')?.errors?.['pointsExceeded']">
         No puedes asignar más puntos de los que tienes disponibles.
