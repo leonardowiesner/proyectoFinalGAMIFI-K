@@ -12,6 +12,7 @@ import { saveAs } from 'file-saver'; // Agrega esta línea
 import 'sweetalert2/src/sweetalert2.scss';
 import Swal from 'sweetalert2';
 import { v4 as uuidv4 } from 'uuid';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-history-skills',
@@ -19,6 +20,7 @@ import { v4 as uuidv4 } from 'uuid';
   styleUrls: ['./history-skills.component.css']
 })
 export class HistorySkillsComponent implements OnInit {
+  filterForm: FormGroup;
   rankingSolo: RankingSolo[] = [];
   rankingId: number;
   rankingName: String | null;
@@ -37,7 +39,7 @@ export class HistorySkillsComponent implements OnInit {
   practicesDelivered: any[] = [];
   softSkills: string[] = ['emotional', 'thinking', 'responsability', 'cooperation', 'initiative'];
 
-  constructor(private softSkillsService: SoftSkillsService, private route: ActivatedRoute, private rankingService: RankingService, private teacherService: TeacherService, private studentService: StudentService) {
+  constructor(private formBuilder: FormBuilder, private softSkillsService: SoftSkillsService, private route: ActivatedRoute, private rankingService: RankingService, private teacherService: TeacherService, private studentService: StudentService) {
     this.rankingId = 0;
     this.teacher = this.teacherService.teacher;
     this.student = this.studentService.student;
@@ -51,6 +53,12 @@ export class HistorySkillsComponent implements OnInit {
       points_practice: 0,
       deadline_practice: new Date()
     }
+
+    this.filterForm = this.formBuilder.group({
+      evaluator_student_id: ['', Validators.required],
+      evaluated_student_id: ['', Validators.required],
+      points: ['', Validators.required],
+    });
 
   }
   ngOnInit(): void {
@@ -113,6 +121,41 @@ export class HistorySkillsComponent implements OnInit {
           console.log(this.historial);
         });
     });
+  }
+
+  savefilter(evaluationData: any) {
+    this.softSkillsService.saveFilterhistory(evaluationData).subscribe(
+      (response: any) => {
+        console.log('Evaluación de Soft Skills guardada con éxito:', response);
+        // Redirigir a una página de éxito o actualizar la vista según sea necesario
+      },
+      (error: any) => {
+        Swal.fire({
+          icon: 'error',
+          title: 'Error al filtrar',
+          text: 'Ocurrió un error con los filtros comprube sus datos.',
+        });
+        console.error('Error al filtrar history Soft Skills:', error);
+      }
+    );
+  }
+
+  onSubmit(): void {
+    console.log(this.filterForm.value.softSkillId);
+    console.log("Formulario válido:", this.filterForm.valid);
+    console.log("Formulario valor:", this.filterForm.value);
+
+    if (this.filterForm.valid) {
+      console.log(this.filterForm);
+      const evaluationData = {
+        evaluator_student_id: this.filterForm.value.evaluator_student_id,
+        evaluated_student_id: this.filterForm.value.evaluatedStudentId,
+        ranking_analysis_id: this.rankingId,
+        points: this.filterForm.value.points,
+      };
+      console.log("Datos del filtro:", evaluationData);
+      this.savefilter(evaluationData);
+    }
   }
 
 }

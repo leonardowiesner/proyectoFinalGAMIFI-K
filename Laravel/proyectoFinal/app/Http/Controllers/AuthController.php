@@ -15,21 +15,21 @@ class AuthController extends Controller
             "email" => "required|email",
             "password" => "required"
         ]);
-
-        $student = Student::all()
-            ->firstWhere("email", $data["email"]);
-
+    
+        $student = Student::all()->firstWhere("email", $data["email"]);
+       
         if ($student && Hash::check($data["password"], $student->password)) {
-            return $request->user()->createToken('token');
+            $token = $student->createToken('student_token')->plainTextToken;
+            return response()->json(compact('token'));
         }
-
-        $teacher = Teacher::all()
-            ->firstWhere("email", $data["email"]);
-
+    
+        $teacher = Teacher::all()->firstWhere("email", $data["email"]);
+    
         if ($teacher && Hash::check($data["password"], $teacher->password)) {
-            return $request->user()->createToken('token');
+            $token = $teacher->createToken('teacher_token')->plainTextToken;
+            return response()->json(compact('token'));
         }
-
+    
         return response()->json([
             "msg" => "Invalid email or password"
         ]);

@@ -22,9 +22,39 @@
 </div> -->
 <div class="containerHistory container">
     <h2 class="text-center">Historial de transferencia puntos de Soft Skills 🔄</h2>
+
+    <form [formGroup]="filterForm" (ngSubmit)="onSubmit()">
+        <h3 class="center">Filtro</h3>
+        <button class="btn btn-primary mt-3 mb-3" type="submit">Filtrar</button>
+        <table class="table table-bordered table-dark mx-auto">
+            <thead class="thead-dark">
+                <th>
+                    <h3>Estudiante envia</h3>
+                </th>
+                <th>
+                    <h3>Estudiante recibe</h3>
+                </th>
+                <th>
+                    <h3>Puntos</h3>
+                </th>
+            </thead>
+            <tbody>
+                <td>
+                    <input for="evaluator_student_id" type="number">
+                </td>
+                <td>
+                    <input for="evaluated_student_id" type="number">
+                </td>
+                <td>
+                    <input for="points" type="number">
+                </td>
+            </tbody>
+        </table>
+    </form>
+
+
     <div class="table-responsive text-center">
-        <table class="table table-bordered table-dark mx-auto" style="width: auto;"
-            *ngIf="teacher && teacher.email !== ''">
+        <table class="table table-bordered table-dark mx-auto" style="width: auto;">
             <thead class="thead-dark">
                 <tr>
                     <th>Estudiante que envia</th>
@@ -42,20 +72,7 @@
                     <td>{{ histori.points }}</td>
                     <td>{{ histori.soft_skill }}</td>
                     <td>{{ histori.created_at }}</td>
-                    <td>
-                        <button class="btn btn-danger" (click)="deleteStudentEvaluation(histori.id)">Eliminar</button>
-                        <div>
-                            <button class="btn btn-info"
-                                (click)="filteredByStudentEvaluator(histori.evaluator_student_id)">Buscar Por este Evaluador</button>
-                        </div>
-                        <!-- <div>
-                            <button class="btn btn-info"
-                                (click)="filteredByStudentEvaluator(rankingId,histori.evaluated_student_id)">Buscar Por este Evaluado</button>
-                        </div> -->
-                        <!-- <div>
-                            <button class="btn btn-info"
-                                (click)="filteredByStudentEvaluator(histori.id,histori.soft_skill)">Buscar Por esta Habilidad</button>
-                        </div> -->
+                    <td><button class="btn btn-danger" (click)="deleteStudentEvaluation(histori.id)">Eliminar</button>
                     </td>
                 </tr>
             </tbody>

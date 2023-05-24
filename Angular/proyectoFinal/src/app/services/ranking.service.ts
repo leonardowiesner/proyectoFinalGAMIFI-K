@@ -65,7 +65,7 @@ export class RankingService
   token: string = "";
   constructor ( private http: HttpClient )
   {
-    window.localStorage.getItem( this.token );
+    this.token = window.localStorage.getItem("token") || "";
 
   }
   data: any;
@@ -144,6 +144,8 @@ export class RankingService
 
   getRankingsTeacher ( teacherId: number ): Observable<Ranking[]>
   {
+    this.token = window.localStorage.getItem('authToken') || '';
+    console.log(this.token)
     let headers = new HttpHeaders( {
       'Content-Type': 'application/json',
       'Accept': 'application/json',

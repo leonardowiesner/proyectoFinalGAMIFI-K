@@ -36,7 +36,7 @@ Route::prefix('login')->group(function () {
 });
 
 
-
+Route::middleware(['auth:sanctum'])->group(function () {
 Route::prefix('student')->group(function () {
 
     Route::get('/all', [StudentController::class, 'all']);
@@ -91,7 +91,7 @@ Route::prefix('teacher')->group(function () {
 
     Route::get('get-historial/{id}', [SoftSkillEvaluationController::class, 'getHistorial']);
 
-    Route::post('get-historial-evaluator', [SoftSkillEvaluationController::class, 'getHistorialbyStudentEvaluator']);
+    Route::get('filter-historial', [SoftSkillEvaluationController::class, 'filterHistorial']);
 
     Route::get('delete-student-evaluation/{id}', [SoftSkillEvaluationController::class, 'deleteStudentEvaluation']);
 
@@ -150,7 +150,7 @@ Route::prefix('teacher')->group(function () {
 
     Route::delete('', [TeacherController::class, 'delete']);
 });
-
+});
 Route::middleware('auth:sanctum')->group(function () {
     Route::get('/user', fn (Request $request) => $request->user());
 });

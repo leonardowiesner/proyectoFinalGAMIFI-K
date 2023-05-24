@@ -8,7 +8,6 @@ use App\Models\Student;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
-
 class SoftSkillEvaluationController extends Controller
 {
     public function store(Request $request)
@@ -138,42 +137,14 @@ class SoftSkillEvaluationController extends Controller
         }
     }
 
-    public function getHistorialbyStudentEvaluator($request)
+    public function filterHistorial($id_rank)
     {
-        // Validar la solicitud del cliente
+        /* // Validar la solicitud del cliente
         $request->validate([
-            'rankingId' => 'required',
-            'id_student' => 'required',
-        ]);
-        return "si";
+            'ranking_analysis_id' => 'required',
+        ]); */
         // Obtener todos los registros de StudentEvaluation ordenados por fecha de creación
-        $studentEvaluations = SoftSkillEvaluation::where("ranking_analysis_id", $request->rankingId)
-            ->where("evaluator_student_id", $request->id_student)
-            ->get();
-        // Devolver los registros en formato JSON
-        if ($studentEvaluations->count() > 0) {
-            return response()->json([
-                "status" => 1,
-                "msg" => "Se han encontrado las Practica del student en el rank",
-                "data" => $studentEvaluations
-            ]);
-        } else {
-            return response()->json([
-                "status" => 0,
-                "msg" => "No se encontraron practi para el usuario especificado",
-            ], 404);
-        }
-    }
-    public function getHistorialbyStudentEvaluated($request)
-    {
-        // Validar la solicitud del cliente
-        $request->validate([
-            'id_rank' => 'required',
-            'id_student' => 'required',
-        ]);
-        // Obtener todos los registros de StudentEvaluation ordenados por fecha de creación
-        $studentEvaluations = SoftSkillEvaluation::where("ranking_analysis_id", $request->id_rank)
-            ->where("evaluated_student_id", $request->id_student)
+        $studentEvaluations = SoftSkillEvaluation::where("ranking_analysis_id", $id_rank)
             ->orderBy('created_at', 'desc')
             ->get();
         // Devolver los registros en formato JSON
@@ -190,67 +161,8 @@ class SoftSkillEvaluationController extends Controller
             ], 404);
         }
     }
-    public function getHistorialbySkill($request)
-    {
-        // Validar la solicitud del cliente
-        $request->validate([
-            'id_rank' => 'required',
-            'soft_skill' => 'required',
-        ]);
-        // Obtener todos los registros de StudentEvaluation ordenados por fecha de creación
-        $studentEvaluations = SoftSkillEvaluation::where("ranking_analysis_id", $request->id_rank)
-            ->where("soft_skill", $request->soft_skill)
-            ->orderBy('created_at', 'desc')
-            ->get();
-        // Devolver los registros en formato JSON
-        if ($studentEvaluations->count() > 0) {
-            return response()->json([
-                "status" => 1,
-                "msg" => "Se han encontrado las Practica del student by skill",
-                "data" => $studentEvaluations
-            ]);
-        } else {
-            return response()->json([
-                "status" => 0,
-                "msg" => "No se encontraron practi para el usuario especificado",
-            ], 404);
-        }
-    }
-
-    public function getHistorialbyDate($request)
-    {
-        // Validar la solicitud del cliente
-        $request->validate([
-            'id_rank' => 'required',
-            'start_date' => 'required',
-            'end_date' => 'required',
-        ]);
-        // Obtener todos los registros de StudentEvaluation ordenados por fecha de creación
-        $studentEvaluations = SoftSkillEvaluation::where("ranking_analysis_id", $request->id_rank)
-            ->where("created_at", $request->start_date)
-            ->orderBy('created_at', 'desc')
-            ->get();
 
 
-        foreach ($studentEvaluations as $key) {
-            if ($key["created_at"] <= $request->end_date) {
-                $historialFiltred[] = $key; 
-            }
-        }
-        // Devolver los registros en formato JSON
-        if ($historialFiltred->count() > 0) {
-            return response()->json([
-                "status" => 1,
-                "msg" => "Se han encontrado las Practica del student by skill",
-                "data" => $historialFiltred
-            ]);
-        } else {
-            return response()->json([
-                "status" => 0,
-                "msg" => "No se encontraron practi para el usuario especificado",
-            ], 404);
-        }
-    }
 
     public function deleteStudentEvaluation($id)
     {

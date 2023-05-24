@@ -4,6 +4,8 @@ import { RankingAnalysis, RankingService } from 'src/app/services/ranking.servic
 import { SoftSkillsService } from 'src/app/services/soft-skills.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { StudentService } from 'src/app/services/student.service';
+import { AuthService } from 'src/app/services/auth.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-student-soft-skill-evaluation',
@@ -15,7 +17,7 @@ export class StudentSoftSkillEvaluationComponent implements OnInit {
   evaluationForm: FormGroup;
   rankingAnalises: RankingAnalysis[] = [];
   rankingId: number | null = null;
-  currentUserId = this.studentService.student.id // Reemplaza esto con la información del usuario actual (estudiante que realiza la evaluación)
+  currentUserId = this.authService.getStudent();// Reemplaza esto con la información del usuario actual (estudiante que realiza la evaluación)
   students = [
     { id: 1, name: 'Estudiante 1' },
     { id: 2, name: 'Estudiante 2' },
@@ -35,7 +37,8 @@ export class StudentSoftSkillEvaluationComponent implements OnInit {
     private softSkillsService: SoftSkillsService,
     private route: ActivatedRoute,
     private router: Router,
-    private studentService: StudentService
+    private studentService: StudentService,
+    private authService: AuthService
   ) {
     this.evaluationForm = this.formBuilder.group({
       evaluatedStudentId: ['', [Validators.required, this.selfEvaluationValidator.bind(this)]],
@@ -76,7 +79,7 @@ export class StudentSoftSkillEvaluationComponent implements OnInit {
 
   selfEvaluationValidator(control: AbstractControl): { [key: string]: any } | null {
     // Reemplaza "currentStudentId" con el ID del estudiante actualmente registrado/logueado
-    const currentStudentId = this.currentUserId;
+    const currentStudentId = this.currentUserId.id;
 
     if (control.value == currentStudentId) {
       return { selfEvaluation: { value: control.value } };
@@ -91,6 +94,11 @@ export class StudentSoftSkillEvaluationComponent implements OnInit {
         // Redirigir a una página de éxito o actualizar la vista según sea necesario
       },
       (error: any) => {
+        Swal.fire({
+          icon: 'error',
+          title: 'Error al actualizar la habilidad',
+          text: 'Ocurrió un error al modificar los puntos comprobe que todos los datos son correctos.',
+        });
         console.error('Error al guardar la evaluación de Soft Skills:', error);
       }
     );
@@ -104,7 +112,7 @@ export class StudentSoftSkillEvaluationComponent implements OnInit {
     if (this.evaluationForm.valid) {
       console.log(this.evaluationForm.value.softSkillId);
       const evaluationData = {
-        evaluator_student_id: this.currentUserId,
+        evaluator_student_id: this.currentUserId.id,
         evaluated_student_id: this.evaluationForm.value.evaluatedStudentId,
         soft_skill: this.evaluationForm.value.softSkillId, // Aquí ya debería ser una cadena
         ranking_analysis_id: this.rankingId,
