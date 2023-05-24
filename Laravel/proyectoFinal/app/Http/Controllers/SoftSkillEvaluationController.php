@@ -8,7 +8,6 @@ use App\Models\Student;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
-
 class SoftSkillEvaluationController extends Controller
 {
     public function store(Request $request)
@@ -137,6 +136,33 @@ class SoftSkillEvaluationController extends Controller
             ], 404);
         }
     }
+
+    public function filterHistorial($id_rank)
+    {
+        /* // Validar la solicitud del cliente
+        $request->validate([
+            'ranking_analysis_id' => 'required',
+        ]); */
+        // Obtener todos los registros de StudentEvaluation ordenados por fecha de creación
+        $studentEvaluations = SoftSkillEvaluation::where("ranking_analysis_id", $id_rank)
+            ->orderBy('created_at', 'desc')
+            ->get();
+        // Devolver los registros en formato JSON
+        if ($studentEvaluations->count() > 0) {
+            return response()->json([
+                "status" => 1,
+                "msg" => "Se han encontrado las Practica del student en el rank",
+                "data" => $studentEvaluations
+            ]);
+        } else {
+            return response()->json([
+                "status" => 0,
+                "msg" => "No se encontraron practi para el usuario especificado",
+            ], 404);
+        }
+    }
+
+
 
     public function deleteStudentEvaluation($id)
     {

@@ -92,6 +92,10 @@ export class SoftSkillsService {
   saveEvaluation(evaluationData: any): Observable<any> {
     return this.http.post(`${this.baseUrl}/student/soft-skills/evaluations`, evaluationData);
   }
+
+  saveFilterhistory(evaluationData: any): Observable<any> {
+    return this.http.post(`${this.baseUrl}/teacher/filter-historial`, evaluationData);
+  }
   // Método para obtener todos los estudiantes
   getStudents(): Observable<any> {
     return this.http.get(`${this.baseUrl}/students`);

@@ -5,6 +5,7 @@ import { SoftSkillsService } from 'src/app/services/soft-skills.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { StudentService } from 'src/app/services/student.service';
 import { AuthService } from 'src/app/services/auth.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-student-soft-skill-evaluation',
@@ -93,6 +94,11 @@ export class StudentSoftSkillEvaluationComponent implements OnInit {
         // Redirigir a una página de éxito o actualizar la vista según sea necesario
       },
       (error: any) => {
+        Swal.fire({
+          icon: 'error',
+          title: 'Error al actualizar la habilidad',
+          text: 'Ocurrió un error al modificar los puntos comprobe que todos los datos son correctos.',
+        });
         console.error('Error al guardar la evaluación de Soft Skills:', error);
       }
     );
