@@ -83,6 +83,24 @@ export class HistorySkillsComponent implements OnInit {
       });
   }
 
+  filteredByStudentEvaluator(id_student: number) {
+    this.softSkillsService.getHistorialEvaluator(this.rankingId, id_student).subscribe((response) => {
+      console.log(response.msg);
+      if (response.error) {
+        console.log(response.error);
+        // Puedes manejar errores específicos aquí
+      } else if (response.status === 1) {
+        console.log(response);
+        this.historial = response.data;
+        // Asignar 'response.data' directamente a 'this.practicas'
+      } else {
+        console.log(response.error);
+        //console.error('Error al obtener las tareas pendientes'+response.error);
+      }
+      console.log(this.historial);
+    });
+  }
+
   deleteStudentEvaluation(id: number) {
     this.softSkillsService.deleteStudentEvaluation(id).subscribe((response) => {
       console.log(response.message);

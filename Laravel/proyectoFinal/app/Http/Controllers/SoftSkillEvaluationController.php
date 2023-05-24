@@ -32,47 +32,47 @@ class SoftSkillEvaluationController extends Controller
             ]);
 
 
-          
-        $weekStartDate = Carbon::now()->startOfWeek()->toDateString();
 
-        $rankingAnalysis = RankingAnalysis::where('id_student', $request->evaluated_student_id)
-            ->where('id_rank', $request->ranking_analysis_id)
-            ->first();
+            $weekStartDate = Carbon::now()->startOfWeek()->toDateString();
+
+            $rankingAnalysis = RankingAnalysis::where('id_student', $request->evaluated_student_id)
+                ->where('id_rank', $request->ranking_analysis_id)
+                ->first();
             $evaluatorRankingAnalysis = RankingAnalysis::where('id_student', $request->evaluator_student_id)
-            //   ->where('week_start_date', $weekStartDate)
-            ->where('id_rank', $request->ranking_analysis_id)
-            ->first();
+                //   ->where('week_start_date', $weekStartDate)
+                ->where('id_rank', $request->ranking_analysis_id)
+                ->first();
 
-        // Si no existe un registro de RankingAnalysis, crea uno.
-        if (!$evaluatorRankingAnalysis) {
-            $evaluatorRankingAnalysis = new RankingAnalysis([
-                'id_student' => $request->evaluator_student_id,
-                'id_rank' => 1, // Asegúrate de establecer el valor adecuado para tu aplicación
-                'points' => 0, // Puedes establecer el valor inicial que necesites
-                'weeklyPoints' => 1000, // O la cantidad de puntos semanales predeterminada.
-                'week_start_date' => $weekStartDate,
-                'emotional' => 0,
-                'thinking' => 0,
-                'responsability' => 0,
-                'cooperation' => 0,
-                'initiative' => 0,
-                'accepted' => 0,
-            ]);
+            // Si no existe un registro de RankingAnalysis, crea uno.
+            if (!$evaluatorRankingAnalysis) {
+                $evaluatorRankingAnalysis = new RankingAnalysis([
+                    'id_student' => $request->evaluator_student_id,
+                    'id_rank' => 1, // Asegúrate de establecer el valor adecuado para tu aplicación
+                    'points' => 0, // Puedes establecer el valor inicial que necesites
+                    'weeklyPoints' => 1000, // O la cantidad de puntos semanales predeterminada.
+                    'week_start_date' => $weekStartDate,
+                    'emotional' => 0,
+                    'thinking' => 0,
+                    'responsability' => 0,
+                    'cooperation' => 0,
+                    'initiative' => 0,
+                    'accepted' => 0,
+                ]);
+                $evaluatorRankingAnalysis->save();
+            }
+            if ($evaluatorRankingAnalysis->weeklyPoints < $request->points) {
+                return response()->json(['error' => 'No tienes suficientes puntos semanales para asignar.'], 400);
+            }
+
+
+            // Continúa con el resto del código ...
+            // Restar los puntos semanales del evaluador
+            $evaluatorRankingAnalysis->weeklyPoints -= $request->points;
             $evaluatorRankingAnalysis->save();
-        }
-        if ($evaluatorRankingAnalysis->weeklyPoints < $request->points) {
-            return response()->json(['error' => 'No tienes suficientes puntos semanales para asignar.'], 400);
-        }
 
-
-         // Continúa con el resto del código ...
-         // Restar los puntos semanales del evaluador
-         $evaluatorRankingAnalysis->weeklyPoints -= $request->points;
-         $evaluatorRankingAnalysis->save();
- 
-         // Continúa con el resto del código ...
-         $softSkillField = $request->soft_skill;
-         $rankingAnalysis[$softSkillField] += $request->points;
+            // Continúa con el resto del código ...
+            $softSkillField = $request->soft_skill;
+            $rankingAnalysis[$softSkillField] += $request->points;
 
             // Guarda los cambios en la base de datos
             $rankingAnalysis->save();
@@ -93,7 +93,7 @@ class SoftSkillEvaluationController extends Controller
     {
         $this->weeklyPoints -= $points;
     }
-    
+
     public function getEvaluationsByStudent($student_id)
     {
         // Obtener evaluaciones de Soft Skills para el estudiante especificado
@@ -185,8 +185,8 @@ class SoftSkillEvaluationController extends Controller
         // Sumar los puntos eliminados en la tabla de ranking_analyses
         $rank = RankingAnalysis::where('id_student', $evaluator)
             ->where('id_rank', $evaluation->ranking_analysis_id)
-        ->increment('weeklyPoints', $points);
-        
+            ->increment('weeklyPoints', $points);
+
         // Eliminar la evaluación
         $evaluation->delete();
 

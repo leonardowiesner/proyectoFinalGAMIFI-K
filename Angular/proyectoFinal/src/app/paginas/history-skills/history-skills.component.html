@@ -60,6 +60,7 @@
                     <th>Estudiante que envia</th>
                     <th>Estudiante que recibe</th>
                     <th>Puntos</th>
+                    <th>Habilidad</th>
                     <th>Fecha</th>
                     <th>Action</th>
                 </tr>
@@ -69,6 +70,7 @@
                     <td>{{ histori.evaluator_student_id }}</td>
                     <td>{{ histori.evaluated_student_id }}</td>
                     <td>{{ histori.points }}</td>
+                    <td>{{ histori.soft_skill }}</td>
                     <td>{{ histori.created_at }}</td>
                     <td><button class="btn btn-danger" (click)="deleteStudentEvaluation(histori.id)">Eliminar</button>
                     </td>
