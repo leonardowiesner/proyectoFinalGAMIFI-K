@@ -5,8 +5,11 @@ use App\Http\Controllers\StudentController;
 use App\Http\Controllers\TeacherController;
 use App\Http\Controllers\RankingController;
 use App\Http\Controllers\RankPracticeController;
+use App\Http\Controllers\SoftSkillEvaluationController;
 use App\Models\Ranking;
 use App\Models\RankPractice;
+use App\Models\SoftSkillEvaluation;
+use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -33,9 +36,12 @@ Route::prefix('login')->group(function () {
 });
 
 
-
+Route::middleware(['auth:sanctum'])->group(function () {
 Route::prefix('student')->group(function () {
+
     Route::get('/all', [StudentController::class, 'all']);
+    
+    Route::post('/soft-skills/evaluations', [SoftSkillEvaluationController::class, 'store']);
 
     Route::get('get-ranking-studen/{id}', [RankingController::class, 'getRankingByStuden']);
 
@@ -65,7 +71,7 @@ Route::prefix('student')->group(function () {
 
     Route::delete('/delete', [StudentController::class, 'delete']);
 
-    Route::post('/soft-skill-evaluation', [SoftSkillEvaluationController::class, 'store']);
+    Route::post('/soft-skill-evaluations', [SoftSkillEvaluationController::class, 'store']);
 
     Route::get('/soft-skill-evaluation/student/{student_id}', [SoftSkillEvaluationController::class, 'getEvaluationsByStudent']);
     
@@ -83,6 +89,12 @@ Route::prefix('teacher')->group(function () {
 
     */
 
+    Route::get('get-historial/{id}', [SoftSkillEvaluationController::class, 'getHistorial']);
+
+    Route::get('filter-historial', [SoftSkillEvaluationController::class, 'filterHistorial']);
+
+    Route::get('delete-student-evaluation/{id}', [SoftSkillEvaluationController::class, 'deleteStudentEvaluation']);
+
     Route::post('/change-code-rank',  [RankingController::class, 'changeCodeRank']);
 
     Route::post('/download-practice-file', [RankPracticeController::class, 'downloadPracticeFile']);
@@ -90,6 +102,7 @@ Route::prefix('teacher')->group(function () {
     Route::post('/update-picture', [TeacherController::class, 'updatePicture']);
 
     Route::post('accept-student', [RankingController::class, 'acceptStudent']);
+
     Route::post('denegate-student', [RankingController::class, 'denegateStudent']);
 
 
@@ -137,7 +150,7 @@ Route::prefix('teacher')->group(function () {
 
     Route::delete('', [TeacherController::class, 'delete']);
 });
-
+});
 Route::middleware('auth:sanctum')->group(function () {
     Route::get('/user', fn (Request $request) => $request->user());
 });

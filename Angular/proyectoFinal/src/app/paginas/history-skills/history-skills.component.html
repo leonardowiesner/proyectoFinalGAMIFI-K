@@ -1,0 +1,81 @@
+<!-- <div class="containerHistory">
+    <table class="ranking-table" *ngIf="teacher && teacher.email !== ''">
+        <thead>
+            <tr>
+                <th>Estudiante que envia</th>
+                <th>Estudiante que recibe</th>
+                <th>Puntos</th>
+                <th>Fecha</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let histori of historial">
+                <td>{{ histori.evaluator_student_id }}</td>
+                <td>{{ histori.evaluated_student_id }}</td>
+                <td>{{ histori.points }}</td>
+                <td>{{ histori.created_at }}</td>
+                <td><button (click)="deleteStudentEvaluation(histori.id)">Eliminar</button></td>
+            </tr>
+        </tbody>
+    </table>
+</div> -->
+<div class="containerHistory container">
+    <h2 class="text-center">Historial de transferencia puntos de Soft Skills 🔄</h2>
+
+    <form [formGroup]="filterForm" (ngSubmit)="onSubmit()">
+        <h3 class="center">Filtro</h3>
+        <button class="btn btn-primary mt-3 mb-3" type="submit">Filtrar</button>
+        <table class="table table-bordered table-dark mx-auto">
+            <thead class="thead-dark">
+                <th>
+                    <h3>Estudiante envia</h3>
+                </th>
+                <th>
+                    <h3>Estudiante recibe</h3>
+                </th>
+                <th>
+                    <h3>Puntos</h3>
+                </th>
+            </thead>
+            <tbody>
+                <td>
+                    <input for="evaluator_student_id" type="number">
+                </td>
+                <td>
+                    <input for="evaluated_student_id" type="number">
+                </td>
+                <td>
+                    <input for="points" type="number">
+                </td>
+            </tbody>
+        </table>
+    </form>
+
+
+    <div class="table-responsive text-center">
+        <table class="table table-bordered table-dark mx-auto" style="width: auto;">
+            <thead class="thead-dark">
+                <tr>
+                    <th>Estudiante que envia</th>
+                    <th>Estudiante que recibe</th>
+                    <th>Puntos</th>
+                    <th>Habilidad</th>
+                    <th>Fecha</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let histori of historial">
+                    <td>{{ histori.evaluator_student_id }}</td>
+                    <td>{{ histori.evaluated_student_id }}</td>
+                    <td>{{ histori.points }}</td>
+                    <td>{{ histori.soft_skill }}</td>
+                    <td>{{ histori.created_at }}</td>
+                    <td><button class="btn btn-danger" (click)="deleteStudentEvaluation(histori.id)">Eliminar</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

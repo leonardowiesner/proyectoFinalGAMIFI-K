@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Ranking;
-use App\Models\Ranking_analysis;
+use App\Models\RankingAnalysis;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Laravel\Sanctum\PersonalAccessToken;
@@ -54,14 +54,14 @@ class RankingController extends Controller
             if ($cod_room == $ranking['cod_room']) {
                 continue;
             }
-            // Si el ranking existe y el código hash coincide, agregar el estudiante a la tabla ranking_analysis
-            Ranking_analysis::create([
+            // Si el ranking existe y el código hash coincide, agregar el estudiante a la tabla RankingAnalysis
+            RankingAnalysis::create([
                 'id_student' => $id_student,
                 'id_rank' => $ranking->id,
                 'points' => $points
             ]);
 
-            return response()->json(['message' => 'Estudiante agregado correctamente a la tabla ranking_analysis.']);
+            return response()->json(['message' => 'Estudiante agregado correctamente a la tabla RankingAnalysis.']);
         }
         // Si el ranking no existe o el código hash no coincide, devolver un error
         return response()->json(['error' => 'No se pudo agregar el estudiante al ranking debido a que el código de la sala no coincide.'], 400);
@@ -136,7 +136,7 @@ class RankingController extends Controller
 
         $rankings = DB::table('Rankings')
             ->join('ranking_analyses', 'Rankings.id', '=', 'ranking_analyses.id_rank')
-            ->select('Rankings.id', 'Rankings.name', 'Rankings.id_teacher', 'Rankings.cod_room', 'ranking_analyses.id_student', 'ranking_analyses.points')
+            ->select('Rankings.id', 'Rankings.name', 'Rankings.id_teacher', 'Rankings.cod_room', 'ranking_analyses.id_student','ranking_analyses.accepted', 'ranking_analyses.points')
             ->where('ranking_analyses.id_student', $id)
             ->get();
 
@@ -171,7 +171,7 @@ class RankingController extends Controller
             }
 
             // Eliminar todos los registros relacionados en la tabla de análisis de rankings
-            $rankingAnalyses = Ranking_analysis::where('id_rank', $id)->delete();
+            $rankingAnalyses = RankingAnalysis::where('id_rank', $id)->delete();
 
             // Eliminar el ranking
             $ranking->delete();
@@ -187,7 +187,7 @@ class RankingController extends Controller
     public function deleteStudentRankingAnalysis($id_rank, $id_student)
     {
         // Buscar el registro que se quiere eliminar
-        $rankingAnalysis = Ranking_analysis::where('id_rank', $id_rank)
+        $rankingAnalysis = RankingAnalysis::where('id_rank', $id_rank)
             ->where('id_student', $id_student)
             ->first();
 
@@ -257,17 +257,17 @@ class RankingController extends Controller
             'id_rank' => 'required',
         ]);
 
-        // Buscar el ranking_analysis por id_student e id_rank
-        $rankAnalysis = Ranking_analysis::where('id_student', $request->input('id_student'))
+        // Buscar el RankingAnalysis por id_student e id_rank
+        $rankAnalysis = RankingAnalysis::where('id_student', $request->input('id_student'))
             ->where('id_rank', $request->input('id_rank'))
             ->first();
 
         if (!$rankAnalysis) {
-            // Si no se encuentra el ranking_analysis, devolver un error 404
-            return response()->json(['error' => 'No se encontró el ranking_analysis especificado.'], 404);
+            // Si no se encuentra el RankingAnalysis, devolver un error 404
+            return response()->json(['error' => 'No se encontró el RankingAnalysis especificado.'], 404);
         }
 
-        // Actualizar el campo "accepted" en el ranking_analysis
+        // Actualizar el campo "accepted" en el RankingAnalysis
         $rankAnalysis->accepted = 1;
         $rankAnalysis->save();
 
@@ -283,7 +283,7 @@ class RankingController extends Controller
         ]);
 
         // Buscar la fila en la tabla ranking_analyses
-        $rankingAnalysis = Ranking_analysis::where('id_student', $request->input('id_student'))
+        $rankingAnalysis = RankingAnalysis::where('id_student', $request->input('id_student'))
             ->where('id_rank', $request->input('id_rank'))
             ->first();
 

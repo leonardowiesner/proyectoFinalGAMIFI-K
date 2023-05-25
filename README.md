@@ -2,4 +2,4 @@
 Created by:
   - Leonardo Wiesner Castro
   - Nil Orrit Peinado
-  - Yanh Marcos 
+  - Yanh Marcos San Gil

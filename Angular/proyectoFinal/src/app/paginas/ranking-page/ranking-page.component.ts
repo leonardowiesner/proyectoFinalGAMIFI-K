@@ -11,6 +11,7 @@ import { saveAs } from 'file-saver'; // Agrega esta línea
 import 'sweetalert2/src/sweetalert2.scss';
 import Swal from 'sweetalert2';
 import { v4 as uuidv4 } from 'uuid';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-ranking-page',
@@ -18,12 +19,12 @@ import { v4 as uuidv4 } from 'uuid';
   styleUrls: ['./ranking-page.component.css']
 })
 export class RankingPageComponent implements OnInit {
+  teacher: any = null; // El tipo de datos depende de tu implementación
+  student: any = null;
   rankingSolo: RankingSolo[] = [];
   rankingId: number;
   rankingName: String | null;
   rankingAnalises: RankingAnalysis[] = [];
-  teacher: TeachersData;
-  student: StudentData;
   showPracticasComponent: boolean = false;
   return: any;
   practicas: Tarea[] = [];
@@ -33,12 +34,11 @@ export class RankingPageComponent implements OnInit {
   nuevaTarea: boolean = false;
   selectedFiles: { [practiceId: number]: File } = {};
   practicesDelivered: any[] = [];
+  softSkills: string[] = ['emotional', 'thinking', 'responsability', 'cooperation', 'initiative'];
 
-
-  constructor(private route: ActivatedRoute, private rankingService: RankingService, private teacherService: TeacherService, private studentService: StudentService) {
+  constructor(private authService: AuthService, private route: ActivatedRoute, private rankingService: RankingService, private teacherService: TeacherService, private studentService: StudentService) {
     this.rankingId = 0;
-    this.teacher = this.teacherService.teacher;
-    this.student = this.studentService.student;
+
     this.new_points = 0;
     this.rankingName = "";
     this.name_practica = "";
@@ -57,23 +57,18 @@ export class RankingPageComponent implements OnInit {
 
 
   ngOnInit() {
+    if (this.authService.isTeacher()) {
+      this.teacher = this.authService.getTeacher();
+    } else if (this.authService.isStudent()) {
+      this.student = this.authService.getStudent();
 
+    }
     this.rankingId = Number(this.route.snapshot.paramMap.get('id'));
     this.rankingName = this.route.snapshot.paramMap.get('name');
+    console.log(this.student);
+    console.log(this.teacher);
 
-    this.rankingService.getRankingAnalysis(this.rankingId).subscribe(data => {
-      this.rankingAnalises = data.map(analysis => {
-        const imageUrls = {
-          emotional: this.getImageUrl(analysis.emotional),
-          thinking: this.getImageUrl(analysis.thinking),
-          responsability: this.getImageUrl(analysis.responsability),
-          cooperation: this.getImageUrl(analysis.cooperation),
-          initiative: this.getImageUrl(analysis.initiative),
-        };
-
-        return { ...analysis, imageUrls };
-      });
-    });
+    this.refreshData();
 
     this.route.queryParamMap.subscribe(params => {
       const id = params.get('id');
@@ -84,9 +79,9 @@ export class RankingPageComponent implements OnInit {
 
 
 
-    this.rankingService.getPractices(this.studentService.student.id, this.rankingId)
+    this.rankingService.getPractices(this.student.id, this.rankingId)
       .subscribe(response => {
-        console.log("student" + this.studentService.student.id);
+        console.log("student" + this.student.id);
         console.log("ID_rank" + this.rankingId);
         if (response.error) {
           console.log(response.error);
@@ -103,11 +98,34 @@ export class RankingPageComponent implements OnInit {
       });
 
 
-    if (this.teacher) {
-      console.log(this.rankingId);
 
-    }
 
+  }
+
+  refreshData() {
+    this.rankingService.getRankingAnalysis(this.rankingId).subscribe(data => {
+      this.rankingAnalises = data.map(analysis => {
+        const skillsNumber: Map<string, number> = new Map<string, number>([
+          ['emotional', analysis.emotional],
+          ['thinking', analysis.thinking],
+          ['responsability', analysis.responsability],
+          ['cooperation', analysis.cooperation],
+          ['initiative', analysis.initiative],
+        ]);
+
+        const imageUrls: Map<string, string> = new Map<string, string>([
+          ['emotional', this.getImageUrl(analysis.emotional)],
+          ['thinking', this.getImageUrl(analysis.thinking)],
+          ['responsability', this.getImageUrl(analysis.responsability)],
+          ['cooperation', this.getImageUrl(analysis.cooperation)],
+          ['initiative', this.getImageUrl(analysis.initiative)],
+        ]);
+
+        console.log(  {...analysis, imageUrls, skillsNumber} );
+        
+        return { ...analysis, imageUrls, skillsNumber };
+      });
+    });
   }
 
   getImageUrl(points: number): string {
@@ -127,14 +145,16 @@ export class RankingPageComponent implements OnInit {
     if (points >= 10000) {
       rank = 'Challenger';
     }
+
+    //debugger;
     return `assets/images/${rank}.png`;
   }
 
-  descriptionSoftSkills(points: number, images: string, name: string) {
+  descriptionSoftSkills(analysis: RankingAnalysis, skill: string) {
     Swal.fire({
-      title: name+ "<br>Puntos "+ points,
-      text: this.getDescription(name),
-      imageUrl: images,
+      title: skill + "<br>Puntos " + analysis.skillsNumber.get(skill),
+      text: this.getDescription(skill),
+      imageUrl: analysis.imageUrls.get(skill),
       imageWidth: 300,
       imageHeight: 300,
       imageAlt: 'Custom image',
@@ -142,55 +162,52 @@ export class RankingPageComponent implements OnInit {
   }
 
   getDescription(name: string) {
-    if (name === "Emocional") {
+    if (name === "emotional") {
       return "Las emociones son reacciones psicofisiológicas que representan modos de adaptación del individuo cuando percibe un objeto, persona, lugar, suceso o recuerdo importante."
     }
-    if (name === "Pensamiento") {
+    if (name === "thinking") {
       return "En su sentido más común, los términos pensamiento y pensar se refieren a procesos cognitivos conscientes que pueden ocurrir independientemente de la estimulación sensorial. Sus formas más paradigmáticas son el juicio, el razonamiento, la formación de conceptos, la resolución de problemas y la deliberación."
     }
-    if (name === "Responsabilidad") {
+    if (name === "responsability") {
       return "La responsabilidad es un valor que está en la conciencia de la persona que estudia la Ética sobre la base de la moral. Puesto en práctica, se establece la magnitud de dichas acciones y de cómo afrontarlas de la manera más positiva e integral para ayudar en un futuro."
     }
-    if (name === "Cooperacion") {
+    if (name === "cooperation") {
       return "La cooperación es el resultado de una estrategia aplicada al objetivo, desarrollado por grupos de personas o instituciones que comparten un mismo interés u objetivo. En este proceso generalmente se emplean métodos colaborativos y asociativos que facilitan la consecución de la meta común."
     }
-    if (name === "Iniciativa") {
+    if (name === "initiative") {
       return "En psicología, la iniciativa es un rasgo de la personalidad que impulsa a un individuo a comenzar algo que ve como necesario, normalmente de cara al ámbito social en el que se mueve. Viene del latín initium, 'principio' y es el ímpetu o el primer paso hacia una acción."
     }
-    return"";
+    return "";
   }
 
   acceptStudent(id_student: number, id_rank: number) {
     this.rankingService.acceptStudent(id_student, id_rank).subscribe((response) => {
-      console.log(response.data + "Antes");
-
-      this.practicesDelivered = response.data;
-
-
-      console.log(response.data + "Despues");
-      this.showPracticasComponent = true;
-
-    });
-    this.rankingService.getRankingAnalysis(this.rankingId).subscribe(data => {
-      this.rankingAnalises = data;
+      this.refreshData();
     });
   }
 
   denegateStudent(id_student: number, id_rank: number) {
     this.rankingService.denegateStudent(id_student, id_rank).subscribe((response) => {
-      console.log(response.data + "Antes");
-
-      this.practicesDelivered = response.data;
-
-
-      console.log(response.data + "Despues");
-      this.showPracticasComponent = true;
-
+      this.refreshData();
     });
+  }
+
+  /*
+  refreshData() {
     this.rankingService.getRankingAnalysis(this.rankingId).subscribe(data => {
       this.rankingAnalises = data;
     });
+    this.rankingService.getPractices(this.student.id, this.rankingId).subscribe(response => {
+      if (response.error) {
+        console.log(response.error);
+      } else if (response.status === 1) {
+        this.practicas = response.data;
+      } else {
+        console.log(response.error);
+      }
+    });
   }
+*/
 
   verPracticas(id_student: number) {
     this.rankingService.getPracticesDelivered(id_student, this.rankingId).subscribe((response) => {
@@ -262,7 +279,7 @@ export class RankingPageComponent implements OnInit {
   uploadFile(practiceId: number): void {
     if (this.selectedFiles[practiceId]) {
       const fileToUpload = this.selectedFiles[practiceId];
-      this.rankingService.uploadPracticeFile(this.studentService.student.id, practiceId, fileToUpload)
+      this.rankingService.uploadPracticeFile(this.student.id, practiceId, fileToUpload)
         .subscribe(response => {
           if (!response.message) {
             Swal.fire({

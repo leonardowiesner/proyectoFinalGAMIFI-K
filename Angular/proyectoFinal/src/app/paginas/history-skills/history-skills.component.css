@@ -1,0 +1,22 @@
+.containerHistory{
+    margin-left: 250px;
+    margin-top: 30px;
+}
+
+/* .ranking-table {
+    border-collapse: collapse;
+    margin-bottom: 20px;
+    width: 100%;
+  }
+  
+  .ranking-table th, .ranking-table td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+  } */
+
+
+  h2{
+    font-size: 30px;
+    font-weight: bold;
+  }

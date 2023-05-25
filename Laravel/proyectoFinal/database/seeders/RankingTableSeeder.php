@@ -6,7 +6,7 @@ use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use App\Models\Ranking;
 use Illuminate\Support\Facades\Hash;
-use App\Models\ranking_analysis;
+use App\Models\RankingAnalysis;
 
 
 class RankingTableSeeder extends Seeder
@@ -38,7 +38,7 @@ class RankingTableSeeder extends Seeder
             'name' => 'Test2.2',
             'cod_room'=>'12345',
         ]);
-        Ranking_analysis::create([
+        RankingAnalysis::create([
             'id_student'=>1,
             'id_rank'=>2,
             'points'=>0,
@@ -48,7 +48,7 @@ class RankingTableSeeder extends Seeder
             'cooperation'=>0,
             'initiative'=>0
         ]);
-        Ranking_analysis::create([
+        RankingAnalysis::create([
             'id_student'=>1,
             'id_rank'=>1,
             'points'=>0,
@@ -58,7 +58,7 @@ class RankingTableSeeder extends Seeder
             'cooperation'=>0,
             'initiative'=>0
         ]);
-        Ranking_analysis::create([
+        RankingAnalysis::create([
             'id_student'=>1,
             'id_rank'=>3,
             'points'=>0,
@@ -68,7 +68,7 @@ class RankingTableSeeder extends Seeder
             'cooperation'=>0,
             'initiative'=>0
         ]);
-        Ranking_analysis::create([
+        RankingAnalysis::create([
             'id_student'=>1,
             'id_rank'=>4,
             'points'=>0,
@@ -78,7 +78,7 @@ class RankingTableSeeder extends Seeder
             'cooperation'=>0,
             'initiative'=>0
         ]);
-        Ranking_analysis::create([
+        RankingAnalysis::create([
             'id_student'=>2,
             'id_rank'=>3,
             'points'=>0,
@@ -88,7 +88,7 @@ class RankingTableSeeder extends Seeder
             'cooperation'=>0,
             'initiative'=>0
         ]);
-        Ranking_analysis::create([
+        RankingAnalysis::create([
             'id_student'=>2,
             'id_rank'=>4,
             'points'=>0,
@@ -98,7 +98,7 @@ class RankingTableSeeder extends Seeder
             'cooperation'=>0,
             'initiative'=>0
         ]);
-        Ranking_analysis::create([
+        RankingAnalysis::create([
             'id_student'=>2,
             'id_rank'=>2,
             'points'=>0,
@@ -108,7 +108,7 @@ class RankingTableSeeder extends Seeder
             'cooperation'=>0,
             'initiative'=>0
         ]);
-        Ranking_analysis::create([
+        RankingAnalysis::create([
             'id_student'=>2,
             'id_rank'=>1,
             'points'=>0,

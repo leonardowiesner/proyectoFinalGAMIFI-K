@@ -20,6 +20,7 @@ export interface Ranking
   id_student: number;
   points: number;
   image: string;
+  accepted: number;
 
 }
 
@@ -39,20 +40,18 @@ export interface RankingAnalysis
   id_student: number;
   id_rank: number;
   points: number;
+  weeklyPoints:number;
   name: string;
+  accepted: number;
+  
   emotional: number;
   thinking: number;
   responsability: number;
   cooperation: number;
   initiative: number;
-  accepted: number;
-  imageUrls: {
-    emotional: string;
-    thinking: string;
-    responsability: string;
-    cooperation: string;
-    initiative: string;
-  };
+  
+  skillsNumber: Map<string, number>;
+  imageUrls: Map<string, string>;
 }
 
 @Injectable( {
@@ -66,7 +65,7 @@ export class RankingService
   token: string = "";
   constructor ( private http: HttpClient )
   {
-    window.localStorage.getItem( this.token );
+    this.token = window.localStorage.getItem("token") || "";
 
   }
   data: any;
@@ -145,6 +144,8 @@ export class RankingService
 
   getRankingsTeacher ( teacherId: number ): Observable<Ranking[]>
   {
+    this.token = window.localStorage.getItem('authToken') || '';
+    console.log(this.token)
     let headers = new HttpHeaders( {
       'Content-Type': 'application/json',
       'Accept': 'application/json',

@@ -83,26 +83,29 @@
     .neon-warning {
       width: 40%;
       height: 60px;
-      background: #e92197;
-      border: 10px solid #d11d87;
+
+      background: #30fbd7;
+      border: 10px solid #2be1c1;
       border-radius: 20px;
       text-align: center;
-      -webkit-box-shadow: 0px 0px 16px 7px rgba(233,33,150,1);
-      -moz-box-shadow: 0px 0px 16px 7px rgba(233,33,150,1);
-      box-shadow: 0px 0px 16px 7px rgba(233,33,150,1);
+      -webkit-box-shadow: 0px 0px 16px 7px rgba(48,251,214,1);
+      -moz-box-shadow: 0px 0px 16px 7px rgba(48,251,214,1);
+      box-shadow: 0px 0px 16px 7px rgba(48,251,214,1);
       transition: ease 0.3s;
       margin: 20px 0;
-      color: white;
+      color: black;
+      font-weight: 800;
   
     }
     
     .neon-warning:hover {
-      background: #30fbd7;
-      border: 10px solid #2be1c1;
-      -webkit-box-shadow: 0px 0px 16px 7px rgba(48,251,214,1);
-      -moz-box-shadow: 0px 0px 16px 7px rgba(48,251,214,1);
-      box-shadow: 0px 0px 16px 7px rgba(48,251,214,1);
+      background: #e92197;
+      border: 10px solid #d11d87;
+      -webkit-box-shadow: 0px 0px 16px 7px rgba(233,33,150,1);
+      -moz-box-shadow: 0px 0px 16px 7px rgba(233,33,150,1);
+      box-shadow: 0px 0px 16px 7px rgba(233,33,150,1);
       color: black;
+      font-weight: 800;
     }
     
     
@@ -135,19 +138,24 @@
           align-items: center;
       }
       .btn-primary{
-          width: 35%;
+          width: 100%;
       }
       .btn-primary:hover{
           background-color: #e92197;
           border-color: #d11d87;
       }
-  
+      .form-group{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
       .blurredwallpaper{
           background: rgba(255,255,255,0.2);
           -webkit-backdrop-filter: blur(10px);
           backdrop-filter: blur(10px);
           border: 1px solid rgba(255,255,255,0.1);
-          
+          width: 33em;
+          border-radius: 5% 6% 6% 6% / 11% 11% 11% 10%;
       }
   
       /* --------------------------------------------- */
@@ -181,11 +189,15 @@
             align-items: center;
             transition: all .5s;
             background: linear-gradient(45deg, #10214c, #c31c7e);
+            background: #606c88;
+            background: -webkit-linear-gradient(0deg, #606c88 0%, #3f4c6b 100%);
+            background: linear-gradient(0deg, #606c88 0%, #3f4c6b 100%); 
+
           }
           .rankingcito:hover{
-            -webkit-box-shadow: 0 0 17px 5.5px #e92297;
-            -moz-box-shadow: 0 0 17px 5.5px #e92297;
-            box-shadow: 0 0 17px 5.5px #e92297;
+            -webkit-box-shadow: 0 0 17px 5.5px #c4c2c3;
+            -moz-box-shadow: 0 0 17px 5.5px #e8e5e7;
+            box-shadow: 0 0 17px 5.5px #f5f4f4;
           }
       
         .rankingcito img{
@@ -252,4 +264,17 @@
         padding: 10px 20px;
         margin-top: 10px;
         font-weight: 700;
+    }
+
+    h3{
+      font-size: 2em;
+      font-weight: 700;
+      text-align: center;
+    }
+
+    .closesesion{
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin: auto;
     }

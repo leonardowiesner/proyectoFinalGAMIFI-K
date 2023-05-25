@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\RankPractice;
-use App\Models\ranking_analysis;
+use App\Models\RankingAnalysis;
 use App\Models\PracticeInfo;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Http\UploadedFile;
@@ -35,7 +35,7 @@ class RankPracticeController extends Controller
 
 
         // Buscar los estudiantes que tienen el ranking especificado
-        $students = Ranking_analysis::where('id_rank', $request->input('id_rank'))->pluck('id_student');
+        $students = RankingAnalysis::where('id_rank', $request->input('id_rank'))->pluck('id_student');
 
 
         // Crear una entrada en la tabla de prácticas para cada estudiante
@@ -79,7 +79,7 @@ class RankPracticeController extends Controller
         $id_rank = RankPractice::where('id', $request->input('id_practice'))
             ->first();;
 
-        $rankingAnalysis = ranking_analysis::where('id_student', $id_student)
+        $rankingAnalysis = RankingAnalysis::where('id_student', $id_student)
             ->where('id_rank', $id_rank->id_rank)
             ->first();
 
